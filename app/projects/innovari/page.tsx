@@ -30,14 +30,14 @@ export default function InnovariPage() {
           {/* Hero Section */}
           <div className="mb-24">
             <div className="relative w-64 h-64 mx-auto mb-16">
-              <div className="absolute inset-0 rounded-full bg-black overflow-hidden">
-                <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-02-09%20223633-L5Zp9zeIRxUhc7GlhYDAi36HqEzNNR.png"
-                  alt="iNNOVARi"
-                  fill
-                  className="object-contain p-8"
-                />
+              <div className="absolute inset-0 rounded-full bg-black overflow-hidden flex items-center justify-center">
+                <div className="w-full h-full relative">
+                  <Image src="/images/innovari-logo-mark.png" alt="iNNOVARi" fill className="object-cover" priority />
+                </div>
               </div>
+            </div>
+            <div className="text-center mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">iNNOVARi</h2>
             </div>
             <AnimatedHeader>
               <h1 className="text-4xl md:text-6xl font-bold text-center mb-8">

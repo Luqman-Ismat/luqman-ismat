@@ -1,8 +1,11 @@
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { AnimatedHeader } from "@/components/animated-header"
-import Image from "next/image"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { ExternalLink } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -30,27 +33,53 @@ export default function EngivaultPage() {
           {/* Hero Section */}
           <div className="mb-24">
             <div className="relative w-64 h-64 mx-auto mb-16">
-              <div className="absolute inset-0 rounded-full bg-white overflow-hidden flex items-center justify-center">
-                <div className="w-4/5 h-4/5 relative">
+              <div className="absolute inset-0 rounded-full bg-black overflow-hidden flex items-center justify-center">
+                <div className="w-full h-full relative">
                   <Image
-                    src="/images/engivault-logo-mark.png"
+                    src="/images/engivault-logo-mark-dark.png"
                     alt="ENGiVAULT"
                     fill
-                    className="object-contain"
+                    className="object-cover"
                     priority
                   />
                 </div>
               </div>
+            </div>
+            <div className="text-center mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">ENGiVAULT</h2>
             </div>
             <AnimatedHeader>
               <h1 className="text-4xl md:text-6xl font-bold text-center mb-8">
                 The Future of Engineering Knowledge Sharing
               </h1>
             </AnimatedHeader>
-            <p className="text-xl md:text-2xl text-muted-foreground text-center max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-muted-foreground text-center max-w-3xl mx-auto mb-8">
               A comprehensive platform connecting engineers worldwide, combining technical resources with
               community-driven knowledge sharing.
             </p>
+
+            {/* Launch Banner */}
+            <div className="bg-gradient-to-r from-green-500/10 via-green-500/20 to-green-500/10 p-4 rounded-lg max-w-3xl mx-auto mb-8">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="h-3 w-3 rounded-full bg-green-500 animate-pulse"></div>
+                  <p className="font-medium text-green-600 dark:text-green-400">Now Live</p>
+                </div>
+                <p className="text-center md:text-left">
+                  ENGiVAULT has officially launched! Visit the platform to start exploring.
+                </p>
+                <Button asChild className="bg-green-600 hover:bg-green-700 text-white">
+                  <Link
+                    href="https://www.engivault.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    Visit ENGiVAULT <ExternalLink className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
 
           {/* Overview Section */}
@@ -136,7 +165,7 @@ export default function EngivaultPage() {
           </section>
 
           {/* Vision Section */}
-          <section>
+          <section className="mb-24">
             <AnimatedHeader className="ml-10">
               <h2 className="text-3xl font-bold mb-8">Vision</h2>
             </AnimatedHeader>
@@ -147,6 +176,30 @@ export default function EngivaultPage() {
                 that supports innovation, facilitates learning, and promotes collaboration across all engineering
                 disciplines.
               </p>
+            </div>
+          </section>
+
+          {/* Call to Action Section */}
+          <section>
+            <div className="bg-black text-white rounded-lg p-8 max-w-4xl mx-auto">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div>
+                  <h3 className="text-2xl font-bold mb-2">Experience ENGiVAULT Today</h3>
+                  <p className="text-white/80">
+                    Join the growing community of engineers sharing knowledge and solving problems together.
+                  </p>
+                </div>
+                <Button asChild size="lg" className="bg-white text-black hover:bg-white/90">
+                  <Link
+                    href="https://www.engivault.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    Visit www.engivault.com <ExternalLink className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
             </div>
           </section>
         </main>
