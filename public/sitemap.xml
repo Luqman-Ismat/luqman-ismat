@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.luqmanismat.com/</loc>
+    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/projects</loc>
+    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-innovari-project.png</image:loc>
+      <image:title>iNNOVARi Project by Luqman Ismat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/engivault-logo-mark.png</image:loc>
+      <image:title>ENGiVAULT Project by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/projects/innovari</loc>
+    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-innovari-project.png</image:loc>
+      <image:title>iNNOVARi Project by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/projects/engivault</loc>
+    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/engivault-logo-mark.png</image:loc>
+      <image:title>ENGiVAULT Project by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/portfolio</loc>
+    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-professional-portrait.jpeg</image:loc>
+      <image:title>Luqman Ismat Professional Portrait</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/about</loc>
+    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-professional-portrait.jpeg</image:loc>
+      <image:title>Luqman Ismat Professional Portrait</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/blog</loc>
+    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-epc-lifecycle-blog.jpeg</image:loc>
+      <image:title>EPC Lifecycle Blog by Luqman Ismat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-engineering-technology-blog.jpeg</image:loc>
+      <image:title>Engineering Technology Blog by Luqman Ismat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-epc-communication-blog.jpeg</image:loc>
+      <image:title>EPC Communication Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/blog/epc-lifecycle</loc>
+    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-02-22T12:00:00+00:00</news:publication_date>
+      <news:title>Breaking Down the EPC Lifecycle: From Concept to Operation</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-epc-lifecycle-blog.jpeg</image:loc>
+      <image:title>EPC Lifecycle Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/blog/engineering-technology</loc>
+    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-02-22T12:00:00+00:00</news:publication_date>
+      <news:title>The Current State of Engineering Technology: Progress, Gaps, and the Road Ahead</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-engineering-technology-blog.jpeg</image:loc>
+      <image:title>Engineering Technology Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/blog/epc-communication</loc>
+    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-02-22T12:00:00+00:00</news:publication_date>
+      <news:title>The Communication Challenge in EPC Projects: Why It's a Make-or-Break Factor</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-epc-communication-blog.jpeg</image:loc>
+      <image:title>EPC Communication Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/contact</loc>
+    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
