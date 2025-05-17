@@ -7,9 +7,25 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Youtube } from "lucide-react"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { SchemaImage } from "@/components/schema-image"
+import { ImageCarousel } from "@/components/image-carousel"
 
 export default function AboutContent() {
+  // Define the images for the carousel
+  const carouselImages = [
+    {
+      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_1262.JPEG-8IBHMfGSJJgvuREfCofqQVcldYFvVo.jpeg",
+      alt: "Luqman Ismat - Engineering Consultant and Tech Enthusiast Professional Portrait",
+    },
+    {
+      src: "/images/luqman-suit-parking.jpeg",
+      alt: "Luqman Ismat in a formal suit in a parking garage",
+    },
+    {
+      src: "/images/luqman-portrait-blue.jpeg",
+      alt: "Luqman Ismat portrait in blue blazer",
+    },
+  ]
+
   return (
     <ScrollToTopWrapper>
       <div className="flex flex-col min-h-screen w-full overflow-hidden bg-background">
@@ -47,13 +63,7 @@ export default function AboutContent() {
               </div>
               <div>
                 <div className="relative aspect-[4/5] md:aspect-square">
-                  <SchemaImage
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_1262.JPEG-8IBHMfGSJJgvuREfCofqQVcldYFvVo.jpeg"
-                    alt="Luqman Ismat - Engineering Consultant and Tech Enthusiast Professional Portrait"
-                    fill
-                    className="object-cover rounded-2xl"
-                    priority
-                  />
+                  <ImageCarousel images={carouselImages} interval={6000} />
                 </div>
               </div>
             </div>
