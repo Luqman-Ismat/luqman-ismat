@@ -66,9 +66,21 @@
   </url>
   <url>
     <loc>https://www.luqmanismat.com/blog</loc>
-    <lastmod>2025-02-22T12:00:00+00:00</lastmod>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/detailed-engineering-blog.jpeg</image:loc>
+      <image:title>Detailed Engineering Blog by Luqman Ismat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/fel-stages-blog.jpeg</image:loc>
+      <image:title>FEL Stages Blog by Luqman Ismat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/epc-estimating-blog.jpeg</image:loc>
+      <image:title>EPC Estimating Blog by Luqman Ismat</image:title>
+    </image:image>
     <image:image>
       <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-epc-lifecycle-blog.jpeg</image:loc>
       <image:title>EPC Lifecycle Blog by Luqman Ismat</image:title>
@@ -80,6 +92,60 @@
     <image:image>
       <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/luqman-ismat-epc-communication-blog.jpeg</image:loc>
       <image:title>EPC Communication Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/blog/detailed-engineering</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-03-11T03:00:00+00:00</news:publication_date>
+      <news:title>Detailed Engineering: The Backbone of EPC Project Execution</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/detailed-engineering-blog.jpeg</image:loc>
+      <image:title>Detailed Engineering Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/blog/fel-stages</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-03-11T03:00:00+00:00</news:publication_date>
+      <news:title>FEL Stages Explained: The Blueprint for Successful EPC Projects</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/fel-stages-blog.jpeg</image:loc>
+      <image:title>FEL Stages Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.luqmanismat.com/blog/epc-estimating</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-03-11T03:00:00+00:00</news:publication_date>
+      <news:title>The Critical Role of Estimating in EPC: Accuracy, Risk, and Cost Control</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/epc-estimating-blog.jpeg</image:loc>
+      <image:title>EPC Estimating Blog by Luqman Ismat</image:title>
     </image:image>
   </url>
   <url>

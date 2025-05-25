@@ -12,6 +12,30 @@ export const metadata = {
 
 const blogPosts = [
   {
+    title: "Detailed Engineering: The Backbone of EPC Project Execution",
+    category: "EPC LIFECYCLE",
+    image: "/images/detailed-engineering-blog.jpeg",
+    description:
+      "Exploring the critical role of detailed engineering in ensuring constructability, efficiency, and cost control in EPC projects.",
+    href: "/blog/detailed-engineering",
+  },
+  {
+    title: "FEL Stages Explained: The Blueprint for Successful EPC Projects",
+    category: "EPC LIFECYCLE",
+    image: "/images/fel-stages-blog.jpeg",
+    description:
+      "Breaking down the Front-End Loading (FEL) stages and their role in minimizing risk and maximizing project success in EPC.",
+    href: "/blog/fel-stages",
+  },
+  {
+    title: "The Critical Role of Estimating in EPC: Accuracy, Risk, and Cost Control",
+    category: "EPC LIFECYCLE",
+    image: "/images/epc-estimating-blog.jpeg",
+    description:
+      "Understanding why precise estimation is the backbone of successful EPC project execution, from conceptual estimates to detailed cost analysis.",
+    href: "/blog/epc-estimating",
+  },
+  {
     title: "Breaking Down the EPC Lifecycle: From Concept to Operation",
     category: "EPC LIFECYCLE",
     image:
