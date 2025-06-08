@@ -7,22 +7,35 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Youtube } from "lucide-react"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { ImageCarousel } from "@/components/image-carousel"
+import { PinterestImageCarousel } from "@/components/pinterest-image-carousel"
 
 export default function AboutContent() {
-  // Define the images for the carousel
+  // Define the images for the carousel with Pinterest links (reordered with second one first)
   const carouselImages = [
     {
-      src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_1262.JPEG-8IBHMfGSJJgvuREfCofqQVcldYFvVo.jpeg",
-      alt: "Luqman Ismat - Engineering Consultant and Tech Enthusiast Professional Portrait",
+      src: "https://i.pinimg.com/736x/de/d1/da/ded1da222ee31e40ad985513ffb35799.jpg",
+      alt: "Luqman Ismat - Professional Engineering Consultant Portrait",
+      pinterestUrl: "https://pin.it/2bRrLGaUT",
     },
     {
-      src: "/images/luqman-suit-parking.jpeg",
-      alt: "Luqman Ismat in a formal suit in a parking garage",
+      src: "https://i.pinimg.com/736x/65/2d/16/652d1620792c085900cf03ecb6c362f3.jpg",
+      alt: "Luqman Ismat - Houston Engineering Professional in Parking Garage",
+      pinterestUrl: "https://pin.it/71KvIu9pj",
     },
     {
-      src: "/images/luqman-portrait-blue.jpeg",
-      alt: "Luqman Ismat portrait in blue blazer",
+      src: "https://i.pinimg.com/736x/e0/17/3e/e0173ed925f2030d28ac349117d2ab83.jpg",
+      alt: "Luqman Ismat - Engineering Consultant Professional Headshot",
+      pinterestUrl: "https://pin.it/6t0Wpvt9g",
+    },
+    {
+      src: "https://i.pinimg.com/736x/f5/97/e3/f597e3806878f2a071ad41662e9b6497.jpg",
+      alt: "Luqman Ismat - Katy TX Engineering Professional",
+      pinterestUrl: "https://pin.it/5xVidZ3Af",
+    },
+    {
+      src: "https://i.pinimg.com/736x/e8/50/c2/e850c2bf57e24a459a32da6789c0b40d.jpg",
+      alt: "Luqman Ismat - Process Engineering Specialist Houston",
+      pinterestUrl: "https://pin.it/5xVidZ3Af", // Using the same Pinterest URL for the 5th image
     },
   ]
 
@@ -63,7 +76,7 @@ export default function AboutContent() {
               </div>
               <div>
                 <div className="relative aspect-[4/5] md:aspect-square">
-                  <ImageCarousel images={carouselImages} interval={6000} />
+                  <PinterestImageCarousel images={carouselImages} interval={6000} />
                 </div>
               </div>
             </div>
