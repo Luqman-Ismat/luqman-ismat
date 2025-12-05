@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.luqmanismat.com/</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/justin-wolff-4wjsEDOwapo-unsplash.jpg-yqBchAIp3OP880B9Dw59UUVSIZWt1W.jpeg</image:loc>
+      <image:title>Luqman Ismat - Engineering Innovation Background</image:title>
+    </image:image>
+  </url>
+
+  <!-- Projects Overview -->
+  <url>
+    <loc>https://www.luqmanismat.com/projects</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/innovari-logo-mark.png</image:loc>
+      <image:title>iNNOVARi Project by Luqman Ismat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/engivault-logo-mark-dark.png</image:loc>
+      <image:title>ENGiVAULT Project by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+
+  <!-- Individual Projects -->
+  <url>
+    <loc>https://www.luqmanismat.com/projects/innovari</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/innovari-logo-mark.png</image:loc>
+      <image:title>iNNOVARi Project by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.luqmanismat.com/projects/engivault</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/engivault-logo-mark-dark.png</image:loc>
+      <image:title>ENGiVAULT Project by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+
+  <!-- Portfolio -->
+  <url>
+    <loc>https://www.luqmanismat.com/portfolio</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Chemex-9RNC0f2kDrJf3iwUKYu1jkNPZuJ2BZ.png</image:loc>
+      <image:title>Chemex Global - Luqman Ismat's Previous Employer</image:title>
+    </image:image>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://www.luqmanismat.com/about</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://i.pinimg.com/736x/de/d1/da/ded1da222ee31e40ad985513ffb35799.jpg</image:loc>
+      <image:title>Luqman Ismat Professional Portrait</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.pinimg.com/736x/65/2d/16/652d1620792c085900cf03ecb6c362f3.jpg</image:loc>
+      <image:title>Luqman Ismat Houston Engineering Professional</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.pinimg.com/736x/e0/17/3e/e0173ed925f2030d28ac349117d2ab83.jpg</image:loc>
+      <image:title>Luqman Ismat Engineering Consultant</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog Overview -->
+  <url>
+    <loc>https://www.luqmanismat.com/blog</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/detailed-engineering-blog.jpeg</image:loc>
+      <image:title>Detailed Engineering Blog by Luqman Ismat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/fel-stages-blog.jpeg</image:loc>
+      <image:title>FEL Stages Blog by Luqman Ismat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/epc-estimating-blog.jpeg</image:loc>
+      <image:title>EPC Estimating Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog Posts - Latest First -->
+  <url>
+    <loc>https://www.luqmanismat.com/blog/detailed-engineering</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-03-11T03:00:00+00:00</news:publication_date>
+      <news:title>Detailed Engineering: The Backbone of EPC Project Execution</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/detailed-engineering-blog.jpeg</image:loc>
+      <image:title>Detailed Engineering Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.luqmanismat.com/blog/fel-stages</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-03-11T03:00:00+00:00</news:publication_date>
+      <news:title>FEL Stages Explained: The Blueprint for Successful EPC Projects</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/fel-stages-blog.jpeg</image:loc>
+      <image:title>FEL Stages Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.luqmanismat.com/blog/epc-estimating</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-03-11T03:00:00+00:00</news:publication_date>
+      <news:title>The Critical Role of Estimating in EPC: Accuracy, Risk, and Cost Control</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://www.luqmanismat.com/images/epc-estimating-blog.jpeg</image:loc>
+      <image:title>EPC Estimating Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.luqmanismat.com/blog/epc-lifecycle</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-02-22T12:00:00+00:00</news:publication_date>
+      <news:title>Breaking Down the EPC Lifecycle: From Concept to Operation</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thomas-werneken-2hC-ehLJIjg-unsplash%20(2).jpg-fmamlXgtD43e1ssjbkGTKnvFZCKLc7.jpeg</image:loc>
+      <image:title>EPC Lifecycle Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.luqmanismat.com/blog/engineering-technology</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-02-22T12:00:00+00:00</news:publication_date>
+      <news:title>The Current State of Engineering Technology: Progress, Gaps, and the Road Ahead</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/blake-connally-IKUYGCFmfw4-unsplash.jpg-0z59RONP3VknWJW7WTTxt5BTdr6NFr.jpeg</image:loc>
+      <image:title>Engineering Technology Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.luqmanismat.com/blog/epc-communication</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Luqman Ismat Engineering Blog</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-02-22T12:00:00+00:00</news:publication_date>
+      <news:title>The Communication Challenge in EPC Projects: Why It's a Make-or-Break Factor</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://hebbkx1anhila5yf.public.blob.vercel-storage.com/product-school-XZkk5xT8Xrk-unsplash%20(1).jpg-xdC0zNLpYvZV5amqGy0gWaBLGJa5ny.jpeg</image:loc>
+      <image:title>EPC Communication Blog by Luqman Ismat</image:title>
+    </image:image>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://www.luqmanismat.com/contact</loc>
+    <lastmod>2025-03-11T12:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>
