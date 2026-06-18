@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Youtube } from "lucide-react"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
 import { PinterestImageCarousel } from "@/components/pinterest-image-carousel"
+import { LetterStagger } from "@/components/letter-stagger"
+import { CountUp } from "@/components/count-up"
+import { Magnetic } from "@/components/magnetic"
 
 export default function AboutContent() {
   // Define the images for the carousel with working image sources
@@ -43,35 +46,43 @@ export default function AboutContent() {
     <ScrollToTopWrapper>
       <div className="flex flex-col min-h-screen w-full overflow-hidden bg-background">
         <Header />
-        <main className="pt-24 md:pt-32 pb-24">
-          <div className="container px-4">
+        <main id="main" className="relative pt-24 md:pt-32 pb-24">
+          {/* Subtle dot-grid backdrop, fades at edges via the masked utility */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[80vh] dot-grid dot-grid-drift opacity-40"
+          />
+          <div className="relative container px-4">
             {/* Hero Section */}
             <div className="grid md:grid-cols-2 gap-12 md:gap-24 mb-24 items-center">
               <div>
-                <AnimatedHeader>
-                  <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8">
-                    LUQMAN
-                    <br />
-                    ISMAT
-                  </h1>
-                </AnimatedHeader>
-                <p className="text-xl md:text-2xl text-muted-foreground mb-8">
+                <p className="text-sm text-muted-foreground font-mono mb-3">(About)</p>
+                <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-[0.95]">
+                  <LetterStagger text="LUQMAN" baseDelay={60} className="block" />
+                  <LetterStagger text="ISMAT" baseDelay={340} className="block" />
+                </h1>
+                <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-prose">
                   Engineering student, tech enthusiast, and Quran reciter based in Houston, TX.
                 </p>
                 <div className="flex gap-4">
-                  <Button asChild>
-                    <Link href="/portfolio">View Portfolio</Link>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <Link
-                      href="https://youtube.com/@luqmanmuhammadismat"
-                      className="flex items-center gap-2"
-                      target="_blank"
-                    >
-                      <Youtube className="w-4 h-4" />
-                      Recitations
-                    </Link>
-                  </Button>
+                  <Magnetic strength={10}>
+                    <Button asChild>
+                      <Link href="/portfolio">View Portfolio →</Link>
+                    </Button>
+                  </Magnetic>
+                  <Magnetic strength={8}>
+                    <Button variant="outline" asChild>
+                      <Link
+                        href="https://youtube.com/@luqmanmuhammadismat"
+                        className="flex items-center gap-2"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Youtube className="w-4 h-4" />
+                        Recitations
+                      </Link>
+                    </Button>
+                  </Magnetic>
                 </div>
               </div>
               <div>
@@ -80,6 +91,28 @@ export default function AboutContent() {
                 </div>
               </div>
             </div>
+
+            {/* Stats strip — counts up when in view */}
+            <section
+              aria-label="Background at a glance"
+              className="mb-24 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 border-y border-border/60 py-10"
+            >
+              {[
+                { value: 9, suffix: "+", label: "Years leading Taraweeh" },
+                { value: 15, suffix: "", label: "Engineering essays" },
+                { value: 4, suffix: "", label: "Younger brothers" },
+                { value: 1, suffix: "", label: "Hafiz of the Quran" },
+              ].map((stat) => (
+                <div key={stat.label} className="space-y-1">
+                  <div className="text-4xl md:text-5xl font-bold tracking-tighter">
+                    <CountUp to={stat.value} suffix={stat.suffix} />
+                  </div>
+                  <div className="text-xs md:text-sm uppercase tracking-wider text-muted-foreground">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </section>
 
             {/* Background Section */}
             <section className="mb-24">

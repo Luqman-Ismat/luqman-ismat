@@ -3,6 +3,11 @@ import { Footer } from "@/components/footer"
 import Link from "next/link"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
 import { OptimizedImage } from "@/components/optimized-image"
+import { LetterStagger } from "@/components/letter-stagger"
+import { SpotlightCard } from "@/components/spotlight-card"
+import { StaggerOnView } from "@/components/stagger-on-view"
+import { Tilt } from "@/components/tilt"
+import { ArrowUpRight } from "lucide-react"
 import { getBlogImageUrl, getBlogAltText } from "./blog-pinterest-mapping"
 import { itemListSchema, breadcrumbSchema } from "@/lib/schema"
 
@@ -185,47 +190,58 @@ export default function BlogPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
       <div className="flex flex-col min-h-screen w-full overflow-hidden bg-background">
         <Header />
-        <main className="pt-32 pb-24">
-          <div className="container px-4">
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8">BLOG</h1>
+        <main id="main" className="relative pt-32 pb-24">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[60vh] dot-grid dot-grid-drift opacity-40"
+          />
+          <div className="relative container px-4">
+            <p className="text-sm text-muted-foreground font-mono mb-3">(Latest insights)</p>
+            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8 leading-[0.9]">
+              <LetterStagger text="BLOG" baseDelay={60} />
+            </h1>
             <p className="text-2xl md:text-3xl text-muted-foreground mb-16 max-w-2xl">
-              Explore my insights on EPC, current trends in engineering, and my ideas to elevate the field.
+              Insights on EPC, current trends in engineering, and ideas to elevate the field — by Luqman Ismat.
             </p>
-            <div className="grid md:grid-cols-3 gap-8">
+            <StaggerOnView
+              as="ul"
+              role="list"
+              step={70}
+              selector=":scope > li"
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
               {blogPosts.map((post, index) => {
                 const slug = post.href.replace("/blog/", "")
                 const imageUrl = getBlogImageUrl(slug) || post.image || "/placeholder.svg"
                 const altText = getBlogAltText(slug)
                 return (
-                  <Link key={post.title} href={post.href} className="group block">
-                    <div className="relative aspect-[4/3] mb-6 overflow-hidden rounded-lg w-full">
-                      <OptimizedImage
-                        src={imageUrl}
-                        alt={altText}
-                        fill
-                        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        priority={index < 3}
-                      />
-                    <div className="absolute bottom-4 right-4 bg-black text-white p-2 rounded-full">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M7 17L17 7M17 7H7M17 7V17"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="text-sm text-muted-foreground mb-2">[{post.category}]</div>
-                  <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-                  <p className="text-muted-foreground">{post.description}</p>
-                </Link>
+                  <li key={post.title} className="list-none">
+                    <Link href={post.href} className="group block focus:outline-none">
+                      <SpotlightCard className="rounded-xl">
+                        <Tilt maxTilt={4} className="relative aspect-[4/3] mb-6 overflow-hidden rounded-xl ring-1 ring-border/40 transition-shadow group-hover:ring-border">
+                          <OptimizedImage
+                            src={imageUrl}
+                            alt={altText}
+                            fill
+                            className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            priority={index < 3}
+                          />
+                          <div className="absolute bottom-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-background/90 text-foreground shadow-sm backdrop-blur opacity-0 transition-opacity group-hover:opacity-100">
+                            <ArrowUpRight className="h-4 w-4" />
+                          </div>
+                        </Tilt>
+                      </SpotlightCard>
+                      <div className="text-sm text-muted-foreground mb-2 font-mono">[{post.category}]</div>
+                      <h2 className="text-xl font-bold leading-snug mb-2 transition-colors group-hover:text-primary">
+                        {post.title}
+                      </h2>
+                      <p className="text-muted-foreground line-clamp-3">{post.description}</p>
+                    </Link>
+                  </li>
                 )
               })}
-            </div>
+            </StaggerOnView>
           </div>
         </main>
         <Footer />

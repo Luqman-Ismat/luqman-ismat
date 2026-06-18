@@ -4,6 +4,7 @@ import { AnimatedHeader } from "@/components/animated-header"
 import Image from "next/image"
 import Link from "next/link"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
+import { LetterStagger } from "@/components/letter-stagger"
 
 export const metadata = {
   title: "Projects by Luqman Ismat — iNNOVARi & ENGiVAULT | EPC Software",
@@ -62,14 +63,19 @@ export default function ProjectsPage() {
     <ScrollToTopWrapper>
       <div className="flex flex-col min-h-screen w-full overflow-hidden bg-background">
         <Header />
-        <main className="pt-16 w-full">
-          <section className="py-20 md:py-28 w-full">
-            <div className="container px-4">
-              <AnimatedHeader>
-                <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-8">PROJECTS</h1>
-              </AnimatedHeader>
+        <main id="main" className="pt-16 w-full">
+          <section className="relative py-20 md:py-28 w-full overflow-hidden">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 dot-grid dot-grid-drift opacity-40"
+            />
+            <div className="relative container px-4">
+              <p className="text-sm text-muted-foreground font-mono mb-3">(What I&rsquo;m building)</p>
+              <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-8 leading-[0.9]">
+                <LetterStagger text="PROJECTS" baseDelay={60} />
+              </h1>
               <p className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground max-w-4xl mb-20">
-                Innovative solutions reshaping the future of engineering technology.
+                Software by <span className="text-foreground font-medium">Luqman Ismat</span> reshaping the future of engineering technology.
               </p>
             </div>
           </section>

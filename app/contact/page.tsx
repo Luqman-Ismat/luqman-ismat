@@ -4,6 +4,7 @@ import { ContactForm } from "@/components/contact-form"
 import Link from "next/link"
 import { FadeIn } from "@/components/fade-in"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
+import { LetterStagger } from "@/components/letter-stagger"
 
 export const metadata = {
   title: "Contact Luqman Ismat — Engineering Consultant | Houston, Katy & The Woodlands",
@@ -38,11 +39,18 @@ export default function ContactPage() {
     <ScrollToTopWrapper>
       <div className="flex flex-col min-h-screen w-full overflow-hidden bg-background">
         <Header />
-        <main id="main" className="flex-1 pt-32 pb-24">
-          <div className="container px-4">
-            <FadeIn>
-              <p className="text-sm text-muted-foreground font-mono mb-3">(Get in touch)</p>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">Let&rsquo;s Talk</h1>
+        <main id="main" className="relative flex-1 pt-32 pb-24">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-[60vh] dot-grid dot-grid-drift opacity-40"
+          />
+          <div className="relative container px-4">
+            <p className="text-sm text-muted-foreground font-mono mb-3">(Get in touch)</p>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4 leading-[0.95]">
+              <LetterStagger text="LET'S" baseDelay={60} className="block" />
+              <LetterStagger text="TALK." baseDelay={260} className="block" />
+            </h1>
+            <FadeIn delay={0.3}>
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
                 Whether it&rsquo;s an EPC project, a process question, or an AI-driven idea —
                 tell me what you&rsquo;re working on.
