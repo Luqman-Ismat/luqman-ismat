@@ -4,13 +4,37 @@ import { AnimatedHeader } from "@/components/animated-header"
 import Image from "next/image"
 import Link from "next/link"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
+import { LetterStagger } from "@/components/letter-stagger"
+import { Parallax } from "@/components/parallax"
 
 export const metadata = {
-  title: "Projects | Luqman Ismat Engineering",
+  title: "Projects by Luqman Ismat — iNNOVARi & ENGiVAULT | EPC Software",
   description:
-    "Explore innovative engineering projects by Luqman Ismat, including iNNOVARi and ENGiVAULT, showcasing cutting-edge solutions in the EPC industry from Katy, TX.",
-  alternates: {
-    canonical: "https://www.luqmanismat.com/projects",
+    "Luqman Ismat's engineering software projects: iNNOVARi (modular EPC project management) and ENGiVAULT (knowledge platform for engineers). Built in Katy, TX.",
+  keywords: [
+    "Luqman Ismat projects",
+    "iNNOVARi",
+    "ENGiVAULT",
+    "EPC software",
+    "Engineering tools",
+    "AI engineering platform",
+    "Project management software EPC",
+    "Engineering knowledge sharing",
+    "Luqman Ismat software",
+  ],
+  alternates: { canonical: "https://www.luqmanismat.com/projects" },
+  openGraph: {
+    type: "website",
+    url: "https://www.luqmanismat.com/projects",
+    title: "Projects by Luqman Ismat — iNNOVARi & ENGiVAULT",
+    description: "iNNOVARi and ENGiVAULT — software projects by Luqman Ismat for the EPC industry.",
+    images: [{ url: "https://www.luqmanismat.com/og-image.jpg", width: 1200, height: 630, alt: "Luqman Ismat — Projects" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Projects by Luqman Ismat",
+    description: "iNNOVARi & ENGiVAULT — EPC software by Luqman Ismat.",
+    images: ["https://www.luqmanismat.com/og-image.jpg"],
   },
 }
 
@@ -40,14 +64,19 @@ export default function ProjectsPage() {
     <ScrollToTopWrapper>
       <div className="flex flex-col min-h-screen w-full overflow-hidden bg-background">
         <Header />
-        <main className="pt-16 w-full">
-          <section className="py-20 md:py-28 w-full">
-            <div className="container px-4">
-              <AnimatedHeader>
-                <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-8">PROJECTS</h1>
-              </AnimatedHeader>
+        <main id="main" className="pt-16 w-full">
+          <section className="relative py-20 md:py-28 w-full overflow-hidden">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 dot-grid dot-grid-drift opacity-40"
+            />
+            <div className="relative container px-4">
+              <p className="text-sm text-muted-foreground font-mono mb-3">(What I&rsquo;m building)</p>
+              <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-8 leading-[0.9]">
+                <LetterStagger text="PROJECTS" baseDelay={60} />
+              </h1>
               <p className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground max-w-4xl mb-20">
-                Innovative solutions reshaping the future of engineering technology.
+                Software by <span className="text-foreground font-medium">Luqman Ismat</span> reshaping the future of engineering technology.
               </p>
             </div>
           </section>
@@ -57,13 +86,17 @@ export default function ProjectsPage() {
               <Link key={project.title} href={project.link} className="block relative group w-full">
                 <div className="relative h-[70vh] md:h-screen overflow-hidden w-full">
                   <div className={`absolute inset-0 ${project.darkBackground ? "bg-black" : ""}`}>
-                    <Image
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      fill
-                      className="object-contain transition-transform duration-700 group-hover:scale-105"
-                      priority
-                    />
+                    <Parallax range={70} className="absolute inset-0">
+                      <div className="absolute inset-[-6%]">
+                        <Image
+                          src={project.image || "/placeholder.svg"}
+                          alt={project.title}
+                          fill
+                          className="object-contain transition-transform duration-700 group-hover:scale-105"
+                          priority
+                        />
+                      </div>
+                    </Parallax>
                   </div>
                   <div className="absolute inset-0 bg-black/50 transition-opacity duration-700 group-hover:bg-black/30" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />

@@ -6,11 +6,25 @@ import Link from "next/link"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
 
 export const metadata = {
-  title: "Portfolio Projects | Pinnacle Reliability - Luqman Ismat",
+  title: "Pinnacle Reliability — Reliability Data Work by Luqman Ismat",
   description:
-    "Explore reliability data analysis projects by Luqman Ismat at Pinnacle Reliability, showcasing data-driven solutions and analytical methodologies from Katy, TX.",
-  alternates: {
-    canonical: "https://www.luqmanismat.com/portfolio/pinnacle-reliability",
+    "Reliability data analysis and maintenance optimization work by Luqman Ismat at Pinnacle Reliability — predictive analytics and data-driven decisions for industrial assets.",
+  keywords: [
+    "Luqman Ismat",
+    "Pinnacle Reliability",
+    "Reliability data analysis",
+    "Predictive reliability",
+    "Maintenance optimization",
+    "Asset reliability",
+    "Industrial reliability Houston",
+  ],
+  alternates: { canonical: "https://www.luqmanismat.com/portfolio/pinnacle-reliability" },
+  openGraph: {
+    type: "article",
+    url: "https://www.luqmanismat.com/portfolio/pinnacle-reliability",
+    title: "Pinnacle Reliability — Work by Luqman Ismat",
+    description: "Predictive reliability and maintenance optimization work by Luqman Ismat.",
+    images: [{ url: "https://www.luqmanismat.com/og-image.jpg", width: 1200, height: 630, alt: "Pinnacle Reliability — by Luqman Ismat" }],
   },
 }
 

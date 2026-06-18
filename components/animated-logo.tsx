@@ -1,70 +1,21 @@
-"use client"
-
-import { useEffect, useRef } from "react"
 import Link from "next/link"
-import gsap from "gsap"
 
 export function AnimatedLogo() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const fullNameRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const letters = fullNameRef.current?.querySelectorAll(".letter")
-    if (!letters) return
-
-    // Initial state
-    gsap.set(fullNameRef.current, { width: 0 })
-    gsap.set(letters, {
-      x: -20,
-      opacity: 0,
-    })
-
-    const tl = gsap.timeline({ paused: true })
-
-    // Animation for hover
-    tl.to(fullNameRef.current, {
-      width: "auto",
-      duration: 0.3,
-      ease: "power2.out",
-    }).to(
-      letters,
-      {
-        x: 0,
-        opacity: 1,
-        duration: 0.5,
-        stagger: 0.05,
-        ease: "power2.out",
-      },
-      "-=0.2",
-    )
-
-    // Hover events
-    const container = containerRef.current
-    if (container) {
-      container.addEventListener("mouseenter", () => tl.play())
-      container.addEventListener("mouseleave", () => tl.reverse())
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener("mouseenter", () => tl.play())
-        container.removeEventListener("mouseleave", () => tl.reverse())
-      }
-    }
-  }, [])
-
   return (
-    <Link href="/" className="text-xl font-bold tracking-tight">
-      <div ref={containerRef} className="flex overflow-hidden whitespace-nowrap">
-        <span className="inline-block">L </span>
-        <div ref={fullNameRef} className="inline-block overflow-hidden">
-          {"UQMAN  ISMAT".split("").map((letter, index) => (
-            <span key={index} className="letter inline-block">
-              {letter}
-            </span>
-          ))}
-        </div>
-      </div>
+    <Link
+      href="/"
+      aria-label="Luqman Ismat — home"
+      className="group inline-flex items-baseline text-xl font-bold tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+    >
+      <span aria-hidden="true">L</span>
+      <span
+        aria-hidden="true"
+        className="ml-0 inline-flex overflow-hidden whitespace-pre max-w-0 opacity-0 transition-[max-width,opacity,margin] duration-500 ease-out group-hover:max-w-[12ch] group-hover:opacity-100 group-hover:ml-[2px] group-focus-visible:max-w-[12ch] group-focus-visible:opacity-100 group-focus-visible:ml-[2px]"
+        style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
+      >
+        UQMAN&nbsp;ISMAT
+      </span>
+      <span className="sr-only">Luqman Ismat</span>
     </Link>
   )
 }

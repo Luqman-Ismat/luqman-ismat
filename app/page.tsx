@@ -6,14 +6,29 @@ import { RecentBlogs } from "@/components/recent-blogs"
 import { Footer } from "@/components/footer"
 import { FadeIn } from "@/components/fade-in"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
+import { MarqueeDivider } from "@/components/marquee-divider"
 
 export const metadata = {
-  title: "Luqman Ismat | Innovative Engineering Solutions",
+  title: "Luqman Ismat — Engineering Consultant | Houston, Katy & The Woodlands, TX",
   description:
-    "Discover how Luqman Ismat, an engineering consultant from Katy and The Woodlands, TX, is revolutionizing the industry with AI-driven tools and cutting-edge solutions.",
-  alternates: {
-    canonical: "https://www.luqmanismat.com",
-  },
+    "Luqman Ismat is an engineering consultant specializing in process engineering, EPC project lifecycle work, process safety, piping systems, and AI-driven tools for the engineering industry. Based in Katy, TX — serving Houston and The Woodlands.",
+  keywords: [
+    "Luqman Ismat",
+    "Luqman Ismat engineer",
+    "Luqman Ismat Houston",
+    "Engineering Consultant Houston",
+    "Process Engineering Texas",
+    "EPC consultant",
+    "Chemical Engineer Houston",
+    "Process Safety Management",
+    "Piping Systems Engineer",
+    "Heat Exchanger Design",
+    "Digital Twins engineer",
+    "AI engineering tools",
+    "Katy TX engineer",
+    "The Woodlands engineer",
+  ],
+  alternates: { canonical: "https://www.luqmanismat.com" },
 }
 
 export default function Home() {
@@ -22,17 +37,17 @@ export default function Home() {
       <div className="flex flex-col min-h-screen w-full bg-background text-foreground">
         <h1 className="sr-only">Home | Luqman Ismat</h1>
         <Header />
-        <main className="flex-1 w-full">
+        <main id="main" className="flex-1 w-full">
+          <Hero />
+          <MarqueeDivider />
           <FadeIn>
-            <Hero />
-          </FadeIn>
-          <FadeIn delay={0.2}>
             <Technologies />
           </FadeIn>
-          <FadeIn delay={0.4}>
+          <FadeIn delay={0.1}>
             <Projects />
           </FadeIn>
-          <FadeIn delay={0.6}>
+          <MarqueeDivider direction="right" duration="75s" />
+          <FadeIn delay={0.15}>
             <RecentBlogs />
           </FadeIn>
         </main>

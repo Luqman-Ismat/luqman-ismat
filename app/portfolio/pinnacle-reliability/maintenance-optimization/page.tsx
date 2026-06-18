@@ -6,12 +6,27 @@ import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Portfolio | Data-Driven Maintenance Optimization - Luqman Ismat",
+  title: "Data-Driven Maintenance Optimization — Luqman Ismat | Pinnacle Reliability",
   description:
-    "Comprehensive analysis and optimization of maintenance strategies using reliability data at Pinnacle Reliability.",
-  alternates: {
-    canonical: "https://www.luqmanismat.com/portfolio/pinnacle-reliability/maintenance-optimization",
+    "How Luqman Ismat optimized maintenance strategies at Pinnacle Reliability using reliability data, statistical modeling, and analytics for industrial assets.",
+  keywords: [
+    "Luqman Ismat",
+    "Maintenance optimization",
+    "Reliability-centered maintenance",
+    "RCM",
+    "Pinnacle Reliability",
+    "Reliability data",
+    "Predictive maintenance",
+  ],
+  openGraph: {
+    type: "article",
+    url: "https://www.luqmanismat.com/portfolio/pinnacle-reliability/maintenance-optimization",
+    title: "Data-Driven Maintenance Optimization — by Luqman Ismat",
+    description:
+      "Reliability-data-driven maintenance optimization by Luqman Ismat at Pinnacle Reliability.",
+    images: [{ url: "https://www.luqmanismat.com/og-image.jpg", width: 1200, height: 630, alt: "Maintenance Optimization — by Luqman Ismat" }],
   },
+  alternates: { canonical: "https://www.luqmanismat.com/portfolio/pinnacle-reliability/maintenance-optimization" },
 }
 
 export default function MaintenanceOptimizationPage() {

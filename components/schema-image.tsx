@@ -1,7 +1,4 @@
-"use client"
-
 import Image from "next/image"
-import Script from "next/script"
 import { imageSchema } from "@/lib/schema"
 
 interface SchemaImageProps {
@@ -16,24 +13,26 @@ interface SchemaImageProps {
   sizes?: string
 }
 
-export function SchemaImage({ src, alt, width, height, className, priority, fill, contentUrl, sizes }: SchemaImageProps) {
-  const schema = imageSchema({
-    url: src,
-    alt,
-    width,
-    height,
-    contentUrl,
-  })
-
-  // Check if this is a Pinterest image - Pinterest images may need unoptimized loading
+export function SchemaImage({
+  src,
+  alt,
+  width,
+  height,
+  className,
+  priority,
+  fill,
+  contentUrl,
+  sizes,
+}: SchemaImageProps) {
+  const schema = imageSchema({ url: src, alt, width, height, contentUrl })
   const isPinterestImage = src.includes("i.pinimg.com")
-  const useUnoptimized = isPinterestImage
 
   return (
     <>
-      <Script id={`schema-${alt}`} type="application/ld+json">
-        {JSON.stringify(schema)}
-      </Script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <Image
         src={src || "/placeholder.svg"}
         alt={alt}
@@ -43,7 +42,7 @@ export function SchemaImage({ src, alt, width, height, className, priority, fill
         priority={priority}
         fill={fill}
         sizes={sizes}
-        unoptimized={useUnoptimized}
+        unoptimized={isPinterestImage}
       />
     </>
   )

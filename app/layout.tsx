@@ -1,11 +1,22 @@
 import "@/styles/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { LoadingScreen } from "@/components/loading-screen"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { PerformanceMonitor } from "@/components/performance-monitor"
+import { ScrollProgress } from "@/components/scroll-progress"
+import { RouteProgress } from "@/components/route-progress"
+import { CursorGlow } from "@/components/cursor-glow"
+import { Konami } from "@/components/konami"
 import { Toaster } from "@/components/ui/sonner"
+import { Analytics } from "@vercel/analytics/react"
+import dynamic from "next/dynamic"
 import type React from "react"
+
+const PerformanceMonitor =
+  process.env.NODE_ENV === "development"
+    ? dynamic(() => import("@/components/performance-monitor").then((m) => m.PerformanceMonitor), {
+        ssr: false,
+      })
+    : () => null
 
 export const metadata = {
   title: {
@@ -87,9 +98,16 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
+}
+
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 }
 
 export default function RootLayout({
@@ -141,9 +159,9 @@ export default function RootLayout({
                     "Engineering Innovation",
                     "Digital Twins"
                   ],
-                  "alumniOf": {
+                  "worksFor": {
                     "@type": "Organization",
-                    "name": "Engineering Institution"
+                    "name": "Independent Consultant"
                   }
                 },
                 {
@@ -213,16 +231,26 @@ export default function RootLayout({
           href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/favicon-36x36-LUak25km0YlO83hgg0zzo0ZjBcZQm1.png"
         />
         <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Luqman Ismat — Engineering Blog"
+          href="https://www.luqmanismat.com/feed.xml"
+        />
+        <link
           rel="apple-touch-icon"
           sizes="36x36"
           href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/favicon-36x36-LUak25km0YlO83hgg0zzo0ZjBcZQm1.png"
         />
       </head>
       <body className="w-full h-full bg-background">
+        <a href="#main" className="skip-link">Skip to content</a>
         <ThemeProvider>
           <ScrollToTopWrapper>
-            <div className="w-full h-full">
-              <LoadingScreen />
+            <div className="relative w-full h-full">
+              <CursorGlow />
+              <ScrollProgress />
+              <RouteProgress />
+              <Konami />
               {children}
               <ThemeToggle />
               <PerformanceMonitor />
@@ -230,6 +258,7 @@ export default function RootLayout({
             </div>
           </ScrollToTopWrapper>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )

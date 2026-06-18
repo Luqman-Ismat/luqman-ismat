@@ -9,19 +9,33 @@ import { ExternalLink } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Luqman Ismat | Projects - ENGiVAULT",
+  title: "ENGiVAULT by Luqman Ismat — Knowledge Platform for Engineers",
   description:
-    "ENGiVAULT is a comprehensive platform connecting engineers worldwide, combining technical resources with community-driven knowledge sharing.",
+    "ENGiVAULT, built by Luqman Ismat, is a platform that connects engineers worldwide through technical resources and community-driven knowledge sharing.",
+  keywords: [
+    "ENGiVAULT",
+    "Luqman Ismat ENGiVAULT",
+    "Engineering knowledge sharing",
+    "Engineering platform",
+    "Engineering community",
+    "EPC engineering tools",
+    "Luqman Ismat projects",
+  ],
   openGraph: {
-    title: "Luqman Ismat | Projects - ENGiVAULT",
+    title: "ENGiVAULT by Luqman Ismat",
     description:
-      "ENGiVAULT is a comprehensive platform connecting engineers worldwide, combining technical resources with community-driven knowledge sharing.",
+      "Knowledge platform for engineers — technical resources and community, by Luqman Ismat.",
     url: "https://www.luqmanismat.com/projects/engivault",
     type: "article",
+    images: [{ url: "https://www.luqmanismat.com/og-image.jpg", width: 1200, height: 630, alt: "ENGiVAULT — by Luqman Ismat" }],
   },
-  alternates: {
-    canonical: "https://www.luqmanismat.com/projects/engivault",
+  twitter: {
+    card: "summary_large_image",
+    title: "ENGiVAULT by Luqman Ismat",
+    description: "A knowledge platform for engineers, by Luqman Ismat.",
+    images: ["https://www.luqmanismat.com/og-image.jpg"],
   },
+  alternates: { canonical: "https://www.luqmanismat.com/projects/engivault" },
 }
 
 export default function EngivaultPage() {

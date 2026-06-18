@@ -6,12 +6,27 @@ import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Portfolio | Predictive Reliability Analysis - Luqman Ismat",
+  title: "Predictive Reliability Analysis — Luqman Ismat | Pinnacle Reliability",
   description:
-    "Advanced statistical modeling and predictive analytics for asset reliability optimization at Pinnacle Reliability.",
-  alternates: {
-    canonical: "https://www.luqmanismat.com/portfolio/pinnacle-reliability/predictive-reliability-analysis",
+    "Predictive reliability analysis by Luqman Ismat: statistical modeling, failure-mode analytics, and data-driven decisions for asset reliability at Pinnacle Reliability.",
+  keywords: [
+    "Luqman Ismat",
+    "Predictive reliability",
+    "Reliability statistics",
+    "Asset reliability",
+    "Pinnacle Reliability",
+    "Weibull analysis",
+    "Failure analysis",
+  ],
+  openGraph: {
+    type: "article",
+    url: "https://www.luqmanismat.com/portfolio/pinnacle-reliability/predictive-reliability-analysis",
+    title: "Predictive Reliability Analysis — by Luqman Ismat",
+    description:
+      "Statistical modeling for asset reliability by Luqman Ismat at Pinnacle Reliability.",
+    images: [{ url: "https://www.luqmanismat.com/og-image.jpg", width: 1200, height: 630, alt: "Predictive Reliability — by Luqman Ismat" }],
   },
+  alternates: { canonical: "https://www.luqmanismat.com/portfolio/pinnacle-reliability/predictive-reliability-analysis" },
 }
 
 export default function PredictiveReliabilityAnalysisPage() {

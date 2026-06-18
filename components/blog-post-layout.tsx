@@ -8,6 +8,8 @@ import { SocialShare } from "./social-share"
 import { RelatedArticles } from "./related-articles"
 import { CTASection } from "./cta-section"
 import Link from "next/link"
+import { articleSchema, breadcrumbSchema } from "@/lib/schema"
+import { LetterStagger } from "./letter-stagger"
 
 interface BlogPostLayoutProps {
   title: string
@@ -26,9 +28,26 @@ interface BlogPostLayoutProps {
 
 export function BlogPostLayout({ title, description, image, content, date, category = "EPC LIFECYCLE", slug = "" }: BlogPostLayoutProps) {
   const currentUrl = `https://www.luqmanismat.com/blog/${slug}`
-  
+
+  const article = articleSchema({
+    title,
+    description,
+    url: currentUrl,
+    image,
+    datePublished: date,
+    category,
+    keywords: ["Luqman Ismat", "Engineering Consultant", "EPC", category],
+  })
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", url: "https://www.luqmanismat.com" },
+    { name: "Blog", url: "https://www.luqmanismat.com/blog" },
+    { name: title, url: currentUrl },
+  ])
+
   return (
     <div className="flex flex-col min-h-screen w-full overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
       <Header />
 
       {/* Main content with background */}
@@ -47,7 +66,7 @@ export function BlogPostLayout({ title, description, image, content, date, categ
         </div>
 
         {/* Content */}
-        <main className="relative pt-32 pb-24">
+        <main id="main" className="relative pt-32 pb-24">
           <div className="container">
             <div className="grid md:grid-cols-2 gap-8">
               {/* Left side - Empty to maintain layout */}
@@ -57,10 +76,21 @@ export function BlogPostLayout({ title, description, image, content, date, categ
               <div className="relative">
                 <div className="bg-white/75 dark:bg-black/75 backdrop-blur-xl p-8 md:p-12 rounded-lg space-y-12 text-black dark:text-white transition-colors duration-300">
                   <div className="space-y-6">
-                    <AnimatedHeader>
-                      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">{title}</h1>
-                    </AnimatedHeader>
-                    <p className="text-xl text-black/80 dark:text-white/80">{description}</p>
+                    <p className="text-xs md:text-sm font-mono tracking-widest text-black/70 dark:text-white/70">
+                      <LetterStagger text={`[${category}]`} baseDelay={60} />
+                    </p>
+                    <h1
+                      className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter rise"
+                      style={{ ["--rise-delay" as string]: "320ms" } as React.CSSProperties}
+                    >
+                      {title}
+                    </h1>
+                    <p
+                      className="text-xl text-black/80 dark:text-white/80 rise"
+                      style={{ ["--rise-delay" as string]: "440ms" } as React.CSSProperties}
+                    >
+                      {description}
+                    </p>
 
                     {/* Author and Date */}
                     <div className="flex items-center justify-between pt-4 border-t border-black/10 dark:border-white/10">

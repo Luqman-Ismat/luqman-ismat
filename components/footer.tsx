@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { NewsletterSignup } from "./newsletter-signup"
+import { Signature } from "./signature"
 
 export function Footer() {
   const footerSections = [
@@ -43,12 +44,13 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between gap-12 md:gap-24">
-          {/* Left side - Name and Copyright */}
-          <div className="space-y-4">
+          {/* Left side - Name, Signature, Copyright */}
+          <div className="space-y-6">
             <div className="text-6xl font-bold tracking-widest text-muted-foreground/20">
               <div>LUQMAN</div>
               <div>ISMAT</div>
             </div>
+            <Signature className="block text-foreground/80" />
             <div className="text-sm text-muted-foreground space-y-1">
               <div className="flex items-center gap-1">
                 <span>©</span>
