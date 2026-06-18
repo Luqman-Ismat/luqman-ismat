@@ -117,6 +117,41 @@
     to { opacity: 1; transform: translate3d(0, 0, 0); }
   }
 
+  /* Inline + block code */
+  :where(:not(pre) > code) {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.875em;
+    padding: 0.15em 0.4em;
+    border-radius: 0.375rem;
+    background: hsl(var(--muted));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border) / 0.6);
+  }
+  pre {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    background: hsl(var(--muted));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+  }
+  pre code {
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Naive code-token classes used by <CodeBlock>. No syntax library — just
+     classed spans the component emits via tiny regex tokenizer. */
+  .tok-keyword  { color: hsl(280 70% 65%); }
+  .tok-string   { color: hsl(140 50% 50%); }
+  .tok-number   { color: hsl(20 80% 60%); }
+  .tok-comment  { color: hsl(var(--muted-foreground)); font-style: italic; }
+  .tok-fn       { color: hsl(200 80% 60%); }
+
   /* Card spotlight that tracks cursor via CSS vars set by SpotlightCard */
   .spotlight-card {
     position: relative;

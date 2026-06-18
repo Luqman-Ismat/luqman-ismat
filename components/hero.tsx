@@ -1,5 +1,6 @@
 import { SchemaImage } from "./schema-image"
 import { LetterStagger } from "./letter-stagger"
+import { Parallax } from "./parallax"
 import Link from "next/link"
 
 export function Hero() {
@@ -9,18 +10,22 @@ export function Hero() {
       aria-label="Hero section introducing Luqman Ismat"
     >
       <div
-        className="md:absolute md:left-0 md:top-0 md:w-1/2 h-[50vh] md:h-full relative"
+        className="md:absolute md:left-0 md:top-0 md:w-1/2 h-[50vh] md:h-full relative overflow-hidden"
         role="img"
         aria-label="Engineering innovation background image"
       >
-        <SchemaImage
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/justin-wolff-4wjsEDOwapo-unsplash.jpg-yqBchAIp3OP880B9Dw59UUVSIZWt1W.jpeg"
-          alt="Luqman Ismat, Engineering Consultant, Houston TX — modern engineering facility with industrial equipment representing innovation and technology"
-          fill
-          className="object-cover"
-          priority
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
+        <Parallax range={80} className="absolute inset-0">
+          <div className="absolute inset-[-8%]">
+            <SchemaImage
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/justin-wolff-4wjsEDOwapo-unsplash.jpg-yqBchAIp3OP880B9Dw59UUVSIZWt1W.jpeg"
+              alt="Luqman Ismat, Engineering Consultant, Houston TX — modern engineering facility with industrial equipment representing innovation and technology"
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+        </Parallax>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/60 md:bg-gradient-to-r md:from-transparent md:to-background/30" />
       </div>
 

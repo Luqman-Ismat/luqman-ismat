@@ -231,6 +231,12 @@ export default function RootLayout({
           href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/favicon-36x36-LUak25km0YlO83hgg0zzo0ZjBcZQm1.png"
         />
         <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Luqman Ismat — Engineering Blog"
+          href="https://www.luqmanismat.com/feed.xml"
+        />
+        <link
           rel="apple-touch-icon"
           sizes="36x36"
           href="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/favicon-36x36-LUak25km0YlO83hgg0zzo0ZjBcZQm1.png"

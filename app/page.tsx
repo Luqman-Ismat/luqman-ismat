@@ -6,6 +6,7 @@ import { RecentBlogs } from "@/components/recent-blogs"
 import { Footer } from "@/components/footer"
 import { FadeIn } from "@/components/fade-in"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
+import { MarqueeDivider } from "@/components/marquee-divider"
 
 export const metadata = {
   title: "Luqman Ismat — Engineering Consultant | Houston, Katy & The Woodlands, TX",
@@ -38,12 +39,14 @@ export default function Home() {
         <Header />
         <main id="main" className="flex-1 w-full">
           <Hero />
+          <MarqueeDivider />
           <FadeIn>
             <Technologies />
           </FadeIn>
           <FadeIn delay={0.1}>
             <Projects />
           </FadeIn>
+          <MarqueeDivider direction="right" duration="75s" />
           <FadeIn delay={0.15}>
             <RecentBlogs />
           </FadeIn>

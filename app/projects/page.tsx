@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
 import { LetterStagger } from "@/components/letter-stagger"
+import { Parallax } from "@/components/parallax"
 
 export const metadata = {
   title: "Projects by Luqman Ismat — iNNOVARi & ENGiVAULT | EPC Software",
@@ -85,13 +86,17 @@ export default function ProjectsPage() {
               <Link key={project.title} href={project.link} className="block relative group w-full">
                 <div className="relative h-[70vh] md:h-screen overflow-hidden w-full">
                   <div className={`absolute inset-0 ${project.darkBackground ? "bg-black" : ""}`}>
-                    <Image
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      fill
-                      className="object-contain transition-transform duration-700 group-hover:scale-105"
-                      priority
-                    />
+                    <Parallax range={70} className="absolute inset-0">
+                      <div className="absolute inset-[-6%]">
+                        <Image
+                          src={project.image || "/placeholder.svg"}
+                          alt={project.title}
+                          fill
+                          className="object-contain transition-transform duration-700 group-hover:scale-105"
+                          priority
+                        />
+                      </div>
+                    </Parallax>
                   </div>
                   <div className="absolute inset-0 bg-black/50 transition-opacity duration-700 group-hover:bg-black/30" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />

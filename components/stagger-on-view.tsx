@@ -37,7 +37,8 @@ export function StaggerOnView({
   rootMargin = "-80px",
   as: Tag = "div",
   role,
-}: StaggerOnViewProps) {
+  ...rest
+}: StaggerOnViewProps & React.HTMLAttributes<HTMLElement>) {
   const ref = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
@@ -91,6 +92,7 @@ export function StaggerOnView({
       ref={ref as unknown as React.RefObject<HTMLDivElement>}
       className={className}
       role={role}
+      {...rest}
     >
       {children}
     </Tag>
