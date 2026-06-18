@@ -3,7 +3,9 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
 import { ScrollProgress } from "@/components/scroll-progress"
+import { RouteProgress } from "@/components/route-progress"
 import { CursorGlow } from "@/components/cursor-glow"
+import { Konami } from "@/components/konami"
 import { Toaster } from "@/components/ui/sonner"
 import { Analytics } from "@vercel/analytics/react"
 import dynamic from "next/dynamic"
@@ -241,6 +243,8 @@ export default function RootLayout({
             <div className="relative w-full h-full">
               <CursorGlow />
               <ScrollProgress />
+              <RouteProgress />
+              <Konami />
               {children}
               <ThemeToggle />
               <PerformanceMonitor />

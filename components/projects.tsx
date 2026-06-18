@@ -2,6 +2,8 @@ import { SchemaImage } from "./schema-image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { Tilt } from "./tilt"
+import { SpotlightCard } from "./spotlight-card"
+import { StaggerOnView } from "./stagger-on-view"
 
 type Project = { title: string; description: string; image: string; href?: string }
 
@@ -56,13 +58,17 @@ export function Projects() {
           EXPERIENCE
         </h2>
 
-        <ul
+        <StaggerOnView
+          as="ul"
           role="list"
+          step={90}
+          selector=":scope > li"
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
         >
           {PROJECTS.map((project) => (
-            <li key={project.title}>
+            <li key={project.title} className="list-none">
               <Tilt className="h-full">
+              <SpotlightCard className="rounded-xl">
               <Link
                 href={project.href ?? "/portfolio"}
                 className="group relative block aspect-[4/3] overflow-hidden rounded-xl bg-muted ring-1 ring-border/40 transition-shadow hover:ring-border focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -96,10 +102,11 @@ export function Projects() {
                   </div>
                 </div>
               </Link>
+              </SpotlightCard>
               </Tilt>
             </li>
           ))}
-        </ul>
+        </StaggerOnView>
       </div>
     </section>
   )

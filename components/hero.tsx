@@ -1,4 +1,5 @@
 import { SchemaImage } from "./schema-image"
+import { LetterStagger } from "./letter-stagger"
 import Link from "next/link"
 
 export function Hero() {
@@ -24,8 +25,9 @@ export function Hero() {
       </div>
 
       <div className="relative md:w-1/2 md:ml-[50%] flex flex-col">
-        {/* Animated gradient blobs behind the hero copy */}
+        {/* Animated gradient blobs + subtle dot grid behind the hero copy */}
         <div aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute inset-0 dot-grid dot-grid-drift opacity-60" />
           <div
             className="blob -right-10 top-24 h-[420px] w-[420px]"
             style={{ background: "radial-gradient(circle at 30% 30%, hsl(var(--foreground) / 0.18), transparent 60%)" }}
@@ -41,12 +43,8 @@ export function Hero() {
             <div className="flex items-start gap-1">
               <span className="text-sm mt-2 text-muted-foreground" aria-hidden="true">©</span>
               <h1 className="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tighter leading-[0.95]">
-                <span className="block rise" style={{ ["--rise-delay" as string]: "80ms" } as React.CSSProperties}>
-                  LUQMAN
-                </span>
-                <span className="block rise" style={{ ["--rise-delay" as string]: "200ms" } as React.CSSProperties}>
-                  ISMAT
-                </span>
+                <LetterStagger text="LUQMAN" baseDelay={80} className="block" />
+                <LetterStagger text="ISMAT" baseDelay={360} className="block" />
               </h1>
             </div>
           </div>

@@ -3,6 +3,8 @@ import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { getBlogImageUrl, getBlogAltText } from "@/app/blog/blog-pinterest-mapping"
 import { Tilt } from "./tilt"
+import { SpotlightCard } from "./spotlight-card"
+import { StaggerOnView } from "./stagger-on-view"
 
 type RecentBlog = {
   title: string
@@ -100,13 +102,14 @@ export function RecentBlogs() {
           </Link>
         </div>
 
-        <ul role="list" className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <StaggerOnView as="ul" role="list" step={80} selector=":scope > li" className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {RECENT_BLOGS.map((blog) => {
             const imageUrl = getBlogImageUrl(blog.slug) || "/placeholder.svg"
             const altText = getBlogAltText(blog.slug)
             return (
-              <li key={blog.href}>
+              <li key={blog.href} className="list-none">
                 <Link href={blog.href} className="group block focus:outline-none">
+                  <SpotlightCard className="rounded-xl">
                   <Tilt maxTilt={4} className="relative aspect-[4/3] mb-4 overflow-hidden rounded-xl ring-1 ring-border/40 transition-shadow group-hover:ring-border group-focus-visible:ring-2 group-focus-visible:ring-ring">
                     <OptimizedImage
                       src={imageUrl}
@@ -119,6 +122,7 @@ export function RecentBlogs() {
                       <ArrowUpRight className="h-4 w-4" />
                     </div>
                   </Tilt>
+                  </SpotlightCard>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                     <span className="font-mono">[{blog.category}]</span>
                     <span aria-hidden="true">·</span>
@@ -134,7 +138,7 @@ export function RecentBlogs() {
               </li>
             )
           })}
-        </ul>
+        </StaggerOnView>
       </div>
     </section>
   )

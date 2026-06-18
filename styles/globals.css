@@ -117,6 +117,77 @@
     to { opacity: 1; transform: translate3d(0, 0, 0); }
   }
 
+  /* Card spotlight that tracks cursor via CSS vars set by SpotlightCard */
+  .spotlight-card {
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      var(--spot-size, 320px) circle at var(--spot-x, -200px) var(--spot-y, -200px),
+      var(--spot-color, hsl(var(--foreground) / 0.12)),
+      transparent 60%
+    );
+    opacity: var(--spot-opacity, 0);
+    transition: opacity 200ms ease-out;
+    mix-blend-mode: plus-lighter;
+    z-index: 1;
+  }
+
+  /* Dot grid background — subtle texture for hero / 404 */
+  .dot-grid {
+    background-image: radial-gradient(
+      hsl(var(--foreground) / 0.12) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+    background-position: 0 0;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+  }
+  .dot-grid-drift {
+    animation: dot-drift 30s linear infinite;
+  }
+  @keyframes dot-drift {
+    from { background-position: 0 0; }
+    to   { background-position: 240px 240px; }
+  }
+
+  /* Letter stagger: each child .letter rises from below in source order */
+  .letters {
+    display: inline-flex;
+    overflow: hidden;
+  }
+  .letters > .letter {
+    display: inline-block;
+    transform: translate3d(0, 110%, 0);
+    animation: letter-rise 750ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--letter-base, 0ms) + var(--letter-i, 0) * 45ms);
+  }
+  @keyframes letter-rise {
+    to { transform: translate3d(0, 0, 0); }
+  }
+
+  /* Lab mode (Konami easter egg) — opt-in flourishes */
+  html.lab-mode body {
+    background: radial-gradient(ellipse at top, hsl(var(--foreground) / 0.04), hsl(var(--background)) 50%) hsl(var(--background));
+  }
+  html.lab-mode .blob {
+    opacity: 0.55 !important;
+    animation-duration: 10s !important;
+  }
+  html.lab-mode .dot-grid {
+    animation: dot-drift 8s linear infinite !important;
+  }
+  html.lab-mode .shimmer-text {
+    animation-duration: 1.5s !important;
+  }
+
   /* Floating gradient blob behind hero copy */
   .blob {
     position: absolute;
@@ -184,5 +255,8 @@
       scroll-behavior: auto !important;
     }
     .reveal, .rise { opacity: 1; transform: none; }
+    .letters > .letter { transform: none !important; animation: none !important; }
+    .dot-grid-drift, html.lab-mode .dot-grid { animation: none !important; }
+    .spotlight-card::before { display: none; }
   }
 }
