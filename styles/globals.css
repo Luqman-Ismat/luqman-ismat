@@ -47,6 +47,9 @@
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
   }
+
+  html.light { color-scheme: light; }
+  html.dark { color-scheme: dark; }
 }
 
 @layer base {
@@ -57,13 +60,129 @@
   body {
     @apply h-full w-full m-0 p-0;
   }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
   body {
     @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+  }
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 }
 
 @layer components {
   .container {
     @apply w-full max-w-none px-4 md:px-6 lg:px-8;
+  }
+
+  /* Skip-to-content link revealed on focus */
+  .skip-link {
+    @apply absolute left-3 top-3 z-[200] -translate-y-20 rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform focus-visible:translate-y-0;
+  }
+}
+
+@layer utilities {
+  /* CSS-only fade-in primitives — used by the FadeIn server component
+     so above-the-fold content renders without shipping framer-motion JS. */
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+    animation: reveal 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  @keyframes reveal {
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+
+  /* Heavier in-place rise used for hero headings */
+  .rise {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0);
+    animation: rise 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+  @keyframes rise {
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+
+  /* Floating gradient blob behind hero copy */
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    opacity: 0.35;
+    pointer-events: none;
+    will-change: transform;
+    animation: blob-drift 18s ease-in-out infinite alternate;
+  }
+  @keyframes blob-drift {
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    50%  { transform: translate3d(40px, -30px, 0) scale(1.1); }
+    100% { transform: translate3d(-30px, 25px, 0) scale(0.95); }
+  }
+
+  /* Subtle underline that grows on hover — paired with `group` */
+  .grow-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .group:hover .grow-underline,
+  .group:focus-visible .grow-underline {
+    background-size: 100% 1px;
+  }
+
+  /* Marquee + shimmer used by the Technologies section */
+  .marquee {
+    display: flex;
+    gap: 2rem;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+  }
+  @keyframes marquee-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes marquee-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+  .marquee-left  { animation-name: marquee-left; }
+  .marquee-right { animation-name: marquee-right; }
+
+  .shimmer-text {
+    background-size: 200% 200%;
+    animation: shimmer 4s linear infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    .reveal, .rise { opacity: 1; transform: none; }
   }
 }

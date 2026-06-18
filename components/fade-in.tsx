@@ -1,18 +1,17 @@
-"use client"
-
-import { motion } from "framer-motion"
 import type React from "react"
 
 interface FadeInProps {
   children: React.ReactNode
   delay?: number
-  duration?: number
+  className?: string
+  as?: keyof JSX.IntrinsicElements
 }
 
-export function FadeIn({ children, delay = 0, duration = 0.5 }: FadeInProps) {
+export function FadeIn({ children, delay = 0, className, as: Tag = "div" }: FadeInProps) {
+  const style = delay ? { ["--reveal-delay" as string]: `${Math.round(delay * 1000)}ms` } : undefined
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration, delay }}>
+    <Tag className={`reveal ${className ?? ""}`.trim()} style={style as React.CSSProperties}>
       {children}
-    </motion.div>
+    </Tag>
   )
 }

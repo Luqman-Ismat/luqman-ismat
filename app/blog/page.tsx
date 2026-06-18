@@ -4,11 +4,41 @@ import Link from "next/link"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
 import { OptimizedImage } from "@/components/optimized-image"
 import { getBlogImageUrl, getBlogAltText } from "./blog-pinterest-mapping"
+import { itemListSchema, breadcrumbSchema } from "@/lib/schema"
 
 export const metadata = {
-  title: "Engineering Blog | Luqman Ismat",
+  title: "Engineering Blog by Luqman Ismat | EPC, Process Safety & AI Insights",
   description:
-    "Read insightful articles on engineering, EPC projects, and innovative technologies by Luqman Ismat, a leading engineering consultant from Katy and The Woodlands, TX.",
+    "Engineering articles by Luqman Ismat — process engineering, EPC project lifecycle, process safety management, piping systems, heat exchangers, digital twins, and AI-driven engineering tools.",
+  keywords: [
+    "Luqman Ismat",
+    "Luqman Ismat blog",
+    "Engineering blog",
+    "EPC blog",
+    "Process Engineering articles",
+    "Process Safety Management",
+    "HAZOP",
+    "Digital Twins",
+    "AI engineering",
+    "Piping systems",
+    "Heat exchanger design",
+    "Houston engineering consultant",
+  ],
+  alternates: { canonical: "https://www.luqmanismat.com/blog" },
+  openGraph: {
+    type: "website",
+    url: "https://www.luqmanismat.com/blog",
+    title: "Engineering Blog by Luqman Ismat",
+    description:
+      "EPC, process engineering, AI, and digital-twins essays by engineering consultant Luqman Ismat.",
+    images: [{ url: "https://www.luqmanismat.com/og-image.jpg", width: 1200, height: 630, alt: "Luqman Ismat — Engineering Blog" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Engineering Blog by Luqman Ismat",
+    description: "Process engineering, EPC, and AI essays.",
+    images: ["https://www.luqmanismat.com/og-image.jpg"],
+  },
 }
 
 const blogPosts = [
@@ -138,8 +168,21 @@ const blogPosts = [
 ]
 
 export default function BlogPage() {
+  const list = itemListSchema(
+    blogPosts.map((p) => ({
+      name: p.title,
+      url: `https://www.luqmanismat.com${p.href}`,
+      description: p.description,
+    })),
+  )
+  const crumbs = breadcrumbSchema([
+    { name: "Home", url: "https://www.luqmanismat.com" },
+    { name: "Blog", url: "https://www.luqmanismat.com/blog" },
+  ])
   return (
     <ScrollToTopWrapper>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(list) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
       <div className="flex flex-col min-h-screen w-full overflow-hidden bg-background">
         <Header />
         <main className="pt-32 pb-24">

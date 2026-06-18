@@ -6,11 +6,33 @@ import Link from "next/link"
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
 
 export const metadata = {
-  title: "Projects | Luqman Ismat Engineering",
+  title: "Projects by Luqman Ismat — iNNOVARi & ENGiVAULT | EPC Software",
   description:
-    "Explore innovative engineering projects by Luqman Ismat, including iNNOVARi and ENGiVAULT, showcasing cutting-edge solutions in the EPC industry from Katy, TX.",
-  alternates: {
-    canonical: "https://www.luqmanismat.com/projects",
+    "Luqman Ismat's engineering software projects: iNNOVARi (modular EPC project management) and ENGiVAULT (knowledge platform for engineers). Built in Katy, TX.",
+  keywords: [
+    "Luqman Ismat projects",
+    "iNNOVARi",
+    "ENGiVAULT",
+    "EPC software",
+    "Engineering tools",
+    "AI engineering platform",
+    "Project management software EPC",
+    "Engineering knowledge sharing",
+    "Luqman Ismat software",
+  ],
+  alternates: { canonical: "https://www.luqmanismat.com/projects" },
+  openGraph: {
+    type: "website",
+    url: "https://www.luqmanismat.com/projects",
+    title: "Projects by Luqman Ismat — iNNOVARi & ENGiVAULT",
+    description: "iNNOVARi and ENGiVAULT — software projects by Luqman Ismat for the EPC industry.",
+    images: [{ url: "https://www.luqmanismat.com/og-image.jpg", width: 1200, height: 630, alt: "Luqman Ismat — Projects" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Projects by Luqman Ismat",
+    description: "iNNOVARi & ENGiVAULT — EPC software by Luqman Ismat.",
+    images: ["https://www.luqmanismat.com/og-image.jpg"],
   },
 }
 

@@ -1,113 +1,74 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
-import gsap from "gsap"
+
+const menuItems: Array<[string, string]> = [
+  ["Projects", "/projects"],
+  ["Portfolio", "/portfolio"],
+  ["About", "/about"],
+  ["Blog", "/blog"],
+  ["Contact", "/contact"],
+]
 
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false)
-  const menuIconRef = useRef<HTMLDivElement>(null)
-  const spanRefs = useRef<(HTMLSpanElement | null)[]>([])
-
-  const toggleMenu = () => {
-    setIsOpen((prev) => !prev)
-
-    const spans = spanRefs.current
-    if (spans.length === 2) {
-      if (!isOpen) {
-        gsap.to(spans[0], { rotation: 45, y: 6, duration: 0.15 })
-        gsap.to(spans[1], { rotation: -45, y: -6, duration: 0.15 })
-      } else {
-        gsap.to(spans[0], { rotation: 0, y: 0, duration: 0.15 })
-        gsap.to(spans[1], { rotation: 0, y: 0, duration: 0.15 })
-      }
-    }
-  }
-
-  const menuItems = [
-    ["Projects", "/projects"],
-    ["Portfolio", "/portfolio"],
-    ["About", "/about"],
-    ["Blog", "/blog"],
-    ["Contact", "/contact"],
-  ]
 
   useEffect(() => {
-    const menuIcon = menuIconRef.current
-    const spans = spanRefs.current
-
-    if (!menuIcon || spans.length !== 2) return
-
-    const hoverIn = () => {
-      gsap.to(spans, { opacity: 0, x: -30, duration: 0.15, stagger: 0.05 })
-      setTimeout(() => {
-        gsap.to(spans, { opacity: 1, x: 0, duration: 0.15, stagger: 0.05 })
-      }, 150)
-    }
-
-    const hoverOut = () => {
-      gsap.to(spans, { opacity: 0, x: 30, duration: 0.15, stagger: 0.05 })
-      setTimeout(() => {
-        gsap.to(spans, { opacity: 1, x: 0, duration: 0.15, stagger: 0.05 })
-      }, 150)
-    }
-
-    menuIcon.addEventListener("mouseenter", hoverIn)
-    menuIcon.addEventListener("mouseleave", hoverOut)
-
-    return () => {
-      menuIcon.removeEventListener("mouseenter", hoverIn)
-      menuIcon.removeEventListener("mouseleave", hoverOut)
-    }
-  }, [])
+    if (!isOpen) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setIsOpen(false) }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [isOpen])
 
   return (
     <div className="md:hidden">
-      <Button
-        variant="ghost"
-        size="icon"
-        className={`relative z-50 bg-transparent hover:bg-transparent ${isOpen ? "open" : ""}`}
-        onClick={toggleMenu}
-        aria-label="Toggle menu"
-        ref={menuIconRef}
+      <button
+        type="button"
+        onClick={() => setIsOpen((v) => !v)}
+        aria-label={isOpen ? "Close menu" : "Open menu"}
+        aria-expanded={isOpen}
+        aria-controls="mobile-menu-panel"
+        className="relative z-50 flex h-10 w-10 items-center justify-center rounded-md text-foreground transition hover:bg-foreground/5"
       >
-        <div className="flex flex-col justify-between w-[30px] h-[14px]">
+        <span className="relative block h-[14px] w-[30px]">
           <span
-            ref={(el) => (spanRefs.current[0] = el)}
-            className="w-full h-[2px] bg-current transition-all duration-300"
-          ></span>
+            aria-hidden="true"
+            className={`absolute left-0 top-0 h-[2px] w-full origin-center bg-current transition-transform duration-200 ease-out ${isOpen ? "translate-y-[6px] rotate-45" : ""}`}
+          />
           <span
-            ref={(el) => (spanRefs.current[1] = el)}
-            className="w-full h-[2px] bg-current transition-all duration-300"
-          ></span>
-        </div>
-      </Button>
+            aria-hidden="true"
+            className={`absolute bottom-0 left-0 h-[2px] w-full origin-center bg-current transition-transform duration-200 ease-out ${isOpen ? "-translate-y-[6px] -rotate-45" : ""}`}
+          />
+        </span>
+      </button>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            id="mobile-menu-panel"
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-16 right-0 z-40 w-56 rounded-md overflow-hidden"
+            className="absolute right-3 top-16 z-40 w-56 overflow-hidden rounded-xl border border-border/60 bg-background/90 shadow-lg backdrop-blur-md"
+            role="menu"
+            aria-label="Mobile navigation"
           >
-            <div className="bg-background/80 backdrop-blur-sm">
-              <nav className="flex flex-col py-2 text-center">
-                {menuItems.map(([label, href]) => (
-                  <Link
-                    key={label}
-                    href={href}
-                    className="px-4 py-2 text-sm transition-all duration-300 hover:translate-x-2 hover:scale-110"
-                    onClick={toggleMenu}
-                  >
-                    {label}
-                  </Link>
-                ))}
-              </nav>
-            </div>
+            <nav className="flex flex-col py-2">
+              {menuItems.map(([label, href]) => (
+                <Link
+                  key={label}
+                  href={href}
+                  onClick={() => setIsOpen(false)}
+                  className="px-4 py-2.5 text-sm transition-colors hover:bg-foreground/5"
+                  role="menuitem"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

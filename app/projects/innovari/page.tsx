@@ -6,19 +6,33 @@ import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Luqman Ismat | Projects - iNNOVARi",
+  title: "iNNOVARi by Luqman Ismat — Modular EPC Project Management Software",
   description:
-    "iNNOVARi is a comprehensive, modular software solution designed to transform how Engineering, Procurement, and Construction projects are managed and executed.",
+    "iNNOVARi by Luqman Ismat is a modular software solution that transforms how Engineering, Procurement, and Construction projects are managed and executed.",
+  keywords: [
+    "iNNOVARi",
+    "Luqman Ismat iNNOVARi",
+    "EPC project management software",
+    "Modular EPC platform",
+    "Engineering project management",
+    "Procurement and Construction software",
+    "Luqman Ismat projects",
+  ],
   openGraph: {
-    title: "Luqman Ismat | Projects - iNNOVARi",
+    title: "iNNOVARi by Luqman Ismat",
     description:
-      "iNNOVARi is a comprehensive, modular software solution designed to transform how Engineering, Procurement, and Construction projects are managed and executed.",
+      "Modular EPC project management software, designed by Luqman Ismat.",
     url: "https://www.luqmanismat.com/projects/innovari",
     type: "article",
+    images: [{ url: "https://www.luqmanismat.com/og-image.jpg", width: 1200, height: 630, alt: "iNNOVARi — by Luqman Ismat" }],
   },
-  alternates: {
-    canonical: "https://www.luqmanismat.com/projects/innovari",
+  twitter: {
+    card: "summary_large_image",
+    title: "iNNOVARi by Luqman Ismat",
+    description: "Modular EPC project management software by Luqman Ismat.",
+    images: ["https://www.luqmanismat.com/og-image.jpg"],
   },
+  alternates: { canonical: "https://www.luqmanismat.com/projects/innovari" },
 }
 
 export default function InnovariPage() {

@@ -1,13 +1,45 @@
 import type { Metadata } from "next"
 import AboutContent from "./about-content"
 import { PinterestSEOSchema } from "@/components/pinterest-seo-schema"
+import { personSchema, breadcrumbSchema } from "@/lib/schema"
 
 export const metadata: Metadata = {
-  title: "About Luqman Ismat | Engineering Consultant from Katy, TX",
+  title: "About Luqman Ismat — Engineering Consultant in Houston, Katy & The Woodlands",
   description:
-    "Learn about Luqman Ismat, an innovative engineering consultant from Katy and The Woodlands, TX, with expertise in process engineering, AI-driven solutions, and a passion for technology.",
-  alternates: {
-    canonical: "https://www.luqmanismat.com/about",
+    "Meet Luqman Ismat: process engineer, EPC consultant, and creator of AI-driven engineering tools, based in Katy and serving Houston and The Woodlands, Texas.",
+  keywords: [
+    "Luqman Ismat",
+    "Luqman Ismat biography",
+    "Luqman Ismat engineer",
+    "Engineering Consultant Houston",
+    "Process Engineer Katy TX",
+    "EPC consultant Texas",
+    "Chemical Engineer Houston",
+    "Process Safety Lead",
+    "AI in engineering",
+    "Piping Systems Engineer",
+  ],
+  alternates: { canonical: "https://www.luqmanismat.com/about" },
+  openGraph: {
+    type: "profile",
+    url: "https://www.luqmanismat.com/about",
+    title: "About Luqman Ismat — Engineering Consultant",
+    description:
+      "Process engineer and EPC consultant Luqman Ismat — building AI-driven tools to reshape how engineering projects are designed, planned, and delivered.",
+    images: [
+      {
+        url: "https://www.luqmanismat.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Luqman Ismat — Engineering Consultant",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Luqman Ismat — Engineering Consultant",
+    description: "Process engineer, EPC consultant, AI builder. Houston, TX.",
+    images: ["https://www.luqmanismat.com/og-image.jpg"],
   },
 }
 
@@ -41,8 +73,15 @@ export default function AboutPage() {
     },
   ]
 
+  const person = personSchema()
+  const crumbs = breadcrumbSchema([
+    { name: "Home", url: "https://www.luqmanismat.com" },
+    { name: "About Luqman Ismat", url: "https://www.luqmanismat.com/about" },
+  ])
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
       <PinterestSEOSchema
         images={pinterestImages}
         name="Luqman Ismat"

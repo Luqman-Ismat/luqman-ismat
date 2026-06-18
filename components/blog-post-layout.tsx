@@ -8,6 +8,7 @@ import { SocialShare } from "./social-share"
 import { RelatedArticles } from "./related-articles"
 import { CTASection } from "./cta-section"
 import Link from "next/link"
+import { articleSchema, breadcrumbSchema } from "@/lib/schema"
 
 interface BlogPostLayoutProps {
   title: string
@@ -26,9 +27,26 @@ interface BlogPostLayoutProps {
 
 export function BlogPostLayout({ title, description, image, content, date, category = "EPC LIFECYCLE", slug = "" }: BlogPostLayoutProps) {
   const currentUrl = `https://www.luqmanismat.com/blog/${slug}`
-  
+
+  const article = articleSchema({
+    title,
+    description,
+    url: currentUrl,
+    image,
+    datePublished: date,
+    category,
+    keywords: ["Luqman Ismat", "Engineering Consultant", "EPC", category],
+  })
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", url: "https://www.luqmanismat.com" },
+    { name: "Blog", url: "https://www.luqmanismat.com/blog" },
+    { name: title, url: currentUrl },
+  ])
+
   return (
     <div className="flex flex-col min-h-screen w-full overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
       <Header />
 
       {/* Main content with background */}
