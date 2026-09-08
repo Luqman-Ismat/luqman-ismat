@@ -1,0 +1,142 @@
+[
+  {
+    "slug": "ai-engineering-review-workflow",
+    "href": "/blog/ai-engineering-review-workflow",
+    "title": "AI in Engineering: Build the Review Before the Automation",
+    "description": "A practical approach to using AI for document work while keeping evidence, uncertainty, and engineering decisions visible.",
+    "category": "ENGINEERING TECHNOLOGY",
+    "date": "2026-09-08T12:00:00.000Z",
+    "image": "/images/detailed-engineering-blog.jpeg",
+    "sections": [
+      {
+        "title": "Start with a bounded task",
+        "content": [
+          "An AI tool that produces a polished engineering summary can still create more work than it removes. Someone must establish which revision it read, verify its claims, and determine whether an omission matters. The useful unit of automation is therefore a complete task: input, proposed output, evidence, review, and acceptance.",
+          "A reasonable starting point is comparing two approved document revisions and proposing a change list. Keep the task narrow: identify changed text and references, point to their locations, and flag anything that cannot be compared reliably. Let the engineer decide the technical significance. A change in a number is observable; whether that change is acceptable requires context."
+        ]
+      },
+      {
+        "title": "Make every claim inspectable",
+        "content": [
+          "NIST\u2019s Generative AI Profile identifies confabulation as a risk: generated content can be confidently wrong. For document work, a useful response is to require an evidence reference beside each proposed finding. A citation is a place to begin verification, not proof that the claim is correct.",
+          "For example, a comparison record might contain the equipment tag, previous value, new value, units, document identifiers, revision numbers, and page locations. If the source is a scanned table with an unreadable cell, the record should say that the value could not be established. Filling the gap with a plausible number defeats the purpose of the review.",
+          "Keep extracted facts separate from interpretation. \u201cThe delivery date changed\u201d and \u201cthe schedule is now at risk\u201d are different claims. The first can be checked against the documents. The second needs the project schedule and an assessment of the affected work."
+        ]
+      },
+      {
+        "title": "Design the acceptance step",
+        "content": [
+          "Use explicit dispositions such as accepted, rejected, and needs clarification. Record the reviewer and the reason where a finding changes the downstream task. Avoid a single \u201clooks good\u201d button for a long summary: it makes disagreement difficult to locate and hides which findings received attention.",
+          "Run a pilot with representative documents that include awkward cases: missing pages, different unit conventions, revised tags, and unchanged text that has moved. Compare the proposed findings with an independently prepared reference set. Measure missed changes, unsupported findings, and total review time, including corrections. Fast generation alone is an incomplete measure of value."
+        ]
+      },
+      {
+        "title": "Keep the output connected to its basis",
+        "content": [
+          "Save the input revisions and the accepted output together. If the input changes after review, mark the result as needing another check. The next person should be able to answer what the tool saw and what the reviewer accepted without recreating a chat session.",
+          "This workflow is a proposed operating pattern, not a substitute for a project\u2019s approval process. Its value is practical: a small, traceable task is easier to evaluate and improve than an assistant asked to understand an entire engineering package at once. Start there, and expand only when the review evidence supports it."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "title": "NIST: Generative Artificial Intelligence Profile",
+        "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+      }
+    ]
+  },
+  {
+    "slug": "engineering-calculations-reviewable-software",
+    "href": "/blog/engineering-calculations-reviewable-software",
+    "title": "What Makes an Engineering Calculation Reviewable?",
+    "description": "Why inputs, units, assumptions, and revision history matter as much as the result when turning a calculation into software.",
+    "category": "ENGINEERING TECHNOLOGY",
+    "date": "2026-09-08T12:00:00.000Z",
+    "image": "/images/detailed-engineering-blog.jpeg",
+    "sections": [
+      {
+        "title": "Treat the result as part of a record",
+        "content": [
+          "A calculation interface can make a result easy to obtain while making it difficult to check. A number on a screen does not explain the input basis, the method selected, or the limitations of that method. When converting a spreadsheet into a shared tool, the goal should include making those decisions visible.",
+          "Consider a simple unit-conversion utility. The interface needs more than an input box and an answer. It must identify the quantity being converted, the source and destination units, and the conversion convention where one is required. A clean screen that leaves those details implicit transfers the burden to the reviewer."
+        ]
+      },
+      {
+        "title": "Make the input basis explicit",
+        "content": [
+          "Give each input a name, a unit, and a source when the source matters. Distinguish values entered by a user from defaults and derived values. A default is a proposal that can be wrong for a particular application; it should never acquire the appearance of a verified project input simply because the interface supplied it.",
+          "Handle a blank value differently from zero. Reject incompatible units and show the user which field needs correction. Preserve the original input alongside the normalized value used internally. These details help an engineer trace the result back to the intended problem instead of reverse-engineering the application."
+        ]
+      },
+      {
+        "title": "Separate method checks from interface checks",
+        "content": [
+          "A working submit button does not establish that a calculation is correct. Evaluate the underlying method with independently checked examples and explicitly selected tolerances. Then check that the interface passes inputs to that method correctly and displays the result without losing units or meaningful precision.",
+          "Include boundary cases that follow from the method\u2019s documented domain. The expected behavior may be a clear refusal to calculate. Do not turn every invalid condition into a zero result or a generic error: the user needs to understand whether the issue is missing data, an unsupported case, or a software failure.",
+          "Keep test expectations independent of the implementation where possible. Copying the same equation into a test can reproduce the same mistake. A reference example with a documented basis gives reviewers a second route to assess the implementation."
+        ]
+      },
+      {
+        "title": "Export enough to reproduce the decision",
+        "content": [
+          "A useful calculation record includes inputs, units, assumptions, the method reference, application version, and results. Add the relevant review status when the tool participates in a controlled workflow. A screenshot can communicate the outcome, but it rarely captures enough to reproduce it.",
+          "NASA\u2019s technical data management guidance emphasizes keeping project information known and accessible alongside configuration management. Applied to a small calculation tool, that principle suggests storing the basis with the result and identifying which version produced it. This is an application of the principle, not a claim that a particular tool meets NASA requirements.",
+          "The practical test is straightforward: hand the record to another engineer and ask them to explain what was calculated, reproduce it, and identify its limitations. Any question they cannot answer points to information the tool should preserve."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "title": "NASA: Technical Data Management",
+        "url": "https://www.nasa.gov/reference/6-6-technical-data-management/"
+      }
+    ]
+  },
+  {
+    "slug": "epc-handoffs-decision-record",
+    "href": "/blog/epc-handoffs-decision-record",
+    "title": "Better EPC Handoffs Start with a Decision Record",
+    "description": "A lightweight way to carry assumptions, open questions, and ownership across engineering project handoffs.",
+    "category": "EPC LIFECYCLE",
+    "date": "2026-09-08T12:00:00.000Z",
+    "image": "/images/detailed-engineering-blog.jpeg",
+    "sections": [
+      {
+        "title": "A document package does not carry all its context",
+        "content": [
+          "An engineering handoff can contain every scheduled deliverable and still leave the receiving team unsure how to proceed. Documents show the selected arrangement or reported result. They may not show why an alternative was rejected, which assumption is provisional, or who must resolve an open interface.",
+          "A short decision record can fill that gap. Its purpose is to carry the reasoning needed for the next task. It should link to the controlled deliverables rather than become another competing source of technical values."
+        ]
+      },
+      {
+        "title": "Write around the next decision",
+        "content": [
+          "For each material decision, capture the question, selected approach, basis, affected documents, owner, and unresolved conditions. Include the revision of the supporting information. Keep the record short enough that the receiving engineer can use it during normal work.",
+          "For example, imagine a vendor package whose final connection details are still pending. A useful record identifies which layout assumption is being used, where it appears, who will obtain the vendor information, and which downstream work must be revisited when it arrives. \u201cAwaiting vendor data\u201d is too broad to support a clear handoff.",
+          "This example is illustrative. The appropriate hold points and review authorities depend on the project. The transferable idea is to make the dependency actionable: a named owner, a specific missing input, and an identifiable consequence."
+        ]
+      },
+      {
+        "title": "Separate closed decisions from open assumptions",
+        "content": [
+          "An assumption can be convenient enough to become invisible. Give provisional items an explicit status and a condition for closure. Record when the basis changes and link the superseded decision to the replacement. Otherwise, a team can keep following an old decision after its supporting information has changed.",
+          "Do not use a due date alone as the closure criterion. A date tells the team when an answer is expected. Closure requires evidence that the answer was received, assessed, and incorporated into the affected work. The record should point to that evidence instead of merely reporting a green status."
+        ]
+      },
+      {
+        "title": "Review the handoff from the receiving side",
+        "content": [
+          "Before transfer, ask a member of the receiving discipline to walk through one real next task using the package. Can they find the current basis? Can they distinguish an approved decision from an assumption? Do they know whom to contact and what work depends on an outstanding answer?",
+          "NASA describes technical data management and configuration management as complementary processes for keeping information accessible and controlled. For an EPC handoff, a modest application is to connect each decision record to the current document revision and preserve its history. The record then helps people navigate the controlled package rather than bypass it.",
+          "Start with one interface that repeatedly generates clarification requests. Track which questions recur and improve the handoff record around them. The aim is a package that supports the next person\u2019s work with less reconstruction of context, not a larger collection of forms."
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "title": "NASA: Technical Data Management",
+        "url": "https://www.nasa.gov/reference/6-6-technical-data-management/"
+      }
+    ]
+  }
+]

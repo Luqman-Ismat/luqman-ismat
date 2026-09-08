@@ -12,7 +12,7 @@ export default function EPCCommunicationBlogPost() {
   return (
     <ScrollToTopWrapper>
       <BlogPostLayout
-        date={new Date().toISOString()}
+        date={undefined}
         title="The Communication Challenge in EPC Projects: Why It's a Make-or-Break Factor"
         description="Effective communication is the backbone of Engineering, Procurement, and Construction (EPC) projects. With multiple stakeholders, disciplines, and moving parts, a project's success hinges on how well information flows across teams."
         image={getBlogImageUrl("epc-communication") || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/product-school-XZkk5xT8Xrk-unsplash%20(1).jpg-xdC0zNLpYvZV5amqGy0gWaBLGJa5ny.jpeg"}

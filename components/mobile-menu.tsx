@@ -8,7 +8,7 @@ import gsap from "gsap"
 
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false)
-  const menuIconRef = useRef<HTMLDivElement>(null)
+  const menuIconRef = useRef<HTMLButtonElement>(null)
   const spanRefs = useRef<(HTMLSpanElement | null)[]>([])
 
   const toggleMenu = () => {
@@ -75,11 +75,11 @@ export function MobileMenu() {
       >
         <div className="flex flex-col justify-between w-[30px] h-[14px]">
           <span
-            ref={(el) => (spanRefs.current[0] = el)}
+            ref={(el) => { spanRefs.current[0] = el }}
             className="w-full h-[2px] bg-current transition-all duration-300"
           ></span>
           <span
-            ref={(el) => (spanRefs.current[1] = el)}
+            ref={(el) => { spanRefs.current[1] = el }}
             className="w-full h-[2px] bg-current transition-all duration-300"
           ></span>
         </div>

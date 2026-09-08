@@ -12,7 +12,7 @@ export default function EngineeringTechnologyBlogPost() {
   return (
     <ScrollToTopWrapper>
       <BlogPostLayout
-        date={new Date().toISOString()}
+        date={undefined}
         title="The Current State of Engineering Technology: Progress, Gaps, and the Road Ahead"
         description="Engineering technology has come a long way, reshaping how projects are designed, analyzed, and executed. Yet, despite these advancements, industry still faces critical challenges—gaps in integration, outdated workflows, and slow adoption of emerging technologies."
         image={getBlogImageUrl("engineering-technology") || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/blake-connally-IKUYGCFmfw4-unsplash.jpg-0z59RONP3VknWJW7WTTxt5BTdr6NFr.jpeg"}

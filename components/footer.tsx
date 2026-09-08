@@ -52,7 +52,7 @@ export function Footer() {
             <div className="text-sm text-muted-foreground space-y-1">
               <div className="flex items-center gap-1">
                 <span>©</span>
-                <span>2025</span>
+                <span>{new Date().getFullYear()}</span>
               </div>
               <div className="text-xs">
                 Engineering Consultant

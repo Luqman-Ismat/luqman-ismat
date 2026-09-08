@@ -13,7 +13,7 @@ export function ScrollAnimation({ children, delay = 0 }: ScrollAnimationProps) {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start bottom", "end top"],
+    offset: ["start end", "end start"],
   })
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100])

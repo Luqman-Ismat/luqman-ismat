@@ -15,7 +15,7 @@ export default function EPCLifecycleBlogPost() {
         title="Breaking Down the EPC Lifecycle: From Concept to Operation"
         description="An in-depth exploration of the Engineering, Procurement, and Construction (EPC) lifecycle, from initial concept to final operation. Discover the key phases, challenges, and future trends in EPC project management."
         image={getBlogImageUrl("epc-lifecycle") || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thomas-werneken-2hC-ehLJIjg-unsplash%20(2).jpg-fmamlXgtD43e1ssjbkGTKnvFZCKLc7.jpeg"}
-        date={new Date().toISOString()}
+        date={undefined}
         content={{
           sections: [
             {

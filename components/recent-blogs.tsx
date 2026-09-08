@@ -1,55 +1,11 @@
+import { getArticles, formatArticleDate } from "@/lib/articles"
 import { AnimatedHeader } from "./animated-header"
 import { OptimizedImage } from "./optimized-image"
 import Link from "next/link"
 import { getBlogImageUrl, getBlogAltText } from "@/app/blog/blog-pinterest-mapping"
-import { format } from "date-fns"
 
 export function RecentBlogs() {
-  // Get the 6 most recent blog posts with their actual dates
-  const recentBlogs = [
-    {
-      title: "Quantifying Service Profitability: A CVP Analysis of Mobile Service Operations in Houston, TX",
-      category: "PROJECT MANAGEMENT",
-      href: "/blog/cvp-analysis-mobile-service-operations",
-      slug: "cvp-analysis-mobile-service-operations",
-      date: "2025-01-15T03:00:00.000Z",
-    },
-    {
-      title: "Process Safety Management in Industrial Settings",
-      category: "PROCESS ENGINEERING",
-      href: "/blog/process-safety-management",
-      slug: "process-safety-management",
-      date: "2025-10-11T12:00:00.000Z",
-    },
-    {
-      title: "The Role of Digital Twins in Modern Engineering",
-      category: "ENGINEERING TECHNOLOGY",
-      href: "/blog/digital-twins",
-      slug: "digital-twins",
-      date: "2025-10-11T13:00:00.000Z",
-    },
-    {
-      title: "Heat Exchanger Design and Selection Guide",
-      category: "PROCESS ENGINEERING",
-      href: "/blog/heat-exchanger-design",
-      slug: "heat-exchanger-design",
-      date: "2025-10-11T14:00:00.000Z",
-    },
-    {
-      title: "Project Management Best Practices for Engineers",
-      category: "PROJECT MANAGEMENT",
-      href: "/blog/project-management-engineers",
-      slug: "project-management-engineers",
-      date: "2025-10-11T15:00:00.000Z",
-    },
-    {
-      title: "Understanding Process Piping Systems",
-      category: "PROCESS ENGINEERING",
-      href: "/blog/process-piping-systems",
-      slug: "process-piping-systems",
-      date: "2025-10-11T16:00:00.000Z",
-    },
-  ]
+  const recentBlogs = getArticles().slice(0, 6)
 
   return (
     <section className="py-16 md:py-24 bg-background">
@@ -77,7 +33,7 @@ export function RecentBlogs() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {recentBlogs.map((blog) => {
-            const imageUrl = getBlogImageUrl(blog.slug) || "/placeholder.svg"
+            const imageUrl = getBlogImageUrl(blog.slug) || blog.image
             const altText = getBlogAltText(blog.slug)
             
             return (
@@ -108,7 +64,7 @@ export function RecentBlogs() {
                 </div>
                 <div className="text-xs text-muted-foreground mb-2">[{blog.category}]</div>
                 <h3 className="text-lg font-bold mb-2 group-hover:underline line-clamp-2">{blog.title}</h3>
-                <p className="text-sm text-muted-foreground">{format(new Date(blog.date), "MMMM d, yyyy")}</p>
+                <p className="text-sm text-muted-foreground">{formatArticleDate(blog.date)}</p>
               </Link>
             )
           })}

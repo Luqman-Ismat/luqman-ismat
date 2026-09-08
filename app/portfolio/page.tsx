@@ -296,7 +296,7 @@ export default function PortfolioPage() {
       const duration = differenceInMonths(end, start) + 1
       const leftPercent = (startOffset / totalMonths) * 100
       const widthPercent = (duration / totalMonths) * 100
-      return { leftPercent, widthPercent, duration, unit: "mo" }
+      return { leftPercent, widthPercent, duration, unit: "mo" as const }
     } else {
       const start = startOfYear(task.startDate)
       const end = endOfYear(task.endDate)
@@ -305,7 +305,7 @@ export default function PortfolioPage() {
       const duration = differenceInYears(end, start) + 1
       const leftPercent = (startOffset / totalYears) * 100
       const widthPercent = (duration / totalYears) * 100
-      return { leftPercent, widthPercent, duration, unit: "yr" }
+      return { leftPercent, widthPercent, duration, unit: "yr" as const }
     }
   }
 
