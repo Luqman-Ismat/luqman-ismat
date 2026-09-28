@@ -12,7 +12,7 @@ export const inquiryServices = {
   engineering: "Engineering systems",
   projects: "Project management & controls",
   dashboards: "Dashboards & reporting",
-  integrations: "Automation & integrations",
+  integrations: "APIs, databases & integrations",
   apparel: "Indus Blue · Contract development",
   "indus-blue": "Indus Blue · Collection inquiry",
 };

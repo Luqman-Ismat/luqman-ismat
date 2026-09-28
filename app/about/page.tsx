@@ -33,7 +33,7 @@ export default function Page() {
           <p>
             I work where those disciplines meet: understanding a complex
             problem, organizing the information, and building something people
-            can use.
+            can use. That includes connecting Workday APIs to PostgreSQL, building reconciliation and reporting workflows, and implementing authentication and project-scoped access controls.
           </p>
           <div className="action-row">
             <Action href="/portfolio">Explore my experience</Action>

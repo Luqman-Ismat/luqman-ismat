@@ -21,7 +21,7 @@ export default function Consulting() {
       >
         <a href="/consulting/project-controls">Project management & controls</a>
         <a href="/consulting/dashboards">Dashboards & reporting</a>
-        <a href="/consulting/integrations">Automation & integrations</a>
+        <a href="/consulting/integrations">APIs, databases & integrations</a>
         <a href="/engineering">Engineering systems</a>
       </nav>
       <PageIntro
@@ -82,10 +82,10 @@ export default function Consulting() {
             </h2>
           </div>
           <div>
-            <h3>Dashboards, automation & integrations</h3>
+            <h3>APIs, databases & connected dashboards</h3>
             <p>
               Replace repetitive exports and disconnected spreadsheets with a
-              system designed around the decisions you need to make.
+              system designed around the decisions you need to make. My Workday integration connects enterprise records to PostgreSQL, reconciliation workflows, and project reporting.
             </p>
             <ul className="deliverables">
               <li>Custom management, operational, and project dashboards</li>
@@ -104,8 +104,8 @@ export default function Consulting() {
               Refresh frequency and live updates depend on source-system access,
               API limits, and the agreed architecture.
             </p>
-            <Action href="/contact?service=integrations" secondary>
-              Connect your workflow
+            <Action href="/consulting/integrations" secondary>
+              Discuss an integration
             </Action>
           </div>
         </article>

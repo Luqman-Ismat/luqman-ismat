@@ -18,8 +18,8 @@ export const demos = [
   {
     slug: "connected-operations",
     label: "03 / Connected systems",
-    title: "Data reconciliation",
-    text: "Match sample time entries to a project hierarchy, resolve exceptions, and review applied hours.",
+    title: "API data & reconciliation",
+    text: "Explore the reconciliation layer behind my Workday integration: match fictional entries, resolve exceptions, and trace applied hours.",
     kind: "flow",
   },
 ];

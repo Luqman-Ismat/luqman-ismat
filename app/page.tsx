@@ -86,9 +86,9 @@ export default function Home() {
             ],
             [
               "02",
-              "Dashboards & connected operations",
-              "Bring your data together. Automate reporting and connect the tools your team uses.",
-              "/consulting/dashboards",
+              "APIs, databases & dashboards",
+              "Connect platforms such as Workday to structured databases, traceable reporting, and tools with defined access controls.",
+              "/consulting/integrations",
             ],
             [
               "03",
