@@ -1,0 +1,23 @@
+{
+  "dxf_audit": "pass",
+  "dxf_units": "millimetres",
+  "step_valid": true,
+  "solid_count": 1,
+  "bounding_box_mm": [
+    14.0,
+    38.0,
+    3.0
+  ],
+  "volume_mm3": 1059.661,
+  "mesh_vertices": 3744,
+  "mesh_triangles": 4116,
+  "pocket_blank_mm": [
+    200,
+    250
+  ],
+  "pocket_finished_mm": [
+    180,
+    210
+  ],
+  "status": "Development study; no fit, material, manufacturing or load validation"
+}

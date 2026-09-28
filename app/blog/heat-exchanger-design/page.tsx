@@ -1,21 +1,18 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - Heat Exchanger Design and Selection Guide",
-  description:
-    "Comprehensive guide to heat exchanger design, covering shell & tube, plate exchangers, thermal design principles, and selection criteria for industrial applications.",
-  keywords: [
-    "Heat Exchanger Design",
-    "Shell and Tube",
-    "Plate Heat Exchanger",
-    "Thermal Design",
-    "TEMA Standards",
-    "Process Engineering",
-    "Heat Transfer",
-    "Luqman Ismat"
-  ],
+  "title": "Heat Exchanger Design and Selection Guide",
+  "description": "Heat exchanger types, thermal calculations, and the factors that guide equipment selection.",
+  "alternates": {
+    "canonical": "/blog/heat-exchanger-design"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "Heat Exchanger Design and Selection Guide",
+    "description": "Heat exchanger types, thermal calculations, and the factors that guide equipment selection.",
+    "url": "/blog/heat-exchanger-design"
+  }
 }
 
 export default function HeatExchangerDesignBlogPost() {
@@ -24,7 +21,7 @@ export default function HeatExchangerDesignBlogPost() {
       <BlogPostLayout
         title="Heat Exchanger Design and Selection Guide"
         description="A comprehensive guide to heat exchanger design principles, types, thermal calculations, and selection criteria for optimal performance in industrial process applications."
-        image={getBlogImageUrl("heat-exchanger-design") || "/images/detailed-engineering-blog.jpeg"}
+        image="/images/detailed-engineering-blog.jpeg"
         date="2025-10-11T14:00:00.000Z"
         category="PROCESS ENGINEERING"
         slug="heat-exchanger-design"
@@ -109,6 +106,5 @@ export default function HeatExchangerDesignBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }
-

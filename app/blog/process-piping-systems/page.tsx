@@ -1,21 +1,18 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - Understanding Process Piping Systems",
-  description:
-    "Comprehensive guide to process piping design, covering pipe sizing, material selection, pressure drop calculations, and piping system optimization for industrial facilities.",
-  keywords: [
-    "Process Piping",
-    "Pipe Sizing",
-    "Piping Design",
-    "Material Selection",
-    "Pressure Drop",
-    "Process Engineering",
-    "Piping Systems",
-    "Luqman Ismat"
-  ],
+  "title": "Understanding Process Piping Systems",
+  "description": "Pipe sizing, materials, pressure drop, and practical considerations in process piping design.",
+  "alternates": {
+    "canonical": "/blog/process-piping-systems"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "Understanding Process Piping Systems",
+    "description": "Pipe sizing, materials, pressure drop, and practical considerations in process piping design.",
+    "url": "/blog/process-piping-systems"
+  }
 }
 
 export default function ProcessPipingSystemsBlogPost() {
@@ -24,7 +21,7 @@ export default function ProcessPipingSystemsBlogPost() {
       <BlogPostLayout
         title="Understanding Process Piping Systems"
         description="A comprehensive guide to process piping design including pipe sizing methodologies, materials selection, pressure drop optimization, and best practices for reliable industrial piping systems."
-        image={getBlogImageUrl("process-piping-systems") || "/images/detailed-engineering-blog.jpeg"}
+        image="/images/detailed-engineering-blog.jpeg"
         date="2025-10-11T16:00:00.000Z"
         category="PROCESS ENGINEERING"
         slug="process-piping-systems"
@@ -114,6 +111,5 @@ export default function ProcessPipingSystemsBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }
-

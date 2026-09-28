@@ -1,0 +1,5 @@
+import {PageShell} from '@/components/consulting';
+import {SourceExample} from '@/components/demos/source-example';
+import {WorkExplained} from '@/components/work-explained';
+export const metadata={title:'Project Delivery Workspace',description:'Explore Gantt scheduling, capacity heatmaps, MS Project import, cost and productivity reporting, forecast reviews, and portfolio risk with fictional project data.',alternates:{canonical:'/demos/project-controls'}};
+export default async function Page({searchParams}:{searchParams:Promise<{view?:string|string[]}>}){const query=await searchParams;const candidate=typeof query.view==='string'?Number(query.view):9;const view=Number.isInteger(candidate)&&candidate>=0&&candidate<=9?candidate:9;return <PageShell><header className="source-page-intro"><h1>Project delivery workspace</h1><p>Follow the work from a source schedule to staffing, financial performance, and a review decision. Open a view, change an assumption, and trace the result. All records are fictional.</p></header><SourceExample kind="project" view={view} title="Interactive project controls application"/><WorkExplained kind="project"/></PageShell>}

@@ -25,3 +25,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.next-dev/
+
+.test-engivault/
+
+.test-demos/
+
+# Python example runtime artifacts
+__pycache__/
+*.pyc

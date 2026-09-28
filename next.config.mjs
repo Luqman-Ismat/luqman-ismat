@@ -1,54 +1,57 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
+  distDir: process.env.NODE_ENV === "development" ? ".next-dev" : ".next",
+  async redirects() {
+    return [
+      { source: "/demos", destination: "/projects", permanent: true },
+      { source: "/apparel", destination: "/indus-blue", permanent: true },
+      {
+        source: "/portfolio/pinnacle-reliability/:path*",
+        destination: "/consulting#connected-systems",
+        permanent: true,
+      },
+      {
+        source: "/projects/innovari",
+        destination: "/consulting#project-delivery",
+        permanent: true,
+      },
+    ];
   },
-  typescript: {
-    ignoreBuildErrors: false,
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+        ],
+      },
+      { source: "/examples/:path*", headers: [
+        { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        { key: "Content-Security-Policy", value: "frame-ancestors 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'" },
+        { key: "X-Robots-Tag", value: "noindex" },
+      ] },
+    ];
   },
   images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
-    dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    formats: ["image/webp", "image/avif"],
+    qualities: [75, 85],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "hebbkx1anhila5yf.public.blob.vercel-storage.com",
       },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'www.luqmanismat.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'i.pinimg.com',
-        port: '',
-        pathname: '/**',
-      },
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "www.luqmanismat.com" },
+      { protocol: "https", hostname: "i.pinimg.com" },
     ],
-  },
-  experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
-  },
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
   },
   poweredByHeader: false,
   compress: true,
-  swcMinify: true,
-}
-
-export default nextConfig
+};
+export default nextConfig;

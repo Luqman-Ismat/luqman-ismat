@@ -1,43 +1,75 @@
-# Luqman Ismat — personal website
+# Luqman Ismat / Consulting & Indus Blue
 
-Local working copy of `Luqman-Ismat/luqman-ismat`, the existing Next.js site for https://www.luqmanismat.com. The similarly named `luqmanismat` repository is an older, incomplete source and is not used here.
+The existing luqmanismat.com Next.js site, refreshed around consulting for project delivery and connected operations, with EngiVault as an engineering software case study and Indus Blue as the apparel label and contract-development practice.
 
-## Run
+## Run locally
+
+Use Node.js 22 LTS and npm. Dependencies are locked in `package-lock.json`.
 
 ```sh
 npm ci
-npm run dev -- --port 3187
+npm run dev -- --port 3187 --hostname 127.0.0.1
 ```
 
-Open http://localhost:3187. Production verification:
+Development writes to `.next-dev`; production builds write to `.next`.
+
+## Release checks
 
 ```sh
+npm run lint
 npm run build
-node scripts/verify-articles.mjs
+npm run verify:content
+npm audit --audit-level=moderate
+npm run start -- --port 3187 --hostname 127.0.0.1
 ```
 
-The production build checks TypeScript. The inherited lint script has no configured ESLint installation, so lint is not included in verification.
+In another terminal:
 
-## Writing
+```sh
+npm run verify:site
+```
 
-- `content/articles.json` holds metadata for the 15 existing articles. Their bodies remain in `app/blog/<slug>/page.tsx`.
-- `content/new-articles.json` holds three new articles and is the place to add further writing. Each record contains a unique slug, matching href, title, description, category, ISO date, existing local image, sections, and references.
-- `app/blog/[slug]/page.tsx` generates pages and metadata for those new records.
-- `lib/articles.ts` provides the sorted catalog for the blog index, homepage, related articles, search component, and sitemap.
-- Leave unverified historical dates null in the existing catalog and omit the corresponding page date. These entries show “From the archive.” Do not replace publication dates with the current date at render time.
+`verify:site` checks every public content route, canonical metadata, internal destinations, sitemap, redirects, 404, security headers, brand assets, and byte-for-byte CAD downloads. Override `SITE_URL` to check another local preview. `verify:content` preserves all 18 articles, source links, archive labels, valid dates, and index order. GitHub Actions runs the same checks without deploying.
 
-New writing added September 8, 2026:
+Next.js 16.3.6 / React 19.3.0. ESLint 9 is pinned for compatibility with the React plugin in Next's lint configuration. The production build uses webpack; no experimental bundler migration is required.
 
-1. AI in Engineering: Build the Review Before the Automation
-2. What Makes an Engineering Calculation Reviewable?
-3. Better EPC Handoffs Start with a Decision Record
+## Site structure
 
-The articles use illustrative examples, not claims about completed client work. References are included in each article. Review the wording and date when preparing a public release.
+- `/`: consulting overview and selected work.
+- `/consulting`: project management, project controls, dashboards, integrations, automation, and packages. The interactive dashboard is explicitly illustrative, not a live integration.
+- `/engineering`: engineering systems, technical applications, and CAD support.
+- `/indus-blue`: the developing apparel label and contract development for other brands. No product inventory, checkout, or mailing-list signup is simulated.
+- `/projects`: EngiVault and Field 01.
+- `/projects/engivault`: source-reviewed independent-product case study and real product screenshots.
+- `/projects/field-01`: interactive garment and hardware viewers with downloadable CAD.
+- `/blog`: searchable/filterable insights, with all existing article routes retained.
+- `/contact`: service/package-aware project brief builder.
+- `/privacy`: describes the site's actual handling of form data, theme preference, and hosting.
 
-## Changes in this working copy
+Legacy `/about`, `/apparel`, `/portfolio`, iNNOVARi, and Pinnacle portfolio URLs redirect to their relevant current sections. Unsupported historical promotional claims are no longer published as case studies.
 
-The reading layout now uses an opaque, centered text column, section navigation, reading time, and visible references. Existing article bodies and routes are retained. Lists share one catalog, recent articles sort by date, three fabricated live dates were removed, and the footer year updates automatically. Existing TypeScript errors were fixed and build-time type checking is enabled.
+## Inquiry behavior
 
-## Deployment
+The form prepares a draft locally and lets the visitor open their email app or copy the brief. It does not submit data to a backend or send mail automatically. Direct email and phone links remain available. No email-service credentials or database are needed to run this site. If server-side email delivery is added later, configure delivery, abuse protection, error handling, and privacy copy together.
 
-This is the existing Vercel/Next.js application; no domain, production deployment, or remote branch has been changed. Keep its existing hosting workflow. It does not currently produce the Cloudflare Worker output required by Sites hosting, so a Sites deployment would require a separate migration. The changes are on local branch `website/editorial-update`.
+## Brand and content
+
+`PRODUCT.md` and `DESIGN.md` define the approved direction. Montserrat Variable is served locally from the installed font package. Monochrome consulting surfaces merge the personal site's split layouts with EngiVault's visual system. Indigo identifies Indus Blue. The shared header/footer/theme controls apply across all pages.
+
+`content/articles.json` and `content/new-articles.json` are the article catalog. Keep unverified historical dates null; do not invent dates. Existing article bodies remain under `app/blog`. Case studies must distinguish independent development from client work and must not claim unmeasured results.
+
+## Original CAD
+
+`public/cad/field-01` includes millimetre-based layered DXFs, a STEP/STL hardware solid, four-sheet PDF, specifications/BOM CSVs, source, and a ZIP. The website viewer uses the same garment coordinates and triangulated hardware geometry as the exports.
+
+Rebuild with Python, CadQuery 2.8.0, ezdxf 1.4.4, and ReportLab 4+:
+
+```sh
+python scripts/cad/build_field01.py public/cad/field-01
+```
+
+The generator audits both DXFs and reimports STEP to check validity, solid count, and dimensions. Sheet 03 is full scale on A3 at 100%; check the calibration bar. These are development studies, not approved manufacturing drawings, validated garment patterns, or load-rated hardware. The pull is a separate accessory study.
+
+## Deployment boundary
+
+This revision is prepared and verified locally on `website/consulting-launch`. No remote push or deployment has been performed. For the existing hosting project, use Node.js 22, npm installation, `npm run build`, and the Next.js framework preset. No runtime secrets are required. Before promoting, review the final content and the Indus Blue launch status. After deployment, verify the production domain, redirects, email handoff, and CAD downloads on the actual host.

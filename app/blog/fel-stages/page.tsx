@@ -1,20 +1,29 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - FEL Stages Explained: The Blueprint for Successful EPC Projects",
-  description:
-    "Breaking down the Front-End Loading (FEL) stages and their role in minimizing risk and maximizing project success in EPC. Learn about FEL 1, FEL 2, and FEL 3 phases.",
+  "title": "FEL Stages Explained: The Blueprint for Successful EPC Projects",
+  "description": "The role of front-end loading in defining scope and reducing uncertainty before project execution.",
+  "alternates": {
+    "canonical": "/blog/fel-stages"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "FEL Stages Explained: The Blueprint for Successful EPC Projects",
+    "description": "The role of front-end loading in defining scope and reducing uncertainty before project execution.",
+    "url": "/blog/fel-stages"
+  }
 }
 
 export default function FELStagesBlogPost() {
   return (
     <ScrollToTopWrapper>
       <BlogPostLayout
+        category="EPC LIFECYCLE"
+        slug="fel-stages"
         title="FEL Stages Explained: The Blueprint for Successful EPC Projects"
         description="Breaking down the Front-End Loading (FEL) stages and their role in minimizing risk and maximizing project success in EPC."
-        image={getBlogImageUrl("fel-stages") || "/images/fel-stages-blog.jpeg"}
+        image="/images/fel-stages-blog.jpeg"
         date="2025-03-11T03:00:00.000Z"
         content={{
           sections: [
@@ -80,5 +89,5 @@ export default function FELStagesBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }

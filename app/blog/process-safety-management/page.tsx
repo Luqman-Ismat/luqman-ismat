@@ -1,22 +1,18 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - Process Safety Management in Industrial Settings",
-  description:
-    "A comprehensive guide to Process Safety Management (PSM) in industrial facilities, covering HAZOP, LOPA, risk assessment, and safety fundamentals for chemical and process engineering.",
-  keywords: [
-    "Process Safety Management",
-    "PSM",
-    "HAZOP",
-    "LOPA",
-    "Process Safety",
-    "Risk Assessment",
-    "Chemical Engineering Safety",
-    "Industrial Safety",
-    "Luqman Ismat"
-  ],
+  "title": "Process Safety Management in Industrial Settings",
+  "description": "An overview of process safety management, hazard studies, and layers of protection in industrial facilities.",
+  "alternates": {
+    "canonical": "/blog/process-safety-management"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "Process Safety Management in Industrial Settings",
+    "description": "An overview of process safety management, hazard studies, and layers of protection in industrial facilities.",
+    "url": "/blog/process-safety-management"
+  }
 }
 
 export default function ProcessSafetyManagementBlogPost() {
@@ -25,7 +21,7 @@ export default function ProcessSafetyManagementBlogPost() {
       <BlogPostLayout
         title="Process Safety Management in Industrial Settings"
         description="A comprehensive guide to Process Safety Management (PSM), HAZOP, LOPA, and risk assessment methodologies for ensuring safety in chemical and process engineering facilities."
-        image={getBlogImageUrl("process-safety-management") || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/blake-connally-IKUYGCFmfw4-unsplash.jpg-0z59RONP3VknWJW7WTTxt5BTdr6NFr.jpeg"}
+        image=""
         date="2025-10-11T12:00:00.000Z"
         category="PROCESS ENGINEERING"
         slug="process-safety-management"
@@ -117,6 +113,5 @@ export default function ProcessSafetyManagementBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }
-

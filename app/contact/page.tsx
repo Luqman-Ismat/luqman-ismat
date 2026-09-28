@@ -1,73 +1,69 @@
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { AnimatedHeader } from "@/components/animated-header"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import Link from "next/link"
-import { FadeIn } from "@/components/fade-in"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-
+import { inquiryServices } from "@/lib/site";
+import { PageShell } from "@/components/consulting";
+import { ProjectInquiry } from "@/components/project-inquiry";
 export const metadata = {
-  title: "Contact Luqman Ismat | Engineering Consultant in Katy, TX",
+  title: "Start a Project",
   description:
-    "Get in touch with Luqman Ismat, an innovative engineering consultant based in Katy and The Woodlands, TX. Discuss your EPC projects or engineering solutions.",
-}
-
-export default function ContactPage() {
+    "Discuss consulting, project controls, dashboards, integrations, or Indus Blue apparel development with Luqman Ismat. Share your starting point and prepare a project brief.",
+  alternates: { canonical: "/contact" },
+};
+export default async function ContactPage(props: {
+  searchParams: Promise<{ service?: string; package?: string }>;
+}) {
+  const searchParams = await props.searchParams;
+  const serviceKey =
+    typeof searchParams.service === "string" ? searchParams.service : "";
+  const service =
+    inquiryServices[serviceKey as keyof typeof inquiryServices] ||
+    "General inquiry";
+  const selectedPackage =
+    typeof searchParams.package === "string"
+      ? searchParams.package.slice(0, 150)
+      : "";
   return (
-    <ScrollToTopWrapper>
-      <div className="flex flex-col min-h-screen w-full overflow-hidden bg-background">
-        <Header />
-        <main className="flex-1 pt-32 pb-24">
-          <div className="container px-4">
-            <FadeIn>
-              <AnimatedHeader>
-                <h1 className="text-4xl md:text-6xl font-bold mb-12">Let's Talk</h1>
-              </AnimatedHeader>
-            </FadeIn>
-
-            <div className="max-w-3xl mx-auto space-y-12">
-              <FadeIn delay={0.2}>
-                {/* Contact Information */}
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-muted-foreground">
-                  <Link href="mailto:Luqman.ismat@gmail.com" className="hover:text-foreground transition-colors">
-                    Luqman.ismat@gmail.com
-                  </Link>
-                  <span className="hidden md:inline">|</span>
-                  <Link href="tel:+18326796731" className="hover:text-foreground transition-colors">
-                    (832)-679-6731
-                  </Link>
-                  <span className="hidden md:inline">|</span>
-                  <Link
-                    href="https://www.linkedin.com/in/luqman-ismat/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-foreground transition-colors"
-                  >
-                    linkedin.com/in/luqmanismat
-                  </Link>
-                </div>
-              </FadeIn>
-
-              <FadeIn delay={0.4}>
-                {/* Contact Form */}
-                <form className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <Input type="text" placeholder="Your Name" />
-                    <Input type="email" placeholder="Your Email" />
-                  </div>
-                  <Textarea placeholder="Your Message" rows={12} className="min-h-[300px] resize-y" />
-                  <Button type="submit" size="lg" className="w-full md:w-auto">
-                    Send Message
-                  </Button>
-                </form>
-              </FadeIn>
-            </div>
+    <PageShell>
+      <section className="consulting-wrap contact-heading">
+        <p className="eyebrow">Start a conversation</p>
+        <h1>
+          What are you
+          <br />
+          <span className="muted-title">working on?</span>
+        </h1>
+        <p>
+          Share the process you want to improve, the system you need, or the
+          garment you have in mind. We’ll define the first useful step.
+        </p>
+      </section>
+      <section className="consulting-wrap contact-layout">
+        <aside>
+          <h2>Let’s talk directly.</h2>
+          <p>
+            You’ll work with me from the first conversation through the handoff.
+          </p>
+          <a className="contact-email" href="mailto:Luqman.ismat@gmail.com">
+            Luqman.ismat@gmail.com ↗
+          </a>
+          <a className="text-link" href="tel:+18326796731">
+            (832) 679-6731
+          </a>
+          <div className="contact-next">
+            <p className="eyebrow">What happens next</p>
+            <ol>
+              <li>Send your project brief.</li>
+              <li>We discuss the scope and any open questions.</li>
+              <li>
+                You receive an agreed deliverable, timeline, and price before
+                work begins.
+              </li>
+            </ol>
           </div>
-        </main>
-        <Footer />
-      </div>
-    </ScrollToTopWrapper>
-  )
+        </aside>
+        <ProjectInquiry
+          initialService={service}
+          initialPackage={selectedPackage}
+          key={`${service}-${selectedPackage}`}
+        />
+      </section>
+    </PageShell>
+  );
 }

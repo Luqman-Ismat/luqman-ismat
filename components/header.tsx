@@ -1,63 +1,30 @@
-import { MobileMenu } from "@/components/mobile-menu"
-import { AnimatedLogo } from "@/components/animated-logo"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, useReducedMotion } from "framer-motion";
+import { SectionNavigation } from "./section-navigation";
+import { MobileMenu } from "./mobile-menu";
+import { ThemeToggle } from "./theme-toggle";
+import { navigation } from "@/lib/site";
+import { navigationGroup } from "@/lib/navigation";
 export function Header() {
-  return (
-    <header 
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm"
-      role="banner"
-      aria-label="Main navigation"
-    >
-      <div className="container flex items-center justify-between h-16">
-        <AnimatedLogo />
-
-        <nav 
-          className="hidden md:flex items-center justify-center flex-1"
-          role="navigation"
-          aria-label="Primary navigation"
-        >
-          {[
-            ["Projects", "/projects"],
-            ["Portfolio", "/portfolio"],
-            ["About", "/about"],
-            ["Blog", "/blog"],
-          ].map(([label, href]) => (
-            <Link 
-              key={label} 
-              href={href} 
-              className="text-sm relative group mx-4 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-sm"
-              aria-label={`Navigate to ${label} page`}
-            >
-              <span className="relative z-20 transition-colors duration-200 group-hover:text-primary group-focus:text-primary">
-                {label}
-              </span>
-              <span 
-                className="absolute inset-x-0 -bottom-1 h-0.5 bg-primary scale-x-0 transition-transform duration-200 group-hover:scale-x-100 group-focus:scale-x-100" 
-                aria-hidden="true"
-              />
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center">
-          <Link 
-            href="/contact" 
-            className="hidden md:inline-flex focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-sm"
-            aria-label="Navigate to contact page"
-          >
-            <Button
-              variant="ghost"
-              className="font-medium hover:bg-transparent transition-transform duration-300 hover:scale-110 focus:scale-110"
-              aria-label="Get in touch with Luqman Ismat"
-            >
-              Let&apos;s Talk
-            </Button>
-          </Link>
-          <MobileMenu />
-        </div>
+  const path = usePathname();
+  const reduced = useReducedMotion();
+  const group = navigationGroup(path);
+  const label = group?.links.find(link => link.href === path)?.label ?? group?.label ?? (path === "/" ? "Home" : path === "/contact" ? "Contact" : "Privacy");
+  return <header className="site-header">
+    <div className="header-enclosure"><div className="header-inner">
+      <div className="header-identity">
+        <Link href="/" className="wordmark" aria-label="Luqman Ismat home">LUQMAN ISMAT</Link>
+        <span className="header-divider" aria-hidden="true">/</span>
+        <span className="header-current" title={label}>
+          <motion.span key={path} initial={reduced ? false : { opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: reduced ? 0 : .3, ease: [.22,1,.36,1] }}>{label}</motion.span>
+        </span>
       </div>
-    </header>
-  )
+      <nav className="desktop-nav" aria-label="Primary navigation">
+        {navigation.map(n => <Link key={n.href} href={n.href} aria-current={path === n.href ? "page" : group?.href === n.href ? "location" : undefined}>{n.label}</Link>)}
+      </nav>
+      <div className="header-actions"><ThemeToggle /><Link className="header-contact" href="/contact">Contact <span aria-hidden="true">↗</span></Link><MobileMenu /></div>
+    </div><SectionNavigation /></div>
+  </header>;
 }

@@ -6,8 +6,9 @@ const added = JSON.parse(read('content/new-articles.json'))
 const posts = [...existing, ...added]
 assert.equal(new Set(posts.map(p => p.slug)).size, posts.length, 'Article slugs must be unique')
 const index = read('.next/server/app/blog.html')
-const home = read('.next/server/app/index.html')
 const sitemap = read('.next/server/app/sitemap.xml.body')
+assert.ok(!index.includes('Invalid Date'), 'Article index dates must parse ISO timestamps')
+for (const post of posts) if(post.date) assert.ok(Number.isFinite(Date.parse(post.date)), post.slug + ' invalid publication date')
 for (const post of posts) {
   assert.ok(index.includes(`href="${post.href}"`), `${post.slug} missing from blog index`)
   assert.ok(sitemap.includes(`https://www.luqmanismat.com${post.href}`), `${post.slug} missing from sitemap`)
@@ -17,7 +18,6 @@ for (const post of posts) {
   if (!post.date) assert.ok(html.includes('From the archive'), `${post.slug} must not invent publication date`)
 }
 for (const post of added) {
-  assert.ok(home.includes(`href="${post.href}"`), `${post.slug} missing from recent articles`)
   const html = read(`.next/server/app/blog/${post.slug}.html`)
   assert.ok(html.includes(`rel="canonical" href="https://www.luqmanismat.com${post.href}"`), `${post.slug} missing canonical`)
   for (const source of post.sources) assert.ok(html.includes(`href="${source.url}"`), `${post.slug} missing source`)

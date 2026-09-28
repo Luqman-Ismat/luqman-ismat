@@ -1,21 +1,30 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - The Communication Challenge in EPC Projects",
-  description:
-    "Effective communication is the backbone of Engineering, Procurement, and Construction (EPC) projects. With multiple stakeholders, disciplines, and moving parts, a project's success hinges on how well information flows across teams.",
+  "title": "The Communication Challenge in EPC Projects: Why It's a Make-or-Break Factor",
+  "description": "Ownership, information flow, and practical coordination across multidisciplinary project teams.",
+  "alternates": {
+    "canonical": "/blog/epc-communication"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "The Communication Challenge in EPC Projects: Why It's a Make-or-Break Factor",
+    "description": "Ownership, information flow, and practical coordination across multidisciplinary project teams.",
+    "url": "/blog/epc-communication"
+  }
 }
 
 export default function EPCCommunicationBlogPost() {
   return (
     <ScrollToTopWrapper>
       <BlogPostLayout
+        category="EPC LIFECYCLE"
+        slug="epc-communication"
         date={undefined}
         title="The Communication Challenge in EPC Projects: Why It's a Make-or-Break Factor"
         description="Effective communication is the backbone of Engineering, Procurement, and Construction (EPC) projects. With multiple stakeholders, disciplines, and moving parts, a project's success hinges on how well information flows across teams."
-        image={getBlogImageUrl("epc-communication") || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/product-school-XZkk5xT8Xrk-unsplash%20(1).jpg-xdC0zNLpYvZV5amqGy0gWaBLGJa5ny.jpeg"}
+        image=""
         content={{
           sections: [
             {
@@ -43,7 +52,8 @@ export default function EPCCommunicationBlogPost() {
               ],
             },
             {
-              title: "Best Practices for Managing Communication in EPC Projects",
+              title:
+                "Best Practices for Managing Communication in EPC Projects",
               content: [
                 "1. Standardized Documentation & Clear Communication Protocols",
                 "One of the biggest failures in EPC projects is assuming that all stakeholders are on the same page. Without clear and standardized documentation procedures, key project details can be lost, misinterpreted, or delayed.",
@@ -63,7 +73,8 @@ export default function EPCCommunicationBlogPost() {
               ],
             },
             {
-              title: "Technology as a Communication Enabler: Where It Helps and Where It Falls Short",
+              title:
+                "Technology as a Communication Enabler: Where It Helps and Where It Falls Short",
               content: [
                 "Modern project management software and digital collaboration tools have made communication more streamlined than ever before. Platforms like BIM 360, Primavera P6, and cloud-based document management systems allow teams to:",
                 "• Track project progress in real-time, reducing delays caused by outdated information.",
@@ -78,7 +89,8 @@ export default function EPCCommunicationBlogPost() {
               ],
             },
             {
-              title: "The Path Forward: How EPC Firms Can Improve Communication",
+              title:
+                "The Path Forward: How EPC Firms Can Improve Communication",
               content: [
                 "EPC projects will always be complex, but communication doesn't have to be a constant roadblock. To improve, firms need to:",
                 "• Invest in real-time collaboration tools while ensuring teams are properly trained to use them.",
@@ -93,5 +105,5 @@ export default function EPCCommunicationBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }

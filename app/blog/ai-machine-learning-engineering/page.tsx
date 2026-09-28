@@ -1,21 +1,18 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - AI and Machine Learning in Engineering Design",
-  description:
-    "Explore how artificial intelligence and machine learning are transforming engineering through optimization algorithms, predictive analytics, and intelligent automation.",
-  keywords: [
-    "AI in Engineering",
-    "Machine Learning",
-    "Engineering Optimization",
-    "Predictive Analytics",
-    "Artificial Intelligence",
-    "Engineering Automation",
-    "Data Science",
-    "Luqman Ismat"
-  ],
+  "title": "AI and Machine Learning in Engineering Design",
+  "description": "Applications and limitations of machine learning in engineering design and analysis.",
+  "alternates": {
+    "canonical": "/blog/ai-machine-learning-engineering"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "AI and Machine Learning in Engineering Design",
+    "description": "Applications and limitations of machine learning in engineering design and analysis.",
+    "url": "/blog/ai-machine-learning-engineering"
+  }
 }
 
 export default function AIMLEngineeringBlogPost() {
@@ -24,7 +21,7 @@ export default function AIMLEngineeringBlogPost() {
       <BlogPostLayout
         title="AI and Machine Learning in Engineering Design"
         description="Discover how artificial intelligence and machine learning are revolutionizing engineering through optimization algorithms, predictive analytics, and intelligent design automation."
-        image={getBlogImageUrl("ai-machine-learning-engineering") || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/blake-connally-IKUYGCFmfw4-unsplash.jpg-0z59RONP3VknWJW7WTTxt5BTdr6NFr.jpeg"}
+        image=""
         date="2025-10-11T17:00:00.000Z"
         category="ENGINEERING TECHNOLOGY"
         slug="ai-machine-learning-engineering"
@@ -114,6 +111,5 @@ export default function AIMLEngineeringBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }
-

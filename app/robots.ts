@@ -1,4 +1,4 @@
-import type { MetadataRoute } from "next"
+import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -9,5 +9,5 @@ export default function robots(): MetadataRoute.Robots {
     },
     sitemap: "https://www.luqmanismat.com/sitemap.xml",
     host: "https://www.luqmanismat.com",
-  }
+  };
 }

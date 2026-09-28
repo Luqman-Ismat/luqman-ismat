@@ -1,0 +1,30 @@
+name: Site checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test:engivault
+      - run: npm run test:demos
+      - run: npm run test:reporting
+      - run: npm run build
+      - run: npm run verify:content
+      - run: npm audit --audit-level=moderate
+      - name: Verify production routes and downloads
+        run: |
+          npm run start -- --port 3187 --hostname 127.0.0.1 > /tmp/site.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:3187/ >/dev/null && break; sleep 1; done
+          npm run verify:site

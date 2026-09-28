@@ -56,17 +56,17 @@
   body {
     @apply bg-background text-foreground;
   }
-  
+
   /* Performance optimizations */
   img {
     content-visibility: auto;
   }
-  
+
   /* Smooth scrolling for better UX */
   html {
     scroll-behavior: smooth;
   }
-  
+
   /* Reduce motion for users who prefer it */
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -78,7 +78,7 @@
       scroll-behavior: auto !important;
     }
   }
-  
+
   /* Focus styles for accessibility */
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary;
@@ -89,28 +89,28 @@
   .writing-vertical-lr {
     writing-mode: vertical-lr;
   }
-  
+
   /* Performance utilities */
   .will-change-transform {
     will-change: transform;
   }
-  
+
   .will-change-opacity {
     will-change: opacity;
   }
-  
+
   .gpu-accelerated {
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
   }
-  
+
   /* Hide scrollbars */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }

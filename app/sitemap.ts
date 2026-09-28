@@ -1,67 +1,43 @@
-import { getArticles } from "@/lib/articles"
-import { MetadataRoute } from 'next'
-
+import { calculators } from "@/lib/engivault/calculator-data";
+import { getArticles } from "@/lib/articles";
+import type { MetadataRoute } from "next";
+import { site } from "@/lib/site";
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.luqmanismat.com'
-  const currentDate = new Date().toISOString()
-
-  const blogPosts = getArticles()
-
   return [
-    {
-      url: baseUrl,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/portfolio`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/projects`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/projects/engivault`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects/innovari`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    ...blogPosts.map((post) => ({
-      url: `${baseUrl}/blog/${post.slug}`,
-      ...(post.date ? { lastModified: post.date } : {}),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
+    ...[
+      "",
+      "/about",
+      "/portfolio",
+      "/demos/project-controls",
+      "/demos/inspection-planning",
+      "/demos/connected-operations",
+      "/consulting",
+      "/consulting/project-controls",
+      "/consulting/dashboards",
+      "/consulting/integrations",
+      "/engivault",
+      "/engivault/unit-converter",
+      ...Object.keys(calculators).map(
+        (slug) => `/engivault/calculators/${slug}`,
+      ),
+      "/engineering",
+      "/indus-blue",
+      "/projects",
+      "/projects/engivault",
+      "/projects/field-01",
+      "/blog",
+      "/contact",
+      "/privacy",
+    ].map((path) => ({
+      url: site.url + path,
+      changeFrequency: "monthly" as const,
+      priority: path === "" ? 1 : 0.8,
     })),
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-  ]
+    ...getArticles().map((p) => ({
+      url: site.url + p.href,
+      ...(p.date ? { lastModified: p.date } : {}),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ];
 }
-

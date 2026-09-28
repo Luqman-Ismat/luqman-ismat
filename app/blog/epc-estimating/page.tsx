@@ -1,20 +1,29 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - The Critical Role of Estimating in EPC: Accuracy, Risk, and Cost Control",
-  description:
-    "Understanding why precise estimation is the backbone of successful EPC project execution. Explore the critical phases of EPC estimating from conceptual to detailed cost analysis.",
+  "title": "The Critical Role of Estimating in EPC: Accuracy, Risk, and Cost Control",
+  "description": "Estimate maturity, uncertainty, and cost control across engineering, procurement, and construction.",
+  "alternates": {
+    "canonical": "/blog/epc-estimating"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "The Critical Role of Estimating in EPC: Accuracy, Risk, and Cost Control",
+    "description": "Estimate maturity, uncertainty, and cost control across engineering, procurement, and construction.",
+    "url": "/blog/epc-estimating"
+  }
 }
 
 export default function EPCEstimatingBlogPost() {
   return (
     <ScrollToTopWrapper>
       <BlogPostLayout
+        category="EPC LIFECYCLE"
+        slug="epc-estimating"
         title="The Critical Role of Estimating in EPC: Accuracy, Risk, and Cost Control"
         description="Understanding why precise estimation is the backbone of successful EPC project execution."
-        image={getBlogImageUrl("epc-estimating") || "/images/epc-estimating-blog.jpeg"}
+        image="/images/epc-estimating-blog.jpeg"
         date="2025-03-11T03:00:00.000Z"
         content={{
           sections: [
@@ -86,5 +95,5 @@ export default function EPCEstimatingBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }

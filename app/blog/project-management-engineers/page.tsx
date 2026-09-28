@@ -1,20 +1,18 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - Project Management Best Practices for Engineers",
-  description:
-    "Essential project management strategies for engineering professionals, covering planning, execution, stakeholder management, and agile methodologies in technical projects.",
-  keywords: [
-    "Project Management",
-    "Engineering Project Management",
-    "Agile Engineering",
-    "Stakeholder Management",
-    "Project Planning",
-    "Technical Project Management",
-    "Luqman Ismat"
-  ],
+  "title": "Project Management Best Practices for Engineers",
+  "description": "Planning, coordination, risk, and stakeholder communication for engineering projects.",
+  "alternates": {
+    "canonical": "/blog/project-management-engineers"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "Project Management Best Practices for Engineers",
+    "description": "Planning, coordination, risk, and stakeholder communication for engineering projects.",
+    "url": "/blog/project-management-engineers"
+  }
 }
 
 export default function ProjectManagementEngineersBlogPost() {
@@ -23,7 +21,7 @@ export default function ProjectManagementEngineersBlogPost() {
       <BlogPostLayout
         title="Project Management Best Practices for Engineers"
         description="Master the essential project management skills that every engineering professional needs, from planning and scheduling to stakeholder management and agile methodologies."
-        image={getBlogImageUrl("project-management-engineers") || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/product-school-XZkk5xT8Xrk-unsplash%20(1).jpg-xdC0zNLpYvZV5amqGy0gWaBLGJa5ny.jpeg"}
+        image=""
         date="2025-10-11T15:00:00.000Z"
         category="PROJECT MANAGEMENT"
         slug="project-management-engineers"
@@ -114,6 +112,5 @@ export default function ProjectManagementEngineersBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }
-

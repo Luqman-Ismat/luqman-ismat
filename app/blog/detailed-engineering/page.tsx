@@ -1,11 +1,18 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - Detailed Engineering: The Backbone of EPC Project Execution",
-  description:
-    "Exploring the critical role of detailed engineering in ensuring constructability, efficiency, and cost control in EPC projects. Learn about multidisciplinary engineering approaches.",
+  "title": "Detailed Engineering: The Backbone of EPC Project Execution",
+  "description": "How detailed engineering connects design decisions to constructability, cost, and project execution.",
+  "alternates": {
+    "canonical": "/blog/detailed-engineering"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "Detailed Engineering: The Backbone of EPC Project Execution",
+    "description": "How detailed engineering connects design decisions to constructability, cost, and project execution.",
+    "url": "/blog/detailed-engineering"
+  }
 }
 
 export default function DetailedEngineeringBlogPost() {
@@ -14,7 +21,7 @@ export default function DetailedEngineeringBlogPost() {
       <BlogPostLayout
         title="Detailed Engineering: The Backbone of EPC Project Execution"
         description="Exploring the critical role of detailed engineering in ensuring constructability, efficiency, and cost control in EPC projects."
-        image={getBlogImageUrl("detailed-engineering") || "/images/detailed-engineering-blog.jpeg"}
+        image="/images/detailed-engineering-blog.jpeg"
         date="2025-03-11T03:00:00.000Z"
         category="EPC LIFECYCLE"
         slug="detailed-engineering"
@@ -43,7 +50,8 @@ export default function DetailedEngineeringBlogPost() {
               ],
             },
             {
-              title: "Civil and Structural Engineering: Building a Strong Foundation",
+              title:
+                "Civil and Structural Engineering: Building a Strong Foundation",
               content: [
                 "The civil and structural engineering team ensures the facility's physical stability and compliance with local building codes. This includes:",
                 "• Foundation and structural design – considering soil conditions, seismic loads, and structural integrity.",
@@ -85,5 +93,5 @@ export default function DetailedEngineeringBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }

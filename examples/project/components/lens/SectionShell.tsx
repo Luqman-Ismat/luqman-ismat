@@ -1,0 +1,1 @@
+import type {ReactNode} from 'react';export default function SectionShell({title,subtitle,children}:{title:string;subtitle?:string;children:ReactNode}){return <section className="example-body risk-workspace"><h2>{title}</h2><p>{subtitle}</p><div className="risk-content">{children}</div></section>}

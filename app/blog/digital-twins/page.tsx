@@ -1,21 +1,18 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - The Role of Digital Twins in Modern Engineering",
-  description:
-    "Exploring how digital twin technology is transforming engineering design, operations, and maintenance through virtual replicas, IoT integration, and predictive analytics.",
-  keywords: [
-    "Digital Twins",
-    "Digital Transformation",
-    "IoT",
-    "Predictive Maintenance",
-    "Engineering Technology",
-    "Smart Manufacturing",
-    "Industry 4.0",
-    "Luqman Ismat"
-  ],
+  "title": "The Role of Digital Twins in Modern Engineering",
+  "description": "How digital models, operational data, and monitoring can support engineering decisions.",
+  "alternates": {
+    "canonical": "/blog/digital-twins"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "The Role of Digital Twins in Modern Engineering",
+    "description": "How digital models, operational data, and monitoring can support engineering decisions.",
+    "url": "/blog/digital-twins"
+  }
 }
 
 export default function DigitalTwinsBlogPost() {
@@ -24,7 +21,7 @@ export default function DigitalTwinsBlogPost() {
       <BlogPostLayout
         title="The Role of Digital Twins in Modern Engineering"
         description="Discover how digital twin technology is revolutionizing engineering through virtual replicas, real-time monitoring, and predictive capabilities that optimize design and operations."
-        image={getBlogImageUrl("digital-twins") || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/blake-connally-IKUYGCFmfw4-unsplash.jpg-0z59RONP3VknWJW7WTTxt5BTdr6NFr.jpeg"}
+        image=""
         date="2025-10-11T13:00:00.000Z"
         category="ENGINEERING TECHNOLOGY"
         slug="digital-twins"
@@ -106,6 +103,5 @@ export default function DigitalTwinsBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }
-

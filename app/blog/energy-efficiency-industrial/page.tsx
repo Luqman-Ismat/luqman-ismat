@@ -1,21 +1,18 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - Energy Efficiency in Industrial Processes",
-  description:
-    "Master energy efficiency strategies for industrial facilities including pinch analysis, waste heat recovery, process optimization, and sustainable engineering practices.",
-  keywords: [
-    "Energy Efficiency",
-    "Pinch Analysis",
-    "Waste Heat Recovery",
-    "Industrial Energy",
-    "Process Optimization",
-    "Sustainability",
-    "Energy Management",
-    "Luqman Ismat"
-  ],
+  "title": "Energy Efficiency in Industrial Processes",
+  "description": "Pinch analysis, heat recovery, and practical approaches to industrial energy efficiency.",
+  "alternates": {
+    "canonical": "/blog/energy-efficiency-industrial"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "Energy Efficiency in Industrial Processes",
+    "description": "Pinch analysis, heat recovery, and practical approaches to industrial energy efficiency.",
+    "url": "/blog/energy-efficiency-industrial"
+  }
 }
 
 export default function EnergyEfficiencyIndustrialBlogPost() {
@@ -24,7 +21,7 @@ export default function EnergyEfficiencyIndustrialBlogPost() {
       <BlogPostLayout
         title="Energy Efficiency in Industrial Processes"
         description="Comprehensive guide to improving energy efficiency in industrial facilities through pinch analysis, waste heat recovery, process integration, and advanced optimization techniques."
-        image={getBlogImageUrl("energy-efficiency-industrial") || "/images/detailed-engineering-blog.jpeg"}
+        image="/images/detailed-engineering-blog.jpeg"
         date="2025-10-11T18:00:00.000Z"
         category="PROCESS ENGINEERING"
         slug="energy-efficiency-industrial"
@@ -116,6 +113,5 @@ export default function EnergyEfficiencyIndustrialBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }
-

@@ -1,91 +1,56 @@
-import Link from "next/link"
-import { NewsletterSignup } from "./newsletter-signup"
-
+import Link from "next/link";
 export function Footer() {
-  const footerSections = [
-    {
-      title: "(Pages)",
-      links: [
-        { label: "Home", href: "/" },
-        { label: "Projects", href: "/projects" },
-        { label: "Portfolio", href: "/portfolio" },
-        { label: "About", href: "/about" },
-        { label: "Blog", href: "/blog" },
-        { label: "Contact", href: "/contact" },
-      ],
-    },
-    {
-      title: "(Socials)",
-      links: [
-        { label: "Instagram", href: "https://www.instagram.com/luqman.ismat/" },
-        { label: "LinkedIn", href: "https://www.linkedin.com/in/luqman-ismat/" },
-        { label: "Twitter", href: "https://x.com/LuqmanMIsmat" },
-        { label: "Pinterest", href: "https://www.pinterest.com/luqmanismat/" },
-        { label: "GitHub", href: "https://github.com/Luqman-Ismat" },
-      ],
-    },
-  ]
-
   return (
-    <footer className="bg-background py-24">
-      <div className="container px-4">
-        {/* Newsletter Section */}
-        <div className="mb-16 pb-16 border-b">
-          <div className="max-w-2xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold">Stay Updated</h2>
-            <p className="text-muted-foreground">
-              Subscribe to get the latest insights on engineering, EPC projects, and innovative solutions.
-            </p>
-            <div className="max-w-md mx-auto">
-              <NewsletterSignup />
-            </div>
-          </div>
+    <footer className="site-footer">
+      <div className="site-container footer-grid">
+        <div>
+          <Link href="/" className="footer-wordmark">
+            LUQMAN ISMAT<span>Consulting & product development</span>
+          </Link>
+          <p>
+            Based in Houston.
+            <br />
+            Working with teams everywhere.
+          </p>
         </div>
-
-        <div className="flex flex-col md:flex-row justify-between gap-12 md:gap-24">
-          {/* Left side - Name and Copyright */}
-          <div className="space-y-4">
-            <div className="text-6xl font-bold tracking-widest text-muted-foreground/20">
-              <div>LUQMAN</div>
-              <div>ISMAT</div>
-            </div>
-            <div className="text-sm text-muted-foreground space-y-1">
-              <div className="flex items-center gap-1">
-                <span>©</span>
-                <span>{new Date().getFullYear()}</span>
-              </div>
-              <div className="text-xs">
-                Engineering Consultant
-              </div>
-            </div>
-          </div>
-
-          {/* Right side - Navigation */}
-          <div className="flex justify-center flex-grow">
-            <div className="grid grid-cols-2 gap-12 md:gap-24">
-              {footerSections.map((section) => (
-                <div key={section.title} className="space-y-6">
-                  <h3 className="text-muted-foreground">{section.title}</h3>
-                  <ul className="space-y-4">
-                    {section.links.map((link) => (
-                      <li key={link.label}>
-                        <Link 
-                          href={link.href} 
-                          className="hover:text-primary transition-colors"
-                          target={link.href.startsWith('http') ? '_blank' : undefined}
-                          rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        >
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <nav aria-label="Footer consulting">
+          <p className="eyebrow">Consulting</p>
+          <Link href="/consulting">Services & packages</Link>
+          <Link href="/consulting/project-controls">
+            Project management & controls
+          </Link>
+          <Link href="/consulting/dashboards">Dashboards & integrations</Link>
+          <Link href="/engineering">Engineering systems</Link>
+        </nav>
+        <nav aria-label="Footer studio">
+          <p className="eyebrow">Products & work</p>
+          <Link href="/indus-blue">Indus Blue</Link>
+          <Link href="/indus-blue#development">Apparel for your brand</Link>
+          <Link href="/engivault">EngiVault tools</Link>
+          <Link href="/projects/field-01">Field 01 CAD study</Link>
+          <Link href="/projects">Work & interactive demos</Link>
+        </nav>
+        <nav aria-label="Footer contact">
+          <p className="eyebrow">Connect</p>
+          <Link href="/contact">Start a project ↗</Link>
+          <a href="mailto:Luqman.ismat@gmail.com">Email Luqman ↗</a>
+          <a
+            href="https://www.linkedin.com/in/luqman-ismat/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn ↗
+          </a>
+          <Link href="/blog">Blog</Link>
+          <Link href="/about">About me</Link>
+          <Link href="/portfolio">Experience timeline</Link>
+        </nav>
+      </div>
+      <div className="site-container footer-bottom">
+        <span>© {new Date().getFullYear()} Luqman Ismat</span>
+        <Link href="/privacy">Privacy</Link>
+        <span>Clear scope. Useful work.</span>
       </div>
     </footer>
-  )
+  );
 }

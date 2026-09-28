@@ -1,11 +1,18 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - Quantifying Service Profitability: A CVP Analysis of Mobile Service Operations in Houston, TX",
-  description:
-    "An in-depth Cost-Volume-Profit analysis examining revenue drivers, variable costs, and profitability thresholds for mobile service operations in Houston, Texas.",
+  "title": "Quantifying Service Profitability: A CVP Analysis of Mobile Service Operations in Houston, TX",
+  "description": "A cost-volume-profit example for understanding revenue, variable costs, and break-even volume in service operations.",
+  "alternates": {
+    "canonical": "/blog/cvp-analysis-mobile-service-operations"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "Quantifying Service Profitability: A CVP Analysis of Mobile Service Operations in Houston, TX",
+    "description": "A cost-volume-profit example for understanding revenue, variable costs, and break-even volume in service operations.",
+    "url": "/blog/cvp-analysis-mobile-service-operations"
+  }
 }
 
 export default function CVPAnalysisBlogPost() {
@@ -14,21 +21,23 @@ export default function CVPAnalysisBlogPost() {
       <BlogPostLayout
         title="Quantifying Service Profitability: A CVP Analysis of Mobile Service Operations in Houston, TX"
         description="An in-depth Cost-Volume-Profit analysis examining revenue drivers, variable costs, and profitability thresholds for mobile service operations in Houston, Texas."
-        image={getBlogImageUrl("cvp-analysis-mobile-service-operations") || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/product-school-XZkk5xT8Xrk-unsplash%20(1).jpg-xdC0zNLpYvZV5amqGy0gWaBLGJa5ny.jpeg"}
+        image=""
         date="2025-01-15T03:00:00.000Z"
         category="PROJECT MANAGEMENT"
         slug="cvp-analysis-mobile-service-operations"
         content={{
           sections: [
             {
-              title: "Understanding Cost-Volume-Profit Analysis in Service Operations",
+              title:
+                "Understanding Cost-Volume-Profit Analysis in Service Operations",
               content: [
                 "Cost-Volume-Profit (CVP) analysis is a fundamental tool in managerial accounting that helps businesses understand the relationships between costs, sales volume, and profitability. For service-based operations, CVP analysis becomes particularly valuable in identifying break-even points, determining optimal pricing strategies, and forecasting financial performance under different operational scenarios.",
                 "This article presents a comprehensive CVP analysis of mobile service operations in Houston, TX, demonstrating how engineering principles can be applied to service business models to optimize profitability and strategic decision-making.",
               ],
             },
             {
-              title: "Case Study Framework: Mobile Service Operations in Houston",
+              title:
+                "Case Study Framework: Mobile Service Operations in Houston",
               content: [
                 "The mobile service industry in Houston represents a dynamic market with significant growth potential, driven by population density, industrial demand, and the city's expanding infrastructure. Our analysis examines a representative mobile service operation, considering factors such as service territory, customer demographics, competitive landscape, and operational constraints specific to the Houston metropolitan area.",
                 "Key variables include fixed costs (vehicle maintenance, insurance, base operations), variable costs (fuel, materials, labor), pricing models, and demand patterns. The framework establishes a foundation for understanding how volume impacts overall profitability in service-based business models.",
@@ -59,6 +68,5 @@ export default function CVPAnalysisBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }
-

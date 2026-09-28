@@ -1,20 +1,29 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - Breaking Down the EPC Lifecycle: From Concept to Operation",
-  description:
-    "An in-depth exploration of the Engineering, Procurement, and Construction (EPC) lifecycle, from initial concept to final operation. Discover the key phases, challenges, and future trends in EPC project management.",
+  "title": "Breaking Down the EPC Lifecycle: From Concept to Operation",
+  "description": "From concept through operation: the stages, decisions, and handoffs in an EPC project.",
+  "alternates": {
+    "canonical": "/blog/epc-lifecycle"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "Breaking Down the EPC Lifecycle: From Concept to Operation",
+    "description": "From concept through operation: the stages, decisions, and handoffs in an EPC project.",
+    "url": "/blog/epc-lifecycle"
+  }
 }
 
 export default function EPCLifecycleBlogPost() {
   return (
     <ScrollToTopWrapper>
       <BlogPostLayout
+        category="EPC LIFECYCLE"
+        slug="epc-lifecycle"
         title="Breaking Down the EPC Lifecycle: From Concept to Operation"
         description="An in-depth exploration of the Engineering, Procurement, and Construction (EPC) lifecycle, from initial concept to final operation. Discover the key phases, challenges, and future trends in EPC project management."
-        image={getBlogImageUrl("epc-lifecycle") || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/thomas-werneken-2hC-ehLJIjg-unsplash%20(2).jpg-fmamlXgtD43e1ssjbkGTKnvFZCKLc7.jpeg"}
+        image=""
         date={undefined}
         content={{
           sections: [
@@ -25,7 +34,8 @@ export default function EPCLifecycleBlogPost() {
               ],
             },
             {
-              title: "Phase 1: Front-End Engineering Design (FEED) – Laying the Foundation",
+              title:
+                "Phase 1: Front-End Engineering Design (FEED) – Laying the Foundation",
               content: [
                 "The FEED phase is where the vision takes shape. This is the critical planning stage where technical, financial, and operational feasibility are determined. At this point, high-level process flow diagrams (PFDs), heat and material balances (HMBs), and preliminary piping and instrumentation diagrams (P&IDs) are developed.",
                 "Key objectives of the FEED phase include:",
@@ -37,7 +47,8 @@ export default function EPCLifecycleBlogPost() {
               ],
             },
             {
-              title: "Phase 2: Detailed Engineering – Turning Plans into Blueprints",
+              title:
+                "Phase 2: Detailed Engineering – Turning Plans into Blueprints",
               content: [
                 "Once FEED is complete and the project receives the green light, it transitions into detailed engineering, where conceptual designs evolve into precise, constructible plans. This stage is multidisciplinary, involving process, mechanical, civil, electrical, and instrumentation engineers working together to finalize specifications.",
                 "Key deliverables include:",
@@ -49,7 +60,8 @@ export default function EPCLifecycleBlogPost() {
               ],
             },
             {
-              title: "Phase 3: Procurement – Sourcing Materials, Equipment, and Vendors",
+              title:
+                "Phase 3: Procurement – Sourcing Materials, Equipment, and Vendors",
               content: [
                 "Procurement is the backbone of an EPC project, ensuring that every component—whether a heat exchanger, reactor, or structural steel—is acquired on time and within budget. This phase involves:",
                 "• Vendor prequalification and selection based on technical and commercial criteria.",
@@ -95,5 +107,5 @@ export default function EPCLifecycleBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }

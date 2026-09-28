@@ -1,21 +1,18 @@
-import { BlogPostLayout } from "@/components/blog-post-layout"
-import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper"
-import { getBlogImageUrl } from "../blog-pinterest-mapping"
+import { BlogPostLayout } from "@/components/blog-post-layout";
+import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 
 export const metadata = {
-  title: "Luqman Ismat - Career Development for Engineering Professionals",
-  description:
-    "Strategic guidance for engineering career growth including professional certifications, networking strategies, skill development, and transitioning to consulting or leadership roles.",
-  keywords: [
-    "Engineering Career",
-    "Professional Development",
-    "PE License",
-    "Engineering Certifications",
-    "Career Growth",
-    "Engineering Consulting",
-    "Leadership Development",
-    "Luqman Ismat"
-  ],
+  "title": "Career Development for Engineering Professionals",
+  "description": "Developing technical depth, professional relationships, and leadership skills over an engineering career.",
+  "alternates": {
+    "canonical": "/blog/career-development-engineers"
+  },
+  "openGraph": {
+    "type": "article",
+    "title": "Career Development for Engineering Professionals",
+    "description": "Developing technical depth, professional relationships, and leadership skills over an engineering career.",
+    "url": "/blog/career-development-engineers"
+  }
 }
 
 export default function CareerDevelopmentEngineersBlogPost() {
@@ -24,7 +21,7 @@ export default function CareerDevelopmentEngineersBlogPost() {
       <BlogPostLayout
         title="Career Development for Engineering Professionals"
         description="Strategic guidance for advancing your engineering career through certifications, networking, continuous learning, and transitioning to leadership or consulting roles."
-        image={getBlogImageUrl("career-development-engineers") || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/product-school-XZkk5xT8Xrk-unsplash%20(1).jpg-xdC0zNLpYvZV5amqGy0gWaBLGJa5ny.jpeg"}
+        image=""
         date="2025-10-11T19:00:00.000Z"
         category="CAREER DEVELOPMENT"
         slug="career-development-engineers"
@@ -108,7 +105,8 @@ export default function CareerDevelopmentEngineersBlogPost() {
               ],
             },
             {
-              title: "Work-Life Integration and Long-Term Career Sustainability",
+              title:
+                "Work-Life Integration and Long-Term Career Sustainability",
               content: [
                 "Sustainable careers balance professional achievement with personal well-being, relationships, and interests outside work. Burnout, health problems, and personal relationship challenges often result from neglecting this balance.",
                 "Work-life integration (rather than balance) recognizes that work and personal life aren't entirely separable. The goal is not equal time allocation but rather alignment between how you spend time and what you value. What matters most varies by individual and life stage.",
@@ -125,6 +123,5 @@ export default function CareerDevelopmentEngineersBlogPost() {
         }}
       />
     </ScrollToTopWrapper>
-  )
+  );
 }
-
