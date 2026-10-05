@@ -10,7 +10,7 @@ export default function Skeleton({ width = '100%', height = 16, radius = 'var(--
       aria-hidden
       style={{
         display: 'block', width, height, borderRadius: radius,
-        background: 'linear-gradient(90deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 100%)',
+        background: 'linear-gradient(90deg, hsl(var(--foreground) / 0.04) 0, hsl(var(--foreground) / 0.10) 50%, hsl(var(--foreground) / 0.04) 100%)',
         backgroundSize: '800px 100%',
         animation: 'shimmer 1.4s infinite linear',
       }}

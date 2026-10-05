@@ -7,7 +7,7 @@ const DAY = 86400000;
 const dayOf = (s: string) => Date.parse(s.slice(0, 10)) / DAY;
 const iso = (d: number) => new Date(Math.round(d) * DAY).toISOString().slice(0, 10);
 const SERIES: Record<string, string> = { unmit: 'Unmitigated', current: 'Current plan', proposed: 'Proposed' };
-const COLORS: Record<string, string> = { unmit: '#ed6468', current: '#2ec4b6', proposed: '#f5b14a' };
+const COLORS: Record<string, string> = { unmit: '#ed6468', current: 'var(--accent)', proposed: '#f5b14a' };
 const NO_EFFECT = '#8a93a3';
 const PALETTE =['#59cfc1', '#f391b4', '#b89af7', '#78b7f5', '#d4cc68', '#f8a077', '#97c891', '#d8a3d1'];
 const usd = (v: number | null | undefined) => v == null || !Number.isFinite(v) ? 'Not priced' : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(v);

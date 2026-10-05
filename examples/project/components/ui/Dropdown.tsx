@@ -249,7 +249,7 @@ export default function Dropdown(props: Props) {
             ))}
           </div>
         </div>,
-        document.body,
+        (document.querySelector<HTMLElement>(".demo-scope") ?? document.body),
       )}
     </div>
   );

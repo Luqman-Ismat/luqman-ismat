@@ -327,7 +327,7 @@ function SourceBreakdown({ by_source, total }: { by_source: { source: string; n:
                 <span>{SOURCE_LABEL[s.source] || s.source}</span>
                 <span style={{ color: 'var(--fg-3)', fontFamily: 'var(--font-mono)' }}>{s.n}{s.p1 > 0 ? ` · ${s.p1} P1` : ''}</span>
               </div>
-              <div style={{ height: 8, background: 'rgba(255,255,255,0.04)', borderRadius: 2, overflow: 'hidden', position: 'relative' }}>
+              <div style={{ height: 8, background: 'hsl(var(--foreground) / 0.04)', borderRadius: 2, overflow: 'hidden', position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', width: `${wf}%`, background: SOURCE_COLOR[s.source] || 'var(--accent)', opacity: 0.55 }} />
                 {wP1 > 0 && (
                   <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', width: `${wP1}%`, background: SEV_COLOR.p1, opacity: 0.9 }} />
@@ -448,23 +448,23 @@ function ScheduleCostMatrix({ signals, projects: aggregates, onPickProject, high
           <g key={q.label}>
             <rect x={q.x} y={q.y} width={q.w} height={q.h} fill={q.tone} />
             <text x={q.x + 8} y={q.y + 14} fontSize={10} fontFamily="var(--font-mono)"
-              fill="rgba(255,255,255,0.40)" textAnchor="start" style={{ textTransform: 'uppercase', letterSpacing: '0.10em' }}>
+              fill="hsl(var(--foreground) / 0.40)" textAnchor="start" style={{ textTransform: 'uppercase', letterSpacing: '0.10em' }}>
               {q.label}
             </text>
           </g>
         ))}
-        <line x1={qx} y1={m.top} x2={qx} y2={m.top + plotH} stroke="rgba(255,255,255,0.18)" strokeDasharray="3,3" />
-        <line x1={m.left} y1={qy} x2={m.left + plotW} y2={qy} stroke="rgba(255,255,255,0.18)" strokeDasharray="3,3" />
+        <line x1={qx} y1={m.top} x2={qx} y2={m.top + plotH} stroke="hsl(var(--foreground) / 0.18)" strokeDasharray="3,3" />
+        <line x1={m.left} y1={qy} x2={m.left + plotW} y2={qy} stroke="hsl(var(--foreground) / 0.18)" strokeDasharray="3,3" />
 
         {/* axis ticks */}
         {[0.5, 1].map((f) => (
           <g key={`x${f}`}>
-            <text x={m.left + plotW * f} y={m.top + plotH + 16} textAnchor="middle" fontSize={10} fontFamily="var(--font-mono)" fill="rgba(255,255,255,0.40)">{(maxSched * f).toFixed(0)}</text>
+            <text x={m.left + plotW * f} y={m.top + plotH + 16} textAnchor="middle" fontSize={10} fontFamily="var(--font-mono)" fill="hsl(var(--foreground) / 0.40)">{(maxSched * f).toFixed(0)}</text>
           </g>
         ))}
         {[0.5, 1].map((f) => (
           <g key={`y${f}`}>
-            <text x={m.left - 8} y={m.top + plotH * (1 - f) + 3} textAnchor="end" fontSize={10} fontFamily="var(--font-mono)" fill="rgba(255,255,255,0.40)">{(maxCost * f).toFixed(0)}</text>
+            <text x={m.left - 8} y={m.top + plotH * (1 - f) + 3} textAnchor="end" fontSize={10} fontFamily="var(--font-mono)" fill="hsl(var(--foreground) / 0.40)">{(maxCost * f).toFixed(0)}</text>
           </g>
         ))}
 
@@ -489,10 +489,10 @@ function ScheduleCostMatrix({ signals, projects: aggregates, onPickProject, high
           );
         })}
 
-        <text x={m.left + plotW / 2} y={H - 6} textAnchor="middle" fontSize={11} fill="rgba(255,255,255,0.70)">
+        <text x={m.left + plotW / 2} y={H - 6} textAnchor="middle" fontSize={11} fill="hsl(var(--foreground) / 0.70)">
           Schedule slip severity →
         </text>
-        <text x={16} y={m.top + plotH / 2} textAnchor="middle" fontSize={11} fill="rgba(255,255,255,0.70)"
+        <text x={16} y={m.top + plotH / 2} textAnchor="middle" fontSize={11} fill="hsl(var(--foreground) / 0.70)"
           transform={`rotate(-90 16 ${m.top + plotH / 2})`}>
           Cost overrun severity →
         </text>
@@ -626,7 +626,7 @@ function ResponseTimingSection({ projectFilter, onPickProject }: {
       <div style={{ border: '1px solid var(--glass-border)', borderRadius: 8, overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
-            <tr style={{ background: 'rgba(255,255,255,0.02)' }}>
+            <tr style={{ background: 'hsl(var(--foreground) / 0.02)' }}>
               <th style={headL}>Project</th>
               <th style={headL}>Signal</th>
               <th style={headR}>Detected</th>
@@ -646,7 +646,7 @@ function ResponseTimingSection({ projectFilter, onPickProject }: {
                     style={{
                       cursor: 'pointer',
                       borderTop: '1px solid var(--glass-border)',
-                      background: projectFilter === it.project_id ? 'rgba(46,196,182,0.04)' : 'transparent',
+                      background: projectFilter === it.project_id ? 'color-mix(in oklab, var(--accent) 4%, transparent)' : 'transparent',
                     }}
                   >
                     <td style={cellL}>
@@ -684,7 +684,7 @@ function ResponseTimingSection({ projectFilter, onPickProject }: {
                     </td>
                   </tr>
                   {open && (
-                    <tr style={{ background: 'rgba(255,255,255,0.015)' }}>
+                    <tr style={{ background: 'hsl(var(--foreground) / 0.015)' }}>
                       <td colSpan={6} style={{ padding: '14px 20px', fontSize: 12, color: 'var(--fg-2)' }}>
                         <IncidentTimeline it={it} />
                       </td>
@@ -704,7 +704,7 @@ function KpiTile({ label, value, sub, accent }: { label: string; value: string; 
   return (
     <div style={{
       padding: '10px 12px', border: '1px solid var(--glass-border)', borderRadius: 8,
-      background: 'rgba(255,255,255,0.015)',
+      background: 'hsl(var(--foreground) / 0.015)',
     }}>
       <div style={{ fontSize: 10, color: 'var(--fg-3)', textTransform: 'uppercase', letterSpacing: '0.10em', marginBottom: 4 }}>{label}</div>
       <div style={{ fontSize: 18, color: accent || 'var(--fg-1)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>{value}</div>
@@ -732,7 +732,7 @@ function IncidentTimeline({ it }: { it: Incident }) {
         {steps.map((s, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 200 }}>
             <span style={{
-              width: 10, height: 10, borderRadius: 5, background: s.when ? STEP_TONE[s.kind] : 'rgba(255,255,255,0.20)',
+              width: 10, height: 10, borderRadius: 5, background: s.when ? STEP_TONE[s.kind] : 'hsl(var(--foreground) / 0.20)',
               flexShrink: 0, marginTop: 2,
             }} />
             <div>
@@ -764,7 +764,7 @@ function TopProjectsTable({ projects, onPickProject, highlighted }: { projects: 
       <div style={{ overflowX: 'auto', border: '1px solid var(--glass-border)', borderRadius: 6 }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
           <thead>
-            <tr style={{ background: 'rgba(255,255,255,0.03)', color: 'var(--fg-3)' }}>
+            <tr style={{ background: 'hsl(var(--foreground) / 0.03)', color: 'var(--fg-3)' }}>
               <th style={{ ...cellL, fontWeight: 500 }}>Project</th>
               <th style={{ ...cellL, fontWeight: 500 }}>Sources firing</th>
               <th style={{ ...cellR, fontWeight: 500 }}>P1</th>
@@ -782,7 +782,7 @@ function TopProjectsTable({ projects, onPickProject, highlighted }: { projects: 
                     tabIndex={0} role="button" onKeyDown={e=>{if(e.target===e.currentTarget&&(e.key==='Enter'||e.key===' ')){e.preventDefault();onPickProject(active ? null : p.project_id)}}} onClick={() => onPickProject(active ? null : p.project_id)}
                     style={{
                       borderTop: '1px solid var(--glass-border)',
-                      background: active ? 'rgba(46,196,182,0.06)' : 'transparent',
+                      background: active ? 'color-mix(in oklab, var(--accent) 6%, transparent)' : 'transparent',
                       cursor: 'pointer',
                     }}>
                   <td style={{ ...cellL, color: 'var(--fg-1)' }}>
@@ -832,7 +832,7 @@ function ClustersPanel({ clusters, onPickProject, highlighted }: { clusters: Clu
                   display: 'grid', gridTemplateColumns: '1fr auto auto auto',
                   gap: 10, padding: '8px 10px', alignItems: 'center', cursor: 'pointer',
                   border: '1px solid var(--glass-border)', borderRadius: 6,
-                  background: active ? 'rgba(46,196,182,0.06)' : 'rgba(255,255,255,0.015)',
+                  background: active ? 'color-mix(in oklab, var(--accent) 6%, transparent)' : 'hsl(var(--foreground) / 0.015)',
                 }}>
                 <div style={{ minWidth: 0 }}>
                   <div style={{ color: 'var(--fg-1)', fontSize: 13, fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.project_name}</div>
@@ -915,7 +915,7 @@ function RaidCorrelations({ correlations, onPickProject, onChanged }: { correlat
         {correlations.map((c) => {
           const raidSev: Severity = (c.raid_severity?.toLowerCase() as Severity) || 'p3';
           return (
-            <div key={c.raid_id} style={{ border: '1px solid var(--glass-border)', borderRadius: 6, padding: '10px 12px', background: 'rgba(255,255,255,0.015)' }}>
+            <div key={c.raid_id} style={{ border: '1px solid var(--glass-border)', borderRadius: 6, padding: '10px 12px', background: 'hsl(var(--foreground) / 0.015)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                 <span style={{
                   display: 'inline-block', padding: '2px 8px', borderRadius: 999,
@@ -969,8 +969,8 @@ function CorrelationRow({ raidId, link, onChanged }: { raidId: string; link: Rai
       display: 'grid', gridTemplateColumns: '54px minmax(70px, 100px) minmax(90px, 1fr) 50px auto',
       gap: 10, alignItems: 'center', padding: '8px 12px',
       borderRadius: 6,
-      background: confirmed ? 'rgba(46,196,182,0.05)' : 'transparent',
-      border: confirmed ? '1px solid rgba(46,196,182,0.30)' : '1px solid var(--glass-border)',
+      background: confirmed ? 'color-mix(in oklab, var(--accent) 5%, transparent)' : 'transparent',
+      border: confirmed ? '1px solid color-mix(in oklab, var(--accent) 30%, transparent)' : '1px solid var(--glass-border)',
     }}>
       <SevPill s={link.severity} />
       <SrcPill src={link.source} />
@@ -1034,7 +1034,7 @@ function KindGroups({ groups, activeKey, onPick, onPickProject }: {
                 gap: 12, alignItems: 'center', padding: '10px 12px',
                 border: `1px solid ${active ? 'var(--accent)' : 'var(--glass-border)'}`,
                 borderRadius: 6, cursor: 'pointer',
-                background: active ? 'rgba(46,196,182,0.05)' : 'rgba(255,255,255,0.015)',
+                background: active ? 'color-mix(in oklab, var(--accent) 5%, transparent)' : 'hsl(var(--foreground) / 0.015)',
                 transition: 'background 80ms ease',
               }}>
               <SrcPill src={g.source} />
@@ -1127,13 +1127,13 @@ function LiveFeed({ signals, totalCount, source, onSource, severity, onSeverity,
         />
         {project && (
           <button onClick={() => onProject(null)}
-            style={{ padding: '4px 10px', fontSize: 11, borderRadius: 999, border: '1px solid var(--accent)', background: 'rgba(46,196,182,0.12)', color: 'var(--accent)', cursor: 'pointer' }}>
+            style={{ padding: '4px 10px', fontSize: 11, borderRadius: 999, border: '1px solid var(--accent)', background: 'color-mix(in oklab, var(--accent) 12%, transparent)', color: 'var(--accent)', cursor: 'pointer' }}>
             project filter ✕
           </button>
         )}
         {kind && (
           <button onClick={() => onKind(null)} title="Clear kind filter"
-            style={{ padding: '4px 10px', fontSize: 11, borderRadius: 999, border: '1px solid var(--accent)', background: 'rgba(46,196,182,0.12)', color: 'var(--accent)', cursor: 'pointer' }}>
+            style={{ padding: '4px 10px', fontSize: 11, borderRadius: 999, border: '1px solid var(--accent)', background: 'color-mix(in oklab, var(--accent) 12%, transparent)', color: 'var(--accent)', cursor: 'pointer' }}>
             kind: {kindLabel(kind.split('|')[1] || '')} ✕
           </button>
         )}
@@ -1154,7 +1154,7 @@ function LiveFeed({ signals, totalCount, source, onSource, severity, onSeverity,
                 textDecoration: 'none', color: 'inherit',
                 transition: 'background 80ms ease',
               }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.025)'; }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = 'hsl(var(--foreground) / 0.025)'; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; }}>
               <SevPill s={s.severity} />
               <SrcPill src={s.source} />
@@ -1191,7 +1191,7 @@ function FilterChips({ options, value, onChange }: { options: { value: string; l
             style={{
               padding: '4px 10px', fontSize: 11, borderRadius: 999, cursor: 'pointer',
               border: `1px solid ${active ? 'var(--accent)' : 'var(--glass-border)'}`,
-              background: active ? 'rgba(46,196,182,0.12)' : 'transparent',
+              background: active ? 'color-mix(in oklab, var(--accent) 12%, transparent)' : 'transparent',
               color: active ? 'var(--accent)' : 'var(--fg-2)',
               display: 'inline-flex', alignItems: 'center', gap: 5,
             }}>

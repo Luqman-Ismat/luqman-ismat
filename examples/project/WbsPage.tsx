@@ -588,7 +588,7 @@ export default function WbsPage() {
               <div style={{
                 position: 'sticky', top: 0, zIndex: 3,
                 height: HEADER_H, width: treeContentW,
-                background: 'rgba(8,9,10,0.95)',
+                background: 'hsl(var(--card) / 0.95)',
                 backdropFilter: 'blur(12px)',
                 borderBottom: '1px solid var(--glass-border)',
                 display: 'flex', alignItems: 'flex-end',
@@ -642,8 +642,8 @@ export default function WbsPage() {
                         position: 'absolute', top: idx * ROW_H, left: 0,
                         width: treeContentW, height: ROW_H,
                         display: 'flex', alignItems: 'center',
-                        background: isSelected ? 'rgba(46,196,182,0.08)' : (r as any)._scenario_adjusted ? 'rgba(139,92,246,0.10)' : isHovered ? 'rgba(255,255,255,0.025)' : 'transparent',
-                        borderBottom: '1px solid rgba(255,255,255,0.04)',
+                        background: isSelected ? 'color-mix(in oklab, var(--accent) 8%, transparent)' : (r as any)._scenario_adjusted ? 'rgba(139,92,246,0.10)' : isHovered ? 'hsl(var(--foreground) / 0.025)' : 'transparent',
+                        borderBottom: '1px solid hsl(var(--foreground) / 0.04)',
                         fontSize: 'var(--fs-sm)',
                         cursor: r.has_children ? 'pointer' : 'default',
                       }}
@@ -686,7 +686,7 @@ export default function WbsPage() {
             {/* header strip — translateX'd to follow body's horizontal scroll */}
             <div style={{
               height: HEADER_H,
-              background: 'rgba(8,9,10,0.95)',
+              background: 'hsl(var(--card) / 0.95)',
               backdropFilter: 'blur(12px)',
               borderBottom: '1px solid var(--glass-border)',
               overflow: 'hidden', position: 'relative',
@@ -707,12 +707,12 @@ export default function WbsPage() {
                   {/* sub guides */}
                   {ticks.sub.map((t, i) => (
                     <line key={`g-${i}`} x1={t.x} x2={t.x} y1={0} y2={totalH}
-                          stroke="rgba(255,255,255,0.04)" strokeWidth={1} />
+                          stroke="hsl(var(--foreground) / 0.04)" strokeWidth={1} />
                   ))}
                   {/* year boundary lines */}
                   {ticks.year.map((t, i) => (
                     <line key={`y-${i}`} x1={t.x} x2={t.x} y1={0} y2={totalH}
-                          stroke="rgba(255,255,255,0.10)" strokeWidth={1} />
+                          stroke="hsl(var(--foreground) / 0.10)" strokeWidth={1} />
                   ))}
                   {/* today line */}
                   {window_ && (() => {
@@ -720,14 +720,14 @@ export default function WbsPage() {
                     if (x < 0 || x > timelineW) return null;
                     return (
                       <line x1={x} x2={x} y1={0} y2={totalH}
-                            stroke="rgba(46,196,182,0.55)" strokeDasharray="4 4" strokeWidth={1} />
+                            stroke="color-mix(in oklab, var(--accent) 55%, transparent)" strokeDasharray="4 4" strokeWidth={1} />
                     );
                   })()}
 
                   <defs>
                     <marker id="dep-arrow" viewBox="0 0 10 10" refX="9" refY="5"
                             markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                      <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.45)" />
+                      <path d="M 0 0 L 10 5 L 0 10 z" fill="hsl(var(--foreground) / 0.45)" />
                     </marker>
                     <marker id="dep-arrow-crit" viewBox="0 0 10 10" refX="9" refY="5"
                             markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -808,26 +808,26 @@ function TimelineHeader({ ticks, width, height }: {
   const yBand = 24;
   return (
     <>
-      <rect x={0} y={0} width={width} height={yBand} fill="rgba(255,255,255,0.025)" />
+      <rect x={0} y={0} width={width} height={yBand} fill="hsl(var(--foreground) / 0.025)" />
       {ticks.year.map((t, i) => (
         <line key={`yl-${i}`} x1={t.x} x2={t.x} y1={0} y2={height}
-              stroke="rgba(255,255,255,0.10)" strokeWidth={1} />
+              stroke="hsl(var(--foreground) / 0.10)" strokeWidth={1} />
       ))}
       {ticks.year.map((t, i) => (
         <text key={`yt-${i}`} x={t.x + 6} y={16} fontSize={11} fontFamily="Inter, system-ui"
-              fontWeight={600} fill="rgba(255,255,255,0.78)">{t.label}</text>
+              fontWeight={600} fill="hsl(var(--foreground) / 0.78)">{t.label}</text>
       ))}
-      <line x1={0} x2={width} y1={yBand} y2={yBand} stroke="rgba(255,255,255,0.08)" strokeWidth={1} />
+      <line x1={0} x2={width} y1={yBand} y2={yBand} stroke="hsl(var(--foreground) / 0.08)" strokeWidth={1} />
       {ticks.sub.map((t, i) => (
         <line key={`sl-${i}`} x1={t.x} x2={t.x} y1={yBand} y2={height}
-              stroke="rgba(255,255,255,0.05)" strokeWidth={1} />
+              stroke="hsl(var(--foreground) / 0.05)" strokeWidth={1} />
       ))}
       {ticks.sub.map((t, i) => (
         <text key={`st-${i}`} x={t.x + 4} y={yBand + 18} fontSize={10}
-              fontFamily="Inter, system-ui" fill="rgba(255,255,255,0.50)">{t.label}</text>
+              fontFamily="Inter, system-ui" fill="hsl(var(--foreground) / 0.50)">{t.label}</text>
       ))}
       <line x1={0} x2={width} y1={height - 1} y2={height - 1}
-            stroke="rgba(255,255,255,0.10)" strokeWidth={1} />
+            stroke="hsl(var(--foreground) / 0.10)" strokeWidth={1} />
     </>
   );
 }
@@ -878,7 +878,7 @@ function BarRow({ row, y, pxPerDay, window: w, showBaseline, showProjected, proj
         <rect
           x={xFor(bs)} y={y + rowH * 0.18}
           width={Math.max(2, xFor(be) - xFor(bs))} height={rowH * 0.24}
-          fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)" strokeWidth={1}
+          fill="hsl(var(--foreground) / 0.04)" stroke="hsl(var(--foreground) / 0.16)" strokeWidth={1}
           rx={3} ry={3}
         />
       )}
@@ -941,7 +941,7 @@ function DependencyArrow({ from, to, fromY, toY, pxPerDay, windowMin, rowH, crit
     : `M ${x1} ${y1} L ${elbow} ${y1} L ${elbow} ${y2} L ${x2} ${y2}`;
   return (
     <path d={path} fill="none"
-          stroke={critical ? 'var(--color-error)' : 'rgba(255,255,255,0.40)'}
+          stroke={critical ? 'var(--color-error)' : 'hsl(var(--foreground) / 0.40)'}
           strokeWidth={critical ? 1.5 : 1}
           markerEnd={critical ? 'url(#dep-arrow-crit)' : 'url(#dep-arrow)'} />
   );

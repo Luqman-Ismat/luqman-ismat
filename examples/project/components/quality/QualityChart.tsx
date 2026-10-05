@@ -33,7 +33,7 @@ const MUTED = 'var(--fg-3)';
 const GRID = 'var(--glass-border)';
 const FG2 = 'var(--fg-2)';
 const AMBER = '#f5b14a';
-const TEAL = '#2ec4b6';
+const TEAL = 'var(--accent)';
 const MONO = 'var(--font-mono, "JetBrains Mono", monospace)';
 
 type SeriesDef = { id: string; label: string; color: string; field: keyof QualityWeek; traceKey: string; bar: boolean };
@@ -42,7 +42,7 @@ const HOURS_SERIES: SeriesDef[] = [
   { id: 'qc', label: 'QC', color: TEAL, field: 'qc_hours', traceKey: 'qc_hours', bar: true },
   { id: 'cr', label: 'Rework', color: '#e5484d', field: 'rework_hours', traceKey: 'rework_hours', bar: true },
   { id: 'sc', label: 'Setup', color: '#a855f7', field: 'sc_hours', traceKey: 'sc_hours', bar: true },
-  { id: 'other', label: 'Other', color: 'rgba(255,255,255,0.4)', field: 'other_hours', traceKey: 'other_hours', bar: true },
+  { id: 'other', label: 'Other', color: 'hsl(var(--foreground) / 0.4)', field: 'other_hours', traceKey: 'other_hours', bar: true },
 ];
 const RATIO_SERIES: SeriesDef[] = [
   { id: 'qcr', label: 'QC ratio %', color: TEAL, field: 'qc_ratio_pct', traceKey: 'qc_ratio', bar: false },
@@ -90,7 +90,7 @@ function Seg<T extends string>({ value, options, onChange }: { value: T; options
 }
 function Chip({ on, label, onClick }: { on: boolean; label: string; onClick: () => void }) {
   return (
-    <button aria-pressed={on} onClick={onClick} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, cursor: 'pointer', border: `1px solid ${on ? 'rgba(46,196,182,0.55)' : 'var(--glass-border)'}`, background: on ? 'rgba(46,196,182,0.14)' : 'transparent', color: on ? TEAL : FG2 }}>{label}</button>
+    <button aria-pressed={on} onClick={onClick} style={{ padding: '4px 10px', fontSize: 11, borderRadius: 6, cursor: 'pointer', border: `1px solid ${on ? 'color-mix(in oklab, var(--accent) 55%, transparent)' : 'var(--glass-border)'}`, background: on ? 'color-mix(in oklab, var(--accent) 14%, transparent)' : 'transparent', color: on ? TEAL : FG2 }}>{label}</button>
   );
 }
 
@@ -198,7 +198,7 @@ export default function QualityChart({ weekly, qmpDates, todayIso, onTrace }: {
   const fire = (s: SeriesDef, week: string) => onTrace({ key: s.traceKey, label: `${s.label} · ${periodLabel(week, granularity)}`, month: week, granularity });
 
   return (
-    <section style={{ border: '1px solid var(--glass-border)', borderRadius: 'var(--radius-lg, 14px)', background: 'var(--glass-bg, rgba(255,255,255,0.04))', overflow: 'hidden' }}>
+    <section style={{ border: '1px solid var(--glass-border)', borderRadius: 'var(--radius-lg, 14px)', background: 'var(--glass-bg, hsl(var(--foreground) / 0.04))', overflow: 'hidden' }}>
       <div style={{ padding: '10px 16px', borderBottom: '1px solid var(--glass-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
         <span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: MUTED, fontWeight: 600 }}>
           {isHours ? 'Charge-code hours over time' : isRatio ? 'QC + rework ratios over time' : 'Defects over time'}
@@ -236,7 +236,7 @@ export default function QualityChart({ weekly, qmpDates, todayIso, onTrace }: {
               <text x={m.left - 8} y={yVal(v) + 3} textAnchor="end" fontFamily={MONO} fontSize={10} fill={MUTED}>{isRatio ? `${Math.round(v)}%` : hrsFmt(v)}</text>
             </g>
           ))}
-          {hover != null && <rect x={m.left + slot * hover} y={m.top} width={slot} height={plotH} fill="rgba(46,196,182,0.06)" />}
+          {hover != null && <rect x={m.left + slot * hover} y={m.top} width={slot} height={plotH} fill="color-mix(in oklab, var(--accent) 6%, transparent)" />}
 
           {/* QMP upload markers */}
           {qmpIdxs.map((i, k) => (
@@ -307,7 +307,7 @@ export default function QualityChart({ weekly, qmpDates, todayIso, onTrace }: {
             {stackable && (
               <>
                 <div style={{ height: 1, background: 'var(--glass-border)', margin: '6px 0' }} />
-                <TipRow color="rgba(255,255,255,0.85)" label="Total" value={`${hrsFmt(hd.stackTotal)} h`} />
+                <TipRow color="hsl(var(--foreground) / 0.85)" label="Total" value={`${hrsFmt(hd.stackTotal)} h`} />
               </>
             )}
           </div>
@@ -324,7 +324,7 @@ function TipRow({ color, label, value }: { color: string; label: string; value: 
         <span style={{ width: 8, height: 8, borderRadius: 2, background: color, flexShrink: 0 }} />
         <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{label}</span>
       </span>
-      <span style={{ fontFamily: MONO, fontSize: 11, color: 'rgba(255,255,255,0.96)', flexShrink: 0 }}>{value}</span>
+      <span style={{ fontFamily: MONO, fontSize: 11, color: 'hsl(var(--foreground) / 0.96)', flexShrink: 0 }}>{value}</span>
     </div>
   );
 }

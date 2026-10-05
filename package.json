@@ -12,7 +12,7 @@
     "verify:site": "node scripts/verify-site.mjs",
     "test:engivault": "tsc lib/engivault/convert.ts lib/engivault/calculator-data.ts lib/engivault/engineering.ts lib/engivault/section-transfer.ts lib/engivault/unit-converter-data.ts --outDir .test-engivault --module commonjs --target es2020 --skipLibCheck && node --test tests/engivault/*.test.cjs",
     "test:demos": "tsc lib/demos/models.ts lib/experience.ts --outDir .test-demos --module commonjs --target es2021 --skipLibCheck && node --test tests/demos/*.test.cjs",
-    "build:examples": "node scripts/generate-inspection-fixtures.mjs && node scripts/generate-project-fixtures.mjs && node scripts/build-examples.mjs",
+    "build:examples": "node scripts/generate-inspection-fixtures.mjs && node scripts/generate-project-fixtures.mjs && node scripts/build-examples.mjs && node scripts/scope-demo-css.mjs",
     "test:source-examples": "node tests/source-examples/integration.mjs",
     "test:reporting": "tsc -p examples/tsconfig.json && node tests/source-examples/reporting.mjs"
   },

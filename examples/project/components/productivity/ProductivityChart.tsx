@@ -97,8 +97,8 @@ function Chip({ on, label, onClick }: { on: boolean; label: string; onClick: () 
     <button aria-pressed={on} onClick={onClick}
       style={{
         padding: '4px 10px', fontSize: 11, borderRadius: 6, cursor: 'pointer',
-        border: `1px solid ${on ? 'rgba(46,196,182,0.55)' : 'var(--glass-border)'}`,
-        background: on ? 'rgba(46,196,182,0.14)' : 'transparent', color: on ? PHASE_COLORS[0] : FG2,
+        border: `1px solid ${on ? 'color-mix(in oklab, var(--accent) 55%, transparent)' : 'var(--glass-border)'}`,
+        background: on ? 'color-mix(in oklab, var(--accent) 14%, transparent)' : 'transparent', color: on ? PHASE_COLORS[0] : FG2,
         transition: 'all 120ms ease',
       }}>
       {label}
@@ -234,7 +234,7 @@ export default function ProductivityChart({
   };
 
   return (
-    <section style={{ border: '1px solid var(--glass-border)', borderRadius: 'var(--radius-lg, 14px)', background: 'var(--glass-bg, rgba(255,255,255,0.04))', overflow: 'hidden' }}>
+    <section style={{ border: '1px solid var(--glass-border)', borderRadius: 'var(--radius-lg, 14px)', background: 'var(--glass-bg, hsl(var(--foreground) / 0.04))', overflow: 'hidden' }}>
       {/* toolbar */}
       <div style={{ padding: '10px 16px', borderBottom: '1px solid var(--glass-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
         <span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: MUTED, fontWeight: 600 }}>
@@ -286,7 +286,7 @@ export default function ProductivityChart({
             </g>
           ))}
 
-          {hover != null && <rect x={m.left + slot * hover} y={m.top} width={slot} height={plotH} fill="rgba(46,196,182,0.06)" />}
+          {hover != null && <rect x={m.left + slot * hover} y={m.top} width={slot} height={plotH} fill="color-mix(in oklab, var(--accent) 6%, transparent)" />}
 
           {/* baseline reference (metric modes) */}
           {isMetric && baseline != null && baseline <= maxVal && (
@@ -393,7 +393,7 @@ function TipRow({ color, label, value }: { color: string; label: string; value: 
         <span style={{ width: 8, height: 8, borderRadius: 2, background: color, flexShrink: 0 }} />
         <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{label}</span>
       </span>
-      <span style={{ fontFamily: MONO, fontSize: 11, color: 'rgba(255,255,255,0.96)', flexShrink: 0 }}>{value}</span>
+      <span style={{ fontFamily: MONO, fontSize: 11, color: 'hsl(var(--foreground) / 0.96)', flexShrink: 0 }}>{value}</span>
     </div>
   );
 }

@@ -26,7 +26,7 @@ type Mode = 'cost' | 'hours';
 type ChartType = 'bars' | 'lines';
 type SeriesKey = 'revenue' | 'cost' | 'fcst_rev' | 'fcst_cost' | 'margin';
 
-const TEAL = '#2ec4b6';
+const TEAL = 'var(--accent)';
 const COST = 'var(--fg-2)';
 const GREEN = '#3ecf8e';
 const RED = '#e5484d';
@@ -106,8 +106,8 @@ function Chip({ on, label, onClick }: { on: boolean; label: string; onClick: () 
     <button aria-pressed={on} onClick={onClick}
       style={{
         padding: '4px 10px', fontSize: 11, borderRadius: 6, cursor: 'pointer',
-        border: `1px solid ${on ? 'rgba(46,196,182,0.55)' : 'var(--glass-border)'}`,
-        background: on ? 'rgba(46,196,182,0.14)' : 'transparent', color: on ? TEAL : FG2,
+        border: `1px solid ${on ? 'color-mix(in oklab, var(--accent) 55%, transparent)' : 'var(--glass-border)'}`,
+        background: on ? 'color-mix(in oklab, var(--accent) 14%, transparent)' : 'transparent', color: on ? TEAL : FG2,
         transition: 'all 120ms ease',
       }}>
       {label}
@@ -203,7 +203,7 @@ export default function CostChart({
   const pathFor = (pts: Array<[number, number]>) => (smooth ? smoothPath(pts) : linePath(pts));
 
   return (
-    <section style={{ border: '1px solid var(--glass-border)', borderRadius: 'var(--radius-lg, 14px)', background: 'var(--glass-bg, rgba(255,255,255,0.04))', overflow: 'hidden' }}>
+    <section style={{ border: '1px solid var(--glass-border)', borderRadius: 'var(--radius-lg, 14px)', background: 'var(--glass-bg, hsl(var(--foreground) / 0.04))', overflow: 'hidden' }}>
       {/* toolbar */}
       <div style={{ padding: '10px 16px', borderBottom: '1px solid var(--glass-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
         <span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: MUTED, fontWeight: 600 }}>Financials over time</span>
@@ -260,7 +260,7 @@ export default function CostChart({
           )}
 
           {/* hover guide */}
-          {hover != null && <rect x={m.left + slot * hover} y={m.top} width={slot} height={plotH} fill="rgba(46,196,182,0.06)" />}
+          {hover != null && <rect x={m.left + slot * hover} y={m.top} width={slot} height={plotH} fill="color-mix(in oklab, var(--accent) 6%, transparent)" />}
 
           {/* today marker */}
           {showToday && todayIdx >= 0 && (
@@ -385,7 +385,7 @@ function TipRow({ color, label, value, dim }: { color: string; label: string; va
       <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: dim ? MUTED : FG2 }}>
         <span style={{ width: 8, height: 8, borderRadius: 2, background: color, flexShrink: 0 }} />{label}
       </span>
-      <span style={{ fontFamily: MONO, fontSize: 11, color: dim ? MUTED : 'rgba(255,255,255,0.96)' }}>{value}</span>
+      <span style={{ fontFamily: MONO, fontSize: 11, color: dim ? MUTED : 'hsl(var(--foreground) / 0.96)' }}>{value}</span>
     </div>
   );
 }

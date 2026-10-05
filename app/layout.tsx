@@ -9,6 +9,7 @@ import "@/styles/redesign.css";
 import "@/styles/indus.css";
 import "@/styles/shell.css";
 import "@/styles/journey.css";
+import "@/styles/demos.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { MotionLayer } from "@/components/redesign/motion-layer";

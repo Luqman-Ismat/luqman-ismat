@@ -1,0 +1,118 @@
+/* Token bridge: maps the demo apps' design tokens onto the site's tokens so
+   the working applications render as part of the page in light and dark.
+   :root + doubled class out-ranks the apps' own theme blocks. */
+:root .demo-scope.demo-scope {
+  --accent: var(--demo-accent, hsl(var(--signal)));
+  --accent-dim: color-mix(in oklab, var(--accent) 72%, black);
+  --accent-glow: color-mix(in oklab, var(--accent) 35%, transparent);
+  --color-accent: var(--accent);
+  --color-accent-dim: color-mix(in oklab, var(--accent) 14%, transparent);
+  --brand-teal: var(--accent);
+  --tone: var(--accent);
+  --glass-border-focus: color-mix(in oklab, var(--accent) 55%, transparent);
+
+  --bg-base: hsl(var(--background));
+  --bg-atmosphere: none;
+  --app-background: hsl(var(--background));
+  --app-foreground: hsl(var(--foreground));
+  --glass-bg: hsl(var(--foreground) / 0.035);
+  --glass-bg-hover: hsl(var(--foreground) / 0.065);
+  --glass-bg-raised: hsl(var(--card));
+  --glass-bg-solid: hsl(var(--card));
+  --glass-border: hsl(var(--foreground) / 0.11);
+  --glass-border-hover: hsl(var(--foreground) / 0.2);
+  --text-primary: hsl(var(--foreground));
+  --text-secondary: hsl(var(--foreground) / 0.7);
+  --text-muted: hsl(var(--foreground) / 0.5);
+  --fg-1: var(--text-primary);
+  --fg-2: var(--text-secondary);
+  --fg-3: var(--text-muted);
+
+  --panel-solid: hsl(var(--card));
+  --panel-solid-border: hsl(var(--border));
+  --overlay-solid: hsl(var(--popover));
+  --hairline: hsl(var(--foreground) / 0.08);
+  --inset: hsl(var(--foreground) / 0.025);
+  --chart-plot: hsl(var(--card));
+  --chart-lane: hsl(var(--foreground) / 0.02);
+  --chart-grid: hsl(var(--border));
+  --chart-today: hsl(var(--foreground) / 0.7);
+  --chart-fit: hsl(var(--foreground));
+  --chart-halo: hsl(var(--background));
+  --chart-cursor: hsl(var(--foreground));
+  --chart-chip: hsl(var(--popover) / 0.94);
+  --chart-chip-border: hsl(var(--border));
+  --chart-chip-fg: hsl(var(--foreground));
+  --chart-axis: hsl(var(--muted-foreground));
+  --chart-lane-label: hsl(var(--muted-foreground));
+  --heat-base: hsl(var(--muted));
+
+  --font-sans: var(--demo-font, var(--font-geist-sans, system-ui)), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono, ui-monospace), ui-monospace, monospace;
+  --radius-sm: calc(6px * var(--demo-radius, 1));
+  --radius-md: calc(10px * var(--demo-radius, 1));
+  --radius-lg: calc(14px * var(--demo-radius, 1));
+  --radius-xl: calc(20px * var(--demo-radius, 1));
+  --shadow-sm: 0 1px 2px hsl(var(--foreground) / 0.08);
+  --shadow-md: 0 8px 24px hsl(var(--foreground) / 0.1);
+  --shadow-lg: 0 20px 60px hsl(var(--foreground) / 0.16);
+
+  color-scheme: light;
+  background: transparent;
+  color: var(--fg-1);
+  font-family: var(--font-sans);
+  min-height: 0;
+}
+html.dark .demo-scope.demo-scope { color-scheme: dark; }
+.demo-scope { position: relative; isolation: isolate; }
+.demo-scope:not(.is-ready) { min-height: 70vh; }
+/* the inspection app's own theme switch is superseded by the site theme */
+.demo-scope .theme-toggle { display: none !important; }
+/* inputs inherit the brand font too */
+.demo-scope :is(button, input, select, textarea) { font-family: inherit; }
+
+.native-demo { padding: 0 var(--page-gutter) 40px; }
+.brand-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border-radius: 20px;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+}
+.brand-bar-intro .eyebrow { margin-bottom: 4px; }
+.brand-bar-title { font-family: var(--font-serif); font-style: italic; font-size: 22px; line-height: 1; }
+.brand-presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.brand-presets button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px 7px 8px;
+  border-radius: 99px;
+  border: 1px solid hsl(var(--border));
+  background: transparent;
+  color: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+.brand-presets span { width: 14px; height: 14px; border-radius: 50%; }
+.brand-presets [aria-checked="true"] { background: hsl(var(--foreground)); color: hsl(var(--background)); border-color: transparent; }
+.brand-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+.brand-controls label { display: inline-flex; align-items: center; gap: 8px; font: 400 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: 0.04em; color: hsl(var(--muted-foreground)); }
+.brand-controls input[type="color"] { width: 30px; height: 30px; padding: 0; border: 1px solid hsl(var(--border)); border-radius: 8px; background: none; cursor: pointer; }
+.brand-controls select { height: 32px; padding: 0 8px; border-radius: 8px; border: 1px solid hsl(var(--border)); background: hsl(var(--background)); color: hsl(var(--foreground)); font: 13px var(--font-sans); text-transform: none; letter-spacing: 0; }
+.brand-controls input[type="range"] { width: 90px; accent-color: hsl(var(--signal)); }
+.brand-density input { accent-color: hsl(var(--signal)); }
+.native-demo-status { padding: 40px 0; text-align: center; color: hsl(var(--muted-foreground)); font-size: 14px; }
+
+/* Demo pages: intro sits in the shared page type system */
+.source-page-intro { padding: clamp(40px, 6vw, 80px) var(--page-gutter) 28px; }
+.consulting-main .source-page-intro h1 { font-size: clamp(44px, 6vw, 96px); line-height: 0.95; letter-spacing: -0.06em; margin-bottom: 18px; }
+.source-page-intro p { font-size: 16px; line-height: 1.65; color: hsl(var(--muted-foreground)); max-width: 70ch; }
+@media (max-width: 760px) {
+  .brand-controls { margin-left: 0; }
+  .native-demo { padding-inline: 12px; }
+}
