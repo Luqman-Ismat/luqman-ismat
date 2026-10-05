@@ -28,7 +28,7 @@ Keep all primary destinations visible in a stable order. The current page label 
 ## October 2026 redesign: Drafting Table
 Supersedes the earlier "no background motion" rule at the user's request for a complete redesign drawing on Awwwards, Godly, Dribbble, 21st.dev, CodePen and Monet. `styles/redesign.css` loads last and sets the final tokens.
 
-- Palette: warm paper (`45 18% 93%`) and ink (`60 6% 7%`), one signal orange (`14 100% 52%`) for accents, focus and selection. Dark mode inverts to ink paper. Indigo stays reserved for Indus Blue.
+- Palette: warm paper (`45 18% 93%`) and ink (`60 6% 7%`), one signal orange (`14 100% 52%`) for accents, focus and selection. Dark mode inverts to ink paper. 
 - Type: Geist for working text, Geist Mono for labels and metadata, Instrument Serif italic for the human accent phrase in each headline. All self-hosted.
 - Motion: masked word reveals, clip-path image reveals, marquees, a pointer-following preview on the services index, spotlight borders on the bento grid, magnetic CTA, a custom cursor on fine pointers, and a reading-progress hairline. All of it is disabled under `prefers-reduced-motion`; content is server-rendered and readable without JavaScript motion.
 - Home: oversized name hero with statement, cinematic photo band, services index, bento of real work, interactive lab, inverted EngiVault band, process, About, Indus Blue, journal list. Footer carries the primary "Start a project" call to action.
@@ -42,3 +42,12 @@ Supersedes the header and homepage sections above.
 - Indus Blue: an indigo-night scope with madder red as the signal colour. Garments are drawn from shared millimetre pattern geometry; doch motifs (setareh with mirrors, toi, gol, kap) are generated on a 2.2 mm stitch grid and layered as pakka panels (kap border, rule, toi band, field). The same flats texture the 3D garment.
 - Demos: native mounts with a token bridge; never a separate dark container.
 - Reduced motion turns off every animation, including chapter entrances, the menu reveal, the curtain and smooth scroll; content never depends on an animation to become visible.
+
+## October 2026: chapters, Explore and TEN21
+Supersedes the journey section above where they differ.
+
+- One content model (`lib/chapters.ts`). Overlapping pages (consulting, dashboards, integrations, projects, demos, portfolio) collapse into four chapters: Controls, Integrations, Engineering, TEN21. Each component appears once.
+- Home chapters carry a title, one line and a single **Explore** control. Explore explodes the station (anime.js drives `journey.explode`), the camera pushes in, and the chapter opens on the same station already exploded, with every part labelled and linked to its component.
+- Components rise into place in 3D as they enter (perspective, rotateX), their part glyph (the same plate as in 3D) traces itself in, and the explanation sits beside the working thing. Live views mount lazily, one per component.
+- TEN21 (formerly Indus Blue) uses the site theme in light and dark. Flats draw in, then separate into named construction pieces with leader-line labels in collision-free columns; the view pulls back as the pieces separate.
+- A labelled Light/Dark switch lives in the HUD and the menu.

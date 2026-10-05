@@ -1,6 +1,6 @@
-# Luqman Ismat / Consulting & Indus Blue
+# Luqman Ismat / Consulting & TEN21
 
-The existing luqmanismat.com Next.js site, refreshed around consulting for project delivery and connected operations, with EngiVault as an engineering software case study and Indus Blue as the apparel label and contract-development practice.
+The existing luqmanismat.com Next.js site, refreshed around consulting for project delivery and connected operations, with EngiVault as an engineering software case study and TEN21 as the apparel label and contract-development practice.
 
 ## Run locally
 
@@ -35,18 +35,20 @@ Next.js 16.3.6 / React 19.3.0. ESLint 9 is pinned for compatibility with the Rea
 
 ## Site structure
 
-- `/`: a 3D chapter journey (react-three-fiber) through the services, Indus Blue and contact, with a still-image fallback when WebGL is unavailable.
-- `/consulting`: project management, project controls, dashboards, integrations, automation, and packages. The interactive dashboard is explicitly illustrative, not a live integration.
-- `/engineering`: engineering systems, technical applications, and CAD support.
-- `/indus-blue`: Collection 01 (four pieces built on Balochi garment structure) and contract development for other brands. No product inventory, checkout, or mailing-list signup is simulated.
-- `/indus-blue/[slug]`: per-piece development tech packs (rendered, technical and 3D views; construction callouts; graded measurement spec; BOM; colourways; printable drawing sheet).
-- `/projects`: working demos and the EngiVault case study.
-- `/projects/engivault`: source-reviewed independent-product case study and real product screenshots.
+Content lives in one model, `lib/chapters.ts`. Each chapter is a station in the homepage scene and a page whose components are the station's exploded parts.
+
+- `/`: a 3D chapter journey (react-three-fiber). Each chapter says one thing and offers one action, **Explore**: the station explodes into its parts, the camera pushes in, and the chapter page opens. Still images when WebGL is unavailable.
+- `/controls`: schedule, capacity heatmaps, MS Project import, forecast & approval, portfolio risk. Each is a live component with its purpose, how it works and what to try.
+- `/integrations`: hours mapping & reconciliation, cost & margin, productivity, quality trend, data model & access.
+- `/engineering`: the inspection-planning workbench and the EngiVault plant schematic.
+- `/ten21`: Collection 01. Each garment is a component: the production flat draws itself in, then separates into labelled construction pieces (front/back, line/colour).
+- `/ten21/[slug]`: per-piece development tech packs (assembled/exploded flats, construction callouts, graded measurement spec, BOM, colourways, printable sheet).
+- `/engivault`: the calculator library and unit converter.
 - `/blog`: searchable/filterable insights, with all existing article routes retained.
 - `/contact`: service/package-aware project brief builder.
 - `/privacy`: describes the site's actual handling of form data, theme preference, and hosting.
 
-Legacy `/about`, `/apparel`, `/portfolio`, iNNOVARi, and Pinnacle portfolio URLs redirect to their relevant current sections. Unsupported historical promotional claims are no longer published as case studies.
+`/consulting*`, `/projects*`, `/demos*`, `/portfolio*`, `/apparel` and `/indus-blue*` redirect permanently to the chapter that now holds their content (see `next.config.mjs`). Unsupported historical promotional claims are no longer published as case studies.
 
 ## Inquiry behavior
 
@@ -54,21 +56,21 @@ The form prepares a draft locally and lets the visitor open their email app or c
 
 ## Navigation and motion
 
-There is no header bar. A corner HUD shows identity and location, a full-screen menu (button or `M`) lists the six destinations, a floating dock carries the current section's pages, and each page ends with a Next step along Work → Services → EngiVault → Indus Blue → Journal → About → Contact. Page changes use an anime.js tile curtain; scrolling uses Lenis. Every effect is disabled under `prefers-reduced-motion`.
+There is no header bar. A corner HUD shows identity and location, a labelled Light/Dark switch sits beside "Let's talk", a full-screen menu (button or `M`) lists the chapters, a floating dock follows the current chapter's components (scrollspy), and each page ends with a Next step along Controls → Integrations → Engineering → TEN21 → EngiVault → Journal → About → Contact. Page changes use an anime.js tile curtain; scrolling uses Lenis. Every effect is disabled under `prefers-reduced-motion`.
 
 ## Working demos
 
-The project-controls and inspection-planning applications mount natively in their pages (no iframe). `npm run build:examples` bundles them and runs `scripts/scope-demo-css.mjs`, which scopes their CSS to `.demo-scope` and routes their colours through the site's tokens; `styles/demos.css` bridges the tokens. Visitors can re-brand a demo live (accent, type, corners, density). The standalone `public/examples/*/index.html` pages still work on their own.
+The project-controls and inspection-planning applications mount natively (no iframe), one view per component via `mount(el, { view, bare: true })`, and only when that component nears the viewport. Their frosted-glass layers are flattened in-page (`backdrop-filter` off) because they repainted on every scroll frame. `npm run build:examples` bundles them and runs `scripts/scope-demo-css.mjs`, which scopes their CSS to `.demo-scope` and routes their colours through the site's tokens; `styles/demos.css` bridges the tokens. One dock per chapter re-brands every live component at once (accent, type, corners, density). The standalone `public/examples/*/index.html` pages still work on their own.
 
 ## Brand and content
 
-`PRODUCT.md` and `DESIGN.md` define the approved direction. Geist, Geist Mono and Instrument Serif are self-hosted from installed packages (Montserrat remains a fallback). Warm paper and ink with one signal colour; an indigo-night scope identifies Indus Blue. The shared HUD, menu, footer and theme controls apply across all pages.
+`PRODUCT.md` and `DESIGN.md` define the approved direction. Geist, Geist Mono and Instrument Serif are self-hosted from installed packages (Montserrat remains a fallback). Warm paper and ink with one signal colour, everywhere, TEN21 included. The shared HUD, menu, footer and theme controls apply across all pages.
 
 `content/articles.json` and `content/new-articles.json` are the article catalog. Keep unverified historical dates null; do not invent dates. Existing article bodies remain under `app/blog`. Case studies must distinguish independent development from client work and must not claim unmeasured results.
 
 ## Field 01 CAD (retired from the site)
 
-`/projects/field-01` now redirects to `/indus-blue`. The original study files remain in `public/cad/field-01`, and `verify:site` still checks them byte for byte. That folder includes millimetre-based layered DXFs, a STEP/STL hardware solid, four-sheet PDF, specifications/BOM CSVs, source, and a ZIP. The site no longer renders these files.
+`/projects/field-01` now redirects to `/ten21`. The original study files remain in `public/cad/field-01`, and `verify:site` still checks them byte for byte. That folder includes millimetre-based layered DXFs, a STEP/STL hardware solid, four-sheet PDF, specifications/BOM CSVs, source, and a ZIP. The site no longer renders these files.
 
 Rebuild with Python, CadQuery 2.8.0, ezdxf 1.4.4, and ReportLab 4+:
 
@@ -80,4 +82,4 @@ The generator audits both DXFs and reimports STEP to check validity, solid count
 
 ## Deployment boundary
 
-This revision is prepared and verified locally on `website/consulting-launch`. No remote push or deployment has been performed. For the existing hosting project, use Node.js 22, npm installation, `npm run build`, and the Next.js framework preset. No runtime secrets are required. Before promoting, review the final content and the Indus Blue launch status. After deployment, verify the production domain, redirects, email handoff, and CAD downloads on the actual host.
+This revision is prepared and verified locally on `website/consulting-launch`. No remote push or deployment has been performed. For the existing hosting project, use Node.js 22, npm installation, `npm run build`, and the Next.js framework preset. No runtime secrets are required. Before promoting, review the final content and the TEN21 launch status. After deployment, verify the production domain, redirects, email handoff, and CAD downloads on the actual host.

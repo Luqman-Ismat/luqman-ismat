@@ -121,54 +121,47 @@ export const tubeOffsets: [number, number][] = (() => {
   for (let i = 0; i < 12; i++) out.push([Math.cos((i / 12) * Math.PI * 2 + 0.26) * 0.44, Math.sin((i / 12) * Math.PI * 2 + 0.26) * 0.44]);
   return out;
 })();
-export function exchangerGeometry() {
-  const s: Seg = [];
+/* The exchanger as separable sub-assemblies, so it can be exploded. */
+export function exchangerParts() {
   const L = EX.length / 2, R = EX.shellR;
-  // shell rings and longitudinal lines
+  const shell: Seg = [], heads: Seg = [], baffles: Seg = [], nozzles: Seg = [], saddles: Seg = [], sheets: Seg = [];
   for (let k = 0; k <= 8; k++) {
     const x = -L + (k / 8) * EX.length;
-    ring(s, (a) => [x, Math.cos(a) * R, Math.sin(a) * R], 40);
+    ring(shell, (a) => [x, Math.cos(a) * R, Math.sin(a) * R], 40);
   }
   for (let i = 0; i < 16; i++) {
     const a = (i / 16) * Math.PI * 2;
-    s.push(-L, Math.cos(a) * R, Math.sin(a) * R, L, Math.cos(a) * R, Math.sin(a) * R);
+    shell.push(-L, Math.cos(a) * R, Math.sin(a) * R, L, Math.cos(a) * R, Math.sin(a) * R);
   }
-  // channel heads (ellipsoidal)
   for (const side of [-1, 1]) {
     for (let k = 1; k <= 4; k++) {
       const t = k / 4;
       const x = side * (L + t * 0.45);
       const r = R * Math.sqrt(1 - t * t * 0.92);
-      ring(s, (a) => [x, Math.cos(a) * r, Math.sin(a) * r], 32);
+      ring(heads, (a) => [x, Math.cos(a) * r, Math.sin(a) * r], 32);
     }
-    // tubesheet
-    for (const [y, z] of tubeOffsets) ring(s, (a) => [side * L, y + Math.cos(a) * 0.05, z + Math.sin(a) * 0.05], 10);
+    for (const [y, z] of tubeOffsets) ring(sheets, (a) => [side * L, y + Math.cos(a) * 0.05, z + Math.sin(a) * 0.05], 10);
   }
-  // baffles
   for (let k = 1; k < 6; k++) {
     const x = -L + (k / 6) * EX.length;
     const up = k % 2 === 0 ? 1 : -1;
-    s.push(x, up * R * 0.98, -R * 0.2, x, -up * R * 0.3, -R * 0.2, x, -up * R * 0.3, -R * 0.2, x, -up * R * 0.3, R * 0.2, x, -up * R * 0.3, R * 0.2, x, up * R * 0.98, R * 0.2);
+    baffles.push(x, up * R * 0.98, -R * 0.2, x, -up * R * 0.3, -R * 0.2, x, -up * R * 0.3, -R * 0.2, x, -up * R * 0.3, R * 0.2, x, -up * R * 0.3, R * 0.2, x, up * R * 0.98, R * 0.2);
   }
-  // nozzles: shell in/out (top/bottom), tube in/out on heads
   const nozzle = (x: number, y0: number, dir: number, r = 0.16, h = 0.45) => {
-    for (const yy of [y0, y0 + dir * h]) ring(s, (a) => [x + Math.cos(a) * r, yy, Math.sin(a) * r], 20);
+    for (const yy of [y0, y0 + dir * h]) ring(nozzles, (a) => [x + Math.cos(a) * r, yy, Math.sin(a) * r], 20);
     for (let i = 0; i < 8; i++) {
       const a = (i / 8) * Math.PI * 2;
-      s.push(x + Math.cos(a) * r, y0, Math.sin(a) * r, x + Math.cos(a) * r, y0 + dir * h, Math.sin(a) * r);
+      nozzles.push(x + Math.cos(a) * r, y0, Math.sin(a) * r, x + Math.cos(a) * r, y0 + dir * h, Math.sin(a) * r);
     }
   };
   nozzle(-L + 0.5, R * 0.8, 1);
   nozzle(L - 0.5, -R * 0.8, -1);
-  nozzle(-L - 0.25, R * 0.45, 1, 0.12, 0.4);
-  nozzle(L + 0.25, -R * 0.45, -1, 0.12, 0.4);
-  // saddles
   for (const x of [-L + 0.7, L - 0.7]) {
     const y0 = -R, y1 = -R - 0.45;
-    s.push(x - 0.35, y1, -0.5, x + 0.35, y1, -0.5, x + 0.35, y1, -0.5, x + 0.35, y1, 0.5, x + 0.35, y1, 0.5, x - 0.35, y1, 0.5, x - 0.35, y1, 0.5, x - 0.35, y1, -0.5);
-    s.push(x, y0, -0.45, x, y1, -0.5, x, y0, 0.45, x, y1, 0.5, x - 0.35, y1, 0, x, y0 - 0.02, 0, x + 0.35, y1, 0, x, y0 - 0.02, 0);
+    saddles.push(x - 0.35, y1, -0.5, x + 0.35, y1, -0.5, x + 0.35, y1, -0.5, x + 0.35, y1, 0.5, x + 0.35, y1, 0.5, x - 0.35, y1, 0.5, x - 0.35, y1, 0.5, x - 0.35, y1, -0.5);
+    saddles.push(x, y0, -0.45, x, y1, -0.5, x, y0, 0.45, x, y1, 0.5, x - 0.35, y1, 0, x, y0 - 0.02, 0, x + 0.35, y1, 0, x, y0 - 0.02, 0);
   }
-  return toGeometry(s);
+  return { shell: toGeometry(shell), heads: toGeometry(heads), baffles: toGeometry(baffles), nozzles: toGeometry(nozzles), saddles: toGeometry(saddles), sheets: toGeometry(sheets) };
 }
 export function tubesGeometry() {
   const s: Seg = [];
@@ -210,6 +203,86 @@ export function portalGeometry() {
   for (let i = 0; i < 24; i++) {
     const a = (i / 24) * Math.PI * 2;
     s.push(Math.cos(a), Math.sin(a), 0, Math.cos(a) * 2.92, Math.sin(a) * 2.92, -6 * 0.18);
+  }
+  return toGeometry(s);
+}
+
+/* Flat "plates": small line-art panels that slide out of a station when it
+   explodes. Each one stands for a component on the chapter page. Size W×H. */
+export const PLATE = { w: 1.9, h: 1.2 };
+export type PlateKind = "gantt" | "heatmap" | "import" | "forecast" | "risk" | "mapping" | "bars" | "line" | "scatter" | "shield" | "curve" | "loop";
+export function plateGeometry(kind: PlateKind) {
+  const s: Seg = [];
+  const W = PLATE.w / 2, H = PLATE.h / 2;
+  const box = (x0: number, y0: number, x1: number, y1: number) => s.push(x0, y0, 0, x1, y0, 0, x1, y0, 0, x1, y1, 0, x1, y1, 0, x0, y1, 0, x0, y1, 0, x0, y0, 0);
+  box(-W, -H, W, H);
+  // title strip
+  s.push(-W, H - 0.16, 0, W, H - 0.16, 0);
+  s.push(-W + 0.08, H - 0.08, 0, -W + 0.5, H - 0.08, 0);
+  const iw = W - 0.14, top = H - 0.28, bot = -H + 0.14;
+  const X = (f: number) => -iw + f * iw * 2, Y = (f: number) => bot + f * (top - bot);
+  switch (kind) {
+    case "gantt":
+      for (let r = 0; r < 6; r++) { const a = 0.05 + r * 0.12, b = a + 0.25 + (r % 3) * 0.1; box(X(a), Y(0.9 - r * 0.15) - 0.03, X(b), Y(0.9 - r * 0.15) + 0.03); }
+      break;
+    case "heatmap":
+      for (let c = 0; c <= 8; c++) s.push(X(c / 8), Y(0), 0, X(c / 8), Y(1), 0);
+      for (let r = 0; r <= 4; r++) s.push(X(0), Y(r / 4), 0, X(1), Y(r / 4), 0);
+      break;
+    case "import":
+      for (let k = 0; k < 3; k++) { const o = k * 0.07; box(X(0.12) + o, Y(0.1) - o, X(0.62) + o, Y(0.95) - o); }
+      for (let r = 0; r < 4; r++) s.push(X(0.7), Y(0.8 - r * 0.18), 0, X(0.96), Y(0.8 - r * 0.18), 0);
+      break;
+    case "forecast": {
+      let px = X(0), py = Y(0.1);
+      for (let i = 1; i <= 20; i++) { const f = i / 20, x = X(f), y = Y(0.1 + f * 0.7 + Math.sin(f * 7) * 0.05); s.push(px, py, 0, x, y, 0); px = x; py = y; }
+      for (let i = 0; i < 20; i += 2) s.push(X(i / 20), Y(0.55), 0, X((i + 1) / 20), Y(0.55), 0);
+      break;
+    }
+    case "risk":
+      for (let c = 0; c <= 5; c++) s.push(X(c / 5 * 0.62), Y(0), 0, X(c / 5 * 0.62), Y(1), 0);
+      for (let r = 0; r <= 5; r++) s.push(X(0), Y(r / 5), 0, X(0.62), Y(r / 5), 0);
+      for (let r = 0; r < 4; r++) s.push(X(0.7), Y(0.85 - r * 0.22), 0, X(0.98 - (r % 2) * 0.1), Y(0.85 - r * 0.22), 0);
+      break;
+    case "mapping":
+      for (let r = 0; r < 4; r++) { box(X(0), Y(0.82 - r * 0.24) - 0.04, X(0.28), Y(0.82 - r * 0.24) + 0.04); box(X(0.72), Y(0.82 - ((r + 1) % 4) * 0.24) - 0.04, X(1), Y(0.82 - ((r + 1) % 4) * 0.24) + 0.04); s.push(X(0.28), Y(0.82 - r * 0.24), 0, X(0.72), Y(0.82 - ((r + 1) % 4) * 0.24), 0); }
+      break;
+    case "bars":
+      s.push(X(0), Y(0), 0, X(1), Y(0), 0);
+      for (let i = 0; i < 7; i++) { const h = 0.3 + ((i * 37) % 60) / 100; box(X(0.04 + i * 0.14), Y(0), X(0.1 + i * 0.14), Y(h)); }
+      break;
+    case "line": {
+      s.push(X(0), Y(0), 0, X(1), Y(0), 0, X(0), Y(0), 0, X(0), Y(1), 0);
+      let px = X(0), py = Y(0.3);
+      for (let i = 1; i <= 16; i++) { const f = i / 16, x = X(f), y = Y(0.3 + Math.sin(f * 5) * 0.2 + f * 0.3); s.push(px, py, 0, x, y, 0); px = x; py = y; }
+      break;
+    }
+    case "scatter":
+      s.push(X(0), Y(0), 0, X(1), Y(0), 0, X(0), Y(0), 0, X(0), Y(1), 0);
+      for (let i = 0; i < 14; i++) { const x = X(0.05 + ((i * 53) % 90) / 100), y = Y(0.1 + ((i * 29) % 80) / 100); s.push(x - 0.025, y, 0, x + 0.025, y, 0, x, y - 0.025, 0, x, y + 0.025, 0); }
+      break;
+    case "shield": {
+      const cx = 0, cy = Y(0.5), r = (top - bot) * 0.45;
+      const pts: [number, number][] = [[0, r], [r * 0.8, r * 0.6], [r * 0.7, -r * 0.3], [0, -r], [-r * 0.7, -r * 0.3], [-r * 0.8, r * 0.6], [0, r]];
+      for (let i = 0; i < pts.length - 1; i++) s.push(cx + pts[i][0], cy + pts[i][1], 0, cx + pts[i + 1][0], cy + pts[i + 1][1], 0);
+      s.push(cx - r * 0.3, cy, 0, cx - r * 0.05, cy - r * 0.3, 0, cx - r * 0.05, cy - r * 0.3, 0, cx + r * 0.4, cy + r * 0.3, 0);
+      break;
+    }
+    case "curve": {
+      s.push(X(0), Y(0), 0, X(1), Y(0), 0, X(0), Y(0), 0, X(0), Y(1), 0);
+      let px = X(0), py = Y(0.05);
+      for (let i = 1; i <= 24; i++) { const f = i / 24, x = X(f), y = Y(0.05 + Math.pow(f, 2.4) * 0.9); s.push(px, py, 0, x, y, 0); px = x; py = y; }
+      for (let i = 0; i < 20; i += 2) s.push(X(i / 20), Y(0.72), 0, X((i + 1) / 20), Y(0.72), 0);
+      break;
+    }
+    case "loop":
+      box(X(0.02), Y(0.3), X(0.16), Y(0.95));
+      s.push(X(0.09), Y(0.3), 0, X(0.09), Y(0.1), 0, X(0.09), Y(0.1), 0, X(0.4), Y(0.1), 0);
+      ring(s, (a) => [X(0.45) + Math.cos(a) * 0.08, Y(0.1) + Math.sin(a) * 0.08, 0], 20);
+      s.push(X(0.45), Y(0.18), 0, X(0.45), Y(0.6), 0, X(0.45), Y(0.6), 0, X(0.62), Y(0.6), 0);
+      box(X(0.62), Y(0.5), X(0.9), Y(0.7));
+      s.push(X(0.9), Y(0.6), 0, X(1), Y(0.6), 0);
+      break;
   }
   return toGeometry(s);
 }

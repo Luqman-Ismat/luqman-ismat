@@ -6,10 +6,10 @@ import { usePathname } from "next/navigation";
 import { animate, stagger, splitText } from "animejs";
 import { navigationGroups, navigationGroup } from "@/lib/navigation";
 import { scroller } from "@/lib/scroll";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeSwitch } from "./theme-switch";
 import { LiveClock } from "@/components/redesign/interactive";
-import { GarmentFlat } from "@/components/indus/garment-flat";
-import { colourwayById } from "@/lib/indus/collection";
+import { GarmentFlat } from "@/components/ten21/garment-flat";
+import { colourwayById } from "@/lib/ten21/collection";
 
 /* Full-screen menu. Opens as a circle from the menu button, then the six
    destinations rise in letter by letter. Hovering or focusing one shows its
@@ -106,7 +106,7 @@ export function MenuOverlay({ open, onClose, origin }: { open: boolean; onClose:
         </nav>
         <aside className="menu-detail menu-fade" aria-live="polite">
           <div className="menu-preview" key={group.href}>
-            {group.href === "/indus-blue" ? (
+            {group.href === "/ten21" || !group.image ? (
               <GarmentFlat className="menu-preview-flat" slug="pashk-coat" view="front" colourway={colourwayById("shab")} title="Pashk Coat" />
             ) : (
               <Image src={group.image} alt="" fill sizes="(max-width: 900px) 0px, 30vw" />
@@ -133,7 +133,7 @@ export function MenuOverlay({ open, onClose, origin }: { open: boolean; onClose:
         <a href="https://github.com/Luqman-Ismat" target="_blank" rel="noopener noreferrer">GitHub</a>
         <span className="menu-spacer" />
         <LiveClock />
-        <ThemeToggle />
+        <ThemeSwitch />
         <span className="menu-hint">Press <kbd>M</kbd> to toggle · <kbd>Esc</kbd> to close</span>
       </div>
     </div>

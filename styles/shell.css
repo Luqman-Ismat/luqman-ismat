@@ -1,10 +1,10 @@
 /* Shell: corner HUD, full-screen menu, section dock, next step, curtain. */
 .consulting-main { padding-top: 92px; }
 .consulting-main:has(> .x-hero:first-child),
-.consulting-main:has(> .indus-scope:first-child),
+.consulting-main:has(> .tech-pack:first-child),
+.consulting-main:has(> .ch-hero:first-child),
 .consulting-main:has(> .journey:first-child) { padding-top: 0; }
-.consulting-main > .indus-scope:first-child > .ib-hero:first-child,
-.consulting-main > .indus-scope:first-child > .tp-head:first-child { padding-top: 120px; }
+.consulting-main > .tech-pack:first-child > .tp-head:first-child { padding-top: 120px; }
 .consulting-main > .x-hero:first-child { padding-top: 120px; }
 .article-shell { padding-top: clamp(110px, 10vw, 150px); }
 html { scroll-padding-top: 100px; }
@@ -255,7 +255,7 @@ html.menu-open { overflow: hidden; }
   transition: background 0.3s, color 0.3s;
 }
 .section-dock a:hover { color: hsl(var(--foreground)); background: hsl(var(--foreground) / 0.06); }
-.section-dock a[aria-current="page"] { background: hsl(var(--foreground)); color: hsl(var(--background)); }
+.section-dock a[aria-current="page"], .section-dock a[aria-current="location"] { background: hsl(var(--foreground)); color: hsl(var(--background)); }
 html.menu-open .section-dock { opacity: 0; pointer-events: none; }
 
 /* Next step, at the top of the footer */
@@ -336,5 +336,5 @@ html.menu-open .section-dock { opacity: 0; pointer-events: none; }
 }
 .menu-item a:focus-visible { outline: none !important; }
 .menu-item a:focus-visible .menu-word { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.12em; }
-.menu-preview:has(.menu-preview-flat) { display: grid; place-items: center; background: radial-gradient(60% 55% at 50% 45%, hsl(42 30% 94%), hsl(42 18% 82%)); }
+.menu-preview:has(.menu-preview-flat) { display: grid; place-items: center; background: radial-gradient(60% 55% at 50% 45%, hsl(var(--card)), hsl(var(--muted))); }
 .menu-preview-flat { width: 70%; height: 92%; filter: drop-shadow(0 20px 30px rgb(0 0 0 / 0.35)); }

@@ -14,52 +14,22 @@ export function Footer() {
           <span className="footer-cta-arrow" aria-hidden="true">→</span>
         </Link>
       </div>
-      <div className="site-container footer-grid">
+      <div className="site-container footer-row">
         <div className="footer-about">
-          <p>
-            Independent consulting and product development.
-            <br />
-            Based in Houston. Working with teams everywhere.
-          </p>
+          <p>Independent consulting and product development. Based in Houston.</p>
           <LiveClock />
         </div>
-        <nav aria-label="Footer consulting">
-          <p className="eyebrow">Consulting</p>
-          <Link href="/consulting">Services & packages</Link>
-          <Link href="/consulting/project-controls">
-            Project management & controls
-          </Link>
-          <Link href="/consulting/dashboards">Dashboards & integrations</Link>
-          <Link href="/engineering">Engineering systems</Link>
-        </nav>
-        <nav aria-label="Footer studio">
-          <p className="eyebrow">Products & work</p>
-          <Link href="/indus-blue">Indus Blue</Link>
-          <Link href="/indus-blue#development">Apparel for your brand</Link>
-          <Link href="/engivault">EngiVault tools</Link>
-          <Link href="/indus-blue#pieces">Collection 01 tech packs</Link>
-          <Link href="/projects">Work & interactive demos</Link>
-        </nav>
-        <nav aria-label="Footer contact">
-          <p className="eyebrow">Connect</p>
+        <nav aria-label="Footer">
+          <Link href="/controls">Controls</Link>
+          <Link href="/integrations">Integrations</Link>
+          <Link href="/engineering">Engineering</Link>
+          <Link href="/ten21">TEN21</Link>
+          <Link href="/engivault">EngiVault</Link>
+          <Link href="/blog">Journal</Link>
+          <Link href="/about">About</Link>
           <a href="mailto:Luqman.ismat@gmail.com">Email ↗</a>
-          <a
-            href="https://www.linkedin.com/in/luqman-ismat/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn ↗
-          </a>
-          <a
-            href="https://github.com/Luqman-Ismat"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub ↗
-          </a>
-          <Link href="/blog">Blog</Link>
-          <Link href="/about">About me</Link>
-          <Link href="/portfolio">Experience timeline</Link>
+          <a href="https://www.linkedin.com/in/luqman-ismat/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          <a href="https://github.com/Luqman-Ismat" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
         </nav>
       </div>
       <div className="footer-giant" aria-hidden="true">

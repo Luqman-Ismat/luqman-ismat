@@ -7,6 +7,7 @@ import { locationLabel } from "@/lib/navigation";
 import { LiveClock } from "@/components/redesign/interactive";
 import { MenuOverlay } from "./menu-overlay";
 import { SectionDock } from "./section-dock";
+import { ThemeSwitch } from "./theme-switch";
 
 /* Corner chips in place of a header bar: identity and location top-left,
    conversation and menu top-right. */
@@ -61,6 +62,7 @@ export function Hud() {
         </div>
         <div className="hud-actions">
           <div className="hud-chip hud-clock"><LiveClock /></div>
+          <ThemeSwitch className="hud-chip" />
           <Link href="/contact" className="hud-chip hud-talk">
             Let’s talk <span aria-hidden="true">↗</span>
           </Link>

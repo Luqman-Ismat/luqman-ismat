@@ -1,6 +1,8 @@
-/* Site map. Six destinations, in the order a visitor naturally moves:
-   see the work, understand the services, try the tools, meet the label,
-   read, then get to know the person. */
+/* Site map, derived from the chapters. Four chapters of work, the EngiVault
+   tool, the journal and About. Each chapter page lists its own components. */
+import { workChapters } from "./chapters";
+import { pieces } from "./ten21/collection";
+
 export type NavLink = { label: string; href: string; note?: string };
 export type NavGroup = {
   label: string;
@@ -9,62 +11,35 @@ export type NavGroup = {
   image: string;
   matches: string[];
   links: NavLink[];
+  /** Links resolve to sections on the group page itself. */
+  spy?: boolean;
 };
 
+const chapterGroups: NavGroup[] = workChapters.map((c) => ({
+  label: c.nav,
+  href: c.href,
+  blurb: c.lede,
+  image: c.id === "controls" ? "/images/work/project-controls.webp" : c.id === "integrations" ? "/images/work/connected-operations.webp" : c.id === "engineering" ? "/images/work/inspection-planning.webp" : "",
+  matches: [c.href],
+  spy: true,
+  links: c.components.map((x) => ({
+    label: x.title,
+    href: c.id === "ten21" ? `/ten21/${x.id}` : `${c.href}#${x.id}`,
+    note: c.id === "ten21" ? pieces.find((p) => p.slug === x.id)?.code : undefined,
+  })),
+}));
+
 export const navigationGroups: NavGroup[] = [
-  {
-    label: "Work",
-    href: "/projects",
-    blurb: "Working demos and case studies, themed to fit any client.",
-    image: "/images/work/project-controls.webp",
-    matches: ["/projects", "/demos"],
-    links: [
-      { label: "All work", href: "/projects" },
-      { label: "Project controls", href: "/demos/project-controls", note: "Demo" },
-      { label: "Inspection planning", href: "/demos/inspection-planning", note: "Demo" },
-      { label: "Integrations", href: "/demos/connected-operations", note: "Demo" },
-      { label: "EngiVault case study", href: "/projects/engivault" },
-    ],
-  },
-  {
-    label: "Services",
-    href: "/consulting",
-    blurb: "Project controls, dashboards, integrations and engineering systems.",
-    image: "/images/work/connected-operations.webp",
-    matches: ["/consulting", "/engineering"],
-    links: [
-      { label: "Services & packages", href: "/consulting" },
-      { label: "Project controls", href: "/consulting/project-controls" },
-      { label: "Dashboards", href: "/consulting/dashboards" },
-      { label: "Integrations", href: "/consulting/integrations" },
-      { label: "Engineering", href: "/engineering" },
-    ],
-  },
+  ...chapterGroups,
   {
     label: "EngiVault",
     href: "/engivault",
-    blurb: "Engineering calculations with explicit units and a visible method.",
+    blurb: "45 engineering calculations with explicit units, a written method and cited sources.",
     image: "/images/consulting/engivault-calculator.png",
     matches: ["/engivault"],
     links: [
       { label: "Calculator library", href: "/engivault" },
       { label: "Unit converter", href: "/engivault/unit-converter" },
-      { label: "How it was built", href: "/projects/engivault" },
-    ],
-  },
-  {
-    label: "Indus Blue",
-    href: "/indus-blue",
-    blurb: "Collection 01: Balochi structure, oversized silhouettes, full tech packs.",
-    image: "",
-    matches: ["/indus-blue"],
-    links: [
-      { label: "The collection", href: "/indus-blue" },
-      { label: "Pashk Coat", href: "/indus-blue/pashk-coat", note: "IB-01" },
-      { label: "Jig Kameez", href: "/indus-blue/jig-kameez", note: "IB-02" },
-      { label: "Chin Shalwar", href: "/indus-blue/chin-shalwar", note: "IB-03" },
-      { label: "Sadri", href: "/indus-blue/sadri", note: "IB-04" },
-      { label: "Apparel development", href: "/indus-blue#development" },
     ],
   },
   {
@@ -73,19 +48,15 @@ export const navigationGroups: NavGroup[] = [
     blurb: "Methods, decisions and lessons from engineering and delivery.",
     image: "/images/fel-stages-blog.jpeg",
     matches: ["/blog"],
-    links: [{ label: "All articles", href: "/blog" }],
+    links: [],
   },
   {
     label: "About",
     href: "/about",
     blurb: "Industrial engineer, risk analyst, builder. Based in Houston.",
     image: "/images/luqman-portrait-blue.jpeg",
-    matches: ["/about", "/portfolio"],
-    links: [
-      { label: "About me", href: "/about" },
-      { label: "Experience timeline", href: "/portfolio" },
-      { label: "Get in touch", href: "/contact" },
-    ],
+    matches: ["/about"],
+    links: [],
   },
 ];
 
@@ -94,7 +65,7 @@ export function navigationGroup(path: string) {
 }
 
 /* The path through the site: each page points to the next. */
-const flow = ["/", "/projects", "/consulting", "/engivault", "/indus-blue", "/blog", "/about", "/contact"];
+const flow = ["/", ...workChapters.map((c) => c.href), "/engivault", "/blog", "/about", "/contact"];
 const flowLabels: Record<string, string> = { "/": "Home", "/contact": "Start a project" };
 export function nextStep(path: string) {
   const group = navigationGroup(path);
@@ -107,7 +78,7 @@ export function nextStep(path: string) {
 export function locationLabel(path: string) {
   const group = navigationGroup(path);
   const exact = group?.links.find((link) => link.href === path)?.label;
-  if (exact && group && exact !== group.links[0].label) return `${group.label} · ${exact}`;
+  if (exact && group && exact !== group.links[0]?.label) return `${group.label} · ${exact}`;
   if (group) return group.label;
   return path === "/" ? "Home" : path === "/contact" ? "Contact" : path === "/privacy" ? "Privacy" : "Page";
 }

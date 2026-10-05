@@ -4,7 +4,7 @@ import { ProjectInquiry } from "@/components/project-inquiry";
 export const metadata = {
   title: "Start a Project",
   description:
-    "Discuss consulting, project controls, dashboards, integrations, or Indus Blue apparel development with Luqman Ismat. Share your starting point and prepare a project brief.",
+    "Discuss consulting, project controls, dashboards, integrations, or TEN21 apparel development with Luqman Ismat. Share your starting point and prepare a project brief.",
   alternates: { canonical: "/contact" },
 };
 export default async function ContactPage(props: {

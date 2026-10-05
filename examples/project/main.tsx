@@ -7,9 +7,16 @@ function App({initialView}:{initialView?:number}){const initial=initialView??Num
  const content=[<WbsPage key={revision}/>,<Heatmaps/>,<ImportPlan onOpenSchedule={()=>select(0)}/>,<Mapping/>,<Forecast/>,<Quality/>,<Reporting kind="cost"/>,<Reporting kind="productivity"/>,<RiskPage/>,<Overview onSelect={select}/>];
  return <><header className="example-head"><small>PROJECT DELIVERY WORKSPACE / FICTIONAL DATA</small><div className="workspace-heading"><h1>Atlas project controls</h1><span>Explore · Change · Trace</span></div><nav className="example-tabs" aria-label="Project workspace">{[9,0,1,2,3,4,5,6,7,8].map(n=><button key={n} aria-pressed={view===n} onClick={()=>select(n)}>{views[n]}</button>)}</nav></header><Guide view={view}/>{content.map((element,n)=>visited.has(n)?<div key={n} hidden={view!==n}>{element}</div>:null)}</>
 }
+/* One view on its own, without the workspace header, tabs or guide: site
+   pages mount each view as a separate, explained component. */
+function Bare({view}:{view:number}){const [revision,setRevision]=useState(0);
+ useEffect(()=>{if(view!==0)return;const changed=()=>setRevision(r=>r+1);window.addEventListener('demo-data-change',changed);return()=>window.removeEventListener('demo-data-change',changed)},[view]);
+ const open=(n:number)=>window.dispatchEvent(new CustomEvent('demo-open-view',{detail:n}));
+ const content=[<WbsPage key={revision}/>,<Heatmaps/>,<ImportPlan onOpenSchedule={()=>open(0)}/>,<Mapping/>,<Forecast/>,<Quality/>,<Reporting kind="cost"/>,<Reporting kind="productivity"/>,<RiskPage/>];
+ return <div className="bare-view">{content[view]??null}</div>}
 /* Mount into any element: the standalone page uses #root; site pages mount
    natively inside their own DOM via window.__demos. */
-function mount(el: HTMLElement, options: { view?: number } = {}) { const root = createRoot(el); root.render(<App initialView={options.view}/>); return () => root.unmount(); }
+function mount(el: HTMLElement, options: { view?: number; bare?: boolean } = {}) { const root = createRoot(el); root.render(options.bare && options.view != null ? <Bare view={options.view}/> : <App initialView={options.view}/>); return () => root.unmount(); }
 const registry = window as unknown as { __demos?: Record<string, { mount: typeof mount }> };
 registry.__demos = { ...(registry.__demos || {}), project: { mount } };
 const standalone = document.getElementById('root');

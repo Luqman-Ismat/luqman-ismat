@@ -2,20 +2,21 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { animate, stagger, splitText } from "animejs";
-import { chapters, journey } from "@/lib/journey";
+import { chapters } from "@/lib/chapters";
+import { journey, focusStation, explodeStation } from "@/lib/journey";
 import { scrollToTarget } from "@/lib/scroll";
-import { colourways, colourwayById } from "@/lib/indus/collection";
-import { GarmentFlat } from "@/components/indus/garment-flat";
-import { HoldButton } from "./hold-button";
+import { GarmentFlat } from "@/components/ten21/garment-flat";
+import { colourwayById } from "@/lib/ten21/collection";
 
 const JourneyScene = dynamic(() => import("./scene"), { ssr: false });
 
 const fallbackImage: Record<string, string> = {
   controls: "/images/work/project-controls.webp",
   integrations: "/images/work/connected-operations.webp",
-  engineering: "/images/consulting/engivault-calculator.png",
+  engineering: "/images/work/inspection-planning.webp",
   about: "/images/luqman-portrait-blue.jpeg",
 };
 
@@ -28,22 +29,26 @@ function hasWebGL() {
   }
 }
 
-/* The homepage as a journey: a fixed WebGL world behind chapters of text.
-   Scroll position drives the camera; each chapter can be acted on. */
+/* The homepage: one scene, seven stations. Each chapter says one thing and
+   offers one action. Explore explodes the station into its parts and opens
+   the chapter, where every part is a live component. */
 export function HomeJourney() {
+  const router = useRouter();
   const root = useRef<HTMLDivElement>(null);
   const [gl, setGl] = useState<boolean | null>(null);
   const [active, setActive] = useState(0);
-  const [colourway, setColourway] = useState("tech");
+  const [exploring, setExploring] = useState<number | null>(null);
   const drag = useRef<{ x: number } | null>(null);
 
   useEffect(() => {
     // Feature detection has to run in the browser, after hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setGl(hasWebGL());
+    journey.focus = -1;
+    journey.explode.fill(0);
+    return () => { journey.focus = -1; journey.explode.fill(0); };
   }, []);
 
-  // scroll → continuous chapter position
   useEffect(() => {
     const sections = [...(root.current?.querySelectorAll<HTMLElement>(".chapter") ?? [])];
     let frame = 0;
@@ -65,7 +70,6 @@ export function HomeJourney() {
     return () => { removeEventListener("scroll", onScroll); removeEventListener("resize", onScroll); };
   }, []);
 
-  // pointer parallax
   useEffect(() => {
     const move = (e: globalThis.PointerEvent) => {
       journey.pointer.x = (e.clientX / innerWidth) * 2 - 1;
@@ -75,24 +79,22 @@ export function HomeJourney() {
     return () => removeEventListener("pointermove", move);
   }, []);
 
-  // keyboard: arrows / page keys / numbers move between chapters
   useEffect(() => {
-    const go = (i: number) => {
+    const goTo = (i: number) => {
       const el = root.current?.querySelectorAll<HTMLElement>(".chapter")[Math.max(0, Math.min(chapters.length - 1, i))];
       if (el) scrollToTarget(el);
     };
     const onKey = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement).closest("input, textarea, select, button, [contenteditable]") || document.documentElement.classList.contains("menu-open")) return;
+      if ((e.target as HTMLElement).closest("input, textarea, select, button, a, [contenteditable]") || document.documentElement.classList.contains("menu-open")) return;
       const at = Math.round(journey.position);
-      if (e.key === "ArrowDown" || e.key === "PageDown") { e.preventDefault(); go(at + 1); }
-      else if (e.key === "ArrowUp" || e.key === "PageUp") { e.preventDefault(); go(at - 1); }
-      else if (/^[1-7]$/.test(e.key)) go(Number(e.key) - 1);
+      if (e.key === "ArrowDown" || e.key === "PageDown") { e.preventDefault(); goTo(at + 1); }
+      else if (e.key === "ArrowUp" || e.key === "PageUp") { e.preventDefault(); goTo(at - 1); }
+      else if (/^[1-7]$/.test(e.key)) goTo(Number(e.key) - 1);
     };
     addEventListener("keydown", onKey);
     return () => removeEventListener("keydown", onKey);
   }, []);
 
-  // chapter text enters word by word as it becomes active
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const el = root.current?.querySelectorAll<HTMLElement>(".chapter")[active];
@@ -109,7 +111,17 @@ export function HomeJourney() {
     if (el) scrollToTarget(el);
   };
 
-  // drag the exchanger
+  /* Explode the station, push the camera in, then open the chapter. */
+  const explore = (i: number, href: string) => {
+    router.prefetch(href);
+    if (!gl || matchMedia("(prefers-reduced-motion: reduce)").matches) { router.push(href); return; }
+    setExploring(i);
+    focusStation(i);
+    const s = { v: 0 };
+    animate(s, { v: 1, duration: 1150, ease: "inOutCubic", onUpdate: () => explodeStation(i, s.v) });
+    setTimeout(() => router.push(href), 1050);
+  };
+
   const onDown = (e: PointerEvent) => { drag.current = { x: e.clientX }; };
   const onMove = (e: PointerEvent) => {
     if (!drag.current) return;
@@ -119,15 +131,15 @@ export function HomeJourney() {
   const onUp = () => { drag.current = null; };
 
   return (
-    <div ref={root} className={gl === false ? "journey no-webgl" : "journey"} data-active={chapters[active].id}>
-      <div className="journey-stage" aria-hidden="true">{gl && <JourneyScene colourway={colourway} />}</div>
+    <div ref={root} className={`journey${gl === false ? " no-webgl" : ""}${exploring !== null ? " is-exploring" : ""}`} data-active={chapters[active].id}>
+      <div className="journey-stage" aria-hidden="true">{gl && <JourneyScene />}</div>
 
       <nav className="journey-rail" aria-label="Chapters">
         <ol>
           {chapters.map((c, i) => (
             <li key={c.id}>
               <button type="button" onClick={() => goTo(i)} aria-current={active === i ? "step" : undefined}>
-                <span className="rail-label">{c.kicker.split("·")[0].trim()}</span>
+                <span className="rail-label">{c.nav}</span>
                 <span className="rail-tick">{c.index}</span>
               </button>
             </li>
@@ -136,60 +148,41 @@ export function HomeJourney() {
       </nav>
 
       {chapters.map((c, i) => (
-        <section
-          key={c.id}
-          id={`chapter-${c.id}`}
-          className={`chapter chapter-${c.id}${active === i ? " is-active" : ""}`}
-          aria-labelledby={`chapter-${c.id}-title`}
-        >
-          {c.id === "engineering" && (
+        <section key={c.id} id={`chapter-${c.id}`} className={`chapter chapter-${c.id}${active === i ? " is-active" : ""}`} aria-labelledby={`chapter-${c.id}-title`}>
+          {c.station === "exchanger" && (
             <div className="chapter-drag" onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerLeave={onUp} aria-hidden="true" data-cursor="Drag" />
           )}
           <div className="chapter-copy">
             <p className="chapter-kicker chapter-fade"><span>{c.index}</span>{c.kicker}</p>
             {i === 0 ? (
-              <h1 id={`chapter-${c.id}-title`} className="chapter-title chapter-title-xl">
-                Luqman <em className="accent-serif">Ismat</em>
-              </h1>
+              <>
+                <h1 id={`chapter-${c.id}-title`} className="chapter-title chapter-title-xl">Luqman <em className="accent-serif">Ismat</em></h1>
+                <p className="chapter-statement chapter-fade">{c.title} <em className="accent-serif">{c.accent}</em></p>
+              </>
             ) : (
-              <h2 id={`chapter-${c.id}-title`} className="chapter-title">
-                {c.title} <em className="accent-serif">{c.accent}</em>
-              </h2>
+              <h2 id={`chapter-${c.id}-title`} className="chapter-title">{c.title} <em className="accent-serif">{c.accent}</em></h2>
             )}
-            {i === 0 && <p className="chapter-statement chapter-fade">{c.title} <em className="accent-serif">{c.accent}</em></p>}
-            <p className="chapter-text chapter-fade">{c.text}</p>
-            {c.hold && gl && <div className="chapter-fade"><HoldButton id={c.id} {...c.hold} /></div>}
-            {c.id === "indus" && (
-              <div className="chapter-fade chapter-colourways" role="radiogroup" aria-label="Colourway">
-                <button type="button" role="radio" aria-checked={colourway === "tech"} onClick={() => setColourway("tech")} title="Technical line drawing">
-                  <span style={{ background: "#fff" }} />
-                  Technical
-                </button>
-                {colourways.map((cw) => (
-                  <button key={cw.id} type="button" role="radio" aria-checked={colourway === cw.id} onClick={() => setColourway(cw.id)} title={`${cw.name} · ${cw.meaning}`}>
-                    <span style={{ background: cw.ground }} />
-                    {cw.name}
+            <p className="chapter-text chapter-fade">{c.lede}</p>
+            {c.explore && (
+              <div className="chapter-fade">
+                {c.id === "contact" ? (
+                  <Link href={c.href} className="explore-btn"><span>{c.explore}</span><i aria-hidden="true">↗</i></Link>
+                ) : (
+                  <button type="button" className="explore-btn" onClick={() => explore(i, c.href)} data-cursor="Explore">
+                    <span>Explore</span>
+                    <i aria-hidden="true">
+                      <svg viewBox="0 0 24 24"><path d="M4 12h16M12 4v16M6.5 6.5l11 11M17.5 6.5l-11 11" /></svg>
+                    </i>
+                    <small>{c.components.length > 0 ? `${c.components.length} live components` : c.nav}</small>
                   </button>
-                ))}
+                )}
               </div>
             )}
-            <div className="chapter-links chapter-fade">
-              {c.links.map((l, k) => {
-                const external = l.href.startsWith("http") || l.href.startsWith("mailto:");
-                const cls = k === 0 ? "pill pill-solid" : "pill pill-ghost";
-                const inner = (<><span className="pill-text">{l.label}</span><span className="pill-icon" aria-hidden="true">↗</span></>);
-                return external ? (
-                  <a key={l.href} href={l.href} className={cls} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">{inner}</a>
-                ) : (
-                  <Link key={l.href} href={l.href} className={cls}>{inner}</Link>
-                );
-              })}
-            </div>
           </div>
           {gl === false && (
             <div className="chapter-fallback">
-              {c.id === "indus" ? (
-                <GarmentFlat slug="pashk-coat" view="front" mode={colourway === "tech" ? "technical" : "rendered"} colourway={colourwayById(colourway === "tech" ? "shir" : colourway)} title="Pashk Coat front" />
+              {c.id === "ten21" ? (
+                <GarmentFlat slug="pashk-coat" view="front" mode="technical" colourway={colourwayById("shir")} title="Pashk Coat front" />
               ) : fallbackImage[c.id] ? (
                 <Image src={fallbackImage[c.id]} alt="" fill sizes="50vw" />
               ) : null}
@@ -206,4 +199,3 @@ export function HomeJourney() {
     </div>
   );
 }
-

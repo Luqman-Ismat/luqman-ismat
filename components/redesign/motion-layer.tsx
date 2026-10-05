@@ -42,7 +42,6 @@ export function MotionLayer() {
       frame = requestAnimationFrame(() => {
         const max = document.documentElement.scrollHeight - innerHeight;
         bar.current?.style.setProperty("--progress", String(max > 0 ? scrollY / max : 0));
-        document.documentElement.style.setProperty("--scroll", String(scrollY));
       });
     };
     onScroll();
@@ -93,7 +92,6 @@ export function MotionLayer() {
       <div ref={bar} className="scroll-progress" aria-hidden="true" />
       <div ref={ring} className="cursor-ring" aria-hidden="true" />
       <div ref={dot} className="cursor-dot" aria-hidden="true" />
-      <div className="grain" aria-hidden="true" />
     </>
   );
 }

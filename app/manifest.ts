@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Luqman Ismat | Consulting & Product Development",
     short_name: "Luqman Ismat",
     description:
-      "Consulting, connected systems, and Indus Blue apparel development.",
+      "Consulting, connected systems, and TEN21 apparel development.",
     start_url: "/",
     display: "browser",
     background_color: "#f7f8fa",

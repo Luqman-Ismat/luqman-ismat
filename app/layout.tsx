@@ -6,10 +6,11 @@ import "@/styles/studio.css";
 import "@/styles/engivault.css";
 import "@/styles/work.css";
 import "@/styles/redesign.css";
-import "@/styles/indus.css";
+import "@/styles/ten21.css";
 import "@/styles/shell.css";
 import "@/styles/journey.css";
 import "@/styles/demos.css";
+import "@/styles/chapter.css";
 import "@/styles/vault.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
         url: "/social-card.png",
         width: 1200,
         height: 630,
-        alt: "Luqman Ismat: Consulting, connected systems, and Indus Blue",
+        alt: "Luqman Ismat: Consulting, connected systems, and TEN21",
       },
     ],
   },
@@ -128,9 +129,9 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Brand",
-                  "@id": site.url + "/indus-blue#brand",
-                  name: "Indus Blue",
-                  url: site.url + "/indus-blue",
+                  "@id": site.url + "/ten21#brand",
+                  name: "TEN21",
+                  url: site.url + "/ten21",
                   description:
                     "Independent apparel label in development and contract apparel development.",
                 },

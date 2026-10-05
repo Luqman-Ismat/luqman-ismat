@@ -3,10 +3,10 @@ import { HomeJourney } from "@/components/journey/home-journey";
 
 export const metadata = {
   title: {
-    absolute: "Luqman Ismat | Consulting, Connected Systems & Indus Blue",
+    absolute: "Luqman Ismat | Consulting, Connected Systems & TEN21",
   },
   description:
-    "Consulting for engineering, project management, project controls, dashboards, and integrations. Apparel collections and contract development through Indus Blue.",
+    "Consulting for engineering, project management, project controls, dashboards, and integrations. Apparel collections and contract development through TEN21.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Luqman Ismat | Consulting & Product Development",

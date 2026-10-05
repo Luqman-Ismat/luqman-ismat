@@ -3,7 +3,7 @@ export const site = {
   url: "https://www.luqmanismat.com",
   email: "Luqman.ismat@gmail.com",
   description:
-    "Independent consulting for engineering, project delivery, dashboards, and connected operations. Apparel and product development through Indus Blue.",
+    "Independent consulting for engineering, project delivery, dashboards, and connected operations. Apparel and product development through TEN21.",
 };
 export const inquiryServices = {
   consulting: "Consulting & operations",
@@ -11,6 +11,6 @@ export const inquiryServices = {
   projects: "Project management & controls",
   dashboards: "Dashboards & reporting",
   integrations: "APIs, databases & integrations",
-  apparel: "Indus Blue · Contract development",
-  "indus-blue": "Indus Blue · Collection inquiry",
+  apparel: "TEN21 · Contract development",
+  ten21: "TEN21 · Collection inquiry",
 };

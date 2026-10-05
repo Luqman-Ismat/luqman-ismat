@@ -9,9 +9,9 @@ export default function NotFound() {
         text="This page may have moved. Explore the services or start a conversation about what you need."
       >
         <div className="action-row">
-          <Action href="/consulting">Consulting</Action>
-          <Action href="/indus-blue" secondary>
-            Indus Blue
+          <Action href="/">Home</Action>
+          <Action href="/ten21" secondary>
+            TEN21
           </Action>
         </div>
       </PageIntro>

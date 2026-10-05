@@ -116,3 +116,12 @@ html.dark .demo-scope.demo-scope { color-scheme: dark; }
   .brand-controls { margin-left: 0; }
   .native-demo { padding-inline: 12px; }
 }
+
+/* Performance: the apps' frosted-glass layers repaint on every scroll frame
+   once they sit inside a scrolling page. Flat surfaces read the same here. */
+.demo-scope,
+.demo-scope * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.demo-scope { zoom: var(--demo-zoom, 1); }

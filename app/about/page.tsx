@@ -77,7 +77,7 @@ export default function Page() {
           <p>
             At Pinnacle, my path has included reliability data analysis and
             project controls consulting. I’m currently a Risk Analyst. Alongside
-            that work, I develop EngiVault and Indus Blue, bringing the same
+            that work, I develop EngiVault and TEN21, bringing the same
             attention to detail to software and physical products.
           </p>
         </div>
