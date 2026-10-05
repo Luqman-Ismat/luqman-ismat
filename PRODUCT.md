@@ -26,3 +26,10 @@ The latest request integrates EngiVault's public calculation library directly in
 
 ## Personal identity and neutral work examples
 Retain an About page and experience Gantt chart. The user explicitly requested keeping public employer names and confirmed a May 2026 industrial engineering graduation, November 2025–May 2026 Project Controls Consultant role, and current Risk Analyst role at Pinnacle. Demonstrations of supplied work must use fictional records and neutral branding without disclosing client identities, operational information, or credentials. They demonstrate workflows; they do not imply a live client connection or documented client outcomes.
+
+## October 2026 direction
+The user asked to move past the traditional website: an animated, fluid, 3D-led homepage and navigation inspired by Orano's innovation experience, built with anime.js and similar libraries. The homepage is a chapter journey; inner pages stay fast to scan behind a minimal HUD and menu.
+
+Indus Blue is redefined by the user as oversized, Yohji Yamamoto-inspired silhouettes built on Balochi garment structure and pakka doch embroidery. Collection 01 (Pashk Coat, Jig Kameez, Chin Shalwar, Sadri) carries full development tech packs. They are Rev A development specifications: not sampled, fitted, graded on a body, or approved for production, and not for sale. Field 01 is retired from the site.
+
+Working demos must look native to the site and show that the work adapts to any client, so they render in the site theme and can be re-branded live. All demo records stay fictional.

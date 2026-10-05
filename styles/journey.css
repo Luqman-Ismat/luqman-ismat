@@ -70,8 +70,10 @@
   margin-bottom: 28px;
 }
 .chapter-links { display: flex; flex-wrap: wrap; gap: 10px; }
-.motion-ready .chapter:not([data-entered]) .chapter-fade { opacity: 0; }
-.motion-ready .chapter.chapter-intro .chapter-fade { opacity: 1; }
+/* Chapters wait for their entrance only when motion is allowed. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-ready .chapter:not([data-entered]):not(.chapter-intro) .chapter-fade { opacity: 0; }
+}
 .chapter-drag {
   position: absolute;
   inset: 10% 0 10% 45%;

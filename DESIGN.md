@@ -33,3 +33,12 @@ Supersedes the earlier "no background motion" rule at the user's request for a c
 - Motion: masked word reveals, clip-path image reveals, marquees, a pointer-following preview on the services index, spotlight borders on the bento grid, magnetic CTA, a custom cursor on fine pointers, and a reading-progress hairline. All of it is disabled under `prefers-reduced-motion`; content is server-rendered and readable without JavaScript motion.
 - Home: oversized name hero with statement, cinematic photo band, services index, bento of real work, interactive lab, inverted EngiVault band, process, About, Indus Blue, journal list. Footer carries the primary "Start a project" call to action.
 - Content rules from PRODUCT.md still apply: no fabricated results, live data or availability claims. The header clock shows real Houston time only.
+
+## October 2026: journey, HUD and native demos
+Supersedes the header and homepage sections above.
+
+- Homepage: a fixed react-three-fiber scene behind seven chapters. Stations are wireframes in ink and signal (gyroscope core, 3D schedule, data network, shell-and-tube exchanger, the textured Pashk Coat, globe, portal). Scroll flies the camera; hold-to-interact controls (pointer, touch, Space/Enter) drive each station; a rail and arrow/number keys jump between chapters. Phones frame objects above the copy; no WebGL shows still images.
+- Navigation: corner HUD chips, full-screen anime.js menu (circle reveal, split letters, previews, arrow keys, focus trap, Esc), a hide-on-scroll section dock, a Next step at the end of every page, and a tile curtain between pages. Lenis smooth scroll.
+- Indus Blue: an indigo-night scope with madder red as the signal colour. Garments are drawn from shared millimetre pattern geometry; doch motifs (setareh with mirrors, toi, gol, kap) are generated on a 2.2 mm stitch grid and layered as pakka panels (kap border, rule, toi band, field). The same flats texture the 3D garment.
+- Demos: native mounts with a token bridge; never a separate dark container.
+- Reduced motion turns off every animation, including chapter entrances, the menu reveal, the curtain and smooth scroll; content never depends on an animation to become visible.
