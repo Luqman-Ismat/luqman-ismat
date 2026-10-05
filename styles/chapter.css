@@ -138,10 +138,15 @@
 .ch-index a:hover { background: hsl(var(--foreground)); color: hsl(var(--background)); transform: translateY(-2px); }
 .ch-index > p { font: 400 10.5px/1.5 var(--font-mono); text-transform: uppercase; letter-spacing: 0.04em; color: hsl(var(--muted-foreground)); max-width: 34ch; }
 
-/* 3D part labels, anchored to the exploded plates */
-.part-tag-wrap { opacity: 0; transform: translateY(8px); transition: opacity 0.6s, transform 0.8s var(--ease-out); pointer-events: none; }
-.part-tag-wrap.is-on { opacity: 1; transform: none; pointer-events: auto; }
+/* 3D part labels: DOM tags that follow anchors in the scene */
+.part-tags { position: absolute; inset: 0; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity 0.6s; }
+.part-tags.is-on { opacity: 1; }
+.part-tags.is-on .part-tag { pointer-events: auto; }
 .part-tag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
   display: inline-flex;
   gap: 8px;
   align-items: center;
@@ -154,7 +159,6 @@
   font-size: 12px;
   font-weight: 500;
   color: hsl(var(--foreground));
-  transform: translate(-50%, -150%);
   transition: background 0.3s, color 0.3s;
 }
 .part-tag b { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: hsl(var(--signal)); color: hsl(var(--signal-ink)); font: 500 10px/1 var(--font-mono); }
@@ -418,7 +422,7 @@ html.menu-open .brand-dock { opacity: 0; pointer-events: none; }
   .anatomy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
-  .part-tag-wrap { display: none; }
+  .part-tags { display: none; }
   .ch-index ol { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: calc(var(--page-gutter) * -1); padding-right: var(--page-gutter); }
   .ch-index a { white-space: nowrap; }
   .ch-index > p { display: none; }
