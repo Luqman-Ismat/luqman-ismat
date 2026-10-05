@@ -1,4 +1,3 @@
-import { navigationGroups } from "./navigation";
 export const site = {
   name: "Luqman Ismat",
   url: "https://www.luqmanismat.com",
@@ -6,7 +5,6 @@ export const site = {
   description:
     "Independent consulting for engineering, project delivery, dashboards, and connected operations. Apparel and product development through Indus Blue.",
 };
-export const navigation = [{ label: "Home", href: "/" }, ...navigationGroups.map(({label, href}) => ({label, href}))];
 export const inquiryServices = {
   consulting: "Consulting & operations",
   engineering: "Engineering systems",

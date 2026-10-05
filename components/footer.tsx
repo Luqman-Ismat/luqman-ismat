@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { LiveClock } from "@/components/redesign/interactive";
+import { NextStep } from "@/components/shell/next-step";
 export function Footer() {
   return (
     <footer className="site-footer">
+      <div className="site-container footer-next">
+        <NextStep />
+      </div>
       <div className="site-container footer-lead">
         <p className="footer-kicker">Have a process to fix or something to build?</p>
         <Link href="/contact" className="footer-cta" data-cursor="Write">

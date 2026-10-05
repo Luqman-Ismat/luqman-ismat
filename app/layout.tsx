@@ -7,10 +7,13 @@ import "@/styles/engivault.css";
 import "@/styles/work.css";
 import "@/styles/redesign.css";
 import "@/styles/indus.css";
+import "@/styles/shell.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { MotionLayer } from "@/components/redesign/motion-layer";
-import { Header } from "@/components/header";
+import { Hud } from "@/components/shell/hud";
+import { SmoothScroll } from "@/components/shell/smooth-scroll";
+import { RouteTransition } from "@/components/shell/route-transition";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 import { Toaster } from "@/components/ui/sonner";
@@ -72,10 +75,12 @@ export default function RootLayout({
           <a className="skip-link" href="#main-content">
             Skip to content
           </a>
-          <Header />
+          <Hud />
           <ScrollToTopWrapper>{children}</ScrollToTopWrapper>
           <Toaster />
           <MotionLayer />
+          <SmoothScroll />
+          <RouteTransition />
         </ThemeProvider>
         <script
           type="application/ld+json"
