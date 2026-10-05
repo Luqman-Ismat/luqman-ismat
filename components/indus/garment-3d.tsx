@@ -62,16 +62,19 @@ export function garmentGeometry(slug: string, side: 1 | -1, res = 220) {
   const depth = slug === "chin-shalwar" ? 120 : slug === "sadri" ? 70 : 95;
   const pos: number[] = [], uv: number[] = [], index: number[] = [];
   const isIn: boolean[] = [];
+  // keep cells near the outline too; the texture's alpha cuts the true edge
+  const reach = (vw / cols) * 2;
   for (let r = 0; r <= rows; r++) {
     for (let c = 0; c <= cols; c++) {
       const x = vx + (c / cols) * vw, y = vy + (r / rows) * vh;
       const inn = inside([x, y], poly);
-      const d = inn ? edgeDistance([x, y], poly) : 0;
+      const edge = edgeDistance([x, y], poly);
+      const d = inn ? edge : 0;
       const ripple = inn ? Math.sin(x * 0.02 + y * 0.004) * Math.min(d, 40) * 0.08 : 0;
       const z = inn ? depth * (1 - Math.exp(-d / 90)) + ripple : 0;
       pos.push(x * side, -y, z * side);
       uv.push(side === 1 ? c / cols : 1 - c / cols, 1 - r / rows);
-      isIn.push(inn);
+      isIn.push(inn || edge < reach);
     }
   }
   const w = cols + 1;
@@ -123,9 +126,12 @@ export function GarmentMesh({ slug, colourway, opacity = 1 }: { slug: string; co
   }, [front, back]);
   if (!tex) return null;
   const [vx, vy, vw, vh] = shapes[slug].viewBox;
-  const material = (map: THREE.Texture) => (
+  const material = (map: THREE.Texture, behind = false) => (
     <meshPhysicalMaterial
       map={map}
+      polygonOffset={behind}
+      polygonOffsetFactor={behind ? 2 : 0}
+      polygonOffsetUnits={behind ? 2 : 0}
       alphaTest={0.5}
       transparent={opacity < 1}
       opacity={opacity}
@@ -139,7 +145,7 @@ export function GarmentMesh({ slug, colourway, opacity = 1 }: { slug: string; co
   return (
     <group scale={1 / 1000} position={[-(vx + vw / 2) / 1000, (vy + vh / 2) / 1000, 0]}>
       <mesh geometry={front} castShadow>{material(tex.front)}</mesh>
-      <mesh geometry={back} castShadow>{material(tex.back)}</mesh>
+      <mesh geometry={back} castShadow>{material(tex.back, true)}</mesh>
     </group>
   );
 }

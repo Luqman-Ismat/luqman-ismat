@@ -28,8 +28,8 @@
   --consulting-accent: hsl(var(--signal));
   --radius: 0.75rem;
   --page-gutter: clamp(16px, 3.2vw, 56px);
-  --font-sans: var(--font-geist-sans), "Montserrat Variable", system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-geist-sans, "Montserrat Variable"), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono, ui-monospace), ui-monospace, monospace;
   --font-serif: "Instrument Serif", "Times New Roman", serif;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-io: cubic-bezier(0.76, 0, 0.24, 1);
