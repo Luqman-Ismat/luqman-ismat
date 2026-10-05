@@ -1,31 +1,15 @@
 import type { Colourway, Callout } from "@/lib/indus/collection";
-import { shapes, type Pt, type View, type Panel, type Line } from "@/lib/indus/shapes";
+import { flats, type FlatView, type Line, type Piece, type Mark, type Dim } from "@/lib/indus/flats";
+import { toPath, inset, type P } from "@/lib/indus/cad";
 import { setareh, toi, gol, kap, runs } from "@/lib/indus/motifs";
 
-/* Technical flat renderer. Corners sharper than ~55° stay crisp; everything
-   else is smoothed with a Catmull-Rom spline so seams read as cloth. */
-function path(points: Pt[], closed: boolean, smooth = true) {
-  const n = points.length;
-  if (!smooth || n < 3) return "M" + points.map((p) => p.join(" ")).join("L") + (closed ? "Z" : "");
-  const at = (i: number) => (closed ? points[(i + n) % n] : points[Math.max(0, Math.min(n - 1, i))]);
-  const corner = (i: number) => {
-    if (!closed && (i === 0 || i === n - 1)) return true;
-    const a = at(i - 1), b = at(i), c = at(i + 1);
-    const v1 = [b[0] - a[0], b[1] - a[1]], v2 = [c[0] - b[0], c[1] - b[1]];
-    const cos = (v1[0] * v2[0] + v1[1] * v2[1]) / (Math.hypot(...v1) * Math.hypot(...v2) || 1);
-    return cos < Math.cos((55 * Math.PI) / 180);
-  };
-  let d = `M${at(0).join(" ")}`;
-  const segs = closed ? n : n - 1;
-  for (let i = 0; i < segs; i++) {
-    const p0 = at(i - 1), p1 = at(i), p2 = at(i + 1), p3 = at(i + 2);
-    const t = 1 / 6;
-    const c1 = corner(i) ? p1 : [p1[0] + (p2[0] - p0[0]) * t, p1[1] + (p2[1] - p0[1]) * t];
-    const c2 = corner(i + 1) ? p2 : [p2[0] - (p3[0] - p1[0]) * t, p2[1] - (p3[1] - p1[1]) * t];
-    d += `C${c1.join(" ")} ${c2.join(" ")} ${p2.join(" ")}`;
-  }
-  return d + (closed ? "Z" : "");
-}
+/* Technical flat renderer, following industry flat conventions:
+   white fill, no shading; 2pt silhouette, 1pt edges, 0.75pt seams,
+   0.5pt dashed topstitch with round caps, 0.3pt movement lines.
+   One "pt" is scaled so every garment prints at the same weights. */
+
+export type FlatMode = "technical" | "rendered";
+type View = "front" | "back";
 
 const isDark = (hex: string) => {
   const v = parseInt(hex.slice(1), 16);
@@ -33,227 +17,237 @@ const isDark = (hex: string) => {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b < 110;
 };
 
-/* Offsets a polygon inward by d (mitred), used to compose embroidery
-   borders the way pakka panels are built: border, rule, field. */
-function inset(points: Pt[], d: number): Pt[] {
-  const n = points.length;
-  let area = 0;
-  for (let i = 0; i < n; i++) {
-    const [x1, y1] = points[i], [x2, y2] = points[(i + 1) % n];
-    area += x1 * y2 - x2 * y1;
-  }
-  const sign = area > 0 ? 1 : -1;
-  const lines = points.map((p, i) => {
-    const q = points[(i + 1) % n];
-    const dx = q[0] - p[0], dy = q[1] - p[1], l = Math.hypot(dx, dy) || 1;
-    const nx = (-dy / l) * sign, ny = (dx / l) * sign;
-    return { p: [p[0] + nx * d, p[1] + ny * d] as Pt, dir: [dx, dy] as Pt };
-  });
-  return lines.map((a, i) => {
-    const b = lines[(i - 1 + n) % n];
-    const den = a.dir[0] * b.dir[1] - a.dir[1] * b.dir[0];
-    if (Math.abs(den) < 1e-6) return a.p;
-    const t = ((b.p[0] - a.p[0]) * b.dir[1] - (b.p[1] - a.p[1]) * b.dir[0]) / den;
-    return [a.p[0] + a.dir[0] * t, a.p[1] + a.dir[1] * t] as Pt;
-  });
-}
-
-export const technical: Colourway = { id: "tech", name: "Technical", meaning: "Line", ground: "#ffffff", shade: "#ececec", threadA: "#4a4a4a", threadB: "#bcbcbc", threadC: "#ffffff", threadD: "#878787", mirror: "#e4e4e4" };
+export const technical: Colourway = { id: "tech", name: "Technical", meaning: "Line", ground: "#ffffff", shade: "#e2e2e2", threadA: "#4a4a4a", threadB: "#bcbcbc", threadC: "#ffffff", threadD: "#878787", mirror: "#e4e4e4" };
 
 const CELL = 2.2;
 export const motifs = { setareh: setareh(), toi: toi(), gol: gol(), kap: kap() };
 export type MotifName = keyof typeof motifs;
 
-function MotifPattern({ id, name, c }: { id: string; name: keyof typeof motifs; c: Colourway }) {
+/* Filled counted-thread motif (colourway flats and swatches). */
+function MotifPattern({ id, name, c }: { id: string; name: MotifName; c: Colourway }) {
   const m = motifs[name];
   const colour = { a: c.threadA, b: c.threadB, c: c.threadC, d: c.threadD, m: c.threadC };
-  const mirrors: [number, number][] = [];
-  if (name === "setareh") mirrors.push([(m.w / 2) * CELL, (m.h / 2) * CELL]);
   return (
     <pattern id={`${id}-${name}`} width={m.w * CELL} height={m.h * CELL} patternUnits="userSpaceOnUse">
       {runs(m).map((r, i) => (
         <rect key={i} x={r.x * CELL} y={r.y * CELL} width={r.w * CELL + 0.05} height={CELL + 0.05} fill={colour[r.cell]} />
       ))}
-      {mirrors.map(([x, y], i) => (
-        <g key={i}>
-          <circle cx={x} cy={y} r={CELL * 2.6} fill={c.threadC} />
-          <circle cx={x} cy={y} r={CELL * 1.9} fill={c.mirror} />
-          <path d={`M${x - CELL} ${y - CELL * 0.4}a${CELL * 1.2} ${CELL * 1.2} 0 0 1 ${CELL * 1.4} -${CELL}`} stroke="#fff" strokeWidth=".7" fill="none" opacity=".9" />
+      {name === "setareh" && (
+        <g>
+          <circle cx={(m.w / 2) * CELL} cy={(m.h / 2) * CELL} r={CELL * 2.6} fill={c.threadC} />
+          <circle cx={(m.w / 2) * CELL} cy={(m.h / 2) * CELL} r={CELL * 1.9} fill={c.mirror} />
         </g>
-      ))}
+      )}
     </pattern>
   );
 }
 
-function Patterns({ id, c }: { id: string; c: Colourway }) {
+/* Line-art motifs for technical flats: embroidery placement drawn as
+   outline, the way artwork is indicated on a factory flat. */
+function LineMotifs({ id, u, ink }: { id: string; u: number; ink: string }) {
+  const sw = 0.32 * u;
   return (
-    <defs>
-      {(Object.keys(motifs) as (keyof typeof motifs)[]).map((name) => <MotifPattern key={name} id={id} name={name} c={c} />)}
-      <radialGradient id={`${id}-volume`} cx="50%" cy="34%" r="70%">
-        <stop offset="0" stopColor="#fff" stopOpacity={isDark(c.ground) ? 0.09 : 0.22} />
-        <stop offset=".55" stopColor="#fff" stopOpacity="0" />
-        <stop offset="1" stopColor="#000" stopOpacity={isDark(c.ground) ? 0.35 : 0.16} />
-      </radialGradient>
-      <filter id={`${id}-soft`} x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="9" />
-      </filter>
-      {/* plain-weave texture */}
-      <pattern id={`${id}-weave`} width="6" height="6" patternUnits="userSpaceOnUse">
-        <path d="M0 1.5h6M0 4.5h6" stroke={isDark(c.ground) ? "#fff" : "#000"} strokeWidth=".6" opacity=".07" />
-        <path d="M1.5 0v6M4.5 0v6" stroke={isDark(c.ground) ? "#fff" : "#000"} strokeWidth=".6" opacity=".045" />
+    <>
+      <pattern id={`${id}-l-setareh`} width="44" height="44" patternUnits="userSpaceOnUse">
+        <g fill="none" stroke={ink} strokeWidth={sw} strokeLinejoin="round">
+          <rect x="12" y="12" width="20" height="20" />
+          <rect x="12" y="12" width="20" height="20" transform="rotate(45 22 22)" />
+          <circle cx="22" cy="22" r="5" />
+          <path d="M0 0l5 5M44 0l-5 5M0 44l5-5M44 44l-5-5" />
+        </g>
       </pattern>
-    </defs>
+      <pattern id={`${id}-l-toi`} width="24" height="24" patternUnits="userSpaceOnUse">
+        <g fill="none" stroke={ink} strokeWidth={sw} strokeLinejoin="round">
+          <path d="M12 2 22 12 12 22 2 12Z" />
+          <path d="M12 7 17 12 12 17 7 12Z" />
+        </g>
+      </pattern>
+      <pattern id={`${id}-l-gol`} width="26" height="26" patternUnits="userSpaceOnUse">
+        <g fill="none" stroke={ink} strokeWidth={sw} strokeLinejoin="round">
+          <path d="M13 3 17 9 13 13 9 9ZM23 13 17 17 13 13 17 9ZM13 23 9 17 13 13 17 17ZM3 13 9 9 13 13 9 17Z" />
+        </g>
+      </pattern>
+      <pattern id={`${id}-l-kap`} width="14" height="10" patternUnits="userSpaceOnUse">
+        <path d="M0 10 7 1 14 10" fill="none" stroke={ink} strokeWidth={sw} strokeLinejoin="round" />
+      </pattern>
+    </>
   );
 }
 
-/* Pakka panels are built in layers: kap border, thread rule, a toi chain
-   band on large panels, then the central field. */
-function PanelShape({ panel, id, idx, c, ink }: { panel: Panel; id: string; idx: number; c: Colourway; ink: string }) {
-  const d = path(panel.points, true, false);
-  if (panel.kind === "band") return <path d={d} fill={c.shade} stroke={ink} strokeWidth="3" strokeLinejoin="round" />;
-  if (panel.kind === "collar")
-    return (
-      <g>
-        <path d={d} fill={isDark(c.ground) ? "#fff" : "#000"} opacity=".05" />
-        <path d={d} fill="none" stroke={isDark(c.ground) ? "#fff" : "#000"} strokeWidth="1" opacity=".12" />
-      </g>
-    );
-  const clip = `${id}-p${idx}`;
-  const narrow = panel.kind === "toi" || panel.kind === "pado";
-  const large = panel.kind === "jig" || panel.kind === "setareh";
-  const field = panel.kind === "banzar" ? "gol" : narrow ? "toi" : "setareh";
-  const k = narrow ? 7 : 11;
-  const ring = (dd: number) => path(inset(panel.points, dd), true, false);
+function lineStyle(kind: Line["kind"], u: number, ink: string) {
+  const base = { fill: "none", stroke: ink, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  switch (kind) {
+    case "edge": return { ...base, strokeWidth: 1.05 * u };
+    case "seam": return { ...base, strokeWidth: 0.75 * u };
+    case "stitch": return { ...base, strokeWidth: 0.5 * u, strokeDasharray: `${1.5 * u} ${1.5 * u}` };
+    case "fold": return { ...base, strokeWidth: 0.6 * u };
+    case "motion": return { ...base, strokeWidth: 0.3 * u, opacity: 0.85 };
+    case "raw": return { ...base, strokeWidth: 0.9 * u, strokeDasharray: `${2.4 * u} ${0.8 * u} ${0.5 * u} ${0.8 * u}` };
+    case "cord": return { ...base, strokeWidth: 1.6 * u };
+  }
+}
+
+function PieceArt({ piece, id, idx, c, ink, u, mode }: { piece: Piece; id: string; idx: number; c: Colourway; ink: string; u: number; mode: FlatMode }) {
+  const d = piece.fill ? toPath(piece.fill, true) : "";
+  const kind = piece.kind ?? "body";
+  const emb = kind.startsWith("emb-") ? (kind.slice(4) as MotifName) : null;
+  let fill: string = c.ground;
+  if (kind === "inside") fill = mode === "technical" ? "#dcdcdc" : c.shade;
+  const clip = `${id}-c${idx}`;
   return (
     <g>
-      <clipPath id={clip}>
-        <path d={d} />
-      </clipPath>
-      <g clipPath={`url(#${clip})`}>
-        <path d={d} fill={c.threadA} />
-        <path d={d} fill="none" stroke={`url(#${id}-kap)`} strokeWidth={k * 2} />
-        <path d={ring(k + 1)} fill="none" stroke={c.threadC} strokeWidth="2.4" />
-        {large ? (
-          <>
-            <path d={ring(k + 16)} fill="none" stroke={`url(#${id}-toi)`} strokeWidth="26" />
-            <path d={ring(k + 30)} fill="none" stroke={c.threadC} strokeWidth="2.4" />
-            <path d={ring(k + 31)} fill={`url(#${id}-${field})`} />
-          </>
-        ) : (
-          <path d={ring(k + 2.2)} fill={`url(#${id}-${field})`} />
-        )}
-      </g>
-      <path d={d} fill="none" stroke={ink} strokeWidth="2" strokeLinejoin="round" opacity=".8" />
+      {d && !emb && <path d={d} fill={fill} />}
+      {d && emb && mode === "technical" && (
+        <>
+          <path d={d} fill="#fff" />
+          <path d={toPath(inset(piece.fill!, 9), true)} fill={`url(#${id}-l-${emb})`} />
+          <path d={toPath(inset(piece.fill!, 9), true)} fill="none" stroke={ink} strokeWidth={0.5 * u} />
+        </>
+      )}
+      {d && emb && mode === "rendered" && (
+        <>
+          <clipPath id={clip}><path d={d} /></clipPath>
+          <g clipPath={`url(#${clip})`}>
+            <path d={d} fill={c.threadA} />
+            <path d={d} fill="none" stroke={`url(#${id}-kap)`} strokeWidth="18" />
+            <path d={toPath(inset(piece.fill!, 10), true)} fill={`url(#${id}-${emb === "kap" ? "toi" : emb})`} stroke={c.threadC} strokeWidth="2" />
+          </g>
+        </>
+      )}
+      {piece.lines.map((l, i) => {
+        const s = lineStyle(l.kind, u, ink);
+        if (l.kind === "cord") return (
+          <g key={i}>
+            <path d={toPath(l.pts)} {...s} />
+            <path d={toPath(l.pts)} {...s} stroke={c.ground} strokeWidth={0.7 * u} />
+          </g>
+        );
+        return <path key={i} d={toPath(l.pts, l.closed)} {...s} />;
+      })}
     </g>
   );
 }
 
-function LineShape({ line, ink, c, filter }: { line: Line; ink: string; c: Colourway; filter?: string }) {
-  const d = path(line.points, false, !!line.curve);
-  switch (line.style) {
-    case "seam":
-      return <path d={d} fill="none" stroke={ink} strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />;
-    case "edge":
-      return <path d={d} fill="none" stroke={ink} strokeWidth="3.6" strokeLinecap="round" strokeLinejoin="round" />;
-    case "stitch":
-      return <path d={d} fill="none" stroke={ink} strokeWidth="1.6" strokeDasharray="7 6" opacity=".85" />;
-    case "fold":
-      return <path d={d} fill="none" stroke={ink} strokeWidth="1.8" strokeLinecap="round" opacity=".55" />;
-    case "drape":
+function MarkArt({ m, u, ink, c }: { m: Mark; u: number; ink: string; c: Colourway }) {
+  const [x, y] = m.at;
+  switch (m.kind) {
+    case "button": {
+      const r = m.r ?? 4 * u;
       return (
-        <g filter={filter}>
-          <path d={d} fill="none" stroke="#000" strokeWidth="26" strokeLinecap="round" opacity={isDark(c.ground) ? 0.4 : 0.14} transform="translate(14 0)" />
-          <path d={d} fill="none" stroke="#fff" strokeWidth="16" strokeLinecap="round" opacity={isDark(c.ground) ? 0.07 : 0.3} />
+        <g>
+          <circle cx={x} cy={y} r={r} fill={c.ground} stroke={ink} strokeWidth={0.75 * u} />
+          {[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([dx, dy], i) => <circle key={i} cx={x + dx * r * 0.28} cy={y + dy * r * 0.28} r={r * 0.12} fill={ink} />)}
         </g>
       );
-    case "raw":
-      return <path d={d} fill="none" stroke={ink} strokeWidth="2.4" strokeDasharray="2 3 5 2" strokeLinecap="round" />;
+    }
+    case "snap": {
+      const r = m.r ?? 4 * u;
+      return (
+        <g fill="none" stroke={ink}>
+          <circle cx={x} cy={y} r={r} strokeWidth={0.5 * u} strokeDasharray={`${1.2 * u} ${1 * u}`} />
+          <circle cx={x} cy={y} r={r * 0.4} strokeWidth={0.5 * u} strokeDasharray={`${0.8 * u} ${0.8 * u}`} />
+        </g>
+      );
+    }
+    case "bartack": {
+      const a = ((m.angle ?? 0) * Math.PI) / 180, l = 3.2 * u;
+      return <path d={`M${x - Math.cos(a) * l} ${y - Math.sin(a) * l}L${x + Math.cos(a) * l} ${y + Math.sin(a) * l}`} stroke={ink} strokeWidth={1.5 * u} strokeLinecap="butt" />;
+    }
+    case "eyelet":
+      return <g><circle cx={x} cy={y} r={2.6 * u} fill={c.ground} stroke={ink} strokeWidth={0.75 * u} /><circle cx={x} cy={y} r={1.2 * u} fill={ink} /></g>;
+    case "knot":
+      return (
+        <g stroke={ink} strokeLinecap="round" strokeLinejoin="round">
+          <path d={`M${x} ${y}c${-6 * u} ${-4 * u} ${-9 * u} ${2 * u} ${-4 * u} ${4 * u}M${x} ${y}c${6 * u} ${-4 * u} ${9 * u} ${2 * u} ${4 * u} ${4 * u}`} fill={c.ground} strokeWidth={0.75 * u} />
+          <ellipse cx={x} cy={y} rx={2.2 * u} ry={1.8 * u} fill={c.ground} strokeWidth={0.9 * u} />
+          <path d={`M${x - u} ${y + 1.6 * u}l${-2 * u} ${16 * u}M${x + u} ${y + 1.6 * u}l${2.6 * u} ${13 * u}`} fill="none" strokeWidth={0.9 * u} />
+        </g>
+      );
   }
 }
 
-export function GarmentFlat({
-  slug,
-  view,
-  colourway,
-  mode = "rendered",
-  callouts = [],
-  showDims = false,
-  activeCallout,
-  className,
-  title,
-}: {
-  slug: string;
-  view: View;
-  colourway: Colourway;
-  mode?: "rendered" | "technical";
-  callouts?: Callout[];
-  showDims?: boolean;
-  activeCallout?: number | null;
-  className?: string;
-  title?: string;
+function DimArt({ dim, u, id }: { dim: Dim; u: number; id: string }) {
+  const [x1, y1] = dim.from, [x2, y2] = dim.to;
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+  const s = 5.2 * u;
+  return (
+    <g className="flat-dim">
+      <path d={`M${x1} ${y1}L${x2} ${y2}`} stroke="currentColor" strokeWidth={0.5 * u} markerStart={`url(#${id}-arrow)`} markerEnd={`url(#${id}-arrow)`} />
+      <rect x={mx - s} y={my - s} width={s * 2} height={s * 2} rx={1.2 * u} fill="currentColor" />
+      <text x={mx} y={my} dy={2.6 * u} textAnchor="middle" fontSize={7 * u} fontFamily="var(--font-mono, monospace)" fill="var(--flat-bg, #fff)">{dim.code}</text>
+    </g>
+  );
+}
+
+/* The garment drawing as a group, reused by the full flat, detail views and print sheets. */
+export function FlatArt({ slug, view, colourway, mode = "technical", id, callouts = [], activeCallout, showDims = false }: {
+  slug: string; view: View; colourway: Colourway; mode?: FlatMode; id: string; callouts?: Callout[]; activeCallout?: number | null; showDims?: boolean;
 }) {
+  const g = flats[slug];
+  const v: FlatView = g[view];
+  const u = g.viewBox[3] / 430;
   const c = mode === "technical" ? technical : colourway;
-  const shape = shapes[slug];
-  const v = shape[view];
-  const id = `g-${slug}-${view}-${c.id}-${mode[0]}`;
-  const ink = mode === "technical" ? "#141414" : isDark(c.ground) ? "#a29c92" : "#2a2622";
-  const rendered = mode === "rendered";
-  const outline = path(v.outline, true);
-  const [vx, vy, vw, vh] = shape.viewBox;
+  const ink = mode === "technical" ? "#151515" : isDark(c.ground) ? "#bdb6a8" : "#1c1916";
+  return (
+    <g>
+      <defs>
+        {(Object.keys(motifs) as MotifName[]).map((n) => <MotifPattern key={n} id={id} name={n} c={c} />)}
+        <LineMotifs id={id} u={u} ink={ink} />
+        <marker id={`${id}-arrow`} viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M0 1 9 5 0 9z" fill="currentColor" />
+        </marker>
+      </defs>
+      {/* silhouette: heavy stroke behind every fill; inner halves get painted over */}
+      <g fill="none" stroke={ink} strokeWidth={3.4 * u} strokeLinejoin="round">
+        {v.pieces.filter((p) => p.fill).map((p, i) => <path key={i} d={toPath(p.fill!, true)} />)}
+      </g>
+      {v.pieces.map((p, i) => <PieceArt key={i} piece={p} id={id} idx={i} c={c} ink={ink} u={u} mode={mode} />)}
+      {v.marks.map((m, i) => <MarkArt key={i} m={m} u={u} ink={ink} c={c} />)}
+      {showDims && v.dims.map((d) => <DimArt key={d.code} dim={d} u={u} id={id} />)}
+      {callouts.filter((co) => co.view === view && v.anchors[co.anchor]).map((co) => {
+        const [x, y] = v.anchors[co.anchor];
+        return (
+          <g key={co.n} className={activeCallout === co.n ? "flat-callout is-active" : "flat-callout"} style={{ ["--u" as string]: u }}>
+            <circle cx={x} cy={y} r={7.5 * u} strokeWidth={1.2 * u} />
+            <text x={x} y={y} dy={3 * u} textAnchor="middle" fontSize={8.5 * u}>{co.n}</text>
+          </g>
+        );
+      })}
+    </g>
+  );
+}
+
+export function GarmentFlat({ slug, view, colourway, mode = "rendered", callouts = [], showDims = false, activeCallout, className, title }: {
+  slug: string; view: View; colourway: Colourway; mode?: FlatMode; callouts?: Callout[]; showDims?: boolean; activeCallout?: number | null; className?: string; title?: string;
+}) {
+  const [vx, vy, vw, vh] = flats[slug].viewBox;
+  const id = `f-${slug}-${view}-${colourway.id}-${mode[0]}`;
   return (
     <svg className={className} viewBox={`${vx} ${vy} ${vw} ${vh}`} role="img" aria-label={title ?? `${slug} ${view} technical flat`} xmlns="http://www.w3.org/2000/svg">
-      <Patterns id={id} c={c} />
-      <clipPath id={`${id}-clip`}>
-        <path d={outline} />
-      </clipPath>
-      <path d={outline} fill={c.ground} />
-      {rendered && <path d={outline} fill={`url(#${id}-weave)`} />}
+      <FlatArt slug={slug} view={view} colourway={colourway} mode={mode} id={id} callouts={callouts} activeCallout={activeCallout} showDims={showDims} />
+    </svg>
+  );
+}
+
+/* Magnified detail view: the same drawing, clipped to a circle and enlarged. */
+export function FlatDetail({ slug, index, colourway, mode = "technical", className }: { slug: string; index: number; colourway: Colourway; mode?: FlatMode; className?: string }) {
+  const d = flats[slug].details[index];
+  const [cx, cy] = d.center as P;
+  const id = `d-${slug}-${index}-${colourway.id}-${mode[0]}`;
+  return (
+    <svg className={className} viewBox={`${cx - d.r} ${cy - d.r} ${d.r * 2} ${d.r * 2}`} role="img" aria-label={`Detail: ${d.label}`}>
+      <clipPath id={`${id}-clip`}><circle cx={cx} cy={cy} r={d.r * 0.98} /></clipPath>
+      <circle cx={cx} cy={cy} r={d.r * 0.98} fill="#fff" />
       <g clipPath={`url(#${id}-clip)`}>
-        {rendered && <path d={outline} fill={`url(#${id}-volume)`} />}
-        {rendered && v.lines.filter((l) => l.style === "drape").map((l, i) => <LineShape key={i} line={l} ink={ink} c={c} filter={`url(#${id}-soft)`} />)}
-        {v.panels.map((p, i) => <PanelShape key={i} idx={i} panel={p} id={id} c={c} ink={ink} />)}
-        {v.lines.filter((l) => l.style !== "drape").map((l, i) => <LineShape key={i} line={l} ink={ink} c={c} />)}
+        <FlatArt slug={slug} view={d.view} colourway={colourway} mode={mode} id={id} />
       </g>
-      {v.ties && (
-        <g stroke={ink} strokeWidth="5" strokeLinecap="round" fill="none">
-          {Array.from({ length: v.ties.length / 2 }, (_, i) => (
-            <path key={i} d={path([v.ties![i * 2], v.ties![i * 2 + 1]], false)} />
-          ))}
-        </g>
-      )}
-      <path d={outline} fill="none" stroke={ink} strokeWidth="4" strokeLinejoin="round" />
-      {showDims && (
-        <g className="flat-dims">
-          {v.dims.map((dim) => {
-            const [x1, y1] = dim.from, [x2, y2] = dim.to;
-            const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
-            return (
-              <g key={dim.code}>
-                <path d={`M${x1} ${y1}L${x2} ${y2}`} stroke="currentColor" strokeWidth="2" markerStart={`url(#${id}-arrow)`} markerEnd={`url(#${id}-arrow)`} />
-                <circle cx={mx} cy={my} r="22" fill="currentColor" />
-                <text x={mx} y={my} dy="8" textAnchor="middle" fontSize="24" fontFamily="var(--font-mono)" fill="var(--flat-bg, #fff)">{dim.code}</text>
-              </g>
-            );
-          })}
-          <defs>
-            <marker id={`${id}-arrow`} viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M0 0 10 5 0 10z" fill="currentColor" />
-            </marker>
-          </defs>
-        </g>
-      )}
-      {callouts.filter((co) => co.view === view).map((co) => (
-        <g key={co.n} className={activeCallout === co.n ? "flat-callout is-active" : "flat-callout"}>
-          <circle cx={co.x} cy={co.y} r="26" />
-          <text x={co.x} y={co.y} dy="9" textAnchor="middle">{co.n}</text>
-        </g>
-      ))}
+      <circle cx={cx} cy={cy} r={d.r * 0.98} fill="none" stroke="#151515" strokeWidth={d.r * 0.012} />
     </svg>
   );
 }
 
 /* A motif shown at study scale, for the motif library and spec tables. */
-export function MotifSwatch({ name, colourway: c, size = 220, className }: { name: keyof typeof motifs; colourway: Colourway; size?: number; className?: string }) {
+export function MotifSwatch({ name, colourway: c, size = 220, className }: { name: MotifName; colourway: Colourway; size?: number; className?: string }) {
   const id = `sw-${name}-${c.id}-${size}`;
   return (
     <svg className={className} viewBox={`0 0 ${size} ${size}`} role="img" aria-label={`${name} motif in ${c.name}`}>

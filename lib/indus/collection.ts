@@ -23,7 +23,7 @@ export const colourways: Colourway[] = [
   { id: "shir", name: "Shir", meaning: "Milk", ground: "#ebe5d6", shade: "#cfc7b4", threadA: "#1d2b5a", threadB: "#b3261e", threadC: "#f3ecdb", threadD: "#d99a2b", mirror: "#c3c6cb" },
 ];
 
-export type Callout = { n: number; title: string; text: string; view: "front" | "back"; x: number; y: number };
+export type Callout = { n: number; title: string; text: string; view: "front" | "back"; anchor: string };
 export type Pom = { code: string; point: string; m: number; grade: number; tol: number };
 export type BomLine = { item: string; spec: string; placement: string; qty: string };
 
@@ -63,14 +63,14 @@ export const pieces: Piece[] = [
       { panel: "Banzar (cuffs)", motif: "Gol rosette band between kap borders", area: "12 cm deep, full cuff circumference" },
     ],
     callouts: [
-      { n: 1, title: "Wrap front", text: "Right front overlaps left by 14 cm. Edge faced 6 cm, topstitched 0.6 cm.", view: "front", x: -70, y: 420 },
-      { n: 2, title: "Pado panel", text: "Functional pocket, opening at top, bagged in cotton lawn. Pakka doch, fully covered ground.", view: "front", x: 285, y: 1050 },
-      { n: 3, title: "Chin pleats", text: "Three knife pleats each side at waist, stitched down 4 cm, released below.", view: "front", x: 404, y: 780 },
-      { n: 4, title: "Banzar cuffs", text: "Embroidered band worked on a separate cuff piece, joined and faced.", view: "front", x: -600, y: 860 },
-      { n: 5, title: "Ties", text: "Two 1 cm self-fabric ties at waist: one internal, one external.", view: "front", x: -128, y: 640 },
-      { n: 6, title: "Back yoke", text: "Dropped yoke, 22 cm at CB, double layer.", view: "back", x: 0, y: 232 },
-      { n: 7, title: "Box pleat", text: "Inverted box pleat 16 cm deep at CB, from yoke seam to hem.", view: "back", x: 0, y: 900 },
-      { n: 8, title: "Side vents", text: "32 cm vents, mitred hem corners.", view: "back", x: -580, y: 1290 },
+      { n: 1, title: "Wrap front", text: "Right front overlaps left by 14 cm. Edge faced 6 cm, topstitched 0.6 cm.", view: "front", anchor: "wrap" },
+      { n: 2, title: "Pado panel", text: "Functional pocket, opening at top, bagged in cotton lawn. Pakka doch, fully covered ground.", view: "front", anchor: "pado" },
+      { n: 3, title: "Chin pleats", text: "Three knife pleats each side at waist, stitched down 4 cm, released below.", view: "front", anchor: "pleats" },
+      { n: 4, title: "Banzar cuffs", text: "Embroidered band worked on a separate cuff piece, joined and faced.", view: "front", anchor: "cuff" },
+      { n: 5, title: "Ties", text: "Two 1 cm self-fabric ties at waist: one internal, one external.", view: "front", anchor: "ties" },
+      { n: 6, title: "Back yoke", text: "Dropped yoke, 22 cm at CB, double layer.", view: "back", anchor: "yoke" },
+      { n: 7, title: "Box pleat", text: "Inverted box pleat 16 cm deep at CB, from yoke seam to hem.", view: "back", anchor: "pleat" },
+      { n: 8, title: "Side vents", text: "32 cm vents, mitred hem corners.", view: "back", anchor: "vents" },
     ],
     poms: [
       { code: "A", point: "Body length, HPS to hem", m: 142, grade: 2, tol: 1.5 },
@@ -108,13 +108,13 @@ export const pieces: Piece[] = [
       { panel: "Banzar (cuffs)", motif: "Kap triangles and toi chain", area: "10 cm deep" },
     ],
     callouts: [
-      { n: 1, title: "Band collar", text: "3.5 cm stand, offset opening aligned to placket.", view: "front", x: 50, y: 16 },
-      { n: 2, title: "Jig yoke", text: "Separate embroidered yoke, joined at a shaped seam and lined in lawn.", view: "front", x: 210, y: 200 },
-      { n: 3, title: "Toi strip", text: "Runs on the placket line through the yoke.", view: "front", x: -92, y: 200 },
-      { n: 4, title: "Hidden placket", text: "Five 15 mm horn buttons under a fly, ending 38 cm below HPS.", view: "front", x: -92, y: 380 },
-      { n: 5, title: "Side slits", text: "45 cm, faced, bar-tacked at top.", view: "front", x: 424, y: 770 },
-      { n: 6, title: "Asymmetric hem", text: "Curved hem, right side 8 cm longer. 1.5 cm double-turned.", view: "front", x: 250, y: 1214 },
-      { n: 7, title: "Back yoke", text: "Plain shaped back yoke, double layer.", view: "back", x: 0, y: 172 },
+      { n: 1, title: "Band collar", text: "3.5 cm stand, offset opening aligned to placket.", view: "front", anchor: "collar" },
+      { n: 2, title: "Jig yoke", text: "Separate embroidered yoke, joined at a shaped seam and lined in lawn.", view: "front", anchor: "yoke" },
+      { n: 3, title: "Toi strip", text: "Runs on the placket line through the yoke.", view: "front", anchor: "toi" },
+      { n: 4, title: "Hidden placket", text: "Five 15 mm horn buttons under a fly, ending 38 cm below HPS.", view: "front", anchor: "placket" },
+      { n: 5, title: "Side slits", text: "45 cm, faced, bar-tacked at top.", view: "front", anchor: "slit" },
+      { n: 6, title: "Asymmetric hem", text: "Curved hem, right side 8 cm longer. 1.5 cm double-turned.", view: "front", anchor: "hem" },
+      { n: 7, title: "Back yoke", text: "Plain shaped back yoke, double layer.", view: "back", anchor: "yoke" },
     ],
     poms: [
       { code: "A", point: "Body length, HPS to hem (short side)", m: 112, grade: 2, tol: 1.5 },
@@ -149,11 +149,11 @@ export const pieces: Piece[] = [
       { panel: "Banzar (ankle bands)", motif: "Toi chain between kap borders", area: "8 cm deep, full circumference" },
     ],
     callouts: [
-      { n: 1, title: "Nala channel", text: "4 cm channel, cotton nala cord, elastic across back only.", view: "front", x: 0, y: 26 },
-      { n: 2, title: "Chin pleats", text: "Eight 6 cm pleats per leg, stitched 6 cm from waist.", view: "front", x: -200, y: 220 },
-      { n: 3, title: "Kali gusset", text: "Diamond gusset drops the crotch 22 cm below natural.", view: "front", x: 0, y: 810 },
-      { n: 4, title: "Banzar band", text: "Embroidered 8 cm band, faced; leg volume gathered into it.", view: "front", x: 251, y: 1040 },
-      { n: 5, title: "Side pocket", text: "Deep in-seam pocket, right side only.", view: "back", x: -505, y: 250 },
+      { n: 1, title: "Nala channel", text: "4 cm channel, cotton nala cord, elastic across back only.", view: "front", anchor: "nala" },
+      { n: 2, title: "Chin pleats", text: "Eight 6 cm pleats per leg, stitched 6 cm from waist.", view: "front", anchor: "pleats" },
+      { n: 3, title: "Kali gusset", text: "Diamond gusset drops the crotch 22 cm below natural.", view: "front", anchor: "kali" },
+      { n: 4, title: "Banzar band", text: "Embroidered 8 cm band, faced; leg volume gathered into it.", view: "front", anchor: "cuff" },
+      { n: 5, title: "Side pocket", text: "Deep in-seam pocket, right side only.", view: "back", anchor: "pocket" },
     ],
     poms: [
       { code: "A", point: "Outseam incl. band", m: 104, grade: 1.5, tol: 1 },
@@ -186,12 +186,12 @@ export const pieces: Piece[] = [
       { panel: "Back strip", motif: "Toi chain", area: "6 × 44 cm across back yoke" },
     ],
     callouts: [
-      { n: 1, title: "Off-centre V", text: "Neck opening offset 6 cm; one concealed snap at the point.", view: "front", x: 76, y: 300 },
-      { n: 2, title: "Mirror panels", text: "Setareh with shisha mirrors, worked on the garment front.", view: "front", x: -215, y: 250 },
-      { n: 3, title: "Raw edge", text: "Unfinished edge, stay-stitched 1 cm in, washed to soften.", view: "front", x: 220, y: 876 },
-      { n: 4, title: "Asymmetric hem", text: "Left front 10 cm longer, angled into side seam.", view: "front", x: -200, y: 970 },
-      { n: 5, title: "Back toi strip", text: "Embroidered strip across the back yoke line.", view: "back", x: 0, y: 239 },
-      { n: 6, title: "CB vent", text: "20 cm centre back vent.", view: "back", x: 0, y: 770 },
+      { n: 1, title: "Off-centre V", text: "Neck opening offset 6 cm; one concealed snap at the point.", view: "front", anchor: "v" },
+      { n: 2, title: "Mirror panels", text: "Setareh with shisha mirrors, worked on the garment front.", view: "front", anchor: "mirrors" },
+      { n: 3, title: "Raw edge", text: "Unfinished edge, stay-stitched 1 cm in, washed to soften.", view: "front", anchor: "raw" },
+      { n: 4, title: "Asymmetric hem", text: "Left front 10 cm longer, angled into side seam.", view: "front", anchor: "hem" },
+      { n: 5, title: "Back toi strip", text: "Embroidered strip across the back yoke line.", view: "back", anchor: "toi" },
+      { n: 6, title: "CB vent", text: "20 cm centre back vent.", view: "back", anchor: "vent" },
     ],
     poms: [
       { code: "A", point: "Body length, HPS to hem (short side)", m: 82, grade: 1.5, tol: 1 },

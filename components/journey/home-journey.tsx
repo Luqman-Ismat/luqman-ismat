@@ -34,7 +34,7 @@ export function HomeJourney() {
   const root = useRef<HTMLDivElement>(null);
   const [gl, setGl] = useState<boolean | null>(null);
   const [active, setActive] = useState(0);
-  const [colourway, setColourway] = useState("shab");
+  const [colourway, setColourway] = useState("tech");
   const drag = useRef<{ x: number } | null>(null);
 
   useEffect(() => {
@@ -161,6 +161,10 @@ export function HomeJourney() {
             {c.hold && gl && <div className="chapter-fade"><HoldButton id={c.id} {...c.hold} /></div>}
             {c.id === "indus" && (
               <div className="chapter-fade chapter-colourways" role="radiogroup" aria-label="Colourway">
+                <button type="button" role="radio" aria-checked={colourway === "tech"} onClick={() => setColourway("tech")} title="Technical line drawing">
+                  <span style={{ background: "#fff" }} />
+                  Technical
+                </button>
                 {colourways.map((cw) => (
                   <button key={cw.id} type="button" role="radio" aria-checked={colourway === cw.id} onClick={() => setColourway(cw.id)} title={`${cw.name} · ${cw.meaning}`}>
                     <span style={{ background: cw.ground }} />
@@ -185,7 +189,7 @@ export function HomeJourney() {
           {gl === false && (
             <div className="chapter-fallback">
               {c.id === "indus" ? (
-                <GarmentFlat slug="pashk-coat" view="front" colourway={colourwayById(colourway)} title="Pashk Coat front" />
+                <GarmentFlat slug="pashk-coat" view="front" mode={colourway === "tech" ? "technical" : "rendered"} colourway={colourwayById(colourway === "tech" ? "shir" : colourway)} title="Pashk Coat front" />
               ) : fallbackImage[c.id] ? (
                 <Image src={fallbackImage[c.id]} alt="" fill sizes="50vw" />
               ) : null}

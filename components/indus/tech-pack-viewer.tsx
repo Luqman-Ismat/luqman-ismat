@@ -1,15 +1,10 @@
 "use client";
-import dynamic from "next/dynamic";
 import { useState } from "react";
-import { GarmentFlat } from "./garment-flat";
+import { GarmentFlat, FlatDetail, type FlatMode } from "./garment-flat";
+import { flats } from "@/lib/indus/flats";
 import { colourways, colourwayById, sizes, gradeFor, type Piece } from "@/lib/indus/collection";
 
-const Garment3D = dynamic(() => import("./garment-3d").then((m) => m.Garment3D), {
-  ssr: false,
-  loading: () => <div className="tp-3d-loading">Loading 3D model…</div>,
-});
 
-type Mode = "rendered" | "technical" | "3d";
 
 export function ColourwayPicker({ value, onChange }: { value: string; onChange: (id: string) => void }) {
   return (
@@ -34,68 +29,64 @@ export function ColourwayPicker({ value, onChange }: { value: string; onChange: 
 }
 
 export function TechPackViewer({ piece }: { piece: Piece }) {
-  const [mode, setMode] = useState<Mode>("rendered");
-  const [view, setView] = useState<"front" | "back">("front");
+  const [mode, setMode] = useState<FlatMode>("technical");
   const [cw, setCw] = useState(piece.defaultColourway);
   const [dims, setDims] = useState(false);
   const [active, setActive] = useState<number | null>(null);
   const colourway = colourwayById(cw);
-  const visible = piece.callouts.filter((c) => c.view === view);
+  const details = flats[piece.slug].details;
+  const sheetLabel = mode === "technical" ? "Line" : `${colourway.name} · ${colourway.meaning}`;
 
   return (
     <div className="tp-viewer">
       <div className="tp-toolbar">
-        <div className="seg" role="tablist" aria-label="Display">
-          {(["rendered", "technical", "3d"] as Mode[]).map((m) => (
+        <div className="seg" role="tablist" aria-label="Drawing">
+          {(["technical", "rendered"] as FlatMode[]).map((m) => (
             <button key={m} type="button" role="tab" aria-selected={mode === m} onClick={() => setMode(m)}>
-              {m === "3d" ? "3D" : m[0].toUpperCase() + m.slice(1)}
+              {m === "technical" ? "Technical" : "Colourway"}
             </button>
           ))}
         </div>
-        {mode !== "3d" && (
-          <div className="seg" role="tablist" aria-label="View">
-            {(["front", "back"] as const).map((v) => (
-              <button key={v} type="button" role="tab" aria-selected={view === v} onClick={() => setView(v)}>
-                {v[0].toUpperCase() + v.slice(1)}
-              </button>
-            ))}
-          </div>
-        )}
-        {mode !== "3d" && (
-          <label className="tp-toggle">
-            <input type="checkbox" checked={dims} onChange={(e) => setDims(e.target.checked)} /> Measurements
-          </label>
-        )}
-        {mode !== "technical" && <ColourwayPicker value={cw} onChange={setCw} />}
+        <label className="tp-toggle">
+          <input type="checkbox" checked={dims} onChange={(e) => setDims(e.target.checked)} /> Measurements
+        </label>
+        {mode === "rendered" && <ColourwayPicker value={cw} onChange={setCw} />}
       </div>
 
       <div className="tp-stage-wrap">
-        <div className={`tp-stage is-${mode}`}>
-          {mode === "3d" ? (
-            <Garment3D slug={piece.slug} colourway={colourway} />
-          ) : (
-            <GarmentFlat
-              key={`${view}-${mode}`}
-              className="tp-flat"
-              slug={piece.slug}
-              view={view}
-              mode={mode}
-              colourway={colourway}
-              callouts={piece.callouts}
-              activeCallout={active}
-              showDims={dims}
-              title={`${piece.name}, ${view} ${mode} flat in ${colourway.name}`}
-            />
-          )}
-          <p className="tp-stage-label">
-            {piece.code} · {mode === "3d" ? "3D study" : `${view} · ${mode}`} · {mode === "technical" ? "Line" : colourway.name}
-          </p>
+        <div className={`tp-sheet is-${mode}`}>
+          <div className="tp-sheet-flats">
+            {(["front", "back"] as const).map((v) => (
+              <figure key={v}>
+                <GarmentFlat
+                  className="tp-flat"
+                  slug={piece.slug}
+                  view={v}
+                  mode={mode}
+                  colourway={colourway}
+                  callouts={piece.callouts}
+                  activeCallout={active}
+                  showDims={dims}
+                  title={`${piece.name}, ${v} ${mode === "technical" ? "technical flat" : "colourway flat in " + colourway.name}`}
+                />
+                <figcaption>{v === "front" ? "Front" : "Back"}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <dl className="tp-titleblock">
+            <div><dt>Style</dt><dd>{piece.code}</dd></div>
+            <div><dt>Description</dt><dd>{piece.name} · {piece.type}</dd></div>
+            <div><dt>Colour</dt><dd>{sheetLabel}</dd></div>
+            <div><dt>Size</dt><dd>M (base)</dd></div>
+            <div><dt>Rev</dt><dd>A · Development</dd></div>
+            <div><dt>Scale</dt><dd>NTS · mm</dd></div>
+          </dl>
         </div>
 
         <aside className="tp-callouts" aria-label="Construction notes">
-          <p className="eyebrow">Construction · {mode === "3d" ? "all views" : view}</p>
+          <p className="eyebrow">Construction</p>
           <ol>
-            {(mode === "3d" ? piece.callouts : visible).map((c) => (
+            {piece.callouts.map((c) => (
               <li
                 key={c.n}
                 className={active === c.n ? "is-active" : undefined}
@@ -107,13 +98,13 @@ export function TechPackViewer({ piece }: { piece: Piece }) {
               >
                 <span>{c.n}</span>
                 <div>
-                  <h3>{c.title}</h3>
+                  <h3>{c.title} <small>{c.view}</small></h3>
                   <p>{c.text}</p>
                 </div>
               </li>
             ))}
           </ol>
-          {dims && mode !== "3d" && (
+          {dims && (
             <div className="tp-dim-legend">
               {piece.poms.map((p) => (
                 <span key={p.code}>
@@ -123,6 +114,15 @@ export function TechPackViewer({ piece }: { piece: Piece }) {
             </div>
           )}
         </aside>
+      </div>
+
+      <div className="tp-details">
+        {details.map((d, i) => (
+          <figure key={d.label} className="tp-detail">
+            <FlatDetail slug={piece.slug} index={i} colourway={colourway} mode={mode} />
+            <figcaption><span>Detail {String.fromCharCode(65 + i)}</span>{d.label}</figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   );

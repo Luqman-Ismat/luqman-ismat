@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageShell } from "@/components/consulting";
-import { GarmentFlat, MotifSwatch, type MotifName } from "@/components/indus/garment-flat";
+import { MotifSwatch, type MotifName } from "@/components/indus/garment-flat";
 import { TechPackViewer, SpecTable, PrintButton } from "@/components/indus/tech-pack-viewer";
 import { pieces, pieceBySlug, colourways, colourwayById } from "@/lib/indus/collection";
 import { Accent } from "@/components/redesign/primitives";
@@ -132,11 +132,6 @@ export default async function TechPack({ params }: { params: Promise<{ slug: str
           </div>
         </section>
 
-        {/* Print-only drawing sheet: both technical flats side by side. */}
-        <section className="tp-print-sheet" aria-hidden="true">
-          <GarmentFlat slug={piece.slug} view="front" mode="technical" colourway={cw} callouts={piece.callouts} showDims />
-          <GarmentFlat slug={piece.slug} view="back" mode="technical" colourway={cw} callouts={piece.callouts} showDims />
-        </section>
 
         <section className="site-container tp-actions">
           <PrintButton />

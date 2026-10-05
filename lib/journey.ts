@@ -71,7 +71,7 @@ export const chapters: Chapter[] = [
     kicker: "Indus Blue · Apparel development",
     title: "Our own line.",
     accent: "Your next collection.",
-    text: "Collection 01 builds oversized, asymmetric garments on the panels of Baloch dress, worked in pakka doch embroidery. This is the Pashk Coat, generated from its own pattern and tech pack.",
+    text: "Collection 01 builds oversized, asymmetric garments on the panels of Baloch dress, worked in pakka doch embroidery. This is the Pashk Coat's production flat, drawn to its measurements.",
     links: [
       { label: "See Collection 01", href: "/indus-blue" },
       { label: "Pashk Coat tech pack", href: "/indus-blue/pashk-coat" },

@@ -43,10 +43,10 @@ export default function IndusBlue() {
             </div>
           </div>
           <div className="ib-hero-art" data-reveal>
-            <GarmentFlat className="ib-hero-flat" slug="pashk-coat" view="front" colourway={hero} title="Pashk Coat front, Shab colourway" />
+            <GarmentFlat className="ib-hero-flat" slug="pashk-coat" view="front" mode="technical" colourway={hero} title="Pashk Coat front technical flat" />
             <div className="ib-hero-tag">
               <span>IB-01 · Pashk Coat</span>
-              <span>Shab · Night</span>
+              <span>Technical flat · Rev A</span>
             </div>
           </div>
         </section>

@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { journey } from "@/lib/journey";
-import { GarmentMesh } from "@/components/indus/garment-3d";
+import { FlatSheet3D } from "@/components/indus/flat-sheet-3d";
 import { colourwayById } from "@/lib/indus/collection";
 import {
   gridGeometry, coreGeometry, gyroRing, scheduleBars, scheduleFrame, boxEdges, WEEK, ROW,
@@ -250,13 +250,15 @@ function Garment({ offset, colourway, mobile }: { offset: THREE.Vector3; colourw
   const ring = useMemo(() => gyroRing(1.25), []);
   const p = usePalette();
   const sig = useLineMaterial(p.signal, 0.9);
-  const cw = useMemo(() => colourwayById(colourway), [colourway]);
+  const cw = useMemo(() => colourwayById(colourway === "tech" ? "shir" : colourway), [colourway]);
   return (
     <Station index={4} offset={offset} materials={[sig]} onFrame={(_, dt, t) => {
-      g.current!.rotation.y = Math.sin(t * 0.35) * 0.55 + journey.pointer.x * 0.5;
+      g.current!.rotation.y = -0.28 + Math.sin(t * 0.3) * 0.12 + journey.pointer.x * 0.18;
+      g.current!.rotation.x = -0.06 + journey.pointer.y * 0.06;
+      g.current!.position.y = (mobile ? 0 : 0.2) + Math.sin(t * 0.8) * 0.05;
     }}>
-      <group ref={g} scale={mobile ? 1.5 : 2.3} position={[0, mobile ? -0.2 : 0.25, 0]}>
-        <GarmentMesh slug="pashk-coat" colourway={cw} />
+      <group ref={g}>
+        <FlatSheet3D slug="pashk-coat" colourway={cw} mode={colourway === "tech" ? "technical" : "rendered"} label={`IB-01 PASHK COAT · ${cw.name.toUpperCase()}`} width={mobile ? 3.4 : 4.6} />
       </group>
       <lineSegments geometry={ring} material={sig} rotation={[Math.PI / 2, 0, 0]} position={[0, mobile ? -1.45 : -1.85, 0]} scale={mobile ? 0.75 : 1} />
     </Station>
