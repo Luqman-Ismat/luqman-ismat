@@ -20,10 +20,10 @@ export function Footer() {
           <LiveClock />
         </div>
         <nav aria-label="Footer">
-          <Link href="/controls">Controls</Link>
-          <Link href="/integrations">Integrations</Link>
-          <Link href="/engineering">Engineering</Link>
-          <Link href="/ten21">TEN21</Link>
+          <Link href="/?s=controls">Controls</Link>
+          <Link href="/?s=integrations">Integrations</Link>
+          <Link href="/?s=engineering">Engineering</Link>
+          <Link href="/?s=ten21">TEN21</Link>
           <Link href="/engivault">EngiVault</Link>
           <Link href="/blog">Journal</Link>
           <Link href="/about">About</Link>

@@ -3,6 +3,9 @@
    every exploded part is a live, explained component. */
 import { guides } from "./work/guides";
 
+/** Work chapters open as sheets over the homepage scene. */
+export const sheetHref = (id: string, component?: string) => `/?s=${id}${component ? `&c=${component}` : ""}`;
+
 export type StationId = "core" | "schedule" | "network" | "exchanger" | "garment" | "globe" | "portal";
 
 export type Explain = { purpose: string; how: string; steps: string[] };
@@ -57,7 +60,7 @@ export const chapters: Chapter[] = [
     nav: "Project controls",
     index: "01",
     station: "schedule",
-    href: "/controls",
+    href: sheetHref("controls"),
     kicker: "Project management & controls",
     title: "From plan to a",
     accent: "clear next step.",
@@ -81,7 +84,7 @@ export const chapters: Chapter[] = [
     nav: "Integrations",
     index: "02",
     station: "network",
-    href: "/integrations",
+    href: sheetHref("integrations"),
     kicker: "APIs, databases & dashboards",
     title: "Systems that",
     accent: "talk to each other.",
@@ -122,7 +125,7 @@ export const chapters: Chapter[] = [
     nav: "Engineering",
     index: "03",
     station: "exchanger",
-    href: "/engineering",
+    href: sheetHref("engineering"),
     kicker: "Engineering & reliability",
     title: "Calculations you",
     accent: "can review.",
@@ -169,7 +172,7 @@ export const chapters: Chapter[] = [
     nav: "TEN21",
     index: "04",
     station: "garment",
-    href: "/ten21",
+    href: sheetHref("ten21"),
     kicker: "TEN21 · Apparel development",
     title: "Our own line.",
     accent: "Your next collection.",

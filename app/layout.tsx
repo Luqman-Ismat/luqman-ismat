@@ -11,6 +11,7 @@ import "@/styles/shell.css";
 import "@/styles/journey.css";
 import "@/styles/demos.css";
 import "@/styles/chapter.css";
+import "@/styles/about.css";
 import "@/styles/vault.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
@@ -129,9 +130,9 @@ export default function RootLayout({
                 },
                 {
                   "@type": "Brand",
-                  "@id": site.url + "/ten21#brand",
+                  "@id": site.url + "/#ten21-brand",
                   name: "TEN21",
-                  url: site.url + "/ten21",
+                  url: site.url + "/?s=ten21",
                   description:
                     "Independent apparel label in development and contract apparel development.",
                 },

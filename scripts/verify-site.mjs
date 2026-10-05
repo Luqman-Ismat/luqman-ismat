@@ -12,10 +12,6 @@ const posts = [
 ];
 const routes = [
   "/",
-  "/controls",
-  "/integrations",
-  "/engineering",
-  "/ten21",
   "/ten21/pashk-coat",
   "/ten21/jig-kameez",
   "/ten21/chin-shalwar",
@@ -79,23 +75,27 @@ for (const path of seen) {
   assert.ok(res.ok, path + " internal link");
 }
 for (const [from, to] of [
-  ["/consulting", "/controls"],
-  ["/consulting/project-controls", "/controls"],
-  ["/consulting/dashboards", "/integrations"],
-  ["/consulting/integrations", "/integrations"],
-  ["/projects", "/controls"],
+  ["/controls", "/?s=controls"],
+  ["/integrations", "/?s=integrations"],
+  ["/engineering", "/?s=engineering"],
+  ["/ten21", "/?s=ten21"],
+  ["/consulting", "/?s=controls"],
+  ["/consulting/project-controls", "/?s=controls"],
+  ["/consulting/dashboards", "/?s=integrations"],
+  ["/consulting/integrations", "/?s=integrations"],
+  ["/projects", "/?s=controls"],
   ["/projects/engivault", "/engivault"],
-  ["/projects/field-01", "/ten21"],
-  ["/projects/innovari", "/controls"],
-  ["/demos", "/controls"],
-  ["/demos/project-controls", "/controls"],
-  ["/demos/inspection-planning", "/engineering#inspection"],
-  ["/demos/connected-operations", "/integrations#mapping"],
+  ["/projects/field-01", "/?s=ten21"],
+  ["/projects/innovari", "/?s=controls"],
+  ["/demos", "/?s=controls"],
+  ["/demos/project-controls", "/?s=controls"],
+  ["/demos/inspection-planning", "/?s=engineering&c=inspection"],
+  ["/demos/connected-operations", "/?s=integrations&c=mapping"],
   ["/portfolio", "/about#experience"],
-  ["/indus-blue", "/ten21"],
-  ["/apparel", "/ten21"],
+  ["/indus-blue", "/?s=ten21"],
+  ["/apparel", "/?s=ten21"],
   ["/indus-blue/sadri", "/ten21/sadri"],
-  ["/portfolio/pinnacle-reliability/predictive-reliability-analysis", "/integrations"],
+  ["/portfolio/pinnacle-reliability/predictive-reliability-analysis", "/?s=integrations"],
 ]) {
   const res = await fetch(base + from, { redirect: "manual" });
   assert.equal(res.status, 308, from + " permanent redirect");

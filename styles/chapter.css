@@ -66,106 +66,8 @@
 .journey.is-exploring .chapter.is-active .chapter-copy { opacity: 0; transform: translateX(-6vw) scale(0.96); filter: blur(6px); }
 .journey.is-exploring .journey-rail { opacity: 0; transition: opacity 0.4s; }
 
-/* ── Chapter hero: the exploded station ─────────────────────── */
-.ch-hero {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  grid-template-rows: 1fr auto;
-  min-height: 100svh;
-  padding-top: 110px;
-  overflow: hidden;
-}
-.ch-stage {
-  position: absolute;
-  inset: 0 0 0 34%;
-  z-index: 0;
-}
-.ch-stage-host { position: absolute; inset: 0; }
-.ch-stage canvas, .explode-canvas { width: 100% !important; height: 100% !important; }
-.ch-stage canvas { animation: stage-in 0.9s var(--ease-out) both; }
-@keyframes stage-in { from { opacity: 0; transform: scale(1.04); } }
-.ch-stage::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 22%;
-  background: linear-gradient(transparent, hsl(var(--background)));
-  pointer-events: none;
-}
-.ch-copy {
-  position: relative;
-  z-index: 2;
-  grid-column: 1;
-  align-self: center;
-  pointer-events: none;
-}
-.ch-copy > * { pointer-events: auto; }
-.consulting-main .ch-title {
-  font-size: clamp(46px, 6.4vw, 112px);
-  font-weight: 500;
-  line-height: 0.95;
-  letter-spacing: -0.06em;
-  margin: 18px 0 26px;
-  max-width: 11ch;
-}
-.ch-title em { color: hsl(var(--signal)); }
-.consulting-main .ch-lede { font-size: clamp(17px, 1.35vw, 21px); line-height: 1.5; max-width: 44ch; color: hsl(var(--muted-foreground)); }
-.ch-index {
-  position: relative;
-  z-index: 2;
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  justify-content: space-between;
-  gap: 16px;
-  padding-bottom: 28px;
-}
-.ch-index ol { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
-.ch-index a {
-  display: inline-flex;
-  gap: 10px;
-  align-items: baseline;
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: hsl(var(--card) / 0.85);
-  border: 1px solid hsl(var(--foreground) / 0.1);
-  font-size: 13.5px;
-  transition: background 0.3s, color 0.3s, transform 0.4s var(--ease-out);
-}
-.ch-index a span { font: 400 10.5px/1 var(--font-mono); color: hsl(var(--signal)); }
-.ch-index a:hover { background: hsl(var(--foreground)); color: hsl(var(--background)); transform: translateY(-2px); }
-.ch-index > p { font: 400 10.5px/1.5 var(--font-mono); text-transform: uppercase; letter-spacing: 0.04em; color: hsl(var(--muted-foreground)); max-width: 34ch; }
-
-/* 3D part labels: DOM tags that follow anchors in the scene */
-.part-tags { position: absolute; inset: 0; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity 0.6s; }
-.part-tags.is-on { opacity: 1; }
-.part-tags.is-on .part-tag { pointer-events: auto; }
-.part-tag {
-  position: absolute;
-  left: 0;
-  top: 0;
-  will-change: transform;
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  white-space: nowrap;
-  padding: 6px 11px 6px 6px;
-  border-radius: 999px;
-  background: hsl(var(--card));
-  border: 1px solid hsl(var(--foreground) / 0.12);
-  box-shadow: 0 8px 22px -12px hsl(var(--foreground) / 0.4);
-  font-size: 12px;
-  font-weight: 500;
-  color: hsl(var(--foreground));
-  transition: background 0.3s, color 0.3s;
-}
-.part-tag b { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: hsl(var(--signal)); color: hsl(var(--signal-ink)); font: 500 10px/1 var(--font-mono); }
-.part-tag:hover { background: hsl(var(--foreground)); color: hsl(var(--background)); }
-
 /* ── Components ─────────────────────────────────────────────── */
-.cmp-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(80px, 10vw, 160px); padding-top: clamp(40px, 6vw, 90px); padding-bottom: clamp(60px, 8vw, 120px); perspective: 1600px; }
+.cmp-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(72px, 9vw, 140px); padding-top: clamp(28px, 4vw, 56px); padding-bottom: clamp(60px, 8vw, 120px); perspective: 1600px; }
 .cmp {
   min-width: 0;
   content-visibility: auto;
@@ -411,10 +313,6 @@ html.menu-open .brand-dock { opacity: 0; pointer-events: none; }
 
 /* ── Responsive & reduced motion ────────────────────────────── */
 @media (max-width: 1000px) {
-  .ch-hero { grid-template-columns: 1fr; grid-template-rows: auto minmax(42svh, 1fr) auto; }
-  .ch-copy { grid-row: 1; padding-top: 10px; }
-  .ch-stage { inset: 34% 0 0 0; }
-  .ch-index { grid-row: 3; }
   .cmp-head { grid-template-columns: 90px 1fr; }
   .cmp-explain { grid-column: 1 / -1; }
   .gs { grid-template-columns: 1fr; }
@@ -422,10 +320,6 @@ html.menu-open .brand-dock { opacity: 0; pointer-events: none; }
   .anatomy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
-  .part-tags { display: none; }
-  .ch-index ol { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: calc(var(--page-gutter) * -1); padding-right: var(--page-gutter); }
-  .ch-index a { white-space: nowrap; }
-  .ch-index > p { display: none; }
   .hud .theme-switch .theme-switch-label { display: none; }
   .hud .theme-switch { padding: 0 8px; }
   .explore-btn > span { font-size: 19px; }
@@ -442,7 +336,7 @@ html.menu-open .brand-dock { opacity: 0; pointer-events: none; }
   .live-skeleton-bar { animation: none; stroke-dashoffset: 0; }
 }
 @media print {
-  .brand-dock, .ch-stage { display: none !important; }
+  .brand-dock { display: none !important; }
   .cmp-head, .cmp-panel, .gs-copy, .gs-stage { opacity: 1 !important; transform: none !important; }
 }
 
@@ -450,3 +344,122 @@ html.menu-open .brand-dock { opacity: 0; pointer-events: none; }
    app's own intro heading and paragraph are dropped. */
 .live-view .example-body > h2:first-child,
 .live-view .example-body > h2:first-child + p { display: none; }
+
+/* ── Chapter sheets: frosted glass over the exploded station ─── */
+/* The glass and the content each carry the aperture clip, so nothing that
+   wraps them creates a backdrop root (which would stop the blur) or a
+   containing block for fixed children (the re-brand dock). */
+.sheet {
+  position: fixed;
+  inset: 76px var(--page-gutter) 14px;
+  z-index: 62;
+  pointer-events: none;
+}
+.sheet-glass, .sheet-scroll {
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  clip-path: circle(0px at calc(var(--ox) - var(--page-gutter)) calc(var(--oy) - 76px));
+  transition: clip-path 0.85s var(--ease-io);
+}
+.sheet.is-open .sheet-glass, .sheet.is-open .sheet-scroll {
+  clip-path: circle(150vmax at calc(var(--ox) - var(--page-gutter)) calc(var(--oy) - 76px));
+  pointer-events: auto;
+}
+.sheet.is-settled .sheet-glass, .sheet.is-settled .sheet-scroll { clip-path: none; transition: none; }
+.sheet-glass {
+  background: hsl(var(--background) / 0.62);
+  backdrop-filter: blur(26px) saturate(1.35);
+  -webkit-backdrop-filter: blur(26px) saturate(1.35);
+  border: 1px solid hsl(var(--foreground) / 0.1);
+  box-shadow: 0 40px 120px -40px hsl(var(--foreground) / 0.45), inset 0 1px 0 hsl(0 0% 100% / 0.25);
+}
+.dark .sheet-glass { background: hsl(var(--background) / 0.66); box-shadow: 0 40px 120px -40px rgb(0 0 0 / 0.8), inset 0 1px 0 hsl(0 0% 100% / 0.06); }
+.sheet-scroll {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(28px, 4vw, 64px) clamp(18px, 3.4vw, 56px) 0;
+  scrollbar-width: thin;
+}
+.sheet-scroll > * { opacity: 0; transform: translateY(26px); transition: opacity 0.6s, transform 0.9s var(--ease-out); }
+.sheet.is-open .sheet-scroll > * { opacity: 1; transform: none; transition-delay: 0.35s; }
+.sheet.is-open .sheet-scroll > :nth-child(2) { transition-delay: 0.45s; }
+.sheet.is-open .sheet-scroll > :nth-child(n + 3) { transition-delay: 0.55s; }
+.sheet-head { max-width: 980px; padding-right: 140px; }
+.consulting-main .sheet-title, .sheet-title {
+  font-size: clamp(40px, 5.4vw, 92px);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+  margin: 16px 0 20px;
+}
+.sheet-title em { color: hsl(var(--signal)); }
+.sheet-lede { font-size: clamp(17px, 1.3vw, 20px); line-height: 1.5; max-width: 52ch; color: hsl(var(--muted-foreground)); }
+.sheet-note { margin-top: 14px; font: 400 10.5px/1.5 var(--font-mono); text-transform: uppercase; letter-spacing: 0.04em; color: hsl(var(--muted-foreground)); }
+.sheet-parts {
+  position: sticky;
+  top: calc(clamp(28px, 4vw, 64px) * -1);
+  z-index: 5;
+  margin: 28px calc(clamp(18px, 3.4vw, 56px) * -1) 0;
+  padding: 12px clamp(18px, 3.4vw, 56px);
+  background: linear-gradient(hsl(var(--background) / 0.92) 70%, transparent);
+}
+.sheet-parts ol { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+.sheet-parts button {
+  display: inline-flex;
+  gap: 9px;
+  align-items: baseline;
+  white-space: nowrap;
+  padding: 9px 15px;
+  border-radius: 999px;
+  border: 1px solid hsl(var(--foreground) / 0.1);
+  background: hsl(var(--card) / 0.8);
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.sheet-parts button span { font: 400 10px/1 var(--font-mono); color: hsl(var(--signal)); }
+.sheet-parts button:hover, .sheet-parts button[aria-current] { background: hsl(var(--foreground)); color: hsl(var(--background)); }
+.sheet-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 8px 0 16px;
+  border-radius: 999px;
+  border: 1px solid hsl(var(--foreground) / 0.12);
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.4s, transform 0.5s var(--ease-out), background 0.3s, color 0.3s;
+}
+.sheet.is-open .sheet-close { opacity: 1; transform: none; pointer-events: auto; transition-delay: 0.4s, 0.4s, 0s, 0s; }
+.sheet-close kbd { font: 400 10px/1 var(--font-mono); padding: 4px 6px; border-radius: 6px; background: hsl(var(--foreground) / 0.07); color: hsl(var(--muted-foreground)); }
+.sheet-close i { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: hsl(var(--foreground)); color: hsl(var(--background)); font-style: normal; font-size: 18px; transition: transform 0.5s var(--ease-out); }
+.sheet-close:hover i { transform: rotate(90deg); }
+.sheet .ch-engage { border-top: 1px solid hsl(var(--border)); }
+.sheet .cmp { scroll-margin-top: 80px; }
+html.sheet-open { overflow: hidden; }
+html.sheet-open .section-dock, html.sheet-open .journey-rail { opacity: 0; pointer-events: none; }
+.journey.has-sheet .chapter-copy { opacity: 0; transition: opacity 0.4s; }
+@media (max-width: 760px) {
+  .sheet { inset: 66px 8px 8px; }
+  .sheet-glass, .sheet-scroll { border-radius: 22px; }
+  .sheet-head { padding-right: 0; padding-top: 44px; }
+  .sheet-close kbd, .sheet-close span { display: none; }
+  .sheet-close { padding: 0 8px; height: 44px; top: 10px; right: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet-glass, .sheet-scroll, .sheet-scroll > *, .sheet-close { transition: none !important; }
+}

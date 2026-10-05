@@ -10,7 +10,7 @@ export default function NotFound() {
       >
         <div className="action-row">
           <Action href="/">Home</Action>
-          <Action href="/ten21" secondary>
+          <Action href="/?s=ten21" secondary>
             TEN21
           </Action>
         </div>

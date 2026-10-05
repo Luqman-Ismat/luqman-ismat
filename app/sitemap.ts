@@ -7,10 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...[
       "",
-      "/controls",
-      "/integrations",
-      "/engineering",
-      "/ten21",
       ...pieces.map((p) => `/ten21/${p.slug}`),
       "/engivault",
       "/engivault/unit-converter",

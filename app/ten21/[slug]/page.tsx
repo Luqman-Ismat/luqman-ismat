@@ -35,9 +35,9 @@ export default async function TechPack({ params }: { params: Promise<{ slug: str
       <div className="tech-pack">
         <header className="site-container tp-head">
           <nav className="tp-crumbs" aria-label="Breadcrumb">
-            <Link href="/ten21">TEN21</Link>
+            <Link href="/?s=ten21">TEN21</Link>
             <span aria-hidden="true">/</span>
-            <Link href="/ten21#pashk-coat">Collection 01</Link>
+            <Link href="/?s=ten21">Collection 01</Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{piece.code}</span>
           </nav>
@@ -140,7 +140,7 @@ export default async function TechPack({ params }: { params: Promise<{ slug: str
 
         <nav className="site-container tp-pager" aria-label="Other pieces">
           <Link href={`/ten21/${prev.slug}`}><span>← {prev.code}</span>{prev.name}</Link>
-          <Link href="/ten21#pashk-coat" className="tp-pager-all">All pieces</Link>
+          <Link href="/?s=ten21" className="tp-pager-all">All pieces</Link>
           <Link href={`/ten21/${next.slug}`}><span>{next.code} →</span>{next.name}</Link>
         </nav>
       </div>

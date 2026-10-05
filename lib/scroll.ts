@@ -5,7 +5,7 @@ import type Lenis from "lenis";
 export const scroller: { lenis: Lenis | null } = { lenis: null };
 
 export function scrollToTarget(target: number | string | HTMLElement, immediate = false) {
-  if (scroller.lenis) scroller.lenis.scrollTo(target, { immediate, offset: 0 });
+  if (scroller.lenis) scroller.lenis.scrollTo(target, { immediate, offset: 0, force: true });
   else if (typeof target === "number") window.scrollTo({ top: target, behavior: immediate ? "auto" : "smooth" });
   else {
     const el = typeof target === "string" ? document.querySelector(target) : target;

@@ -106,7 +106,7 @@ export function MenuOverlay({ open, onClose, origin }: { open: boolean; onClose:
         </nav>
         <aside className="menu-detail menu-fade" aria-live="polite">
           <div className="menu-preview" key={group.href}>
-            {group.href === "/ten21" || !group.image ? (
+            {group.label === "TEN21" || !group.image ? (
               <GarmentFlat className="menu-preview-flat" slug="pashk-coat" view="front" colourway={colourwayById("shab")} title="Pashk Coat" />
             ) : (
               <Image src={group.image} alt="" fill sizes="(max-width: 900px) 0px, 30vw" />

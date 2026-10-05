@@ -35,20 +35,18 @@ Next.js 16.3.6 / React 19.3.0. ESLint 9 is pinned for compatibility with the Rea
 
 ## Site structure
 
-Content lives in one model, `lib/chapters.ts`. Each chapter is a station in the homepage scene and a page whose components are the station's exploded parts.
+Content lives in one model, `lib/chapters.ts`. Each work chapter is a station in the homepage scene and opens as a frosted-glass sheet over it; there are no separate chapter pages.
 
-- `/`: a 3D chapter journey (react-three-fiber). Each chapter says one thing and offers one action, **Explore**: the station explodes into its parts, the camera pushes in, and the chapter page opens. Still images when WebGL is unavailable.
-- `/controls`: schedule, capacity heatmaps, MS Project import, forecast & approval, portfolio risk. Each is a live component with its purpose, how it works and what to try.
-- `/integrations`: hours mapping & reconciliation, cost & margin, productivity, quality trend, data model & access.
-- `/engineering`: the inspection-planning workbench and the EngiVault plant schematic.
-- `/ten21`: Collection 01. Each garment is a component: the production flat draws itself in, then separates into labelled construction pieces (front/back, line/colour).
+- `/`: a 3D chapter journey (react-three-fiber). Each chapter says one thing and offers one action, **Explore**: the station explodes, the camera pushes in, and the chapter opens as a sheet (`/?s=<chapter>`, optionally `&c=<component>`). Back, Esc or Close retracts the sheet and the station reassembles. The scene pauses behind the glass.
+- Sheets: Controls (schedule, capacity, import, forecast, risk), Integrations (mapping, cost, productivity, quality, data model), Engineering (inspection workbench, EngiVault schematic), TEN21 (four garments that draw in and explode into named pieces).
 - `/ten21/[slug]`: per-piece development tech packs (assembled/exploded flats, construction callouts, graded measurement spec, BOM, colourways, printable sheet).
+- `/about`: background, an animated experience schedule (employer lanes, live Today line, graduation milestone, role detail panel) and tools.
 - `/engivault`: the calculator library and unit converter.
 - `/blog`: searchable/filterable insights, with all existing article routes retained.
 - `/contact`: service/package-aware project brief builder.
 - `/privacy`: describes the site's actual handling of form data, theme preference, and hosting.
 
-`/consulting*`, `/projects*`, `/demos*`, `/portfolio*`, `/apparel` and `/indus-blue*` redirect permanently to the chapter that now holds their content (see `next.config.mjs`). Unsupported historical promotional claims are no longer published as case studies.
+`/controls`, `/integrations`, `/engineering`, `/ten21`, `/consulting*`, `/projects*`, `/demos*`, `/portfolio*`, `/apparel` and `/indus-blue*` redirect permanently to the sheet (or page) that now holds their content (see `next.config.mjs`). Unsupported historical promotional claims are no longer published as case studies.
 
 ## Inquiry behavior
 
@@ -56,7 +54,7 @@ The form prepares a draft locally and lets the visitor open their email app or c
 
 ## Navigation and motion
 
-There is no header bar. A corner HUD shows identity and location, a labelled Light/Dark switch sits beside "Let's talk", a full-screen menu (button or `M`) lists the chapters, a floating dock follows the current chapter's components (scrollspy), and each page ends with a Next step along Controls → Integrations → Engineering → TEN21 → EngiVault → Journal → About → Contact. Page changes use an anime.js tile curtain; scrolling uses Lenis. Every effect is disabled under `prefers-reduced-motion`.
+There is no header bar. A corner HUD shows identity and location, a labelled Light/Dark switch sits beside "Let's talk", a full-screen menu (button or `M`) lists the chapters, a floating dock links sibling pages (EngiVault tools, TEN21 tech packs), and each page ends with a Next step. Page changes use an anime.js tile curtain; scrolling uses Lenis. Every effect is disabled under `prefers-reduced-motion`.
 
 ## Working demos
 

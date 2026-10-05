@@ -77,10 +77,10 @@ function World({ reduced }: { reduced: boolean }) {
   );
 }
 
-export default function JourneyScene() {
+export default function JourneyScene({ paused = false }: { paused?: boolean }) {
   const reduced = typeof window !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
   return (
-    <Canvas className="journey-canvas" dpr={[1, 1.6]} camera={{ fov: 42, position: [0, 0.4, 7.6], near: 0.1, far: 60 }} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}>
+    <Canvas className="journey-canvas" frameloop={paused ? "never" : "always"} dpr={[1, 1.6]} camera={{ fov: 42, position: [0, 0.4, 7.6], near: 0.1, far: 60 }} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}>
       <World reduced={reduced} />
     </Canvas>
   );

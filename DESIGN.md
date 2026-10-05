@@ -51,3 +51,8 @@ Supersedes the journey section above where they differ.
 - Components rise into place in 3D as they enter (perspective, rotateX), their part glyph (the same plate as in 3D) traces itself in, and the explanation sits beside the working thing. Live views mount lazily, one per component.
 - TEN21 (formerly Indus Blue) uses the site theme in light and dark. Flats draw in, then separate into named construction pieces with leader-line labels in collision-free columns; the view pulls back as the pieces separate.
 - A labelled Light/Dark switch lives in the HUD and the menu.
+
+## October 2026: sheets instead of chapter pages
+- Work chapters open as frosted-glass sheets over the exploded station (aperture reveal from the Explore button); no nested chapter pages. The URL (`?s=`) carries the open sheet so Back, links and the menu work.
+- The glass and the scrolling content each carry the reveal clip; nothing wrapping them sets filter, transform or clip-path, so the blur keeps a backdrop and fixed children (the re-brand dock) stay fixed. The clip is dropped once revealed.
+- About: portrait hero and the experience schedule in the site's motion language (bars build in, live Today line, milestone).

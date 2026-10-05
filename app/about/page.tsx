@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PageShell, Action, ProjectCTA } from "@/components/consulting";
-import { ExperienceTimeline } from "@/components/experience-timeline";
+import { ExperienceGantt } from "@/components/experience-gantt";
 import { toolGroups } from "@/lib/experience";
 export const metadata = {
   title: "About Luqman | Background & Experience",
@@ -12,17 +12,11 @@ export const metadata = {
 export default function Page() {
   return (
     <PageShell>
-      <section className="site-container about-hero">
-        <div>
-          <p className="eyebrow">About me / Houston, Texas</p>
-          <h1>
-            Hi, I’m Luqman.
-            <br />
-            <span>
-              I connect the technical
-              <br />
-              and the practical.
-            </span>
+      <section className="site-container ab-hero">
+        <div className="ab-copy">
+          <p className="section-label"><span>(About)</span>Houston, Texas</p>
+          <h1 className="ab-title">
+            Hi, I’m Luqman. <em className="accent-serif">I connect the technical and the practical.</em>
           </h1>
           <p>
             I’m an industrial engineering graduate, Risk Analyst, and builder of
@@ -36,22 +30,22 @@ export default function Page() {
             can use. That includes connecting Workday APIs to PostgreSQL, building reconciliation and reporting workflows, and implementing authentication and project-scoped access controls.
           </p>
           <div className="action-row">
-            <Action href="/portfolio">Explore my experience</Action>
-            <Action href="/projects" secondary>
+            <Action href="#experience">See the timeline</Action>
+            <Action href="/?s=controls" secondary>
               Try the work
             </Action>
           </div>
         </div>
-        <figure>
+        <figure className="ab-photo">
           <Image
-            src="/images/luqman-portrait-blue.jpeg"
-            alt="Luqman Ismat"
-            width={1179}
-            height={1492}
-            sizes="(max-width:760px) 100vw, 35vw"
-            loading="eager"
+            src="/images/about/luqman-uh-graduation.jpg"
+            alt="Luqman Ismat at night in a black graduation gown and red University of Houston stole, the UH logo glowing on the building behind him"
+            width={1132}
+            height={2000}
+            sizes="(max-width: 900px) 100vw, 38vw"
+            priority
           />
-          <figcaption>Luqman Ismat / Houston</figcaption>
+          <figcaption><span>University of Houston</span><span>B.S. Industrial Engineering · May 2026</span></figcaption>
         </figure>
       </section>
       <section className="site-container about-background">
@@ -82,7 +76,7 @@ export default function Page() {
           </p>
         </div>
       </section>
-      <ExperienceTimeline />
+      <ExperienceGantt asOf={new Date().toISOString().slice(0, 7)} />
       <section className="site-container about-education">
         <div>
           <p className="eyebrow">Education</p>

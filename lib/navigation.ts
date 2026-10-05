@@ -1,6 +1,7 @@
-/* Site map, derived from the chapters. Four chapters of work, the EngiVault
-   tool, the journal and About. Each chapter page lists its own components. */
-import { workChapters } from "./chapters";
+/* Site map, derived from the chapters. Four chapters of work open as sheets
+   over the homepage; EngiVault, the journal, About and the TEN21 tech packs
+   are pages. */
+import { workChapters, sheetHref } from "./chapters";
 import { pieces } from "./ten21/collection";
 
 export type NavLink = { label: string; href: string; note?: string };
@@ -11,8 +12,6 @@ export type NavGroup = {
   image: string;
   matches: string[];
   links: NavLink[];
-  /** Links resolve to sections on the group page itself. */
-  spy?: boolean;
 };
 
 const chapterGroups: NavGroup[] = workChapters.map((c) => ({
@@ -20,11 +19,11 @@ const chapterGroups: NavGroup[] = workChapters.map((c) => ({
   href: c.href,
   blurb: c.lede,
   image: c.id === "controls" ? "/images/work/project-controls.webp" : c.id === "integrations" ? "/images/work/connected-operations.webp" : c.id === "engineering" ? "/images/work/inspection-planning.webp" : "",
-  matches: [c.href],
-  spy: true,
+  // the only chapter with pages of its own is TEN21 (its tech packs)
+  matches: c.id === "ten21" ? ["/ten21"] : [],
   links: c.components.map((x) => ({
     label: x.title,
-    href: c.id === "ten21" ? `/ten21/${x.id}` : `${c.href}#${x.id}`,
+    href: c.id === "ten21" ? `/ten21/${x.id}` : sheetHref(c.id, x.id),
     note: c.id === "ten21" ? pieces.find((p) => p.slug === x.id)?.code : undefined,
   })),
 }));
@@ -54,7 +53,7 @@ export const navigationGroups: NavGroup[] = [
     label: "About",
     href: "/about",
     blurb: "Industrial engineer, risk analyst, builder. Based in Houston.",
-    image: "/images/luqman-portrait-blue.jpeg",
+    image: "/images/about/luqman-uh-graduation.jpg",
     matches: ["/about"],
     links: [],
   },
