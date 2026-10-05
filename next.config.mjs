@@ -5,6 +5,7 @@ const nextConfig = {
     return [
       { source: "/demos", destination: "/projects", permanent: true },
       { source: "/apparel", destination: "/indus-blue", permanent: true },
+      { source: "/projects/field-01", destination: "/indus-blue", permanent: true },
       {
         source: "/portfolio/pinnacle-reliability/:path*",
         destination: "/consulting#connected-systems",

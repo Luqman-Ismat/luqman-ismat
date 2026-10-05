@@ -33,7 +33,7 @@ export function Footer() {
           <Link href="/indus-blue">Indus Blue</Link>
           <Link href="/indus-blue#development">Apparel for your brand</Link>
           <Link href="/engivault">EngiVault tools</Link>
-          <Link href="/projects/field-01">Field 01 CAD study</Link>
+          <Link href="/indus-blue#pieces">Collection 01 tech packs</Link>
           <Link href="/projects">Work & interactive demos</Link>
         </nav>
         <nav aria-label="Footer contact">

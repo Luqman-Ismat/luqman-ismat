@@ -34,7 +34,10 @@ const routes = [
   "/indus-blue",
   "/projects",
   "/projects/engivault",
-  "/projects/field-01",
+  "/indus-blue/pashk-coat",
+  "/indus-blue/jig-kameez",
+  "/indus-blue/chin-shalwar",
+  "/indus-blue/sadri",
   "/blog",
   "/contact",
   "/privacy",
@@ -85,6 +88,7 @@ for (const path of seen) {
 }
 for (const [from, to] of [
   ["/apparel", "/indus-blue"],
+  ["/projects/field-01", "/indus-blue"],
   ["/demos", "/projects"],
   ["/projects/innovari", "/consulting#project-delivery"],
   [

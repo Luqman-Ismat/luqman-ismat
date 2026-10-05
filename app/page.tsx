@@ -2,7 +2,8 @@ import { getArticles, formatArticleDate } from "@/lib/articles";
 import Link from "next/link";
 import Image from "next/image";
 import { HomeWorkbench } from "@/components/home-workbench";
-import { GarmentViewer } from "@/components/garment-viewer";
+import { GarmentFlat } from "@/components/indus/garment-flat";
+import { colourwayById } from "@/lib/indus/collection";
 import { PageShell } from "@/components/consulting";
 import { Reveal, Words, Accent, SectionLabel, Marquee, PillLink } from "@/components/redesign/primitives";
 import { ServiceIndex, SpotlightGrid, Magnetic } from "@/components/redesign/interactive";
@@ -175,8 +176,8 @@ export default function Home() {
             <div className="bento-meta"><span>Engineering software</span><h3>ENGiVAULT</h3><p>Calculations, references, and project workflows in one product.</p></div>
           </Link>
           <div className="spot bento-card bento-e" data-reveal style={{ ["--delay" as string]: "80ms" }}>
-            <div className="bento-garment"><GarmentViewer compact /></div>
-            <Link href="/projects/field-01" className="bento-meta"><span>Indus Blue / Development study</span><h3>FIELD 01 ↗</h3></Link>
+            <div className="bento-garment"><GarmentFlat slug="jig-kameez" view="front" colourway={colourwayById("shir")} title="Jig Kameez front flat" /></div>
+            <Link href="/indus-blue#pieces" className="bento-meta"><span>Indus Blue / Collection 01</span><h3>Pado ↗</h3></Link>
           </div>
           <Link href="/blog" className="spot bento-card bento-f" data-reveal data-cursor="Read" style={{ ["--delay" as string]: "160ms" }}>
             <span className="bento-count">{articles.length}</span>

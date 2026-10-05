@@ -5,7 +5,7 @@ export const navigationGroups = [
     { label: "Inspection planning", href: "/demos/inspection-planning" },
     { label: "Integrations", href: "/demos/connected-operations" },
     { label: "EngiVault case study", href: "/projects/engivault" },
-    { label: "Apparel CAD", href: "/projects/field-01" },
+    { label: "Indus Blue tech packs", href: "/indus-blue#pieces" },
   ] },
   { label: "Services", href: "/consulting", matches: ["/consulting", "/engineering"], links: [
     { label: "Services & packages", href: "/consulting" },
@@ -23,7 +23,7 @@ export const navigationGroups = [
   { label: "Indus Blue", href: "/indus-blue", matches: ["/indus-blue"], links: [
     { label: "The label", href: "/indus-blue" },
     { label: "Contract development", href: "/indus-blue#development" },
-    { label: "Explore the CAD", href: "/projects/field-01" },
+    { label: "Collection 01", href: "/indus-blue#pieces" },
   ] },
   { label: "Blog", href: "/blog", matches: ["/blog"], links: [
     { label: "All articles", href: "/blog" },

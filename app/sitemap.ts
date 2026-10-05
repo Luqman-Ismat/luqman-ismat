@@ -2,6 +2,7 @@ import { calculators } from "@/lib/engivault/calculator-data";
 import { getArticles } from "@/lib/articles";
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
+import { pieces } from "@/lib/indus/collection";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...[
@@ -22,9 +23,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ),
       "/engineering",
       "/indus-blue",
+      ...pieces.map((p) => `/indus-blue/${p.slug}`),
       "/projects",
       "/projects/engivault",
-      "/projects/field-01",
       "/blog",
       "/contact",
       "/privacy",

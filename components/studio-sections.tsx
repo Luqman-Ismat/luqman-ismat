@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Action } from "@/components/consulting";
-import { GarmentViewer } from "@/components/garment-viewer";
+import { GarmentFlat } from "@/components/indus/garment-flat";
+import { colourwayById } from "@/lib/indus/collection";
 export function PageIntro({
   label,
   title,
@@ -59,22 +60,22 @@ export function WorkShowcase({ index = false }: { index?: boolean }) {
             product.
           </p>
         </Link>
-        <div className="work-item">
+        <Link href="/indus-blue/jig-kameez" className="work-item">
           <div className="work-garment">
-            <GarmentViewer compact />
+            <GarmentFlat slug="jig-kameez" view="front" colourway={colourwayById("shir")} title="Jig Kameez front flat in the Shir colourway" />
           </div>
-          <Link href="/projects/field-01" className="work-item-label">
+          <div className="work-item-label">
             <div>
-              <span>Indus Blue / Development study</span>
-              <h3>FIELD 01</h3>
+              <span>Indus Blue / Collection 01</span>
+              <h3>JIG KAMEEZ</h3>
             </div>
             <span aria-hidden="true">↗</span>
-          </Link>
+          </div>
           <p>
-            Editable apparel CAD, a pocket draft, and a complementary hardware
-            model.
+            Balochi jig yoke and pakka doch on an oversized kameez, with a full
+            development tech pack and 3D study.
           </p>
-        </div>
+        </Link>
       </div>
     </section>
   );
