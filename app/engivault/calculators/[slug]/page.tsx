@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { calculators } from "@/lib/engivault/calculator-data";
 import { Calculator } from "@/components/engivault/calculator";
+import { neighbours } from "@/lib/engivault/catalog";
 export function generateStaticParams() {
   return Object.keys(calculators).map((slug) => ({ slug }));
 }
@@ -22,5 +23,6 @@ export default async function Page({
 }) {
   const { slug } = await params;
   if (!Object.hasOwn(calculators, slug)) notFound();
-  return <Calculator key={slug} slug={slug} />;
+  const n = neighbours(slug);
+  return <Calculator key={slug} slug={slug} prev={n.prev} next={n.next} related={n.related} />;
 }

@@ -1,5 +1,7 @@
-import { calculators } from "@/lib/engivault/calculator-data";
 import { VaultCatalog } from "@/components/engivault/catalog";
+import { PlantSchematic } from "@/components/engivault/plant-schematic";
+import { catalogItems, disciplines, hotspots } from "@/lib/engivault/catalog";
+import { Accent, Words } from "@/components/redesign/primitives";
 export const metadata = {
   title: "EngiVault | Engineering Workspace",
   description:
@@ -7,30 +9,34 @@ export const metadata = {
   alternates: { canonical: "/engivault" },
 };
 export default function Page() {
+  const sourced = catalogItems.length;
   return (
-    <div className="site-container vault-content">
-      <div className="vault-intro">
-        <div>
-          <p className="eyebrow">The engineering resource library</p>
-          <h1>
-            A clearer path
-            <br />
-            from question to result.
+    <>
+      <section className="site-container vault-hero">
+        <div className="vault-hero-copy">
+          <p className="section-label"><span>(EV)</span>EngiVault · Engineering workspace</p>
+          <h1 className="vault-title" data-reveal>
+            <span className="vault-wordmark-xl">ENGi<Accent>Vault</Accent></span>
           </h1>
+          <p className="vault-lede" data-reveal>
+            <Words text="Engineering calculations," /> <Accent>worked in the open.</Accent>
+          </p>
+          <p data-reveal>
+            Explicit inputs and units, the method written out, and the sources cited. Results update as you type. No account needed.
+          </p>
         </div>
-        <p>
-          Calculate, check your units, and understand the method. EngiVault’s
-          engineering tools now live within this website. Public tools work
-          without an account.
-        </p>
+        <dl className="vault-stats" data-reveal>
+          <div><dt>Calculations</dt><dd>{sourced}</dd></div>
+          <div><dt>Disciplines</dt><dd>{disciplines.length}</dd></div>
+          <div><dt>Methods shown</dt><dd>All</dd></div>
+        </dl>
+      </section>
+      <section className="site-container vault-plant" data-reveal>
+        <PlantSchematic hotspots={hotspots} />
+      </section>
+      <div className="site-container">
+        <VaultCatalog items={catalogItems} />
       </div>
-      <VaultCatalog
-        items={Object.entries(calculators).map(([slug, c]) => ({
-          slug,
-          title: c.title,
-          category: c.category,
-        }))}
-      />
-    </div>
+    </>
   );
 }
