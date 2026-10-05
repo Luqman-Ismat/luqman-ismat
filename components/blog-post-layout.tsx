@@ -34,7 +34,7 @@ export function BlogPostLayout({
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <main id="main-content" className="pb-20">
-        <article className="container px-5">
+        <article className="container px-5 article-shell">
           <div className="max-w-3xl mx-auto">
             <Link
               href="/blog"

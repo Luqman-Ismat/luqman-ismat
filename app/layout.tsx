@@ -1,8 +1,14 @@
 import "@fontsource-variable/montserrat";
+import "@fontsource/instrument-serif/400.css";
+import "@fontsource/instrument-serif/400-italic.css";
 import "@/styles/globals.css";
 import "@/styles/studio.css";
 import "@/styles/engivault.css";
 import "@/styles/work.css";
+import "@/styles/redesign.css";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { MotionLayer } from "@/components/redesign/motion-layer";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
@@ -46,8 +52,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f8fa" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#f1efe9" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c0c0b" },
   ],
 };
 export default function RootLayout({
@@ -56,7 +62,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('motion-ready')" }} />
+      </head>
       <body>
         <ThemeProvider>
           <a className="skip-link" href="#main-content">
@@ -65,6 +74,7 @@ export default function RootLayout({
           <Header />
           <ScrollToTopWrapper>{children}</ScrollToTopWrapper>
           <Toaster />
+          <MotionLayer />
         </ThemeProvider>
         <script
           type="application/ld+json"

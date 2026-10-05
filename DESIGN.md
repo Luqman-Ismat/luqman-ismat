@@ -24,3 +24,12 @@ The global persistent header displays the current page after the slash. Shared-l
 
 ## Navigation simplification
 Keep all primary destinations visible in a stable order. The current page label slides into place beside the slash, independently of navigation links. Use one flat row of related destinations in each section. Work is the single demos and case studies index; About owns experience. Keep the Work introduction compact so the examples appear immediately.
+
+## October 2026 redesign: Drafting Table
+Supersedes the earlier "no background motion" rule at the user's request for a complete redesign drawing on Awwwards, Godly, Dribbble, 21st.dev, CodePen and Monet. `styles/redesign.css` loads last and sets the final tokens.
+
+- Palette: warm paper (`45 18% 93%`) and ink (`60 6% 7%`), one signal orange (`14 100% 52%`) for accents, focus and selection. Dark mode inverts to ink paper. Indigo stays reserved for Indus Blue.
+- Type: Geist for working text, Geist Mono for labels and metadata, Instrument Serif italic for the human accent phrase in each headline. All self-hosted.
+- Motion: masked word reveals, clip-path image reveals, marquees, a pointer-following preview on the services index, spotlight borders on the bento grid, magnetic CTA, a custom cursor on fine pointers, and a reading-progress hairline. All of it is disabled under `prefers-reduced-motion`; content is server-rendered and readable without JavaScript motion.
+- Home: oversized name hero with statement, cinematic photo band, services index, bento of real work, interactive lab, inverted EngiVault band, process, About, Indus Blue, journal list. Footer carries the primary "Start a project" call to action.
+- Content rules from PRODUCT.md still apply: no fabricated results, live data or availability claims. The header clock shows real Houston time only.
