@@ -101,6 +101,13 @@ for (const [from, to] of [
   assert.equal(res.status, 308, from + " permanent redirect");
   assert.equal(res.headers.get("location"), to, from + " destination");
 }
+// inquiry endpoint: refuses non-JSON and reports invalid fields without storing
+{
+  const wrongType = await fetch(base + "/api/inquiry", { method: "POST", headers: { "Content-Type": "text/plain" }, body: "x" });
+  assert.equal(wrongType.status, 415, "inquiry rejects non-JSON");
+  const invalid = await fetch(base + "/api/inquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: "", email: "nope", brief: "", elapsed: 10000 }) });
+  assert.equal(invalid.status, 422, "inquiry validates fields");
+}
 const sitemap = await (await fetch(base + "/sitemap.xml")).text();
 for (const path of routes)
   assert.ok(

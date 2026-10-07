@@ -48,9 +48,13 @@ Content lives in one model, `lib/chapters.ts`. Each work chapter is a station in
 
 `/controls`, `/integrations`, `/engineering`, `/ten21`, `/consulting*`, `/projects*`, `/demos*`, `/portfolio*`, `/apparel` and `/indus-blue*` redirect permanently to the sheet (or page) that now holds their content (see `next.config.mjs`). Unsupported historical promotional claims are no longer published as case studies.
 
-## Inquiry behavior
+## Inquiries and analytics
 
-The form prepares a draft locally and lets the visitor open their email app or copy the brief. It does not submit data to a backend or send mail automatically. Direct email and phone links remain available. No email-service credentials or database are needed to run this site. If server-side email delivery is added later, configure delivery, abuse protection, error handling, and privacy copy together.
+The contact form posts to `/api/inquiry`, which validates the brief (`lib/leads/validate.ts`, unit-tested by `npm run test:leads`), drops bots (hidden honeypot field plus a minimum fill time) and stores the lead in the `luqmanismat-site` Supabase project through the `submit_lead()` database function (`supabase/migrations/0001_leads.sql`). The `leads` table is closed to public keys: the publishable key can only call that function, which validates input and limits each email to five submissions an hour. Read leads in the Supabase table editor and track them with the `status` column (`new`, `contacted`, `qualified`, `proposal`, `won`, `lost`, `spam`). If the database is unreachable, the form falls back to a ready-made email so no inquiry is lost.
+
+Each lead records its first-touch landing page, referrer and `utm_*` tags (captured in `<head>` before hydration). Tag outreach links, for example `?utm_source=linkedin&utm_campaign=launch`. Vercel Web Analytics counts visits without cookies.
+
+Environment (see `.env.example`): `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`; optional `RESEND_API_KEY`, `LEAD_NOTIFY_TO`, `LEAD_NOTIFY_FROM` for an email per lead, and `NEXT_PUBLIC_BOOKING_URL` for the booking button.
 
 ## Navigation and motion
 

@@ -463,3 +463,31 @@ html.sheet-open .section-dock, html.sheet-open .journey-rail { opacity: 0; point
 @media (prefers-reduced-motion: reduce) {
   .sheet-glass, .sheet-scroll, .sheet-scroll > *, .sheet-close { transition: none !important; }
 }
+
+/* ── Inquiry form: spam trap and confirmation ───────────────── */
+.hp-field { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.inquiry-sent {
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: 24px;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--foreground) / 0.08);
+  animation: sent-in 0.7s var(--ease-out);
+}
+.inquiry-sent h2 { font-size: clamp(26px, 2.6vw, 38px); font-weight: 500; letter-spacing: -0.045em; line-height: 1.05; margin: 12px 0 14px; outline: none; }
+.inquiry-sent h2::before { content: ""; display: block; width: 44px; height: 44px; margin-bottom: 18px; border-radius: 50%; background: hsl(var(--signal)) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 22px no-repeat; }
+.inquiry-sent p { color: hsl(var(--muted-foreground)); margin-bottom: 18px; }
+@keyframes sent-in { from { opacity: 0; transform: translateY(14px) scale(0.98); } }
+.contact-book { margin-top: 18px; }
+@media (prefers-reduced-motion: reduce) { .inquiry-sent { animation: none; } }
+
+/* ── EngiVault: calculator call to action ───────────────────── */
+.calc-cta {
+  display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px;
+  margin-top: clamp(40px, 6vw, 80px); margin-bottom: clamp(40px, 6vw, 80px);
+  padding: clamp(24px, 3.4vw, 48px);
+  border-radius: 28px; background: hsl(var(--card)); border: 1px solid hsl(var(--foreground) / 0.08);
+}
+.calc-cta > div { max-width: 640px; }
+.calc-cta h2 { font-size: clamp(28px, 3vw, 46px); font-weight: 500; letter-spacing: -0.05em; line-height: 1; margin: 14px 0 14px; }
+.calc-cta h2 em { color: hsl(var(--signal)); }
+.calc-cta p:not(.section-label) { color: hsl(var(--muted-foreground)); line-height: 1.6; }

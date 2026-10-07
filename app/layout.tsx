@@ -20,6 +20,8 @@ import { Hud } from "@/components/shell/hud";
 import { SmoothScroll } from "@/components/shell/smooth-scroll";
 import { RouteTransition } from "@/components/shell/route-transition";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SiteAnalytics } from "@/components/shell/site-analytics";
+import { FIRST_TOUCH_SCRIPT } from "@/lib/leads/attribution";
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 import { Toaster } from "@/components/ui/sonner";
 import { site } from "@/lib/site";
@@ -74,6 +76,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('motion-ready')" }} />
+        <script dangerouslySetInnerHTML={{ __html: FIRST_TOUCH_SCRIPT }} />
       </head>
       <body>
         <ThemeProvider>
@@ -86,6 +89,7 @@ export default function RootLayout({
           <MotionLayer />
           <SmoothScroll />
           <RouteTransition />
+          <SiteAnalytics />
         </ThemeProvider>
         <script
           type="application/ld+json"

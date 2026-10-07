@@ -14,6 +14,7 @@
     "test:demos": "tsc lib/demos/models.ts lib/experience.ts --outDir .test-demos --module commonjs --target es2021 --skipLibCheck && node --test tests/demos/*.test.cjs",
     "build:examples": "node scripts/generate-inspection-fixtures.mjs && node scripts/generate-project-fixtures.mjs && node scripts/build-examples.mjs && node scripts/scope-demo-css.mjs",
     "test:source-examples": "node tests/source-examples/integration.mjs",
+    "test:leads": "tsc lib/leads/validate.ts --outDir .test-leads --module commonjs --target es2020 --skipLibCheck && node --test tests/leads/*.test.cjs",
     "test:reporting": "tsc -p examples/tsconfig.json && node tests/source-examples/reporting.mjs"
   },
   "dependencies": {
@@ -75,7 +76,6 @@
     "sharp": "^0.35.5",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.5.5",
-    "tailwindcss-animate": "^1.0.7",
     "three": "^0.186.1",
     "vaul": "^1.1.2",
     "zod": "^3.24.1"
@@ -90,6 +90,7 @@
     "eslint-config-next": "^16.3.6",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5"
   },
   "engines": {

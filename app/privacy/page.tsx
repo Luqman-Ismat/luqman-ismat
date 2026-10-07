@@ -4,7 +4,7 @@ export const metadata = {
   title: "Privacy",
   alternates: { canonical: "/privacy" },
   description:
-    "How this website handles project inquiries, browser preferences, and external links.",
+    "How this website handles project inquiries, analytics, browser preferences, and external links.",
 };
 export default function Privacy() {
   return (
@@ -18,22 +18,33 @@ export default function Privacy() {
         <section>
           <h2>Project inquiries</h2>
           <p>
-            The brief builder works in your browser. It does not send or save
-            your form entries to a website database. Choosing “Open email draft”
-            passes your brief to your email application; the message is sent
-            only when you send it. Email inquiries are handled through the email
-            provider and used to discuss and respond to your project.
+            When you send a brief from the contact page, the details you enter
+            (name, email, company, service, package, timeline and your
+            message) are stored in a private database hosted by Supabase in the
+            United States, and may be forwarded to my email, so I can reply. The
+            submission also records the page you first arrived on, the site
+            that referred you and any campaign tags in the link, plus your
+            browser type. This information is used only to respond to and
+            manage your inquiry. It is not sold or shared for marketing. To
+            have your inquiry deleted, email me.
+          </p>
+          <p>
+            If the website cannot send your brief, it offers an email draft
+            instead; that message is sent only when you send it from your email
+            application.
           </p>
         </section>
         <section>
-          <h2>Browser preferences</h2>
+          <h2>Analytics and browser storage</h2>
           <p>
-            The site stores your chosen light or dark theme locally in your
-            browser. The EngiVault calculators, CAD viewers, and example
-            dashboard run locally and use no customer data. Calculator inputs
-            are not sent to a server or saved to an account. Downloaded
-            calculations stay on your device. No advertising trackers or
-            analytics scripts are included in this site.
+            The site uses Vercel Web Analytics to count page views and visits
+            in aggregate. It does not use cookies or advertising trackers and
+            does not identify you personally. Your browser keeps your light or
+            dark theme preference, and, for the current visit only, the page
+            you arrived on and where you came from, which is sent only if you
+            submit an inquiry. The EngiVault calculators, CAD viewers and
+            example dashboards run in your browser on fictional data;
+            calculator inputs are not sent to a server.
           </p>
         </section>
         <section>

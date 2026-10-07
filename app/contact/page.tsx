@@ -4,7 +4,7 @@ import { ProjectInquiry } from "@/components/project-inquiry";
 export const metadata = {
   title: "Start a Project",
   description:
-    "Discuss consulting, project controls, dashboards, integrations, or TEN21 apparel development with Luqman Ismat. Share your starting point and prepare a project brief.",
+    "Discuss consulting, project controls, dashboards, integrations, or TEN21 apparel development with Luqman Ismat. Share your starting point and send a project brief.",
   alternates: { canonical: "/contact" },
 };
 export default async function ContactPage(props: {
@@ -46,6 +46,11 @@ export default async function ContactPage(props: {
           <a className="text-link" href="tel:+18326796731">
             (832) 679-6731
           </a>
+          {process.env.NEXT_PUBLIC_BOOKING_URL && (
+            <a className="consulting-button secondary contact-book" href={process.env.NEXT_PUBLIC_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+              Book a 20-minute call ↗
+            </a>
+          )}
           <div className="contact-next">
             <p className="eyebrow">What happens next</p>
             <ol>
