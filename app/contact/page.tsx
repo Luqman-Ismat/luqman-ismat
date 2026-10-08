@@ -23,15 +23,10 @@ export default async function ContactPage(props: {
   return (
     <PageShell>
       <section className="consulting-wrap contact-heading">
-        <p className="eyebrow">Start a conversation</p>
-        <h1>
-          What are you
-          <br />
-          <span className="muted-title">working on?</span>
-        </h1>
+        <h1>What are you working on?</h1>
         <p>
-          Share the process you want to improve, the system you need, or the
-          garment you have in mind. We’ll define the first useful step.
+          Tell me about the process, system or garment. I reply within two
+          business days.
         </p>
       </section>
       <section className="consulting-wrap contact-layout">

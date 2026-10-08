@@ -710,7 +710,7 @@ test('wet steam mixture conserves mass, volume and energy for a separate-phase i
  assert.equal(r.moisture,.4);assert.ok(r.vaporVolumeFraction>.999)
  // Independent rounded IAPWS Table 1 phase enthalpies at approximately one atmosphere.
  assert.ok(Math.abs(r.enthalpy-(.4*419050+.6*2675700))<20)
- assert.equal(r.phase,'Liquid–vapor mixture')
+ assert.equal(r.phase,'Liquid-vapor mixture')
 })
 test('wet steam endpoints reproduce pure saturated phases and inverse quality endpoints exactly',()=>{
  for(const pressure of [611.657,101325,1e6,20e6]){

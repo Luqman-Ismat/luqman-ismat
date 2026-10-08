@@ -164,7 +164,7 @@ export const pieces: Piece[] = [
       { code: "F", point: "Ankle band depth", m: 8, grade: 0, tol: 0.3 },
     ],
     bom: [
-      { item: "Shell", spec: "Cotton lawn or light khaddar, 120–160 gsm", placement: "Legs, gusset, bands", qty: "4.2 m @ 140 cm" },
+      { item: "Shell", spec: "Cotton lawn or light khaddar, 120-160 gsm", placement: "Legs, gusset, bands", qty: "4.2 m @ 140 cm" },
       { item: "Nala", spec: "Braided cotton cord, 1 cm", placement: "Waist channel", qty: "1.6 m" },
       { item: "Elastic", spec: "Woven, 3 cm", placement: "Back waist only", qty: "0.45 m" },
       { item: "Embroidery", spec: "Hand pakka doch", placement: "Ankle bands", qty: "≈ 610 cm²" },

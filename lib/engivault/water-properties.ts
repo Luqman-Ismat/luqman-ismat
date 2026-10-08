@@ -1,6 +1,6 @@
 /**
  * Correlations and coefficients: International Association for the Properties of Water and Steam.
- * IAPWS SR6-08(2011), equations 1–3, Tables 1–4, equations 7–8; SR1-86(1992), equations 1–9.
+ * IAPWS SR6-08(2011), equations 1-3, Tables 1-4, equations 7-8; SR1-86(1992), equations 1-9.
  * https://iapws.org/technical-guidance/release/LiquidWater.download
  * https://iapws.org/public/documents/6dGkr/Supp-sat.pdf
  * IAPWS permits publication with attribution. Original implementation; not IAPWS-certified software.
@@ -24,7 +24,7 @@ function series(c: number[], n: number[], z: number, derivative = 0) {
 
 /** Internal reference correlation, including metastable states for release-table verification. */
 export function waterReferenceState(T: number) {
-  if (!Number.isFinite(T) || T < 253.15 || T > 383.15) throw new Error('Reference correlation requires 253.15–383.15 K.')
+  if (!Number.isFinite(T) || T < 253.15 || T > 383.15) throw new Error('Reference correlation requires 253.15-383.15 K.')
   const alpha = TR / (593 - T), beta = TR / (T - 232), tau = T / TR
   const v0 = R * TR / P0 * (.0193763157 + series(av,nv,alpha) + series(bv,mv,beta))
   const vT0 = R / P0 * (series(av,nv,alpha,1) - series(bv,mv,beta,1))
@@ -39,13 +39,13 @@ export function waterReferenceState(T: number) {
 }
 
 export function waterVaporPressure(T: number) {
-  if (!Number.isFinite(T) || T < 273.16 || T > 647.096) throw new Error('Water saturation correlation requires 273.16–647.096 K.')
+  if (!Number.isFinite(T) || T < 273.16 || T > 647.096) throw new Error('Water saturation correlation requires 273.16-647.096 K.')
   const theta = 1 - T / 647.096
   const sum = [-7.85951783,1.84408259,-11.7866497,22.6807411,-15.9618719,1.80122502].reduce((s,a,i)=>s+a*theta**[1,1.5,3,3.5,4,7.5][i],0)
   return 22064000 * Math.exp(647.096 / T * sum)
 }
 
-/** Stable liquid branch only, 0.01–110 °C, saturation pressure through 0.3 MPa absolute. */
+/** Stable liquid branch only, 0.01-110 °C, saturation pressure through 0.3 MPa absolute. */
 export function waterProperties(x: Record<string, number>) {
   const { temperature, pressure } = x
   if (!Number.isFinite(temperature) || !Number.isFinite(pressure) || temperature < .01 || temperature > 110 || pressure <= 0 || pressure > 300000) throw new Error('Use water temperature from 0.01 to 110 °C and absolute pressure no greater than 300000 Pa, at or above saturation pressure.')
@@ -69,7 +69,7 @@ export function waterProperties(x: Record<string, number>) {
   return result
 }
 
-/** SR1-86(1992) liquid–vapor equilibrium curve; no off-saturation properties. */
+/** SR1-86(1992) liquid-vapor equilibrium curve; no off-saturation properties. */
 export function waterSaturationPressure(x:Record<string,number>) {
   const pressure=waterVaporPressure(x.temperature)
   const theta=1-x.temperature/647.096
@@ -80,7 +80,7 @@ export function waterSaturationPressure(x:Record<string,number>) {
   const sum=a.reduce((v,c,i)=>v+c*theta**powers[i],0)
   const derivative=a.reduce((v,c,i)=>v+c*powers[i]*theta**(powers[i]-1),0)
   const pressureSlope=pressure*(-647.096*sum/T**2-derivative/T)
-  // SR1-86(1992), equations (4)–(9). Keep all printed digits of d_alpha.
+  // SR1-86(1992), equations (4)-(9). Keep all printed digits of d_alpha.
   const d1=-5.65134998e-8,d2=2690.66631,d3=127.287297,d4=-135.003439,d5=.981825814
   const alpha=1000*(-1135.905627715+d1*t**-19+d2*t+d3*t**4.5+d4*t**5+d5*t**54.5)
   const phi=1000/647.096*(2319.5246+19/20*d1*t**-20+d2*Math.log(t)+9/7*d3*t**3.5+5/4*d4*t**4+109/107*d5*t**53.5)
@@ -127,7 +127,7 @@ function steamMixture(state:ReturnType<typeof waterSaturationTemperature>,qualit
   const vaporVolumeFraction=quality*state.vaporSpecificVolume/specificVolume
   const result={pressure:state.pressure,temperature:state.temperature,celsius:state.celsius,quality,moisture:1-quality,vaporVolumeFraction,specificVolume,density:1/specificVolume,enthalpy,entropy,internalEnergy:enthalpy-state.pressure*specificVolume,liquidEnthalpy:state.liquidEnthalpy,vaporEnthalpy:state.vaporEnthalpy,latentHeat:state.latentHeat}
   if(!Object.values(result).every(Number.isFinite)||specificVolume<=0) throw new Error('Steam mixture calculation exceeded its numerical range.')
-  return {...result,phase:quality===0 ? 'Saturated liquid' : quality===1 ? 'Saturated vapor' : 'Liquid–vapor mixture'}
+  return {...result,phase:quality===0 ? 'Saturated liquid' : quality===1 ? 'Saturated vapor' : 'Liquid-vapor mixture'}
 }
 
 export function wetSteamProperties(x:Record<string,number>) {

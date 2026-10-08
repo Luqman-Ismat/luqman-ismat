@@ -37,7 +37,7 @@ export function UnitConverter() {
     error = e instanceof Error ? e.message : "Check your value";
   }
   const all = valid && !error
-    ? c.units.map((u, i) => { try { return { u, i, v: show(convertQuantity(category, Number(value), from, i)) }; } catch { return { u, i, v: "–" }; } })
+    ? c.units.map((u, i) => { try { return { u, i, v: show(convertQuantity(category, Number(value), from, i)) }; } catch { return { u, i, v: "-" }; } })
     : [];
 
   return (

@@ -14,9 +14,8 @@ export default function Page() {
     <PageShell>
       <section className="site-container ab-hero">
         <div className="ab-copy">
-          <p className="section-label"><span>(About)</span>Houston, Texas</p>
           <h1 className="ab-title">
-            Hi, I’m Luqman. <em className="accent-serif">I connect the technical and the practical.</em>
+            Hi, I’m Luqman. <em>I’m an industrial engineer who builds software for project teams.</em>
           </h1>
           <p>
             I’m an industrial engineering graduate, Risk Analyst, and builder of
@@ -36,7 +35,8 @@ export default function Page() {
             </Action>
           </div>
         </div>
-        <figure className="ab-photo">
+        <figure className="ab-figure">
+          <div className="ab-photo">
           <Image
             src="/images/about/luqman-uh-graduation.jpg"
             alt="Luqman Ismat at night in a black graduation gown and red University of Houston stole, the UH logo glowing on the building behind him"
@@ -45,16 +45,13 @@ export default function Page() {
             sizes="(max-width: 900px) 100vw, 38vw"
             priority
           />
-          <figcaption><span>University of Houston</span><span>B.S. Industrial Engineering · May 2026</span></figcaption>
+          </div>
+          <figcaption>Graduation night at the University of Houston, May 2026.</figcaption>
         </figure>
       </section>
       <section className="site-container about-background">
         <div>
-          <p className="eyebrow">Background</p>
-          <h2>
-            Engineering roots.
-            <br />A wider perspective.
-          </h2>
+          <h2>Background</h2>
         </div>
         <div>
           <p>
@@ -79,7 +76,6 @@ export default function Page() {
       <ExperienceGantt asOf={new Date().toISOString().slice(0, 7)} />
       <section className="site-container about-education">
         <div>
-          <p className="eyebrow">Education</p>
           <h2>University of Houston</h2>
           <p>
             Bachelor of Science in Industrial Engineering
@@ -88,7 +84,6 @@ export default function Page() {
           </p>
         </div>
         <div>
-          <p className="eyebrow">Approach</p>
           <h3>Understand the work before building the tool.</h3>
           <p>
             I’m interested in systems that make decisions easier to understand:
@@ -98,8 +93,7 @@ export default function Page() {
         </div>
       </section>
       <section className="site-container tools-section">
-        <p className="eyebrow">Tools & capabilities</p>
-        <h2>A toolkit across disciplines.</h2>
+        <h2>Tools I use</h2>
         <div className="tools-grid">
           {toolGroups.map((g) => (
             <div key={g.label}>
@@ -115,12 +109,7 @@ export default function Page() {
       </section>
       <section className="site-container about-personal">
         <div>
-          <p className="eyebrow">Beyond the work</p>
-          <h2>
-            Faith, family,
-            <br />
-            and curiosity.
-          </h2>
+          <h2>Outside work</h2>
         </div>
         <div>
           <p>
@@ -144,7 +133,7 @@ export default function Page() {
           </Link>
         </div>
       </section>
-      <ProjectCTA title="Let’s build something useful." />
+      <ProjectCTA title="Have a project in mind?" />
     </PageShell>
   );
 }

@@ -147,7 +147,7 @@ export function PlantSchematic({ hotspots }: { hotspots: Hotspot[] }) {
         </Hot>
 
         <text className="pid-note" x="980" y="282" textAnchor="end">TO PROCESS</text>
-        <text className="pid-title" x="20" y="26">V-101 · P-101 · E-101 · FV-104  —  illustrative loop</text>
+        <text className="pid-title" x="20" y="26">Illustrative loop: V-101, P-101, E-101, FV-104</text>
       </svg>
 
       <div className={current ? "plant-card is-on" : "plant-card"} aria-live="polite">

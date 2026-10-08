@@ -47,7 +47,7 @@ const steamMixtureResults: ResultField[] = [
  {id:"phase",label:"Equilibrium phase",unit:""},
 ]
 const steamMixtureSteps = [
- "Pure water at liquid–vapor equilibrium, using absolute pressure in Pa. The range is 611.657 Pa through pressures strictly below 22064000 Pa. Quality is undefined at the critical point; numerically unresolved phase boundaries are rejected.",
+ "Pure water at liquid-vapor equilibrium, using absolute pressure in Pa. The range is 611.657 Pa through pressures strictly below 22064000 Pa. Quality is undefined at the critical point; numerically unresolved phase boundaries are rejected.",
  "Saturation temperature and separate liquid/vapor properties use IAPWS SR1-86(1992). The release’s rounded lower pressure endpoint maps to the triple-point temperature. Ice and dissolved substances are excluded.",
  "Quality x is vapor mass divided by total mixture mass. Enter a fraction, such as 0.9 for 90%. Specific volume, enthalpy and entropy are mass-weighted: y = (1 − x)y_liquid + x y_vapor. Density is 1/v, not a mass-weighted average of the two densities.",
  "Vapor volume fraction = x v_vapor / v_mixture. This describes a saturated inventory. It is not a flowing-pipe void-fraction prediction from vapor mass flow fraction; phase slip and flow patterns are not modeled.",
@@ -158,12 +158,12 @@ export const calculators: Record<string, CalculatorConfig> = {
  {id:"pressureSlope",label:"Slope of saturation pressure with temperature",unit:"Pa/K",significantDigits:8}],
  calculate:waterSaturationPressure,
  steps:[
-  "Pure water liquid–vapor equilibrium from the triple-point temperature 273.16 K to the critical point 647.096 K. Pressure is absolute, never gauge; temperature input uses kelvin.",
+  "Pure water liquid-vapor equilibrium from the triple-point temperature 273.16 K to the critical point 647.096 K. Pressure is absolute, never gauge; temperature input uses kelvin.",
   "Uses IAPWS SR1-86(1992), equation (1), with critical temperature 647.096 K and pressure 22.064 MPa. Pressure-to-temperature conversion numerically inverts the same monotonic correlation.",
   "The lower pressure input limit is the release table’s rounded triple-point pressure, 611.657 Pa. The tiny interval up to the equation’s approximately 611.657070 Pa endpoint maps to 273.16 K. The upper limit is 22064000 Pa.",
   "At 101325 Pa, saturation temperature is approximately 373.1243 K (99.9743 °C). This is equilibrium for pure water, not a boiling-temperature prediction for solutions or transient heating.",
-  "At a saturation pair, pressure and temperature do not specify vapor fraction or mixture enthalpy. The two densities and reciprocal specific volumes describe separate saturated phases using IAPWS equations (2) and (3), not mixture density. Enthalpy and entropy use equations (4)–(9) and the release reference convention: liquid internal energy and entropy are zero at the triple point, subject to coefficient rounding. Latent heat is the vapor-minus-liquid enthalpy difference. This tool does not calculate steam quality, superheat or subcooled-liquid properties. At the critical endpoint the distinct liquid and vapor phases merge.",
- ],sources:[{title:"IAPWS SR1-86(1992): Saturation Properties, equations (1)–(9) and Table 1",url:"https://iapws.org/public/documents/6dGkr/Supp-sat.pdf",accessed:"2026-09-08"}],
+  "At a saturation pair, pressure and temperature do not specify vapor fraction or mixture enthalpy. The two densities and reciprocal specific volumes describe separate saturated phases using IAPWS equations (2) and (3), not mixture density. Enthalpy and entropy use equations (4)-(9) and the release reference convention: liquid internal energy and entropy are zero at the triple point, subject to coefficient rounding. Latent heat is the vapor-minus-liquid enthalpy difference. This tool does not calculate steam quality, superheat or subcooled-liquid properties. At the critical endpoint the distinct liquid and vapor phases merge.",
+ ],sources:[{title:"IAPWS SR1-86(1992): Saturation Properties, equations (1)-(9) and Table 1",url:"https://iapws.org/public/documents/6dGkr/Supp-sat.pdf",accessed:"2026-09-08"}],
 },
 "water-saturation-temperature": {
  title:"Water Saturation Temperature",category:"Thermal",apiEndpoint:"/api/thermal/water-saturation-temperature",
@@ -181,12 +181,12 @@ export const calculators: Record<string, CalculatorConfig> = {
  {id:"pressureSlope",label:"Slope of saturation pressure with temperature",unit:"Pa/K",significantDigits:8}],
  calculate:waterSaturationTemperature,
  steps:[
-  "Pure water liquid–vapor equilibrium from the triple-point temperature 273.16 K to the critical point 647.096 K. Pressure is absolute, never gauge; temperature input uses kelvin.",
+  "Pure water liquid-vapor equilibrium from the triple-point temperature 273.16 K to the critical point 647.096 K. Pressure is absolute, never gauge; temperature input uses kelvin.",
   "Uses IAPWS SR1-86(1992), equation (1), with critical temperature 647.096 K and pressure 22.064 MPa. Pressure-to-temperature conversion numerically inverts the same monotonic correlation.",
   "The lower pressure input limit is the release table’s rounded triple-point pressure, 611.657 Pa. The tiny interval up to the equation’s approximately 611.657070 Pa endpoint maps to 273.16 K. The upper limit is 22064000 Pa.",
   "At 101325 Pa, saturation temperature is approximately 373.1243 K (99.9743 °C). This is equilibrium for pure water, not a boiling-temperature prediction for solutions or transient heating.",
-  "At a saturation pair, pressure and temperature do not specify vapor fraction or mixture enthalpy. The two densities and reciprocal specific volumes describe separate saturated phases using IAPWS equations (2) and (3), not mixture density. Enthalpy and entropy use equations (4)–(9) and the release reference convention: liquid internal energy and entropy are zero at the triple point, subject to coefficient rounding. Latent heat is the vapor-minus-liquid enthalpy difference. This tool does not calculate steam quality, superheat or subcooled-liquid properties. At the critical endpoint the distinct liquid and vapor phases merge.",
- ],sources:[{title:"IAPWS SR1-86(1992): Saturation Properties, equations (1)–(9) and Table 1",url:"https://iapws.org/public/documents/6dGkr/Supp-sat.pdf",accessed:"2026-09-08"}],
+  "At a saturation pair, pressure and temperature do not specify vapor fraction or mixture enthalpy. The two densities and reciprocal specific volumes describe separate saturated phases using IAPWS equations (2) and (3), not mixture density. Enthalpy and entropy use equations (4)-(9) and the release reference convention: liquid internal energy and entropy are zero at the triple point, subject to coefficient rounding. Latent heat is the vapor-minus-liquid enthalpy difference. This tool does not calculate steam quality, superheat or subcooled-liquid properties. At the critical endpoint the distinct liquid and vapor phases merge.",
+ ],sources:[{title:"IAPWS SR1-86(1992): Saturation Properties, equations (1)-(9) and Table 1",url:"https://iapws.org/public/documents/6dGkr/Supp-sat.pdf",accessed:"2026-09-08"}],
 },
 "first-order-response": {
  title:"First-Order Process Response with Delay",category:"Measurement & Control",apiEndpoint:"/api/controls/first-order-response",
@@ -251,7 +251,7 @@ export const calculators: Record<string, CalculatorConfig> = {
 },
 
 "current-loop-scale": {
- title: "4–20 mA to Engineering Value", category: "Measurement & Control", apiEndpoint: "/api/controls/current-loop-scale",
+ title: "4-20 mA to Engineering Value", category: "Measurement & Control", apiEndpoint: "/api/controls/current-loop-scale",
  inputs: [
   {id:"current",label:"Measured current",unit:"mA",defaultValue:"12"},
   {id:"valueAt4",label:"Engineering value at 4 mA",unit:"EU",defaultValue:"0"},
@@ -268,13 +268,13 @@ export const calculators: Record<string, CalculatorConfig> = {
   "Configure the engineering values corresponding to exactly 4 mA and 20 mA. They must differ; decreasing scales are supported. This assumes a linear transmitter output.",
   "Forward: fraction = (current − 4)/16; value = valueAt4 + fraction × (valueAt20 − valueAt4). Inverse: fraction = (value − valueAt4)/(valueAt20 − valueAt4); current = 4 + 16 × fraction. Percent span = 100 × fraction.",
   "Example: a −50 to 150 °C linear scale gives 50 °C at 12 mA and 75% span at 16 mA. Percent span is measured from the 4 mA endpoint, not from zero engineering value.",
-  "Results outside 4–20 mA are mathematical extrapolations, not valid process readings or feasible output commands. They are flagged and never clamped. Check device-specific alarms and configured limits; this is not a fault diagnosis or NAMUR compliance test.",
+  "Results outside 4-20 mA are mathematical extrapolations, not valid process readings or feasible output commands. They are flagged and never clamped. Check device-specific alarms and configured limits; this is not a fault diagnosis or NAMUR compliance test.",
   "No square-root extraction, sensor linearization, calibration uncertainty, loop supply/burden check, hardware communication or safety-interlock validation is included.",
  ],
  sources: [{title:"NI: Custom Scales, linear input/output scaling",url:"https://www.ni.com/en/support/documentation/supplemental/18/ni-daqmx-custom-scales-and-usage-explained.html",accessed:"2026-09-08"}],
 },
 "current-loop-output": {
- title: "Engineering Value to 4–20 mA", category: "Measurement & Control", apiEndpoint: "/api/controls/current-loop-output",
+ title: "Engineering Value to 4-20 mA", category: "Measurement & Control", apiEndpoint: "/api/controls/current-loop-output",
  inputs: [
   {id:"value",label:"Engineering value",unit:"EU",defaultValue:"50"},
   {id:"valueAt4",label:"Engineering value at 4 mA",unit:"EU",defaultValue:"0"},
@@ -291,7 +291,7 @@ export const calculators: Record<string, CalculatorConfig> = {
   "Configure the engineering values corresponding to exactly 4 mA and 20 mA. They must differ; decreasing scales are supported. This assumes a linear transmitter output.",
   "Forward: fraction = (current − 4)/16; value = valueAt4 + fraction × (valueAt20 − valueAt4). Inverse: fraction = (value − valueAt4)/(valueAt20 − valueAt4); current = 4 + 16 × fraction. Percent span = 100 × fraction.",
   "Example: a −50 to 150 °C linear scale gives 50 °C at 12 mA and 75% span at 16 mA. Percent span is measured from the 4 mA endpoint, not from zero engineering value.",
-  "Results outside 4–20 mA are mathematical extrapolations, not valid process readings or feasible output commands. They are flagged and never clamped. Check device-specific alarms and configured limits; this is not a fault diagnosis or NAMUR compliance test.",
+  "Results outside 4-20 mA are mathematical extrapolations, not valid process readings or feasible output commands. They are flagged and never clamped. Check device-specific alarms and configured limits; this is not a fault diagnosis or NAMUR compliance test.",
   "No square-root extraction, sensor linearization, calibration uncertainty, loop supply/burden check, hardware communication or safety-interlock validation is included.",
  ],
  sources: [{title:"NI: Custom Scales, linear input/output scaling",url:"https://www.ni.com/en/support/documentation/supplemental/18/ni-daqmx-custom-scales-and-usage-explained.html",accessed:"2026-09-08"}],
@@ -882,7 +882,7 @@ export const calculators: Record<string, CalculatorConfig> = {
     "Angular speed ω = 2πn/60 and mechanical power P = Tω. Use the same positive axis for torque and speed. Opposite signs give negative power; reversing torque reverses twist but preserves stress magnitude and elastic energy.",
     "Does not assess keyways, stress concentrations, yielding, combined bending, fatigue, buckling, critical speed, bearings or losses. A noncircular section cannot use this J as its torsion constant. No safe torque or equipment rating is inferred.",
   ],
-  sources: [{title:"MIT OpenCourseWare, David Roylance: Shear and Torsion, equations 8 and 12–14 and strain energy",url:"https://ocw.mit.edu/courses/3-11-mechanics-of-materials-fall-1999/0e0845a9e3abe430080eaffb0c5015ba_MIT3_11F99_torsion.pdf",accessed:"2026-09-08"}],
+  sources: [{title:"MIT OpenCourseWare, David Roylance: Shear and Torsion, equations 8 and 12-14 and strain energy",url:"https://ocw.mit.edu/courses/3-11-mechanics-of-materials-fall-1999/0e0845a9e3abe430080eaffb0c5015ba_MIT3_11F99_torsion.pdf",accessed:"2026-09-08"}],
 },
 
 "ac-power": {
@@ -945,7 +945,7 @@ export const calculators: Record<string, CalculatorConfig> = {
     "With both L and C present, f0 = 1/(2π√(LC)). At resonance the net reactance vanishes, but the individual L/C voltages can exceed the source voltage. Finite positive resistance is required; the ideal zero-resistance resonance singularity is excluded.",
     "No switching transient, parasitics beyond the supplied series resistance, saturation, frequency-dependent losses, nonlinear load, harmonics or thermal rating calculation. Component and source ratings require a separate assessment.",
   ],
-  sources: [{title:"MIT OpenCourseWare Physics II: AC Circuits, series RLC and average power, sections 12.3–12.4",url:"https://ocw.mit.edu/courses/8-02-physics-ii-electricity-and-magnetism-spring-2007/e7fd966c84001f4e8fc0f58a6751013e_cha12ac_circuits.pdf",accessed:"2026-09-08"}],
+  sources: [{title:"MIT OpenCourseWare Physics II: AC Circuits, series RLC and average power, sections 12.3-12.4",url:"https://ocw.mit.edu/courses/8-02-physics-ii-electricity-and-magnetism-spring-2007/e7fd966c84001f4e8fc0f58a6751013e_cha12ac_circuits.pdf",accessed:"2026-09-08"}],
 },
 
 "water-properties": {
@@ -953,7 +953,7 @@ export const calculators: Record<string, CalculatorConfig> = {
   category: "Hydraulics",
   apiEndpoint: "/api/fluids/water-properties",
   inputs: [
-    {id: "temperature", label: "Water temperature (0.01–110 °C)", unit: "°C", defaultValue: "20"},
+    {id: "temperature", label: "Water temperature (0.01-110 °C)", unit: "°C", defaultValue: "20"},
     {id: "pressure", label: "Absolute pressure (maximum 300000 Pa)", unit: "Pa", defaultValue: "100000"},
   ],
   results: [
@@ -972,9 +972,9 @@ export const calculators: Record<string, CalculatorConfig> = {
   ],
   calculate: waterProperties,
   steps: [
-    "Pure liquid water properties from temperature and absolute pressure, using IAPWS SR6-08(2011) and SR1-86(1992). Supported range: 0.01–110 °C, pressure at or above saturation and no greater than 0.3 MPa (300000 Pa).",
-    "Calculate the 0.1 MPa reference specific volume and derivatives from SR6 equations 2–3, heat capacity from Table 2, then apply the limited-pressure corrections in Table 4. Density is the reciprocal of specific volume. Table 3 gives expansivity, compressibility and sound speed.",
-    "Dynamic viscosity and thermal conductivity use SR6 equations 7–8; section 6 permits these temperature correlations throughout the supported pressure range. Kinematic viscosity = μ/ρ, thermal diffusivity = k/(ρ cp), and Prandtl number = μ cp/k.",
+    "Pure liquid water properties from temperature and absolute pressure, using IAPWS SR6-08(2011) and SR1-86(1992). Supported range: 0.01-110 °C, pressure at or above saturation and no greater than 0.3 MPa (300000 Pa).",
+    "Calculate the 0.1 MPa reference specific volume and derivatives from SR6 equations 2-3, heat capacity from Table 2, then apply the limited-pressure corrections in Table 4. Density is the reciprocal of specific volume. Table 3 gives expansivity, compressibility and sound speed.",
+    "Dynamic viscosity and thermal conductivity use SR6 equations 7-8; section 6 permits these temperature correlations throughout the supported pressure range. Kinematic viscosity = μ/ρ, thermal diffusivity = k/(ρ cp), and Prandtl number = μ cp/k.",
     "Saturation pressure uses SR1 equation 1. Below-saturation pressure, freezing-range temperatures and pressures above 0.3 MPa are rejected. At saturation, outputs describe the liquid branch, not a liquid-vapor mixture.",
     "SR6 reports stable-region uncertainties of about 0.0001% for density, 0.1% for heat capacity, 0.005% for sound speed, 1% for viscosity and 1.5% for conductivity. Extra displayed digits aid reproducibility; they do not imply matching measurement accuracy.",
     "Ordinary pure water only. Salinity, glycol, dissolved additives, steam, ice, supercooled liquid and high-pressure service require other property models. This implementation is independently verified against release tables, not certified by IAPWS.",
@@ -989,7 +989,7 @@ export const calculators: Record<string, CalculatorConfig> = {
   category: "Hydraulics",
   apiEndpoint: "/api/hydraulics/water-pipe-loss",
   inputs: [
-    {id: "temperature", label: "Water temperature (0.01–110 °C)", unit: "°C", defaultValue: "20"},
+    {id: "temperature", label: "Water temperature (0.01-110 °C)", unit: "°C", defaultValue: "20"},
     {id: "inletPressure", label: "Absolute inlet pressure (maximum 300000 Pa)", unit: "Pa", defaultValue: "200000"},
     {id: "flowRate", label: "Volume flow rate", unit: "m³/s", defaultValue: "0.001"},
     {id: "length", label: "Straight horizontal pipe length", unit: "m", defaultValue: "20"},
@@ -1010,16 +1010,16 @@ export const calculators: Record<string, CalculatorConfig> = {
   ],
   calculate: waterPipeLoss,
   steps: [
-    "Calculate pure-water density and viscosity from temperature and inlet pressure, then estimate straight horizontal pipe friction. Liquid-water range: 0.01–110 °C and saturation pressure through 300000 Pa absolute.",
+    "Calculate pure-water density and viscosity from temperature and inlet pressure, then estimate straight horizontal pipe friction. Liquid-water range: 0.01-110 °C and saturation pressure through 300000 Pa absolute.",
     "IAPWS SR6-08(2011) supplies temperature-dependent water properties with limited-pressure corrections. Properties are held at their inlet values along this constant-diameter, isothermal pipe.",
-    "Velocity = 4Q/(πD²), Re = ρvD/μ. Darcy f = 64/Re below Re 2300, otherwise the Swamee–Jain approximation. The transitional range 2300–4000 is flagged as uncertain; EPANET transitional interpolation is not implemented. Q = 0 gives zero loss.",
+    "Velocity = 4Q/(πD²), Re = ρvD/μ. Darcy f = 64/Re below Re 2300, otherwise the Swamee-Jain approximation. The transitional range 2300-4000 is flagged as uncertain; EPANET transitional interpolation is not implemented. Q = 0 gives zero loss.",
     "ΔP = f(L/D)ρv²/2; head loss = ΔP/(ρg), g = 9.80665 m/s². Outlet pressure = inlet pressure − ΔP. Reject a predicted outlet pressure below saturation rather than applying a single-phase result there.",
     "No fittings, valves, elevation change, pump, developing-flow correction, water hammer or heat transfer. Use actual internal diameter and a documented roughness; defaults are illustrative. A passing saturation check is not a cavitation assessment of other system components.",
   ],
   sources: [
     {title: "IAPWS SR6-08(2011): Liquid water density and viscosity with pressure corrections", url: "https://iapws.org/technical-guidance/release/LiquidWater.download", accessed: "2026-09-08"},
     {title: "IAPWS SR1-86(1992): Saturation vapor pressure", url: "https://iapws.org/public/documents/6dGkr/Supp-sat.pdf", accessed: "2026-09-08"},
-    {title: "US EPA: EPANET 2.2 User Manual, Darcy–Weisbach and friction-factor methods", url: "https://usepa.github.io/EPANET2.2/3_network_model.html", accessed: "2026-09-08"},
+    {title: "US EPA: EPANET 2.2 User Manual, Darcy-Weisbach and friction-factor methods", url: "https://usepa.github.io/EPANET2.2/3_network_model.html", accessed: "2026-09-08"},
   ],
 },
 
@@ -1098,7 +1098,7 @@ export const calculators: Record<string, CalculatorConfig> = {
     "Defaults are a constructed teaching case, not certified copper or insulation properties. Supply conductivities at the relevant temperatures and convection coefficients for the actual flow conditions. The comparison assumes these coefficients remain unchanged.",
     "Radiation, axial fluid cooling, fittings/supports, thermal bridges, fouling/contact resistance, moisture, condensation and transient effects are excluded. This is not an insulation product selection, minimum thickness requirement or economic optimum.",
   ],
-  sources: [{title: "US DOE Fundamentals Handbook, Heat Transfer: cylindrical conduction pp. 11–17 and combined convection pp. 20–23", url: "https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL2.pdf", accessed: "2026-09-08"}],
+  sources: [{title: "US DOE Fundamentals Handbook, Heat Transfer: cylindrical conduction pp. 11-17 and combined convection pp. 20-23", url: "https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL2.pdf", accessed: "2026-09-08"}],
 },
 
 "rectangular-beam": {
@@ -1346,7 +1346,7 @@ export const calculators: Record<string, CalculatorConfig> = {
   ],
   "steps": [
     "Calculate humidity ratio, dew/frost point, enthalpy, specific volume and moist-air density from temperature, relative humidity and absolute pressure.",
-    "Supported inputs: −50 to 80 °C, 0–100% RH and 20–120 kPa absolute. Total pressure must exceed saturation vapor pressure at the dry-bulb temperature.",
+    "Supported inputs: −50 to 80 °C, 0-100% RH and 20-120 kPa absolute. Total pressure must exceed saturation vapor pressure at the dry-bulb temperature.",
     "ASHRAE saturation equations use ice at or below 0.01 °C and liquid water above it. RH is relative to that phase; subfreezing RH reported relative to liquid water must be converted before use.",
     "Water-vapor pressure is RH/100 times saturation pressure. W = 0.621945 pv/(p − pv); specific humidity = W/(1 + W).",
     "Enthalpy h = 1000[1.006T + W(2501 + 1.86T)] J/kg dry air, with T in °C and the conventional dry-air/liquid-water zero at 0 °C. It is not enthalpy per kg of moist air.",
@@ -1362,7 +1362,7 @@ export const calculators: Record<string, CalculatorConfig> = {
     {id:"dryAirFlow",label:"Dry-air mass flow",unit:"kg dry air/s",defaultValue:"1"},
     {id:"inletTemperature",label:"Inlet dry-bulb temperature",unit:"°C",defaultValue:"30"},
     {id:"inletRelativeHumidity",label:"Inlet relative humidity",unit:"%",defaultValue:"50"},
-    {id:"outletTemperature",label:"Target outlet temperature (0–80 °C)",unit:"°C",defaultValue:"10"},
+    {id:"outletTemperature",label:"Target outlet temperature (0-80 °C)",unit:"°C",defaultValue:"10"},
     {id:"pressure",label:"Common absolute pressure",unit:"Pa",defaultValue:"101325"},
   ],
   results: [
@@ -1383,7 +1383,7 @@ export const calculators: Record<string, CalculatorConfig> = {
   calculate: airTemperatureProcess,
   steps: [
     "Uniformly heat or cool an ideal moist-air stream at constant pressure to a specified outlet temperature. If cooling reaches saturation, remove liquid water and return saturated outlet air. No bypass or added moisture is modeled.",
-    "Dry-air mass flow must be positive. Inlet: −50 to 80 °C and 0–100% RH. Outlet: 0–80 °C, excluding ice/frost processing. Pressure: 20–120 kPa absolute and above saturation pressure at both temperatures.",
+    "Dry-air mass flow must be positive. Inlet: −50 to 80 °C and 0-100% RH. Outlet: 0-80 °C, excluding ice/frost processing. Pressure: 20-120 kPa absolute and above saturation pressure at both temperatures.",
     "Wout = min(Win, Wsat(Tout)). Without condensation, W is unchanged and RH changes with temperature. With condensation, outlet RH is 100%. Condensate flow = mda(Win − Wout).",
     "Heat removed = mda(hin − hout) − mcond hw,out. Here h is in J/kg dry air, and liquid-water enthalpy is approximated as hw,out = 4186 Tout J/kg relative to liquid water at 0 °C. Condensate leaves at outlet temperature.",
     "Positive heatRemoved means cooling; negative means heating. It is thermal transfer, not electrical input, compressor power or a selected equipment capacity. No arbitrary sensible/latent split is imposed.",
@@ -1430,7 +1430,7 @@ export const calculators: Record<string, CalculatorConfig> = {
   calculate: mixHumidAir,
   steps: [
     "Mix two ideal moist-air streams adiabatically at a common pressure, with no work, heat transfer, added water or condensation. Inputs are dry-air mass flows, not total moist-air mass flows or volume flows.",
-    "Each inlet uses −50 to 80 °C, 0–100% RH and 20–120 kPa absolute, with pressure above saturation pressure at dry bulb. Both inlet states must be valid even if one flow is zero. Flows must be nonnegative and their sum positive.",
+    "Each inlet uses −50 to 80 °C, 0-100% RH and 20-120 kPa absolute, with pressure above saturation pressure at dry bulb. Both inlet states must be valid even if one flow is zero. Flows must be nonnegative and their sum positive.",
     "Using dry-air flows m1 and m2, W = (m1W1 + m2W2)/(m1 + m2) and h = (m1h1 + m2h2)/(m1 + m2). Dry-air mass, water-vapor mass and enthalpy are conserved.",
     "For h in J/kg dry air, T = (h − 2501000W)/(1006 + 1860W) °C. Relative humidity follows from vapor pressure at this mixed temperature. Do not average inlet RH or use volume-flow fractions directly.",
     "Convert an inlet volume flow Q to dry-air flow with m = Q/v, using that inlet's specific volume in m³/kg dry air. Mixed volume flow is the total dry-air flow times mixed specific volume; total moist-air flow includes vapor mass.",
@@ -1468,7 +1468,7 @@ export const calculators: Record<string, CalculatorConfig> = {
   calculate: humidAirWetBulb,
   steps: [
     "Calculate an ideal moist-air state from dry bulb, thermodynamic wet bulb and absolute pressure, using ASHRAE relationships adapted from MIT-licensed PsychroLib.",
-    "Dry bulb: −50 to 80 °C. Wet bulb: −50 °C through the dry-bulb temperature. Pressure: 20–120 kPa absolute, above saturation pressure at dry bulb. Pairs implying negative moisture content are rejected rather than clamped to a small positive value.",
+    "Dry bulb: −50 to 80 °C. Wet bulb: −50 °C through the dry-bulb temperature. Pressure: 20-120 kPa absolute, above saturation pressure at dry bulb. Pairs implying negative moisture content are rejected rather than clamped to a small positive value.",
     "Let Ws = 0.621945 ps(Tw)/(p − ps(Tw)). For Tw ≥ 0 °C, W = [(2501 − 2.326Tw)Ws − 1.006(Td − Tw)] / [2501 + 1.86Td − 4.186Tw].",
     "For Tw < 0 °C, use the ice balance: W = [(2830 − 0.24Tw)Ws − 1.006(Td − Tw)] / [2830 + 1.86Td − 2.1Tw]. The wet-bulb energy-balance branch changes at 0 °C; the saturation-pressure function changes at the 0.01 °C triple point.",
     "pv = pW/(0.621945 + W); RH = 100pv/ps(Td). RH uses the saturation reference phase at dry bulb, which can differ from the wet-bulb balance phase. Enthalpy and specific volume are per kg of dry air; specific humidity and total density include water vapor.",
@@ -1601,7 +1601,7 @@ export const calculators: Record<string, CalculatorConfig> = {
   "apiEndpoint": "/api/thermal/composite-wall",
   "sources": [
     {
-      "title": "US DOE Fundamentals Handbook: conduction and convection, HT-02 pages 9–10 and 20–22",
+      "title": "US DOE Fundamentals Handbook: conduction and convection, HT-02 pages 9-10 and 20-22",
       "url": "https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL2.pdf",
       "accessed": "2026-09-08"
     }
@@ -1677,13 +1677,13 @@ export const calculators: Record<string, CalculatorConfig> = {
     {
       "id": "pumpEfficiency",
       "label": "Pump efficiency, fraction",
-      "unit": "0–1",
+      "unit": "0-1",
       "defaultValue": "0.7"
     },
     {
       "id": "motorEfficiency",
       "label": "Motor efficiency, fraction",
-      "unit": "0–1",
+      "unit": "0-1",
       "defaultValue": "0.9"
     }
   ],
@@ -1770,7 +1770,7 @@ export const calculators: Record<string, CalculatorConfig> = {
   "steps": [
     "Combine reservoir elevation and pressure differences with pipe and local losses at an entered flow rate.",
     "Hsystem = Δz + Δp/(ρg) + hf + K v²/(2g). Reservoir velocities are negligible; all loss coefficients must refer to the same pipe velocity.",
-    "Pipe friction uses Darcy–Weisbach with 64/Re below Re 2300 and Swamee–Jain otherwise. The transition range is uncertain.",
+    "Pipe friction uses Darcy-Weisbach with 64/Re below Re 2300 and Swamee-Jain otherwise. The transition range is uncertain.",
     "For positive head: Phydraulic = ρgQH, Pshaft = Phydraulic/ηpump, Pelectrical = Pshaft/ηmotor. Enter efficiencies as fractions, not percentages.",
     "Negative system head indicates surplus driving head at the imposed flow. Pumping power is zero in that case; control or dissipation would be needed. This is not turbine-output prediction.",
     "Use liquid properties for the operating temperature and pressure. Assumes steady incompressible single-phase flow and one uniform pipe bore; include entrance, exit, valve and fitting losses in K.",
@@ -1935,7 +1935,7 @@ export const calculators: Record<string, CalculatorConfig> = {
     {
       "id": "emissivity",
       "label": "Surface emissivity",
-      "unit": "0–1",
+      "unit": "0-1",
       "defaultValue": "0.8"
     },
     {
@@ -1983,7 +1983,7 @@ export const calculators: Record<string, CalculatorConfig> = {
   ],
   "steps": [
     "Net thermal radiation: Q̇ = εσA(Ts⁴ − Tsur⁴). Absolute temperatures must be entered in kelvin.",
-    "Uses σ = 5.670374419 × 10⁻⁸ W/(m²·K⁴), rounded from the Stefan–Boltzmann constant.",
+    "Uses σ = 5.670374419 × 10⁻⁸ W/(m²·K⁴), rounded from the Stefan-Boltzmann constant.",
     "Positive heat rate leaves the surface; hotter surroundings produce a negative result. Equal temperatures give zero net exchange.",
     "Example: ε = 0.8, A = 1 m², Ts = 400 K and Tsur = 300 K give approximately 793.85 W outward.",
     "Model: a gray surface surrounded by a much larger isothermal enclosure, with view factor one and a nonparticipating intervening medium.",
@@ -2152,7 +2152,7 @@ export const calculators: Record<string, CalculatorConfig> = {
     ],
     results: [{id:"pressureIncrease",label:"Pressure increase below surface",unit:"Pa"},{id:"absolutePressure",label:"Absolute pressure at depth",unit:"Pa"}],
     calculate: hydrostaticPressure,
-    steps: ["For a fluid at rest with constant density and gravity: Δp = ρgh.", "Absolute pressure at depth is surface absolute pressure + Δp. The increase is gauge pressure only when the reference is the surface pressure.", "Example: 1000 kg/m³ at 10 m and g = 9.80665 m/s² gives 98,066.5 Pa increase; with 101,325 Pa at the surface, absolute pressure is 199,391.5 Pa.", "Not applicable to a flowing system or a deep gas column with appreciably varying density.", "Source: OpenStax, College Physics 2e §11.4 — https://openstax.org/books/college-physics-2e/pages/11-4-variation-of-pressure-with-depth-in-a-fluid"],
+    steps: ["For a fluid at rest with constant density and gravity: Δp = ρgh.", "Absolute pressure at depth is surface absolute pressure + Δp. The increase is gauge pressure only when the reference is the surface pressure.", "Example: 1000 kg/m³ at 10 m and g = 9.80665 m/s² gives 98,066.5 Pa increase; with 101,325 Pa at the surface, absolute pressure is 199,391.5 Pa.", "Not applicable to a flowing system or a deep gas column with appreciably varying density.", "Source: OpenStax, College Physics 2e §11.4: https://openstax.org/books/college-physics-2e/pages/11-4-variation-of-pressure-with-depth-in-a-fluid"],
     apiEndpoint: "/api/hydraulics/hydrostatic-pressure",
   },
   "dynamic-pressure": {
@@ -2162,7 +2162,7 @@ export const calculators: Record<string, CalculatorConfig> = {
     inputs: [{id:"density",label:"Fluid density",unit:"kg/m³",defaultValue:"1.225"},{id:"velocity",label:"Flow speed",unit:"m/s",defaultValue:"20"}],
     results: [{id:"dynamicPressure",label:"Dynamic pressure",unit:"Pa"}],
     calculate: dynamicPressure,
-    steps: ["Dynamic pressure q = ½ρv² is kinetic energy per unit volume.", "Example: density 1.225 kg/m³ and speed 20 m/s gives 245 Pa. The example density is an input assumption, not an atmospheric property lookup.", "Equating q with stagnation pressure minus static pressure requires the incompressible, lossless Bernoulli assumptions. Compressible Pitot measurements need a different relation.", "Source: NASA Glenn, Dynamic Pressure — https://www.grc.nasa.gov/www/BGH/dynpress.html"],
+    steps: ["Dynamic pressure q = ½ρv² is kinetic energy per unit volume.", "Example: density 1.225 kg/m³ and speed 20 m/s gives 245 Pa. The example density is an input assumption, not an atmospheric property lookup.", "Equating q with stagnation pressure minus static pressure requires the incompressible, lossless Bernoulli assumptions. Compressible Pitot measurements need a different relation.", "Source: NASA Glenn, Dynamic Pressure: https://www.grc.nasa.gov/www/BGH/dynpress.html"],
     apiEndpoint: "/api/hydraulics/dynamic-pressure",
   },
   "unit-converter": {
@@ -2288,7 +2288,7 @@ export const calculators: Record<string, CalculatorConfig> = {
     calculate: pressureDrop,
     steps: [
       "Calculates pressure drop using the Darcy-Weisbach equation",
-      "Uses Darcy friction factor: 64/Re below Re 2300, otherwise the Swamee–Jain approximation. The 2300–4000 transition range is uncertain; this implementation does not reproduce EPANET’s transitional interpolation.",
+      "Uses Darcy friction factor: 64/Re below Re 2300, otherwise the Swamee-Jain approximation. The 2300-4000 transition range is uncertain; this implementation does not reproduce EPANET’s transitional interpolation.",
       "Assumes steady, fully developed, single-phase incompressible flow in a full circular pipe. Input dynamic viscosity, density and roughness for the operating conditions.",
       "Returns straight-pipe friction loss only. Fittings, valves, elevation changes and acceleration are excluded. The friction factor is Darcy, not Fanning.",
     ],

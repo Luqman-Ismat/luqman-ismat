@@ -62,7 +62,7 @@ export function VaultCatalog({ items }: { items: CatalogItem[] }) {
           value={query}
           onChange={(e) => { setQuery(e.target.value); setCursor(0); }}
           onKeyDown={onSearchKey}
-          placeholder={`Search ${items.length} calculations: steam, beam, NPSH, 4–20 mA…`}
+          placeholder={`Search ${items.length} calculations: steam, beam, NPSH, 4-20 mA…`}
           aria-controls="vault-results"
           aria-activedescendant={filtered[at] ? `tool-${filtered[at].slug}` : undefined}
           autoComplete="off"

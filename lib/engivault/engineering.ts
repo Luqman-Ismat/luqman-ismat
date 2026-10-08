@@ -191,7 +191,7 @@ export function compositeWall(x: Record<string, number>) {
 
 export { humidAir, humidAirWetBulb, mixHumidAir, airTemperatureProcess, saturationPressure } from './psychrometrics'
 
-/** Uniform Euler–Bernoulli beam response, central/tip point load and full-span UDL. */
+/** Uniform Euler-Bernoulli beam response, central/tip point load and full-span UDL. */
 function beamResponse(x: Record<string, number>) {
   const {support,span,secondMoment,youngModulus,pointLoad,lineLoad}=x
   if (![support,span,secondMoment,youngModulus,pointLoad,lineLoad].every(Number.isFinite) || ![0,1].includes(support) || span<=0 || secondMoment<=0 || youngModulus<=0 || pointLoad<0 || lineLoad<0) throw new Error('Select support 0 (simple) or 1 (cantilever); use positive span, second moment and modulus, with nonnegative downward loads.')
@@ -210,7 +210,7 @@ function beamResponse(x: Record<string, number>) {
   return {...result,criticalLocations:cantilever?'Moment at fixed end; deflection at free tip':'Moment and deflection at midspan'}
 }
 
-/** Euler–Bernoulli solid rectangular beam; rectangular shear-stress formula only here. */
+/** Euler-Bernoulli solid rectangular beam; rectangular shear-stress formula only here. */
 export function rectangularBeam(x: Record<string, number>) {
   const {width,depth}=x
   if (![width,depth].every(Number.isFinite)||width<=0||depth<=0) throw new Error('Use positive rectangular dimensions.')
@@ -433,7 +433,7 @@ function currentLoopRange(valueAt4:number,valueAt20:number) {
 function currentLoopResults(current:number,value:number,fraction:number) {
   const percentSpan=100*fraction
   if (![current,value,percentSpan].every(Number.isFinite)) throw new Error('Inputs exceed the numerical range.')
-  const rangeStatus=current<4 ? 'Below 4 mA — extrapolated; check the instrument' : current>20 ? 'Above 20 mA — extrapolated; check the instrument' : 'Within nominal 4–20 mA range'
+  const rangeStatus=current<4 ? 'Below 4 mA, extrapolated. Check the instrument' : current>20 ? 'Above 20 mA, extrapolated. Check the instrument' : 'Within nominal 4-20 mA range'
   return {current,value,percentSpan,rangeStatus}
 }
 /** Linear scale only. Values outside nominal current range are deliberately not clamped. */
@@ -468,7 +468,7 @@ export function currentLoopBudget(x:Record<string,number>) {
   const receiverPower=receiverDrop*amps,wirePower=wireDrop*amps
   const numbers={receiverDrop,wireDrop,requiredSupply,voltageMargin,transmitterVoltage,resistanceHeadroom,receiverPower,wirePower}
   if (!Object.values(numbers).every(Number.isFinite)) throw new Error('Inputs exceed the numerical range.')
-  const budgetStatus=voltageMargin<0 ? 'Insufficient voltage at the requested current' : voltageMargin===0 ? 'At the minimum — no voltage margin' : 'Positive voltage margin — other device limits still require checks'
+  const budgetStatus=voltageMargin<0 ? 'Insufficient voltage at the requested current' : voltageMargin===0 ? 'At the minimum, with no voltage margin' : 'Positive voltage margin. Other device limits still need checking'
   return {...numbers,budgetStatus}
 }
 
@@ -486,7 +486,7 @@ export function firstOrderResponse(x:Record<string,number>) {
   const timeTo98=finalChange===0 ? 0 : deadTime+timeConstant*Math.log(50)
   const numbers={finalChange,finalValue,outputValue,responseRate,timeTo90,timeTo95,timeTo98}
   if (!Object.values(numbers).every(Number.isFinite)) throw new Error('Inputs exceed the numerical range.')
-  return {...numbers,percentResponse:finalChange===0 ? 'Not applicable — zero final change' : 100*fraction,phase:finalChange===0 ? 'No output change' : time<deadTime ? 'Before response delay' : 'Exponential response (rounded at long times)'}
+  return {...numbers,percentResponse:finalChange===0 ? 'Not applicable: zero final change' : 100*fraction,phase:finalChange===0 ? 'No output change' : time<deadTime ? 'Before response delay' : 'Exponential response (rounded at long times)'}
 }
 
 /** Two-input first-order law of uncertainty propagation, including covariance. */
@@ -506,7 +506,7 @@ export function measurementUncertainty(x:Record<string,number>) {
   if(!Object.values(numbers).every(Number.isFinite)) throw new Error('The result or its sensitivity exceeds the numerical range; rescale the input units.')
   // A relative uncertainty is undefined at zero and can overflow for tiny estimates.
   const relative=100*(standardUncertainty/Math.abs(estimate))
-  return {...numbers,relativeStandardUncertainty:estimate===0 ? 'Undefined at a zero estimate' : Number.isFinite(relative) ? relative : 'Exceeds numerical range',method:operation<2 ? 'Linear propagation' : 'First-order approximation — assess nonlinearity'}
+  return {...numbers,relativeStandardUncertainty:estimate===0 ? 'Undefined at a zero estimate' : Number.isFinite(relative) ? relative : 'Exceeds numerical range',method:operation<2 ? 'Linear propagation' : 'First-order approximation. Check for nonlinearity'}
 }
 
 /** Thermal transport groups using user-supplied scalar properties at a common state. */

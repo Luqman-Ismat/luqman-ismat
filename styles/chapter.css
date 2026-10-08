@@ -260,7 +260,7 @@ html.menu-open .brand-dock { opacity: 0; pointer-events: none; }
   color: hsl(var(--background));
   transition: transform 0.5s var(--ease-out), background 0.4s;
 }
-.theme-switch-knob svg { position: absolute; width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; transition: opacity 0.35s, transform 0.5s var(--ease-out); }
+.theme-switch-knob svg { position: absolute; transition: opacity 0.35s, transform 0.5s var(--ease-out); }
 .ts-moon { opacity: 0; transform: rotate(-90deg) scale(0.5); }
 .dark .theme-switch-track { background: hsl(var(--signal) / 0.3); }
 .dark .theme-switch-knob { transform: translateX(22px); background: hsl(var(--signal)); color: hsl(var(--signal-ink)); }
@@ -366,7 +366,7 @@ html.menu-open .brand-dock { opacity: 0; pointer-events: none; }
 .sheet-lede { font-size: clamp(17px, 1.3vw, 20px); line-height: 1.5; max-width: 52ch; color: hsl(var(--muted-foreground)); }
 .sheet-kicker { font-size: 14px; color: hsl(var(--muted-foreground)); }
 .gs-code { font: 500 12px/1 var(--font-mono); color: hsl(var(--signal)); margin-bottom: 10px; }
-.sheet-note { margin-top: 14px; font: 400 10.5px/1.5 var(--font-mono); text-transform: uppercase; letter-spacing: 0.04em; color: hsl(var(--muted-foreground)); }
+.sheet-note { margin-top: 12px; font-size: 13px; color: hsl(var(--muted-foreground)); }
 .sheet-parts {
   position: sticky;
   top: calc(clamp(28px, 4vw, 64px) * -1);
@@ -445,7 +445,7 @@ html.sheet-open .section-dock, html.sheet-open .journey-rail { opacity: 0; point
   animation: sent-in 0.7s var(--ease-out);
 }
 .inquiry-sent h2 { font-size: clamp(26px, 2.6vw, 38px); font-weight: 500; letter-spacing: -0.045em; line-height: 1.05; margin: 12px 0 14px; outline: none; }
-.inquiry-sent h2::before { content: ""; display: block; width: 44px; height: 44px; margin-bottom: 18px; border-radius: 50%; background: hsl(var(--signal)) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 22px no-repeat; }
+.inquiry-sent .inquiry-sent-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: hsl(var(--signal)); color: hsl(var(--signal-ink)); }
 .inquiry-sent p { color: hsl(var(--muted-foreground)); margin-bottom: 18px; }
 @keyframes sent-in { from { opacity: 0; transform: translateY(14px) scale(0.98); } }
 .contact-book { margin-top: 18px; }
@@ -462,3 +462,9 @@ html.sheet-open .section-dock, html.sheet-open .journey-rail { opacity: 0; point
 .calc-cta h2 { font-size: clamp(28px, 3vw, 46px); font-weight: 500; letter-spacing: -0.05em; line-height: 1; margin: 14px 0 14px; }
 .calc-cta h2 em { color: hsl(var(--muted-foreground)); }
 .calc-cta p:not(.section-label) { color: hsl(var(--muted-foreground)); line-height: 1.6; }
+
+/* Section numbers like "(01)" in labels are not shown anywhere. */
+.section-label > span:first-child { display: none; }
+
+/* Emphasis inside headings is weight and colour, never a synthetic italic. */
+h1 em, h2 em, h3 em, .chapter-statement em { font-style: normal; }

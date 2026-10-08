@@ -36,22 +36,21 @@ export function Action({
 }
 export function ProjectCTA({
   service,
-  title = "Let’s make the next step concrete.",
+  title = "Have a project in mind?",
 }: {
   service?: string;
   title?: string;
 }) {
   return (
     <section className="consulting-wrap project-cta">
-      <p className="eyebrow">Start a conversation</p>
       <h2>{title}</h2>
       <div className="cta-bottom">
         <p>
-          Send the problem, the starting point, and the deadline. We’ll define a
-          useful first deliverable together.
+          Tell me what is slow, broken or missing. I reply within two business
+          days.
         </p>
         <Action href={service ? `/contact?service=${service}` : "/contact"}>
-          Discuss your project
+          Start a project
         </Action>
       </div>
     </section>

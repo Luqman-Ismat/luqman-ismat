@@ -1,6 +1,7 @@
 "use client";
 import { inquiryServices } from "@/lib/site";
 import { track } from "@vercel/analytics";
+import { Check } from "lucide-react";
 import { readFirstTouch } from "@/lib/leads/attribution";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 
@@ -104,7 +105,7 @@ export function ProjectInquiry({ initialService, initialPackage }: { initialServ
   if (state.kind === "sent") {
     return (
       <section className="inquiry-sent" aria-live="polite">
-        <p className="eyebrow">Brief received</p>
+        <p className="inquiry-sent-icon" aria-hidden="true"><Check size={22} strokeWidth={2.25} /></p>
         <h2 ref={result} tabIndex={-1}>Thanks{state.name ? `, ${state.name}` : ""}. I’ll reply within two business days.</h2>
         <p>You’ll hear from me at the email you entered.{BOOKING_URL ? " If it helps to talk it through, pick a time below." : ""}</p>
         <div className="action-row">

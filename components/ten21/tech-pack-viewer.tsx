@@ -179,7 +179,7 @@ export function SpecTable({ piece }: { piece: Piece }) {
                     {fmt(gradeFor(p, s))}
                   </td>
                 ))}
-                <td className="mono">{p.grade ? fmt(p.grade) : "–"}</td>
+                <td className="mono">{p.grade ? fmt(p.grade) : "-"}</td>
                 <td className="mono">{fmt(p.tol)}</td>
               </tr>
             ))}

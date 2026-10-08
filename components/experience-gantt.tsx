@@ -74,8 +74,7 @@ export function ExperienceGantt({ asOf }: { asOf: string }) {
     <section ref={ref} className={`site-container xg${inView ? " is-in" : ""}`} id="experience" aria-labelledby="xg-title">
       <div className="xg-top">
         <div>
-          <p className="section-label"><span>(Experience)</span>Over time</p>
-          <h2 id="xg-title" className="x-title">Two companies, <em className="accent-serif">one thread.</em></h2>
+          <h2 id="xg-title" className="x-title">Experience</h2>
         </div>
         <div className="xg-legend" role="group" aria-label="Highlight by discipline">
           {kinds.map((kd) => (
@@ -100,7 +99,7 @@ export function ExperienceGantt({ asOf }: { asOf: string }) {
               <div key={g.employer} className="xg-group">
                 <div className="xg-employer">
                   <b>{g.employer}</b>
-                  <span>{fmt(g.from)} – {g.to ? fmt(g.to) : "present"}</span>
+                  <span>{fmt(g.from)} - {g.to ? fmt(g.to) : "present"}</span>
                 </div>
                 {g.rows.map((r) => {
                   const left = axis.x(r.start), right = axis.x(r.end ?? today);
@@ -119,7 +118,7 @@ export function ExperienceGantt({ asOf }: { asOf: string }) {
                     >
                       <div className="xg-label">
                         <strong>{r.role}</strong>
-                        <span>{fmt(r.start)} – {r.end ? fmt(r.end) : "Present"}</span>
+                        <span>{fmt(r.start)} - {r.end ? fmt(r.end) : "Present"}</span>
                       </div>
                       <div className="xg-track">
                         <span
@@ -149,10 +148,10 @@ export function ExperienceGantt({ asOf }: { asOf: string }) {
         <aside className="xg-detail" aria-live="polite">
           <p className={`xg-kind ${kindClass(role.kind)}`}><i aria-hidden="true" />{role.kind}</p>
           <h3 key={role.id}>{role.role}</h3>
-          <p className="xg-meta">{role.employer} · {fmt(role.start)} – {role.end ? fmt(role.end) : "Present"} · {span(role.start, role.end ?? today)}</p>
+          <p className="xg-meta">{role.employer}<br />{fmt(role.start)} - {role.end ? fmt(role.end) : "Present"} ({span(role.start, role.end ?? today)})</p>
           <p className="xg-summary">{role.summary}</p>
           <ul>{role.details.map((d) => <li key={d}>{d}</li>)}</ul>
-          <p className="xg-hint">Select a bar, or use the arrow keys, to read another role.</p>
+          <p className="xg-hint">Select a bar to read that role.</p>
         </aside>
       </div>
     </section>

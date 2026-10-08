@@ -1,7 +1,7 @@
 /* ==========================================================================
    Drafting Table — October 2026 redesign
    Warm paper, ink, and one signal colour. Geist for working text, Geist Mono
-   for labels, Instrument Serif italic for the human accent. Loaded last, so
+   for labels, headline emphasis by weight and colour in the same sans. Loaded last, so
    it sets the final tokens and re-skins the shared components site-wide.
    ========================================================================== */
 
@@ -97,13 +97,15 @@ html {
   font-weight: 400;
   letter-spacing: -0.01em;
 }
+/* Labels above headings are quiet sentence-case text, not uppercase mono
+   eyebrows, and carry no section numbers. */
 .eyebrow,
 .section-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: inherit;
+  font-size: 14px;
   font-weight: 400;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: hsl(var(--muted-foreground));
 }
 .section-label {

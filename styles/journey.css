@@ -37,7 +37,7 @@
 }
 .chapter-kicker span { color: hsl(var(--signal)); }
 .consulting-main .chapter-title {
-  font-size: clamp(42px, 5.4vw, 92px);
+  font-size: clamp(38px, 4.4vw, 72px);
   font-weight: 500;
   line-height: 0.98;
   letter-spacing: -0.058em;
