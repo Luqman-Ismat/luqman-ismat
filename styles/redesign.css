@@ -1,32 +1,34 @@
 /* ==========================================================================
    Drafting Table — October 2026 redesign
-   Warm paper, ink, and one signal colour. Geist for working text, Geist Mono
+   Off-white paper, ink, and one green signal colour. Geist for working text, Geist Mono
    for labels, headline emphasis by weight and colour in the same sans. Loaded last, so
    it sets the final tokens and re-skins the shared components site-wide.
    ========================================================================== */
 
 :root {
-  --background: 45 18% 93%;
-  --foreground: 60 6% 7%;
-  --card: 45 30% 97%;
-  --card-foreground: 60 6% 7%;
-  --popover: 45 30% 97%;
-  --popover-foreground: 60 6% 7%;
-  --primary: 60 6% 7%;
-  --primary-foreground: 45 18% 95%;
-  --secondary: 45 12% 88%;
-  --secondary-foreground: 60 6% 7%;
-  --muted: 45 13% 88%;
-  --muted-foreground: 50 4% 36%;
-  --accent: 45 13% 88%;
-  --accent-foreground: 60 6% 7%;
-  --border: 45 8% 79%;
-  --input: 45 8% 72%;
-  --ring: 14 100% 50%;
-  --signal: 14 100% 52%;
-  --signal-ink: 0 0% 100%;
+  --background: 0 0% 98.4%; /* #fbfbfb */
+  --foreground: 0 0% 10.2%; /* #1a1a1a */
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 10.2%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 10.2%;
+  --primary: 158.3 78.4% 20%; /* #0B5B3E */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 100%;
+  --secondary-foreground: 0 0% 25.1%; /* #404040 */
+  --muted: 60 13.3% 94.1%; /* #f2f2ee */
+  --muted-foreground: 0 0% 37.3%; /* #5f5f5f */
+  --accent: 158.3 78.4% 20%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 70% 35.3%; /* #991b1b */
+  --destructive-foreground: 0 0% 98.4%;
+  --border: 60 5.7% 89.6%; /* #e6e6e3 */
+  --input: 60 5.7% 89.6%;
+  --ring: 158.3 78.4% 20%;
+  --signal: var(--primary);
+  --signal-ink: var(--primary-foreground);
   --consulting-accent: hsl(var(--signal));
-  --radius: 0.75rem;
+  --radius: 0.5rem;
   --page-gutter: clamp(16px, 3.2vw, 56px);
   --font-sans: var(--font-geist-sans, "Montserrat Variable"), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono, ui-monospace), ui-monospace, monospace;
@@ -36,25 +38,27 @@
 }
 html.dark,
 .dark {
-  --background: 60 4% 5%;
-  --foreground: 45 16% 91%;
-  --card: 60 3% 8.5%;
-  --card-foreground: 45 16% 91%;
-  --popover: 60 3% 9%;
-  --popover-foreground: 45 16% 91%;
-  --primary: 45 16% 91%;
-  --primary-foreground: 60 4% 6%;
-  --secondary: 60 3% 13%;
-  --secondary-foreground: 45 16% 91%;
-  --muted: 60 3% 12%;
-  --muted-foreground: 45 5% 62%;
-  --accent: 60 3% 13%;
-  --accent-foreground: 45 16% 91%;
-  --border: 60 3% 19%;
-  --input: 60 3% 26%;
-  --ring: 16 100% 58%;
-  --signal: 16 100% 56%;
-  --signal-ink: 0 0% 4%;
+  --background: 0 0% 10.2%; /* #1a1a1a */
+  --foreground: 0 0% 100%;
+  --card: 0 0% 15.7%; /* #282828 */
+  --card-foreground: 0 0% 100%;
+  --popover: 0 0% 15.7%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 147.6 64.2% 66.1%; /* #71E0A4 */
+  --primary-foreground: 0 0% 10.2%;
+  --secondary: 0 0% 15.7%;
+  --secondary-foreground: 46.2 14.6% 82.5%; /* #d9d6cc */
+  --muted: 0 0% 14.9%; /* #262626 */
+  --muted-foreground: 60 4.2% 62.4%; /* #a3a39b */
+  --accent: 147.6 64.2% 66.1%;
+  --accent-foreground: 0 0% 10.2%;
+  --destructive: 0 90.6% 70.8%; /* #f87171 */
+  --destructive-foreground: 0 0% 10.2%;
+  --border: 0 0% 18.4%; /* #2f2f2f */
+  --input: 0 0% 18.4%;
+  --ring: 147.6 64.2% 66.1%;
+  --signal: var(--primary);
+  --signal-ink: var(--primary-foreground);
 }
 html,
 html.dark,
@@ -1368,6 +1372,16 @@ h2[data-reveal].x-title {
   overflow: hidden;
   border-radius: 28px 28px 0 0;
   margin-top: clamp(40px, 6vw, 80px);
+  /* The footer is an inverted surface: swap the secondary tokens to the other
+     theme's values so muted text and the signal keep AA contrast (a11y-audit). */
+  --muted-foreground: 60 4.2% 62.4%;
+  --signal: 147.6 64.2% 66.1%;
+  --signal-ink: 0 0% 10.2%;
+}
+.dark .site-footer {
+  --muted-foreground: 0 0% 37.3%;
+  --signal: 158.3 78.4% 20%;
+  --signal-ink: 0 0% 100%;
 }
 .site-footer .eyebrow {
   color: hsl(var(--background) / 0.55);
@@ -1728,3 +1742,16 @@ select {
   color: hsl(var(--background));
   border-color: transparent;
 }
+
+/* Contact form: optional context folds away (form-cro: three visible questions). */
+.inquiry-form .form-more { border-top: 1px solid hsl(var(--border)); padding-top: 14px; }
+.inquiry-form .form-more summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  font-weight: 500; color: hsl(var(--foreground)); min-height: 44px;
+}
+.inquiry-form .form-more summary::-webkit-details-marker { display: none; }
+.inquiry-form .form-more summary span { color: hsl(var(--muted-foreground)); font-weight: 400; margin-right: auto; }
+.inquiry-form .form-more summary::after { content: "+"; font-size: 20px; line-height: 1; color: hsl(var(--signal)); transition: transform 0.2s var(--ease-out); }
+.inquiry-form .form-more[open] summary::after { transform: rotate(45deg); }
+.inquiry-form .form-more[open] .form-grid { margin-top: 12px; }
+.inquiry-form .form-more summary:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 4px; border-radius: 6px; }

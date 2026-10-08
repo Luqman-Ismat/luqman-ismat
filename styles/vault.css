@@ -135,7 +135,7 @@
 .vault-chips button[aria-checked="true"] { color: hsl(var(--background)); border-color: transparent; }
 .vault-chip-pill { position: absolute; inset: -1px; border-radius: inherit; background: hsl(var(--foreground)); z-index: 0; }
 .vault-chip-label, .vault-chips small { position: relative; z-index: 1; }
-.vault-chips small { font: 400 10.5px/1 var(--font-mono); opacity: 0.7; }
+.vault-chips small { font: 400 10.5px/1 var(--font-mono); }
 .vault-count { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
 .consulting-main .vault-count h2 { font-size: clamp(28px, 3vw, 44px); letter-spacing: -0.05em; }
 .vault-count p { font: 400 11px/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground)); }

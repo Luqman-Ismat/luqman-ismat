@@ -2,9 +2,9 @@ import { inquiryServices } from "@/lib/site";
 import { PageShell } from "@/components/consulting";
 import { ProjectInquiry } from "@/components/project-inquiry";
 export const metadata = {
-  title: "Start a Project",
+  title: "Start a Project: Controls, Data and Tools",
   description:
-    "Discuss consulting, project controls, dashboards, integrations, or TEN21 apparel development with Luqman Ismat. Share your starting point and send a project brief.",
+    "Send a brief for project controls, data integrations, engineering tools or TEN21 apparel work. Based in Houston, working remote. I reply in two business days.",
   alternates: { canonical: "/contact" },
 };
 export default async function ContactPage(props: {

@@ -6,7 +6,7 @@ import { toolGroups } from "@/lib/experience";
 export const metadata = {
   title: "About Luqman | Background & Experience",
   description:
-    "Meet Luqman Ismat: Houston-based industrial engineering graduate, Risk Analyst, and builder of engineering software and connected systems.",
+    "Luqman Ismat is a Houston industrial engineer and Risk Analyst who builds project controls, data integrations and engineering software that project teams use.",
   alternates: { canonical: "/about" },
 };
 export default function Page() {

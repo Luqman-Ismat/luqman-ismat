@@ -126,7 +126,6 @@ export function ProjectInquiry({ initialService, initialPackage }: { initialServ
     <form
       className="inquiry-form"
       onSubmit={submit}
-     
       onChange={(event) => {
         const field = event.target;
         if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) field.setCustomValidity("");
@@ -142,25 +141,13 @@ export function ProjectInquiry({ initialService, initialPackage }: { initialServ
           <label htmlFor="email">Email <span>(required)</span></label>
           <input id="email" name="email" type="email" autoComplete="email" required maxLength={200} />
         </div>
-        <div>
-          <label htmlFor="company">Company or brand</label>
-          <input id="company" name="company" autoComplete="organization" maxLength={150} />
-        </div>
-        <div>
-          <label htmlFor="service">What can I help with?</label>
-          <select id="service" name="service" defaultValue={initialService}>
-            {Object.values(inquiryServices).map((service) => <option key={service} value={service}>{service}</option>)}
-            <option value="General inquiry">Not sure yet</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="package">Package or starting point</label>
-          <input id="package" name="package" defaultValue={initialPackage} placeholder="Not sure yet is fine" maxLength={150} />
-        </div>
-        <div>
-          <label htmlFor="timeline">Target timeline</label>
-          <input id="timeline" name="timeline" placeholder="A date or a rough timeframe" maxLength={150} />
-        </div>
+      </div>
+      <div>
+        <label htmlFor="service">What can I help with?</label>
+        <select id="service" name="service" defaultValue={initialService}>
+          {Object.values(inquiryServices).map((service) => <option key={service} value={service}>{service}</option>)}
+          <option value="General inquiry">Not sure yet</option>
+        </select>
       </div>
       <div>
         <label htmlFor="brief">Tell me about the project <span>(required)</span></label>
@@ -176,6 +163,24 @@ export function ProjectInquiry({ initialService, initialPackage }: { initialServ
         />
         <p id="brief-help" className="field-help">At least 20 characters. Please don’t include passwords or confidential documents.</p>
       </div>
+      {/* Optional context stays folded so the form reads as three questions. */}
+      <details className="form-more" open={!!initialPackage}>
+        <summary>Add company, package or timeline <span>(optional)</span></summary>
+        <div className="form-grid">
+          <div>
+            <label htmlFor="company">Company or brand</label>
+            <input id="company" name="company" autoComplete="organization" maxLength={150} />
+          </div>
+          <div>
+            <label htmlFor="package">Package or starting point</label>
+            <input id="package" name="package" defaultValue={initialPackage} placeholder="Not sure yet is fine" maxLength={150} />
+          </div>
+          <div>
+            <label htmlFor="timeline">Target timeline</label>
+            <input id="timeline" name="timeline" placeholder="A date or a rough timeframe" maxLength={150} />
+          </div>
+        </div>
+      </details>
       {/* Honeypot: hidden from people and assistive tech; bots fill it in. */}
       <div className="hp-field" aria-hidden="true">
         <label htmlFor="website">Website</label>

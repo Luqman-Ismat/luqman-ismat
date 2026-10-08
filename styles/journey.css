@@ -1,4 +1,6 @@
-/* Homepage journey: a fixed WebGL world under chapters of text. */
+/* Homepage journey: one fixed machine under chapters of text. The machine
+   takes hover and click on a fine pointer; on touch it stays out of the way
+   so the page scrolls. */
 .journey { position: relative; }
 .journey-stage {
   position: fixed;
@@ -6,7 +8,9 @@
   z-index: 0;
   pointer-events: none;
 }
-.journey-canvas { width: 100% !important; height: 100% !important; }
+@media (hover: hover) and (pointer: fine) and (min-width: 761px) {
+  .journey-stage { pointer-events: auto; }
+}
 .site-footer { position: relative; z-index: 2; }
 
 .chapter {
@@ -74,14 +78,6 @@
 @media (prefers-reduced-motion: no-preference) {
   .motion-ready .chapter:not([data-entered]):not(.chapter-intro) .chapter-fade { opacity: 0; }
 }
-.chapter-drag {
-  position: absolute;
-  inset: 10% 0 10% 45%;
-  pointer-events: auto;
-  cursor: grab;
-  touch-action: pan-y;
-}
-.chapter-drag:active { cursor: grabbing; }
 
 /* Hold-to-interact */
 .hold { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
@@ -240,7 +236,6 @@
   .rail-tick { width: 14px; }
   .journey-rail button[aria-current] .rail-tick { width: 26px; }
   .journey-cue { display: none; }
-  .chapter-drag { inset: 8% 0 55% 0; }
   .no-webgl .chapter { flex-direction: column-reverse; align-items: stretch; }
   .no-webgl .chapter-fallback { margin: 0 0 16px; min-height: 280px; }
 }

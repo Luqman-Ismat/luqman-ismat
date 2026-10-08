@@ -1,6 +1,8 @@
-/* One content model for the site. Each chapter is a station in the homepage
-   scene; "Explore" explodes the station and opens the chapter page, where
-   every exploded part is a live, explained component. */
+/* One content model for the site. Most chapters map to a station on the
+   homepage machine; scrolling to a chapter flies the camera there, and
+   "Explore" (or clicking the station) opens the chapter, where every part is
+   a live, explained component. */
+import type { MachineStationId } from "@/components/ui/agentic-factory-3d";
 import { guides } from "./work/guides";
 
 /** Work chapters open as sheets over the homepage scene. */
@@ -25,6 +27,8 @@ export type Chapter = {
   /** Short name used in navigation. */
   nav: string;
   station: StationId;
+  /** The station on the homepage machine this chapter flies to. */
+  machine?: MachineStationId;
   href: string;
   kicker: string;
   title: string;
@@ -60,6 +64,7 @@ export const chapters: Chapter[] = [
     nav: "Project controls",
     index: "01",
     station: "schedule",
+    machine: "cashdesk",
     href: sheetHref("controls"),
     kicker: "Project management & controls",
     title: "Project controls",
@@ -84,6 +89,7 @@ export const chapters: Chapter[] = [
     nav: "Integrations",
     index: "02",
     station: "network",
+    machine: "admin",
     href: sheetHref("integrations"),
     kicker: "APIs, databases & dashboards",
     title: "Data integrations",
@@ -125,6 +131,7 @@ export const chapters: Chapter[] = [
     nav: "Engineering",
     index: "03",
     station: "exchanger",
+    machine: "storefront",
     href: sheetHref("engineering"),
     kicker: "Engineering & reliability",
     title: "Engineering tools",
@@ -172,6 +179,7 @@ export const chapters: Chapter[] = [
     nav: "TEN21",
     index: "04",
     station: "garment",
+    machine: "engine",
     href: sheetHref("ten21"),
     kicker: "Apparel development",
     title: "TEN21,",
@@ -208,6 +216,7 @@ export const chapters: Chapter[] = [
     nav: "Contact",
     index: "06",
     station: "portal",
+    machine: "cabinet",
     href: "/contact",
     kicker: "Contact",
     title: "Have a project?",

@@ -23,6 +23,7 @@ import { FIRST_TOUCH_SCRIPT } from "@/lib/leads/attribution";
 import { ScrollToTopWrapper } from "@/components/scroll-to-top-wrapper";
 import { Toaster } from "@/components/ui/sonner";
 import { site } from "@/lib/site";
+import { chapters } from "@/lib/chapters";
 import type { Metadata, Viewport } from "next";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -101,6 +102,10 @@ export default function RootLayout({
                   name: site.name,
                   url: site.url,
                   jobTitle: "Independent consultant",
+                  image: site.url + "/images/about/luqman-uh-graduation.jpg",
+                  address: { "@type": "PostalAddress", addressLocality: "Houston", addressRegion: "TX", addressCountry: "US" },
+                  alumniOf: { "@type": "CollegeOrUniversity", name: "University of Houston", url: "https://www.uh.edu" },
+                  knowsAbout: ["Project controls", "Scheduling", "Earned value", "Data integration", "PostgreSQL", "Workday", "Risk-based inspection", "Industrial engineering", "Apparel technical design"],
                   sameAs: [
                     "https://www.linkedin.com/in/luqman-ismat/",
                     "https://github.com/Luqman-Ismat",
@@ -113,7 +118,31 @@ export default function RootLayout({
                   url: site.url,
                   description: site.description,
                   email: site.email,
+                  telephone: "+1-832-679-6731",
                   founder: { "@id": site.url + "/#person" },
+                  image: site.url + "/social-card.png",
+                  areaServed: [
+                    { "@type": "City", name: "Houston" },
+                    { "@type": "Country", name: "United States" },
+                  ],
+                  hasOfferCatalog: {
+                    "@type": "OfferCatalog",
+                    name: "Services",
+                    itemListElement: chapters.flatMap((c) =>
+                      (c.packages ?? []).map((p) => {
+                        const amount = Number(p.price.replace(/[^0-9.]/g, ""));
+                        return {
+                          "@type": "Offer",
+                          name: p.name,
+                          description: p.label,
+                          itemOffered: { "@type": "Service", name: p.name, description: p.items.join(", ") },
+                          ...(amount
+                            ? { priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", ...(p.price.includes("+") ? { minPrice: amount } : { price: amount }) } }
+                            : {}),
+                        };
+                      }),
+                    ),
+                  },
                   address: {
                     "@type": "PostalAddress",
                     addressLocality: "Houston",

@@ -3,28 +3,24 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Suspense, useCallback, useEffect, useRef, useState, type PointerEvent, type MouseEvent } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { animate, stagger, splitText } from "animejs";
+import { track } from "@vercel/analytics";
 import { chapters, sheetHref } from "@/lib/chapters";
-import { journey, focusStation, explodeStation } from "@/lib/journey";
 import { scroller, scrollToTarget } from "@/lib/scroll";
+import type { MachineStationId } from "@/components/ui/agentic-factory-3d";
 import { ExploreParam } from "./explore-param";
 import { GarmentFlat } from "@/components/ten21/garment-flat";
 import { colourwayById } from "@/lib/ten21/collection";
 
-const JourneyScene = dynamic(() => import("./scene"), { ssr: false });
+const Machine = dynamic(() => import("@/components/ui/agentic-factory-3d"), { ssr: false });
 const ChapterSheet = dynamic(() => import("@/components/chapter/chapter-sheet"), { ssr: false });
 
 type Sheet = { id: string; c: string | null };
 const indexOf = (id: string) => chapters.findIndex((c) => c.id === id);
 const isSheet = (id: string | null) => !!id && chapters.some((c) => c.id === id && c.components.length > 0);
-
-function tween(i: number, to: number, duration: number) {
-  const s = { v: journey.explode[i] ?? 0 };
-  animate(s, { v: to, duration, ease: "inOutCubic", onUpdate: () => explodeStation(i, s.v) });
-}
 
 const fallbackImage: Record<string, string> = {
   controls: "/images/work/project-controls.webp",
@@ -42,16 +38,16 @@ function hasWebGL() {
   }
 }
 
-/* The homepage: one scene, seven stations. Each chapter says one thing and
-   offers one action. Explore explodes the station into its parts and opens
-   the chapter, where every part is a live component. */
+/* The homepage: one machine, one station per chapter. Scrolling flies the
+   camera to the chapter's station; Explore (or clicking a station) opens the
+   chapter, where every part is a live component. */
 export function HomeJourney() {
   const router = useRouter();
   const root = useRef<HTMLDivElement>(null);
   const [gl, setGl] = useState<boolean | null>(null);
   const [active, setActive] = useState(0);
+  const activeRef = useRef(0);
   const [exploring, setExploring] = useState<number | null>(null);
-  const drag = useRef<{ x: number } | null>(null);
   const [sheet, setSheet] = useState<Sheet | null>(null);
   const [closing, setClosing] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -63,9 +59,6 @@ export function HomeJourney() {
     // Feature detection has to run in the browser, after hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setGl(hasWebGL());
-    journey.focus = -1;
-    journey.explode.fill(0);
-    return () => { journey.focus = -1; journey.explode.fill(0); };
   }, []);
 
   useEffect(() => {
@@ -73,13 +66,9 @@ export function HomeJourney() {
     let frame = 0;
     const update = () => {
       const mid = scrollY + innerHeight * 0.5;
-      let pos = 0;
-      for (let i = 0; i < sections.length; i++) {
-        const top = sections[i].offsetTop, h = sections[i].offsetHeight;
-        if (mid >= top) pos = i + Math.min(1, (mid - top) / h) - 0.5;
-      }
-      journey.position = Math.max(0, Math.min(sections.length - 1, pos));
-      const idx = Math.round(journey.position);
+      let idx = 0;
+      for (let i = 0; i < sections.length; i++) if (mid >= sections[i].offsetTop) idx = i;
+      activeRef.current = idx;
       setActive((a) => (a === idx ? a : idx));
     };
     const onScroll = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
@@ -90,15 +79,6 @@ export function HomeJourney() {
   }, []);
 
   useEffect(() => {
-    const move = (e: globalThis.PointerEvent) => {
-      journey.pointer.x = (e.clientX / innerWidth) * 2 - 1;
-      journey.pointer.y = (e.clientY / innerHeight) * 2 - 1;
-    };
-    addEventListener("pointermove", move, { passive: true });
-    return () => removeEventListener("pointermove", move);
-  }, []);
-
-  useEffect(() => {
     const goTo = (i: number) => {
       const el = root.current?.querySelectorAll<HTMLElement>(".chapter")[Math.max(0, Math.min(chapters.length - 1, i))];
       if (el) scrollToTarget(el);
@@ -106,7 +86,7 @@ export function HomeJourney() {
     const onKey = (e: KeyboardEvent) => {
       const html = document.documentElement;
       if ((e.target as HTMLElement).closest("input, textarea, select, button, a, [contenteditable]") || html.classList.contains("menu-open") || html.classList.contains("sheet-open")) return;
-      const at = Math.round(journey.position);
+      const at = activeRef.current;
       if (e.key === "ArrowDown" || e.key === "PageDown") { e.preventDefault(); goTo(at + 1); }
       else if (e.key === "ArrowUp" || e.key === "PageUp") { e.preventDefault(); goTo(at - 1); }
       else if (/^[1-7]$/.test(e.key)) goTo(Number(e.key) - 1);
@@ -138,12 +118,9 @@ export function HomeJourney() {
     const cur = sheetRef.current;
     if (isSheet(s)) {
       const i = indexOf(s!);
+      if (!cur) setOrigin((o) => (o.x || o.y ? o : { x: innerWidth / 2, y: innerHeight / 2 }));
       if (!cur || cur.id !== s) {
-        if (cur) { tween(indexOf(cur.id), 0, 600); pushed.current = false; }
-        else if (journey.explode[i] < 0.5) setOrigin({ x: innerWidth / 2, y: innerHeight / 2 });
-        focusStation(i);
-        if (journey.explode[i] < 0.99) tween(i, 1, cur ? 700 : 900);
-        // put the exploded station behind the glass (after the route's own scroll reset)
+        // put the chapter's station behind the glass (after the route's own scroll reset)
         setTimeout(() => {
           const el = root.current?.querySelectorAll<HTMLElement>(".chapter")[i];
           if (el) scrollToTarget(el, true);
@@ -157,7 +134,7 @@ export function HomeJourney() {
       return;
     }
     if (!cur) return;
-    // close: glass retracts into the aperture, then the station reassembles
+    // close: the glass retracts into the aperture, then the page comes back
     sheetRef.current = null;
     pushed.current = false;
     setClosing(true);
@@ -165,8 +142,7 @@ export function HomeJourney() {
     setTimeout(() => {
       setSheet(null);
       setClosing(false);
-      focusStation(-1);
-      tween(indexOf(cur.id), 0, 1000);
+      setOrigin({ x: 0, y: 0 });
     }, 650);
   }, []);
 
@@ -195,41 +171,46 @@ export function HomeJourney() {
     return () => clearTimeout(t);
   }, [sheet, closing]);
 
-  /* Explore: explode the station and push the camera in, then open the
-     chapter as a sheet (work chapters) or navigate (About). */
-  const explore = (i: number, href: string, e: MouseEvent<HTMLButtonElement>) => {
+  /* Explore: fly the camera to the chapter's station, then open the chapter
+     as a sheet (work chapters) or navigate (About, Contact). */
+  const open = (i: number, via: "button" | "station", at?: { x: number; y: number }) => {
     const c = chapters[i];
-    const r = e.currentTarget.getBoundingClientRect();
+    track("chapter_opened", { chapter: c.id, via });
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fly = !!gl && !reduced && !!c.machine;
     if (!isSheet(c.id)) {
-      router.prefetch(href);
-      if (!gl || reduced) { router.push(href); return; }
+      router.prefetch(c.href);
+      if (!fly) { router.push(c.href); return; }
       setExploring(i);
-      focusStation(i);
-      tween(i, 1, 1150);
-      setTimeout(() => router.push(href), 1050);
+      setTimeout(() => router.push(c.href), 700);
       return;
     }
-    setOrigin({ x: r.left + r.width - 38, y: r.top + r.height / 2 });
-    const open = () => { pushed.current = true; history.pushState(null, "", sheetHref(c.id)); };
-    if (!gl || reduced) { open(); return; }
+    setOrigin(at ?? { x: innerWidth / 2, y: innerHeight / 2 });
+    const push = () => { pushed.current = true; history.pushState(null, "", sheetHref(c.id)); };
+    if (!fly) { push(); return; }
     setExploring(i);
-    focusStation(i);
-    tween(i, 1, 1150);
-    setTimeout(open, 820);
+    setTimeout(push, 700);
   };
+  const explore = (i: number, e: MouseEvent<HTMLButtonElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    open(i, "button", { x: r.left + r.width - 38, y: r.top + r.height / 2 });
+  };
+  const onStation = useCallback((id: MachineStationId) => {
+    if (sheetRef.current) return;
+    const i = chapters.findIndex((c) => c.machine === id);
+    if (i >= 0) open(i, "station");
+    // open() only reads refs, router and stable state setters
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gl]);
 
-  const onDown = (e: PointerEvent) => { drag.current = { x: e.clientX }; };
-  const onMove = (e: PointerEvent) => {
-    if (!drag.current) return;
-    journey.spin += (e.clientX - drag.current.x) * 0.008;
-    drag.current.x = e.clientX;
-  };
-  const onUp = () => { drag.current = null; };
+  const focusIndex = sheet ? indexOf(sheet.id) : exploring ?? active;
+  const focus = chapters[focusIndex]?.machine ?? null;
 
   return (
     <div ref={root} className={`journey${gl === false ? " no-webgl" : ""}${exploring !== null ? " is-exploring" : ""}${sheet ? " has-sheet" : ""}`} data-active={chapters[active].id}>
-      <div className="journey-stage" aria-hidden="true">{gl && <JourneyScene paused={paused} />}</div>
+      <div className="journey-stage">
+        {gl && <Machine embed height="100%" focus={focus} paused={paused} onStation={onStation} />}
+      </div>
       <Suspense fallback={null}><ExploreParam onChange={onParam} /></Suspense>
       {sheet && createPortal(
         <ChapterSheet chapter={chapters[indexOf(sheet.id)]} focus={sheet.c} origin={origin} closing={closing} onClose={closeSheet} />,
@@ -251,9 +232,6 @@ export function HomeJourney() {
 
       {chapters.map((c, i) => (
         <section key={c.id} id={`chapter-${c.id}`} className={`chapter chapter-${c.id}${active === i ? " is-active" : ""}`} aria-labelledby={`chapter-${c.id}-title`}>
-          {c.station === "exchanger" && (
-            <div className="chapter-drag" onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerLeave={onUp} aria-hidden="true" />
-          )}
           <div className="chapter-copy">
             {i === 0 ? (
               <>
@@ -269,7 +247,7 @@ export function HomeJourney() {
                 {c.id === "contact" ? (
                   <Link href={c.href} className="explore-btn"><span>{c.explore}</span><i aria-hidden="true"><ArrowUpRight size={20} strokeWidth={1.75} /></i></Link>
                 ) : (
-                  <button type="button" className="explore-btn" onClick={(e) => explore(i, c.href, e)} aria-haspopup={c.components.length > 0 ? "dialog" : undefined}>
+                  <button type="button" className="explore-btn" onClick={(e) => explore(i, e)} aria-haspopup={c.components.length > 0 ? "dialog" : undefined}>
                     <span>Explore</span>
                     <i aria-hidden="true"><ArrowRight size={20} strokeWidth={1.75} /></i>
                   </button>

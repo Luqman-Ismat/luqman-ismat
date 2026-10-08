@@ -2,9 +2,9 @@ import { VaultCatalog } from "@/components/engivault/catalog";
 import { catalogItems, disciplines } from "@/lib/engivault/catalog";
 import { Accent, Words } from "@/components/redesign/primitives";
 export const metadata = {
-  title: "EngiVault | Engineering Workspace",
+  title: "EngiVault: Free Engineering Calculators",
   description:
-    "Use EngiVault engineering calculators directly on Luqman Ismat. Explicit inputs, units, methods, and reference sources.",
+    "Engineering calculators for fluids, heat transfer and piping that show their inputs, units, method and sources, checked against reference cases. Free to use.",
   alternates: { canonical: "/engivault" },
 };
 export default function Page() {

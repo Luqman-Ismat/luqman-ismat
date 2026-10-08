@@ -70,3 +70,9 @@ Audited with the open-source taste skill (Leonxlnx/taste-skill) and `21st review
 - Lists that are just text are lists, not boxes.
 - Icons come from lucide-react (already a dependency); part glyphs and garment flats are drawn content, not icons.
 - Glass is limited to the chapter sheets, the HUD and the sheet's chip bar, with a reduced-transparency fallback.
+
+## October 2026: green theme and the workshop machine
+
+- Theme tokens follow the supplied palette: paper #fbfbfb / ink #1a1a1a, primary and signal #0B5B3E (light) and #71E0A4 (dark), radius 0.5rem. All text pairs pass WCAG AA; the inverted footer swaps its secondary tokens to keep contrast.
+- The homepage scene is `components/ui/agentic-factory-3d.tsx` (scene in `agentic-factory-3d.scene.ts`), based on the 21st.dev Agentic Factory component and redrawn as a hidden-line wireframe in the page's tokens. Five stations map to chapters: Intake (contact), TEN21, Integrations, Engineering, Controls. Scrolling a chapter flies the camera to its station; clicking a station opens the chapter. The old react-three-fiber journey scene is removed.
+- Audits applied from alirezarezvani/claude-skills: seo-audit (titles and descriptions sized), schema-markup and local-seo (Person, ProfessionalService with areaServed, telephone and an offer catalog built from the chapter packages), form-cro (optional fields folded behind a details toggle), a11y-audit (contrast and tooltip naming), analytics-tracking (`chapter_opened` with `via`).
