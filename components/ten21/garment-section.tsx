@@ -8,7 +8,7 @@ import { PartGlyphGarment } from "./part-glyph-garment";
 
 /* A garment as a component: the production flat draws itself in, then
    separates into its construction pieces. Toggle views and colourways. */
-export function GarmentSection({ piece, n }: { piece: Piece; n: string }) {
+export function GarmentSection({ piece }: { piece: Piece; n?: string }) {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
   const [exploded, setExploded] = useState(false);
@@ -35,7 +35,7 @@ export function GarmentSection({ piece, n }: { piece: Piece; n: string }) {
     <section ref={ref} id={piece.slug} className={inView ? "cmp gs is-in" : "cmp gs"} aria-labelledby={`${piece.slug}-title`}>
       <div className="gs-copy">
         <div className="cmp-glyph"><PartGlyphGarment /></div>
-        <p className="cmp-n">Component {n} · {piece.code}</p>
+        <p className="gs-code">{piece.code}</p>
         <h2 id={`${piece.slug}-title`}>{piece.name}</h2>
         <p className="gs-type">{piece.type}</p>
         <p className="gs-line">{piece.line}</p>

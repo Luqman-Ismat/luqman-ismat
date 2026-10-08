@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { X } from "lucide-react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { Chapter } from "@/lib/chapters";
 import { hotspots } from "@/lib/engivault/catalog";
@@ -8,7 +9,6 @@ import { ComponentSection } from "./component-section";
 import { BrandFrame } from "./brand-frame";
 import { GarmentSection } from "@/components/ten21/garment-section";
 import { Ten21Extras } from "@/components/ten21/ten21-extras";
-import { Accent } from "@/components/redesign/primitives";
 
 const n = (i: number) => String(i + 1).padStart(2, "0");
 
@@ -138,10 +138,10 @@ export default function ChapterSheet({
       <div className="sheet-glass" aria-hidden="true" />
       <div ref={box} className="sheet-scroll" data-lenis-prevent onTransitionEnd={onRevealed}>
         <header className="sheet-head">
-          <p className="section-label"><span>({chapter.index})</span>{chapter.kicker}</p>
-          <h2 id="sheet-title" className="sheet-title">{chapter.title} <Accent>{chapter.accent}</Accent></h2>
+          <p className="sheet-kicker">{chapter.kicker}</p>
+          <h2 id="sheet-title" className="sheet-title">{chapter.title}{chapter.accent && <> <em>{chapter.accent}</em></>}</h2>
           <p className="sheet-lede">{chapter.lede}</p>
-          {live && <p className="sheet-note">Working components with fictional data. Everything runs in your browser.</p>}
+          {live && <p className="sheet-note">Sample data. Everything runs in your browser.</p>}
         </header>
 
         <nav className="sheet-parts" aria-label={`${chapter.nav} components`}>
@@ -149,7 +149,7 @@ export default function ChapterSheet({
             {parts.map((p) => (
               <li key={p.id}>
                 <button type="button" aria-current={spy === p.id ? "location" : undefined} onClick={() => go(p.id)}>
-                  <span>{p.n}</span>{p.title}
+                  {p.title}
                 </button>
               </li>
             ))}
@@ -160,9 +160,8 @@ export default function ChapterSheet({
 
         {chapter.packages && (
           <section className="ch-engage">
-            <p className="section-label"><span>(→)</span>Work together</p>
             <div className="ch-engage-grid">
-              <h2 className="x-title">Start with a <Accent>defined scope.</Accent></h2>
+              <h2 className="x-title">Pricing</h2>
               {chapter.packages.map((p) => (
                 <article key={p.name} className="ch-package">
                   <p className="eyebrow">{p.label}</p>
@@ -174,13 +173,13 @@ export default function ChapterSheet({
             </div>
             <div className="ch-engage-foot">
               <p>Starting prices in USD. No work begins without written deliverables, timing and price.</p>
-              <Link href={`/contact?service=${chapter.service}`} className="pill pill-accent"><span className="pill-text">Discuss your project</span><span className="pill-icon" aria-hidden="true">↗</span></Link>
+              <Link href={`/contact?service=${chapter.service}`} className="pill pill-accent"><span className="pill-text">Start a project</span><span className="pill-icon" aria-hidden="true">↗</span></Link>
             </div>
           </section>
         )}
       </div>
       <button ref={closeBtn} type="button" className="sheet-close" onClick={onClose}>
-        <span>Close</span><kbd>Esc</kbd><i aria-hidden="true">×</i>
+        <span>Close</span><kbd>Esc</kbd><i aria-hidden="true"><X size={16} strokeWidth={2} /></i>
       </button>
     </div>
   );

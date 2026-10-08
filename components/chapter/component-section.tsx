@@ -9,7 +9,7 @@ import { PlantSchematic, type Hotspot } from "@/components/engivault/plant-schem
 /* One exploded part, re-assembled as a live component: it rises into place
    in 3D as it enters, its plate traces itself in, and the explanation sits
    beside the working thing. */
-export function ComponentSection({ c, n, hotspots = [], children }: { c: Component; n: string; hotspots?: Hotspot[]; children?: ReactNode }) {
+export function ComponentSection({ c, hotspots = [], children }: { c: Component; n?: string; hotspots?: Hotspot[]; children?: ReactNode }) {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
@@ -22,9 +22,8 @@ export function ComponentSection({ c, n, hotspots = [], children }: { c: Compone
   return (
     <section ref={ref} id={c.id} className={inView ? "cmp is-in" : "cmp"} aria-labelledby={`${c.id}-title`}>
       <header className="cmp-head">
-        <div className="cmp-glyph"><PartGlyph part={c.part} /></div>
         <div className="cmp-title">
-          <p className="cmp-n">Component {n}</p>
+          <div className="cmp-glyph"><PartGlyph part={c.part} /></div>
           <h2 id={`${c.id}-title`}>{c.title}</h2>
         </div>
         <div className="cmp-explain">
@@ -32,7 +31,7 @@ export function ComponentSection({ c, n, hotspots = [], children }: { c: Compone
           <p className="cmp-how">{c.explain.how}</p>
           {c.explain.steps.length > 0 && (
             <ol className="cmp-steps">
-              {c.explain.steps.map((s, i) => <li key={i}><span>{String(i + 1).padStart(2, "0")}</span>{s}</li>)}
+              {c.explain.steps.map((s, i) => <li key={i}>{s}</li>)}
             </ol>
           )}
         </div>
@@ -50,7 +49,7 @@ export function ComponentSection({ c, n, hotspots = [], children }: { c: Compone
         {c.kind === "calculators" && (
           <>
             <PlantSchematic hotspots={hotspots} />
-            <div className="cmp-foot"><Link href="/engivault" className="pill pill-solid"><span className="pill-text">Open the full library</span><span className="pill-icon" aria-hidden="true">↗</span></Link></div>
+            <div className="cmp-foot"><Link href="/engivault" className="pill pill-solid"><span className="pill-text">Open EngiVault</span><span className="pill-icon" aria-hidden="true">↗</span></Link></div>
           </>
         )}
         {c.kind === "text" && (

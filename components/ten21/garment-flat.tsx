@@ -338,10 +338,8 @@ export function ExplodedFlat({
 
   const apply = () => {
     const e = state.current.e;
-    const t = performance.now() / 1000;
     geo.items.forEach((q, i) => {
-      const bob = e > 0.98 ? Math.sin(t * 1.2 + i) * 4 * u : 0;
-      const tr = `translate(${(q.off[0] * e).toFixed(1)} ${(q.off[1] * e + bob).toFixed(1)})`;
+      const tr = `translate(${(q.off[0] * e).toFixed(1)} ${(q.off[1] * e).toFixed(1)})`;
       layers.current[i]?.setAttribute("transform", tr);
       sils.current[i]?.setAttribute("transform", tr);
     });
@@ -356,18 +354,6 @@ export function ExplodedFlat({
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const a = animate(state.current, { e: exploded ? 1 : 0, duration: reduced ? 0 : 1150, ease: "inOutCubic", onUpdate: apply, onComplete: apply });
     return () => { a.pause(); };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [exploded, geo]);
-
-  // gentle float while exploded and on screen
-  useEffect(() => {
-    if (!exploded || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let raf = 0, on = true;
-    const io = new IntersectionObserver(([en]) => { on = en.isIntersecting; });
-    if (root.current) io.observe(root.current);
-    const loop = () => { if (on && state.current.e > 0.98) apply(); raf = requestAnimationFrame(loop); };
-    raf = requestAnimationFrame(loop);
-    return () => { cancelAnimationFrame(raf); io.disconnect(); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exploded, geo]);
 

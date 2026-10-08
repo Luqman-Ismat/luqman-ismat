@@ -20,7 +20,7 @@
 .ab-photo {
   position: relative;
   margin: 0;
-  border-radius: 28px;
+  border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 3 / 4;
   background: #0b0b0b;
@@ -69,7 +69,7 @@
 .xg-chart {
   position: relative;
   padding: 22px 24px 26px;
-  border-radius: 24px;
+  border-radius: 16px;
   background: hsl(var(--card));
   border: 1px solid hsl(var(--foreground) / 0.08);
   outline: none;
@@ -140,7 +140,7 @@
 
 .xg-detail {
   position: sticky; top: 96px;
-  padding: 24px; border-radius: 24px;
+  padding: 24px; border-radius: 16px;
   background: hsl(var(--card)); border: 1px solid hsl(var(--foreground) / 0.08);
 }
 .xg-kind { display: inline-flex; align-items: center; gap: 8px; font: 400 10.5px/1 var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground)); }
@@ -170,6 +170,5 @@
   .xg-bar, .xg-today, .xg-milestone { transition: none; transform: none; }
   .xg-milestone { transform: rotate(45deg); }
   .xg-bar em { opacity: 1; transition: none; }
-  .xg-bar.is-current::after { animation: none; }
   .ab-photo { transform: none; }
 }
