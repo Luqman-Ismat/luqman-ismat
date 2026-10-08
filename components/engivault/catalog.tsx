@@ -100,7 +100,7 @@ export function VaultCatalog({ items }: { items: CatalogItem[] }) {
                 id={`tool-${i.slug}`}
                 href={href(i.slug)}
                 className={k === at && query ? "vault-card is-cursor" : "vault-card"}
-                data-cursor="Open"
+               
                 onPointerEnter={() => setCursor(k)}
               >
                 <span className="vault-card-cat">{i.category}</span>

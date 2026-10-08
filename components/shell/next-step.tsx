@@ -8,7 +8,7 @@ export function NextStep() {
   const next = nextStep(usePathname());
   if (!next) return null;
   return (
-    <Link href={next.href} className="next-step" data-cursor="Next">
+    <Link href={next.href} className="next-step">
       <span className="next-step-kicker">Next · 0{next.index}</span>
       <span className="next-step-label">{next.label}</span>
       <span className="next-step-arrow" aria-hidden="true">→</span>

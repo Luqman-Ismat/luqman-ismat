@@ -2,9 +2,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { animate, scrambleText } from "animejs";
 import { locationLabel } from "@/lib/navigation";
-import { LiveClock } from "@/components/redesign/interactive";
 import { MenuOverlay } from "./menu-overlay";
 import { SectionDock } from "./section-dock";
 import { ThemeSwitch } from "./theme-switch";
@@ -22,20 +20,6 @@ export function Hud() {
     setLastPath(path);
     setOpen(false);
   }
-
-  useEffect(() => {
-    const el = where.current;
-    if (!el) return;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.textContent = label;
-      return;
-    }
-    const a = animate(el, { textContent: scrambleText({ text: label, chars: "uppercase" }), duration: 700, ease: "outQuad" });
-    return () => {
-      a.revert();
-      el.textContent = label;
-    };
-  }, [label]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -61,10 +45,9 @@ export function Hud() {
           </div>
         </div>
         <div className="hud-actions">
-          <div className="hud-chip hud-clock"><LiveClock /></div>
           <ThemeSwitch className="hud-chip" />
           <Link href="/contact" className="hud-chip hud-talk">
-            Let’s talk <span aria-hidden="true">↗</span>
+            Start a project <span aria-hidden="true">↗</span>
           </Link>
           <button
             ref={button}

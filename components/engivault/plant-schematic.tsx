@@ -17,7 +17,7 @@ function Hot({ id, children, labelAt, bubble, spots, active, onActive }: HotProp
       onFocus={() => onActive(id)}
       onBlur={() => onActive(null)}
       aria-label={`${h.tag}: open ${h.title}`}
-      data-cursor="Open"
+     
     >
       {children}
       {labelAt && <text className="pid-tag" x={labelAt[0]} y={labelAt[1]}>{h.tag}</text>}

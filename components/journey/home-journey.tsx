@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Suspense, useCallback, useEffect, useRef, useState, type PointerEvent, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { animate, stagger, splitText } from "animejs";
 import { chapters, sheetHref } from "@/lib/chapters";
 import { journey, focusStation, explodeStation } from "@/lib/journey";
@@ -241,7 +242,7 @@ export function HomeJourney() {
             <li key={c.id}>
               <button type="button" onClick={() => goTo(i)} aria-current={active === i ? "step" : undefined}>
                 <span className="rail-label">{c.nav}</span>
-                <span className="rail-tick">{c.index}</span>
+                <span className="rail-tick" aria-hidden="true" />
               </button>
             </li>
           ))}
@@ -251,30 +252,26 @@ export function HomeJourney() {
       {chapters.map((c, i) => (
         <section key={c.id} id={`chapter-${c.id}`} className={`chapter chapter-${c.id}${active === i ? " is-active" : ""}`} aria-labelledby={`chapter-${c.id}-title`}>
           {c.station === "exchanger" && (
-            <div className="chapter-drag" onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerLeave={onUp} aria-hidden="true" data-cursor="Drag" />
+            <div className="chapter-drag" onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerLeave={onUp} aria-hidden="true" />
           )}
           <div className="chapter-copy">
-            <p className="chapter-kicker chapter-fade"><span>{c.index}</span>{c.kicker}</p>
             {i === 0 ? (
               <>
-                <h1 id={`chapter-${c.id}-title`} className="chapter-title chapter-title-xl">Luqman <em className="accent-serif">Ismat</em></h1>
-                <p className="chapter-statement chapter-fade">{c.title} <em className="accent-serif">{c.accent}</em></p>
+                <h1 id={`chapter-${c.id}-title`} className="chapter-title chapter-title-xl">Luqman <em>Ismat</em></h1>
+                <p className="chapter-statement chapter-fade">{c.title}</p>
               </>
             ) : (
-              <h2 id={`chapter-${c.id}-title`} className="chapter-title">{c.title} <em className="accent-serif">{c.accent}</em></h2>
+              <h2 id={`chapter-${c.id}-title`} className="chapter-title">{c.title}{c.accent && <> <em>{c.accent}</em></>}</h2>
             )}
             <p className="chapter-text chapter-fade">{c.lede}</p>
             {c.explore && (
               <div className="chapter-fade">
                 {c.id === "contact" ? (
-                  <Link href={c.href} className="explore-btn"><span>{c.explore}</span><i aria-hidden="true">↗</i></Link>
+                  <Link href={c.href} className="explore-btn"><span>{c.explore}</span><i aria-hidden="true"><ArrowUpRight size={20} strokeWidth={1.75} /></i></Link>
                 ) : (
-                  <button type="button" className="explore-btn" onClick={(e) => explore(i, c.href, e)} data-cursor="Explore" aria-haspopup={c.components.length > 0 ? "dialog" : undefined}>
+                  <button type="button" className="explore-btn" onClick={(e) => explore(i, c.href, e)} aria-haspopup={c.components.length > 0 ? "dialog" : undefined}>
                     <span>Explore</span>
-                    <i aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M4 12h16M12 4v16M6.5 6.5l11 11M17.5 6.5l-11 11" /></svg>
-                    </i>
-                    <small>{c.components.length > 0 ? `${c.components.length} live components` : c.nav}</small>
+                    <i aria-hidden="true"><ArrowRight size={20} strokeWidth={1.75} /></i>
                   </button>
                 )}
               </div>
@@ -288,12 +285,6 @@ export function HomeJourney() {
                 <Image src={fallbackImage[c.id]} alt="" fill sizes="50vw" />
               ) : null}
             </div>
-          )}
-          {i === 0 && (
-            <button type="button" className="journey-cue chapter-fade" onClick={() => goTo(1)}>
-              <span>Scroll, or press ↓</span>
-              <i aria-hidden="true" />
-            </button>
           )}
         </section>
       ))}

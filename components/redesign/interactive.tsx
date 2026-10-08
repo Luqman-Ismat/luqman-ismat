@@ -75,7 +75,7 @@ export function ServiceIndex({ services }: { services: Service[] }) {
           href={s.href}
           className="service-row"
           data-reveal
-          data-cursor="Open"
+         
           style={{ ["--delay" as string]: `${i * 70}ms` }}
           onPointerEnter={() => setActive(i)}
           onFocus={() => setActive(null)}

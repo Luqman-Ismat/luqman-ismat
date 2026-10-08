@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { LiveClock } from "@/components/redesign/interactive";
 import { NextStep } from "@/components/shell/next-step";
 export function Footer() {
   return (
@@ -9,7 +8,7 @@ export function Footer() {
       </div>
       <div className="site-container footer-lead">
         <p className="footer-kicker">Have a process to fix or something to build?</p>
-        <Link href="/contact" className="footer-cta" data-cursor="Write">
+        <Link href="/contact" className="footer-cta">
           <span>Start a project</span>
           <span className="footer-cta-arrow" aria-hidden="true">→</span>
         </Link>
@@ -17,7 +16,6 @@ export function Footer() {
       <div className="site-container footer-row">
         <div className="footer-about">
           <p>Independent consulting and product development. Based in Houston.</p>
-          <LiveClock />
         </div>
         <nav aria-label="Footer">
           <Link href="/?s=controls">Controls</Link>
@@ -39,7 +37,6 @@ export function Footer() {
       <div className="site-container footer-bottom">
         <span>© {new Date().getFullYear()} Luqman Ismat</span>
         <Link href="/privacy">Privacy</Link>
-        <span>Clear scope. Useful work.</span>
       </div>
     </footer>
   );

@@ -73,15 +73,13 @@ export function PillLink({
   href,
   children,
   variant = "solid",
-  cursor,
 }: {
   href: string;
   children: ReactNode;
   variant?: "solid" | "ghost" | "accent";
-  cursor?: string;
 }) {
   return (
-    <Link href={href} className={`pill pill-${variant}`} data-cursor={cursor}>
+    <Link href={href} className={`pill pill-${variant}`}>
       <span className="pill-text" data-text={typeof children === "string" ? children : undefined}>
         {children}
       </span>

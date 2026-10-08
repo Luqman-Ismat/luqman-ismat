@@ -7,7 +7,6 @@ import { animate, stagger, splitText } from "animejs";
 import { navigationGroups, navigationGroup } from "@/lib/navigation";
 import { scroller } from "@/lib/scroll";
 import { ThemeSwitch } from "./theme-switch";
-import { LiveClock } from "@/components/redesign/interactive";
 import { GarmentFlat } from "@/components/ten21/garment-flat";
 import { colourwayById } from "@/lib/ten21/collection";
 
@@ -132,7 +131,6 @@ export function MenuOverlay({ open, onClose, origin }: { open: boolean; onClose:
         <a href="https://www.linkedin.com/in/luqman-ismat/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://github.com/Luqman-Ismat" target="_blank" rel="noopener noreferrer">GitHub</a>
         <span className="menu-spacer" />
-        <LiveClock />
         <ThemeSwitch />
         <span className="menu-hint">Press <kbd>M</kbd> to toggle · <kbd>Esc</kbd> to close</span>
       </div>
