@@ -30,7 +30,7 @@
   --page-gutter: clamp(16px, 3.2vw, 56px);
   --font-sans: var(--font-geist-sans, "Montserrat Variable"), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono, ui-monospace), ui-monospace, monospace;
-  --font-serif: "Instrument Serif", "Times New Roman", serif;
+  --font-serif: inherit; /* retired: emphasis uses weight and colour in the sans */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-io: cubic-bezier(0.76, 0, 0.24, 1);
 }
@@ -92,8 +92,8 @@ html {
 
 /* ---------- Type primitives ---------- */
 .accent-serif {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-weight: 400;
   letter-spacing: -0.01em;
 }
@@ -139,8 +139,8 @@ html {
 .consulting-main h1 em,
 .consulting-main h2 em,
 .page-intro h1 span:not(.title-period) {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-weight: 400;
   letter-spacing: -0.02em;
 }
@@ -338,8 +338,8 @@ h2[data-reveal].x-title {
 .header-current {
   display: inline-block;
   overflow: hidden;
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-size: 18px;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -764,8 +764,8 @@ h2[data-reveal].x-title {
   color: #fff;
 }
 .x-hero-figure figcaption span {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-size: clamp(20px, 1.8vw, 28px);
   line-height: 1.1;
   max-width: 14ch;
@@ -833,8 +833,8 @@ h2[data-reveal].x-title {
   white-space: nowrap;
 }
 .marquee-row span:nth-child(even) {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-weight: 400;
   letter-spacing: -0.02em;
 }
@@ -1257,8 +1257,8 @@ h2[data-reveal].x-title {
   position: absolute;
   top: 18px;
   right: 24px;
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-size: clamp(90px, 10vw, 160px);
   line-height: 1;
   color: hsl(var(--signal));
@@ -1334,8 +1334,8 @@ h2[data-reveal].x-title {
   color: #b7c4ff;
 }
 .consulting-main .x-indus-lede {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-size: clamp(26px, 2.4vw, 38px);
   line-height: 1.1;
   margin-bottom: 16px;
@@ -1511,8 +1511,8 @@ h2[data-reveal].x-title {
   margin-bottom: -0.02em;
 }
 .footer-giant span:last-child {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-weight: 400;
   letter-spacing: -0.04em;
 }

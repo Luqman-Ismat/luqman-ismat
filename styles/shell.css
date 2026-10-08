@@ -142,8 +142,8 @@ html.menu-open { overflow: hidden; }
 }
 .menu-item.is-focus a, .menu-item a[aria-current="page"] { color: hsl(var(--mf)); }
 .menu-item.is-focus .menu-word {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-weight: 400;
   letter-spacing: -0.03em;
   color: hsl(var(--signal));
@@ -173,8 +173,8 @@ html.menu-open { overflow: hidden; }
   to { clip-path: inset(0); transform: none; }
 }
 .menu-blurb {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-size: clamp(20px, 1.7vw, 26px);
   line-height: 1.2;
   margin-bottom: 18px;
@@ -273,8 +273,8 @@ html.menu-open .section-dock { opacity: 0; pointer-events: none; }
 .next-step:hover { background: hsl(var(--background) / 0.06); border-color: hsl(var(--signal)); }
 .next-step-kicker { font: 400 11px/1 var(--font-mono); text-transform: uppercase; letter-spacing: 0.04em; color: hsl(var(--signal)); }
 .next-step-label {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-size: clamp(36px, 5vw, 80px);
   line-height: 1;
   letter-spacing: -0.03em;
@@ -303,8 +303,8 @@ html.menu-open .section-dock { opacity: 0; pointer-events: none; }
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-size: clamp(36px, 6vw, 96px);
   color: hsl(var(--background));
   opacity: 0;

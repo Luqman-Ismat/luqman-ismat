@@ -84,7 +84,7 @@ html.dark .demo-scope.demo-scope { color-scheme: dark; }
   background: hsl(var(--card));
 }
 .brand-bar-intro .eyebrow { margin-bottom: 4px; }
-.brand-bar-title { font-family: var(--font-serif); font-style: italic; font-size: 22px; line-height: 1; }
+.brand-bar-title { font-family: inherit; font-style: normal; font-size: 22px; line-height: 1; }
 .brand-presets { display: flex; flex-wrap: wrap; gap: 6px; }
 .brand-presets button {
   display: inline-flex;

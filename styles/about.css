@@ -14,7 +14,7 @@
   letter-spacing: -0.06em;
   margin: 18px 0 28px;
 }
-.ab-title em { display: block; color: hsl(var(--signal)); font-size: 0.78em; letter-spacing: -0.03em; line-height: 1; margin-top: 10px; }
+.ab-title em { display: block; color: hsl(var(--muted-foreground)); font-size: 0.78em; letter-spacing: -0.045em; line-height: 1.05; margin-top: 10px; }
 .ab-copy > p:not(.section-label) { font-size: clamp(16px, 1.15vw, 18px); line-height: 1.65; max-width: 58ch; color: hsl(var(--muted-foreground)); margin-bottom: 14px; }
 .ab-copy .action-row { margin-top: 26px; }
 .ab-photo {
@@ -48,7 +48,7 @@
 .xg { --lw: 230px; padding-top: clamp(60px, 8vw, 110px); padding-bottom: clamp(60px, 8vw, 110px); scroll-margin-top: 90px; }
 .xg-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 28px; }
 .xg-top .x-title { margin: 14px 0 0; }
-.xg-top .x-title em { color: hsl(var(--signal)); }
+.xg-top .x-title em { color: hsl(var(--muted-foreground)); }
 .xg-legend { display: flex; flex-wrap: wrap; gap: 6px; }
 .xg-legend button {
   display: inline-flex; align-items: center; gap: 8px;

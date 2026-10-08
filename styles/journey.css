@@ -43,7 +43,7 @@
   letter-spacing: -0.058em;
   margin-bottom: 26px;
 }
-.consulting-main .chapter-title em { color: hsl(var(--signal)); }
+.consulting-main .chapter-title em { color: hsl(var(--muted-foreground)); }
 .consulting-main .chapter-title-xl {
   font-size: clamp(76px, 12vw, 210px);
   font-weight: 600;

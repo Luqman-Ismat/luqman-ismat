@@ -109,8 +109,8 @@
   letter-spacing: -0.04em;
 }
 .anatomy-grid h3 span {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-weight: 400;
   font-size: 0.7em;
   color: hsl(var(--signal));
@@ -172,8 +172,8 @@
   margin: 12px 0 16px;
 }
 .consulting-main .piece-line {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-size: clamp(20px, 1.7vw, 26px);
   line-height: 1.25;
   color: hsl(var(--signal));
@@ -258,7 +258,7 @@
 .cw-card:hover .cw-card-motif { transform: rotate(57deg) scale(1.08); }
 .cw-card > div { margin-top: auto; }
 .consulting-main .cw-card h3 { font-size: 44px; letter-spacing: -0.05em; }
-.cw-card p { font-family: var(--font-serif); font-style: italic; font-size: 20px; opacity: 0.8; }
+.cw-card p { font-family: inherit; font-style: normal; font-size: 20px; opacity: 0.8; }
 .cw-card ul { display: flex; gap: 6px; list-style: none; padding: 0; margin: 18px 0 0; }
 .cw-card li { flex: 1; height: 26px; border-radius: 6px; border: 1px solid rgb(127 127 127 / 0.3); }
 
@@ -306,8 +306,8 @@
 .tp-meta dt { font: 400 10.5px/1 var(--font-mono); text-transform: uppercase; letter-spacing: 0.04em; color: hsl(var(--muted-foreground)); margin-bottom: 6px; }
 .tp-meta dd { margin: 0; font-size: 14px; }
 .consulting-main .tp-line {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: inherit;
+  font-style: normal;
   font-size: clamp(22px, 2.2vw, 34px);
   margin: 26px 0 36px;
   max-width: 30ch;
