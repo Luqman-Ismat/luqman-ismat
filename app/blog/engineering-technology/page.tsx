@@ -23,14 +23,14 @@ export default function EngineeringTechnologyBlogPost() {
         slug="engineering-technology"
         date={undefined}
         title="The Current State of Engineering Technology: Progress, Gaps, and the Road Ahead"
-        description="Engineering technology has come a long way, reshaping how projects are designed, analyzed, and executed. Yet, despite these advancements, industry still faces critical challenges—gaps in integration, outdated workflows, and slow adoption of emerging technologies."
+        description="Engineering technology has come a long way, reshaping how projects are designed, analyzed, and executed. Yet, despite these advancements, industry still faces critical challenges: gaps in integration, outdated workflows, and slow adoption of emerging technologies."
         image=""
         content={{
           sections: [
             {
               title: "Introduction",
               content: [
-                "Engineering technology has come a long way, reshaping how projects are designed, analyzed, and executed. Sophisticated software tools, automation systems, and AI-driven solutions have revolutionized workflows, making processes more efficient, accurate, and data-driven. Yet, despite these advancements, industry still faces critical challenges—gaps in integration, outdated workflows, and slow adoption of emerging technologies.",
+                "Engineering technology has come a long way, reshaping how projects are designed, analyzed, and executed. Sophisticated software tools, automation systems, and AI-driven solutions have revolutionized workflows, making processes more efficient, accurate, and data-driven. Yet, despite these advancements, industry still faces critical challenges: gaps in integration, outdated workflows, and slow adoption of emerging technologies.",
                 "The reality is that while engineering tools have evolved, they are still lagging where they could be. True digital transformation remains an uphill battle, and many firms are only scratching the surface of what's possible.",
               ],
             },
@@ -71,7 +71,7 @@ export default function EngineeringTechnologyBlogPost() {
               content: [
                 "Despite the leaps in technology, the engineering world is still years behind where it could be. The reasons?",
                 "1. Lack of Seamless Integration",
-                "Many firms operate with a patchwork of software systems—each solving a specific problem but failing to communicate with others. This forces engineers to manually transfer data, leading to:",
+                "Many firms operate with a patchwork of software systems: each solving a specific problem but failing to communicate with others. This forces engineers to manually transfer data, leading to:",
                 "• Loss of efficiency due to redundant work.",
                 "• Increased risk of errors from misaligned datasets.",
                 "• Delays and cost overruns caused by fragmented workflows.",
@@ -82,7 +82,7 @@ export default function EngineeringTechnologyBlogPost() {
                 "• Concerns over disrupting existing workflows.",
                 "The result? Many firms are stuck using outdated processes simply because 'that's how it's always been done.'",
                 "3. The Skills Gap & Workforce Resistance",
-                "Adopting AI, cloud systems, and digital twins requires engineers to upskill continuously—a demand many companies struggle to meet. The challenge isn't just in learning new tools but also in shifting engineering mindsets toward a more data-driven, technology-first approach.",
+                "Adopting AI, cloud systems, and digital twins requires engineers to upskill continuously: a demand many companies struggle to meet. The challenge isn't just in learning new tools but also in shifting engineering mindsets toward a more data-driven, technology-first approach.",
                 "Without a clear strategy to bridge the skills gap, firms risk falling behind as the industry evolves.",
               ],
             },
@@ -95,7 +95,7 @@ export default function EngineeringTechnologyBlogPost() {
                 "• Adopt cloud-first collaboration models to break down silos and streamline project execution.",
                 "• Close the skills gap by integrating technology training into engineering education and workforce development.",
                 "Ultimately, the firms that embrace digital transformation will be the ones driving the next generation of engineering. The ones that don't? They'll be left struggling to catch up.",
-                "This isn't just about being competitive—it's about pushing engineering forward into the future. I want to be at the forefront of that transformation, developing solutions that bridge traditional engineering methods with modern technology to create a smarter, more efficient, and more connected industry.",
+                "This isn't just about being competitive: it's about pushing engineering forward into the future. I want to be at the forefront of that transformation, developing solutions that bridge traditional engineering methods with modern technology to create a smarter, more efficient, and more connected industry.",
               ],
             },
           ],

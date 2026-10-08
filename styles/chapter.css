@@ -369,13 +369,28 @@ html.menu-open .brand-dock { opacity: 0; pointer-events: none; }
 .sheet-note { margin-top: 12px; font-size: 13px; color: hsl(var(--muted-foreground)); }
 .sheet-parts {
   position: sticky;
-  top: calc(clamp(28px, 4vw, 64px) * -1);
+  top: 14px;
   z-index: 5;
-  margin: 28px calc(clamp(18px, 3.4vw, 56px) * -1) 0;
-  padding: 12px clamp(18px, 3.4vw, 56px);
-  background: linear-gradient(hsl(var(--background) / 0.92) 70%, transparent);
+  margin: 28px 0 0;
+  padding: 0;
 }
-.sheet-parts ol { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+.sheet-parts ol {
+  display: flex;
+  gap: 4px;
+  width: fit-content;
+  max-width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-radius: 999px;
+  background: hsl(var(--card) / 0.86);
+  border: 1px solid hsl(var(--foreground) / 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px -18px hsl(var(--foreground) / 0.45);
+}
 .sheet-parts button {
   display: inline-flex;
   gap: 9px;
@@ -384,7 +399,8 @@ html.menu-open .brand-dock { opacity: 0; pointer-events: none; }
   padding: 9px 15px;
   border-radius: 999px;
   border: 1px solid hsl(var(--foreground) / 0.1);
-  background: hsl(var(--card) / 0.8);
+  background: transparent;
+  border-color: transparent;
   color: inherit;
   font: inherit;
   font-size: 13px;

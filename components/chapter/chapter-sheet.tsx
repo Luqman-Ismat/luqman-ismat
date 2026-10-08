@@ -54,7 +54,8 @@ export default function ChapterSheet({
   // reveal on the next frame so the aperture transition runs
   useEffect(() => {
     const r = requestAnimationFrame(() => setOpen(true));
-    closeBtn.current?.focus({ preventScroll: true });
+    // move focus into the dialog without painting a keyboard focus ring on open
+    closeBtn.current?.focus({ preventScroll: true, focusVisible: false } as FocusOptions);
     return () => cancelAnimationFrame(r);
   }, []);
 

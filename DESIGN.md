@@ -56,3 +56,17 @@ Supersedes the journey section above where they differ.
 - Work chapters open as frosted-glass sheets over the exploded station (aperture reveal from the Explore button); no nested chapter pages. The URL (`?s=`) carries the open sheet so Back, links and the menu work.
 - The glass and the scrolling content each carry the reveal clip; nothing wrapping them sets filter, transform or clip-path, so the blur keeps a backdrop and fixed children (the re-brand dock) stay fixed. The clip is dropped once revealed.
 - About: portrait hero and the experience schedule in the site's motion language (bars build in, live Today line, milestone).
+
+## October 2026: less templated (taste skill + 21st review)
+Audited with the open-source taste skill (Leonxlnx/taste-skill) and `21st review` (@21st-dev/cli). Rules now in force:
+- One family. Geist for everything; Instrument Serif is retired. Emphasis inside a headline is a quieter colour in the same font and weight, never a serif swap or synthetic italic.
+- Headlines are plain statements, at most two lines. No slogan fragments ("X. Y. Z."), no forced line breaks.
+- Labels above headings are rare, sentence case and unnumbered. No "(01)" section numbers, no "Component 01", no numbered rail.
+- No em or en dashes anywhere in copy, including articles. Ranges use a hyphen.
+- Middle dot at most once per line.
+- One contact label site-wide: "Start a project".
+- No custom cursor, no live clock or locale strip, no scroll cue, no text scramble, no looping decorative motion. Reading progress uses CSS scroll timelines, not scroll listeners.
+- Shape lock: surfaces and cards 16px; buttons, chips and toggles are full pills; small marks (keys, swatches, data labels) 3 to 6px.
+- Lists that are just text are lists, not boxes.
+- Icons come from lucide-react (already a dependency); part glyphs and garment flats are drawn content, not icons.
+- Glass is limited to the chapter sheets, the HUD and the sheet's chip bar, with a reduced-transparency fallback.

@@ -35,7 +35,7 @@ export default function EPCLifecycleBlogPost() {
             },
             {
               title:
-                "Phase 1: Front-End Engineering Design (FEED) – Laying the Foundation",
+                "Phase 1: Front-End Engineering Design (FEED): Laying the Foundation",
               content: [
                 "The FEED phase is where the vision takes shape. This is the critical planning stage where technical, financial, and operational feasibility are determined. At this point, high-level process flow diagrams (PFDs), heat and material balances (HMBs), and preliminary piping and instrumentation diagrams (P&IDs) are developed.",
                 "Key objectives of the FEED phase include:",
@@ -43,12 +43,12 @@ export default function EPCLifecycleBlogPost() {
                 "• Evaluating economic feasibility and investment risks.",
                 "• Identifying regulatory and environmental considerations.",
                 "• Developing preliminary cost estimates and execution strategies.",
-                "Every decision made during FEED has a cascading effect on the later phases. A poorly defined FEED can lead to cost overruns, design rework, and procurement bottlenecks—issues that can cripple a project before it even breaks ground.",
+                "Every decision made during FEED has a cascading effect on the later phases. A poorly defined FEED can lead to cost overruns, design rework, and procurement bottlenecks: issues that can cripple a project before it even breaks ground.",
               ],
             },
             {
               title:
-                "Phase 2: Detailed Engineering – Turning Plans into Blueprints",
+                "Phase 2: Detailed Engineering: Turning Plans into Blueprints",
               content: [
                 "Once FEED is complete and the project receives the green light, it transitions into detailed engineering, where conceptual designs evolve into precise, constructible plans. This stage is multidisciplinary, involving process, mechanical, civil, electrical, and instrumentation engineers working together to finalize specifications.",
                 "Key deliverables include:",
@@ -61,9 +61,9 @@ export default function EPCLifecycleBlogPost() {
             },
             {
               title:
-                "Phase 3: Procurement – Sourcing Materials, Equipment, and Vendors",
+                "Phase 3: Procurement: Sourcing Materials, Equipment, and Vendors",
               content: [
-                "Procurement is the backbone of an EPC project, ensuring that every component—whether a heat exchanger, reactor, or structural steel—is acquired on time and within budget. This phase involves:",
+                "Procurement is the backbone of an EPC project, ensuring that every component, whether a heat exchanger, reactor, or structural steel, is acquired on time and within budget. This phase involves:",
                 "• Vendor prequalification and selection based on technical and commercial criteria.",
                 "• Negotiation of contracts and purchase orders to secure competitive pricing.",
                 "• Tracking and expediting deliveries to prevent schedule slippage.",
@@ -72,35 +72,35 @@ export default function EPCLifecycleBlogPost() {
               ],
             },
             {
-              title: "Phase 4: Construction – Bringing Designs to Life",
+              title: "Phase 4: Construction: Bringing Designs to Life",
               content: [
                 "The construction phase is where the project physically takes shape. This stage is highly labor-intensive and requires:",
                 "• Site preparation and mobilization to establish work zones and infrastructure.",
                 "• Structural assembly and equipment installation, following strict QA/QC protocols.",
                 "• Piping, electrical, and instrumentation installation, ensuring alignment with engineering drawings.",
                 "• Rigorous safety management to protect workers and prevent incidents.",
-                "One of the biggest challenges in EPC construction is handling design modifications and field changes. Even with the best planning, unforeseen issues—such as site conditions, vendor discrepancies, or regulatory updates—can necessitate real-time adjustments. Having a proactive change management system in place is essential to maintaining progress without compromising quality.",
+                "One of the biggest challenges in EPC construction is handling design modifications and field changes. Even with the best planning, unforeseen issues, such as site conditions, vendor discrepancies, or regulatory updates, can necessitate real-time adjustments. Having a proactive change management system in place is essential to maintaining progress without compromising quality.",
               ],
             },
             {
-              title: "Phase 5: Commissioning & Startup – The Moment of Truth",
+              title: "Phase 5: Commissioning & Startup: The Moment of Truth",
               content: [
                 "Once construction is complete, the facility isn't immediately operational. It undergoes a commissioning and startup phase, where all systems are tested, fine-tuned, and validated before handover. This process involves:",
                 "• Pre-commissioning checks (e.g., leak testing, electrical continuity checks).",
                 "• Equipment calibration and functional testing to ensure proper performance.",
                 "• Loop testing and control system verification for automation reliability.",
                 "• Final operational trials to confirm the facility meets design specifications.",
-                "This stage is high-stakes—any overlooked issue can lead to operational failures, costly downtime, or safety hazards. A structured performance validation plan is crucial to ensure the plant operates as intended from day one.",
+                "This stage is high-stakes: any overlooked issue can lead to operational failures, costly downtime, or safety hazards. A structured performance validation plan is crucial to ensure the plant operates as intended from day one.",
               ],
             },
             {
               title: "Lessons from the EPC Lifecycle",
               content: [
                 "Having worked at a midsize EPC firm, I've seen firsthand the challenges that arise in each phase. Tight project schedules, vendor delays, and unexpected design modifications are inevitable, but strong project execution strategies can mitigate these risks. Some key takeaways include:",
-                "• Cross-disciplinary collaboration is essential—engineering, procurement, and construction must work in sync.",
-                "• Digital integration is lacking—many firms still rely on outdated workflows, creating inefficiencies.",
-                "• Change is constant—flexibility in design and execution is necessary for real-world conditions.",
-                "The EPC industry is ripe for technological transformation. Automation, AI-driven project planning, and cloud-based collaboration tools have the potential to revolutionize how projects are executed. My goal is to be at the forefront of this shift—bridging the gap between traditional EPC methodologies and modern engineering technology to make the entire lifecycle more efficient, data-driven, and future-proof.",
+                "• Cross-disciplinary collaboration is essential: engineering, procurement, and construction must work in sync.",
+                "• Digital integration is lacking: many firms still rely on outdated workflows, creating inefficiencies.",
+                "• Change is constant: flexibility in design and execution is necessary for real-world conditions.",
+                "The EPC industry is ripe for technological transformation. Automation, AI-driven project planning, and cloud-based collaboration tools have the potential to revolutionize how projects are executed. My goal is to be at the forefront of this shift: bridging the gap between traditional EPC methodologies and modern engineering technology to make the entire lifecycle more efficient, data-driven, and future-proof.",
               ],
             },
           ],

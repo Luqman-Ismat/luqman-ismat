@@ -80,12 +80,12 @@ export default function DigitalTwinsBlogPost() {
             {
               title: "Challenges and Implementation Considerations",
               content: [
-                "Despite their promise, digital twin implementations face several significant challenges. Data quality and availability often limit effectiveness—sensors may be lacking, malfunctioning, or providing inaccurate data. Retrofitting existing facilities with adequate instrumentation can be expensive.",
+                "Despite their promise, digital twin implementations face several significant challenges. Data quality and availability often limit effectiveness: sensors may be lacking, malfunctioning, or providing inaccurate data. Retrofitting existing facilities with adequate instrumentation can be expensive.",
                 "Model fidelity versus computational efficiency presents a constant trade-off. Highly detailed models that capture every nuance of system behavior may be too slow for real-time applications, while simplified models may lack accuracy for certain scenarios.",
                 "Integration with legacy systems is frequently problematic. Many industrial facilities operate equipment and control systems that are decades old, with proprietary protocols and limited connectivity options. Creating digital twins for these assets requires creative solutions and sometimes custom interface development.",
                 "Organizational and cultural challenges can be as significant as technical ones. Digital twins require collaboration between OT and IT departments that historically operated independently. Operators and engineers may be skeptical of automated recommendations or reluctant to change established practices.",
                 "The initial investment in digital twin technology can be substantial, including costs for sensors, communication infrastructure, software platforms, and expertise. Building a compelling business case requires careful analysis of expected benefits and realistic timelines for value realization.",
-                "Skills gaps present another barrier—effectively developing and using digital twins requires expertise spanning domain knowledge, data science, software engineering, and control systems. Organizations must invest in training existing staff or recruiting new talent with these multidisciplinary capabilities.",
+                "Skills gaps present another barrier: effectively developing and using digital twins requires expertise spanning domain knowledge, data science, software engineering, and control systems. Organizations must invest in training existing staff or recruiting new talent with these multidisciplinary capabilities.",
               ],
             },
             {

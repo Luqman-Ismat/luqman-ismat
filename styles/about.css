@@ -139,7 +139,7 @@
 .xg-detail ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .xg-detail li { position: relative; padding-left: 18px; font-size: 14px; line-height: 1.5; color: hsl(var(--muted-foreground)); }
 .xg-detail li::before { content: ""; position: absolute; left: 0; top: 0.65em; width: 9px; height: 1px; background: hsl(var(--signal)); }
-.xg-hint { margin-top: 18px; font: 400 10px/1.5 var(--font-mono); text-transform: uppercase; letter-spacing: 0.04em; color: hsl(var(--muted-foreground)); }
+.xg-hint { margin-top: 18px; font-size: 13px; color: hsl(var(--muted-foreground)); }
 
 @media (max-width: 1000px) {
   .ab-hero { grid-template-columns: 1fr; }

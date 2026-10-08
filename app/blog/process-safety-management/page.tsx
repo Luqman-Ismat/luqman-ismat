@@ -104,9 +104,9 @@ export default function ProcessSafetyManagementBlogPost() {
               content: [
                 "Process Safety Management continues to evolve with technological advancement and increased understanding of human factors. Digital transformation is bringing new tools and capabilities to PSM implementation and performance monitoring.",
                 "Advanced analytics and machine learning are being applied to predict equipment failures, optimize maintenance schedules, and identify patterns in incident data that might indicate emerging risks. These predictive capabilities can enable more proactive safety management.",
-                "Digital twins—virtual replicas of physical facilities—are increasingly used for operator training, hazard analysis, and emergency response planning. They allow testing of 'what-if' scenarios without risk to actual facilities.",
+                "Digital twins, virtual replicas of physical facilities, are increasingly used for operator training, hazard analysis, and emergency response planning. They allow testing of 'what-if' scenarios without risk to actual facilities.",
                 "Cybersecurity has emerged as a critical process safety concern as industrial control systems become more connected. The convergence of safety and security (often called 'safety and security integration') requires new approaches to risk management.",
-                "However, technology alone cannot ensure process safety. The human and organizational factors—safety culture, leadership commitment, employee engagement, and continuous learning—remain fundamental to successful PSM implementation. The most effective programs balance technological capabilities with strong safety culture and robust management systems.",
+                "However, technology alone cannot ensure process safety. The human and organizational factors, safety culture, leadership commitment, employee engagement, and continuous learning, remain fundamental to successful PSM implementation. The most effective programs balance technological capabilities with strong safety culture and robust management systems.",
               ],
             },
           ],
