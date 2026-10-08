@@ -1,6 +1,11 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
+import {
+  EX, HOUSTON, ROW, WEEK, boxEdges, coreGeometry, curvesGeometry, databaseGeometry, exchangerParts,
+  globeGeometry, gyroRing, integrationLayout, latLon, portalGeometry, scheduleBars, scheduleFrame,
+  tubeOffsets, tubesGeometry,
+} from '@/components/journey/geometry'
 
 /* The workshop machine as a line drawing: every part is a paper-coloured fill
    that hides what is behind it, outlined in the page's ink, with the signal
@@ -181,6 +186,12 @@ export function initMachineScene(
     function polyline(parent: THREE.Object3D, pts: THREE.Vector3[], kind: LineKind = 'ink', closed = false) {
       const g = new THREE.BufferGeometry().setFromPoints(closed ? [...pts, pts[0]] : pts)
       const l = new THREE.Line(g, lines[kind])
+      l.raycast = () => {}
+      parent.add(l)
+      return l
+    }
+    function segs(parent: THREE.Object3D, g: THREE.BufferGeometry, kind: LineKind = 'ink') {
+      const l = new THREE.LineSegments(g, lines[kind])
       l.raycast = () => {}
       parent.add(l)
       return l
@@ -640,19 +651,29 @@ export function initMachineScene(
     const controlsSt = stations[4].group
     for (const x of [-0.92, 0.92]) cyl(controlsSt, 0.03, 1.55, x, TOP + 0.775, -0.42, Q)
     box(controlsSt, 1.95, 1.05, 0.05, 0, TOP + 1.18, -0.42, SP)
-    const bars: [number, number, boolean][] = [
-      [0.0, 0.32, true], [0.25, 0.4, false], [0.32, 0.42, true], [0.6, 0.3, false], [0.7, 0.45, true], [0.95, 0.18, false],
-    ]
-    const boardL = -0.82,
-      boardW = 1.64
-    bars.forEach(([s, l, crit], r) => {
-      box(controlsSt, l * boardW, 0.09, 0.02, boardL + (s + l / 2) * boardW, TOP + 1.58 - r * 0.15, -0.385, crit ? F : A)
+    // The living Gantt from the old scene, drawn on the board: bars fill as
+    // the today line sweeps, and the critical path lights up when it lands.
+    const gantt = moving(new THREE.Group())
+    gantt.position.set(-0.82, TOP + 1.64, -0.39)
+    gantt.scale.set(1.64 / (15 * WEEK), 0.95 / (scheduleBars.length * ROW), 1)
+    controlsSt.add(gantt)
+    segs(gantt, scheduleFrame(), 'faint')
+    const barFillGeo = new THREE.BoxGeometry(1, ROW * 0.56, 0.04)
+    const barFills = scheduleBars.map((b) => {
+      const y = -b.row * ROW - ROW / 2
+      segs(gantt, boxEdges(b.len * WEEK, ROW * 0.56, 0.04), 'ink').position.set(b.start * WEEK + (b.len * WEEK) / 2, y, 0.03)
+      const m = new THREE.MeshBasicMaterial({ color: C.ink, transparent: true, opacity: 0.28, depthWrite: false })
+      const mesh = new THREE.Mesh(barFillGeo, m)
+      mesh.userData.noEdges = true
+      mesh.position.set(b.start * WEEK, y, 0.03)
+      gantt.add(mesh)
+      return { b, mesh, m }
     })
-    for (const [s, r] of [[0.32, 1.5], [1.13, 5.5]] as const) {
-      const d = box(controlsSt, 0.07, 0.07, 0.02, boardL + s * boardW, TOP + 1.58 - r * 0.15, -0.38, F)
-      d.rotation.z = Math.PI / 4
-    }
-    const today = moving(box(controlsSt, 0.015, 1.0, 0.02, 0, TOP + 1.18, -0.37, F))
+    const todayLine = segs(
+      gantt,
+      new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0.2, 0.06), new THREE.Vector3(0, -scheduleBars.length * ROW - 0.1, 0.06)]),
+      'acc'
+    )
     box(controlsSt, 0.9, 0.34, 0.06, -0.5, TOP + 0.42, 0.42)
     const statusTex = canvasTexture(512, 176, (c) => {
       panel(c, 512, 176)
@@ -690,6 +711,112 @@ export function initMachineScene(
     })
     const rp = screen(report, 0.36, 0.7, 0, 0.35, 0, reportTex)
     rp.material.side = THREE.DoubleSide
+
+
+    // ---- pieces carried over from the old scenes, built into the plate ----
+    // Gyroscope core: the centrepiece inside the belt loop.
+    cyl(machine, 0.34, 0.07, -1.55, 0.275, 0.95)
+    cyl(machine, 0.028, 0.6, -1.55, 0.6, 0.95, Q)
+    const coreGroup = moving(new THREE.Group())
+    coreGroup.position.set(-1.55, 1.55, 0.95)
+    coreGroup.scale.setScalar(0.4)
+    machine.add(coreGroup)
+    const coreMesh = segs(coreGroup, coreGeometry(), 'ink')
+    const gyro = [gyroRing(1.7), gyroRing(2.15), gyroRing(2.6)].map((g, i) => segs(coreGroup, g, i === 0 ? 'acc' : 'faint'))
+
+    // Heat exchanger: on its saddles at the back right, fed from the Engineering spool.
+    const exchanger = moving(new THREE.Group())
+    exchanger.position.set(4.5, 0.83, -2.75)
+    exchanger.scale.setScalar(0.55)
+    machine.add(exchanger)
+    const ex = exchangerParts()
+    segs(exchanger, ex.shell, 'ink')
+    segs(exchanger, ex.nozzles, 'ink')
+    segs(exchanger, ex.baffles, 'ink')
+    segs(exchanger, ex.saddles, 'ink')
+    segs(exchanger, ex.heads, 'ink')
+    segs(exchanger, ex.heads, 'faint').scale.x = -1
+    segs(exchanger, ex.sheets, 'acc')
+    segs(exchanger, ex.sheets, 'acc').scale.x = -1
+    segs(exchanger, tubesGeometry(), 'faint')
+    const FLOW = 480
+    const flowGeo = new THREE.BufferGeometry()
+    flowGeo.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(FLOW * 3), 3))
+    flowGeo.setAttribute('color', new THREE.Float32BufferAttribute(new Float32Array(FLOW * 3), 3))
+    const hash = (n: number) => {
+      const x = Math.sin(n * 12.9898) * 43758.5453
+      return x - Math.floor(x)
+    }
+    const flowSeeds = Array.from({ length: FLOW }, (_, i) => ({ tube: i < FLOW * 0.6, k: i % tubeOffsets.length, t: hash(i), a: hash(i + 7919) * TAU, r: 0.15 + hash(i + 104729) * 0.4 }))
+    const flow = new THREE.Points(flowGeo, new THREE.PointsMaterial({ size: 0.05, vertexColors: true, transparent: true, depthWrite: false }))
+    flow.raycast = () => {}
+    flow.frustumCulled = false
+    exchanger.add(flow)
+    curve(machine, [[2.38, 1.04, -1.78], [2.95, 1.04, -1.78], [3.3, 1.62, -2.35], [3.62, 1.62, -2.75], [3.62, 1.36, -2.75]], 'ink')
+
+    // Data network: sources on stands feed its database, which feeds Integrations.
+    const network = new THREE.Group()
+    network.position.set(-4.4, 1.15, -2.95)
+    network.scale.setScalar(0.38)
+    machine.add(network)
+    const net = integrationLayout()
+    segs(network, curvesGeometry(net.curves), 'faint')
+    const nodeGeo = new THREE.EdgesGeometry(new THREE.OctahedronGeometry(0.13))
+    const standPts: THREE.Vector3[] = []
+    for (const n of net.nodes) {
+      segs(network, nodeGeo, 'ink').position.copy(n)
+      standPts.push(n.clone(), new THREE.Vector3(n.x, (0.27 - 1.15) / 0.38, n.z))
+    }
+    segs(network, new THREE.BufferGeometry().setFromPoints(standPts), 'faint')
+    segs(network, databaseGeometry(), 'acc').position.copy(net.db)
+    cyl(machine, 0.2, 0.55, -4.4 + net.db.x * 0.38, 0.52, -2.95, Q)
+    curve(machine, [[-4.4 + net.db.x * 0.38 + 0.29, 1.05, -2.95], [-2.9, 1.0, -2.75], [-2.27, 0.95, -2.43]], 'acc')
+    const PULSES = 36
+    const pulseGeo = new THREE.BufferGeometry()
+    pulseGeo.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(PULSES * 3), 3))
+    const netPulses = new THREE.Points(pulseGeo, new THREE.PointsMaterial({ color: C.acc, size: 0.14 }))
+    netPulses.raycast = () => {}
+    netPulses.frustumCulled = false
+    network.add(netPulses)
+    const pulseSeeds = Array.from({ length: PULSES }, (_, i) => ({ curve: i % net.curves.length, t: (i * 0.137) % 1 }))
+
+    // Desk globe with Houston pinned, on the front-left corner.
+    cyl(machine, 0.3, 0.06, -5.3, 0.27, 2.75)
+    cyl(machine, 0.025, 0.36, -5.3, 0.48, 2.75, Q)
+    const globeTilt = new THREE.Group()
+    globeTilt.position.set(-5.3, 1.2, 2.75)
+    globeTilt.rotation.z = 0.41
+    machine.add(globeTilt)
+    polyline(globeTilt, Array.from({ length: 33 }, (_, i) => {
+      const a = -Math.PI / 2 + (i / 32) * Math.PI
+      return new THREE.Vector3(Math.cos(a) * 0.62, Math.sin(a) * 0.62, 0)
+    }), 'ink')
+    const globe = moving(new THREE.Group())
+    globe.scale.setScalar(0.32)
+    globeTilt.add(globe)
+    segs(globe, globeGeometry(1.7), 'faint')
+    const pin = latLon(HOUSTON.lat, HOUSTON.lon, 1.7)
+    segs(globe, new THREE.BufferGeometry().setFromPoints([pin, pin.clone().multiplyScalar(1.35)]), 'acc')
+    const haloMat = lines.acc.clone()
+    haloMat.transparent = true
+    const halo = new THREE.LineSegments(gyroRing(0.16), haloMat)
+    halo.raycast = () => {}
+    halo.position.copy(pin.clone().multiplyScalar(1.01))
+    halo.lookAt(0, 0, 0)
+    globe.add(halo)
+
+    // Portal: where new briefs come in, at the Intake edge of the plate.
+    const portalAt = new THREE.Vector3(5.72, 1.36, 0.12)
+    box(machine, 0.5, 0.05, 1.4, 5.85, 0.27, 0.12, Q)
+    const portal = moving(new THREE.Group())
+    portal.position.copy(portalAt)
+    portal.rotation.y = -Math.PI / 2
+    portal.scale.setScalar(0.24)
+    machine.add(portal)
+    const portalRings = new THREE.Group()
+    portal.add(portalRings)
+    segs(portalRings, portalGeometry(), 'ink')
+    const portalCore = segs(portal, new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(0.42, 1)), 'acc')
 
     // ---- the belt ----
     const path = new THREE.CatmullRomCurve3(
@@ -911,6 +1038,13 @@ export function initMachineScene(
     const desiredPosition = new THREE.Vector3(),
       desiredTarget = new THREE.Vector3(0, 1, 0)
     const viewDirection = new THREE.Vector3(10.5, 10.8, 17).normalize()
+    const focusLean: Record< MachineStationId, [number, number]> = {
+      engine: [0, 0],
+      admin: [-0.9, -0.3],
+      storefront: [1.2, -0.3],
+      cabinet: [0.6, 0],
+      cashdesk: [-0.6, -0.2],
+    }
     let baseDistance = 25,
       sized = false,
       readySent = false
@@ -948,7 +1082,9 @@ export function initMachineScene(
       const expand = mode === 'stations' ? 1.2 : 1
       if (cameraMode === 'station') {
         const s = stations.find((s) => s.id === selected)!
-        desiredTarget.copy(s.group.position).add(new THREE.Vector3(0, 1.1, 0))
+        // Lean the shot toward the old piece each station shares the plate with.
+        const lean = focusLean[s.id]
+        desiredTarget.copy(s.group.position).add(new THREE.Vector3(lean[0], 1.1, lean[1]))
         desiredPosition.copy(desiredTarget).addScaledVector(viewDirection, mobile ? 8.5 : 10)
       } else {
         desiredTarget.set(0, 1, 0)
@@ -1118,7 +1254,8 @@ export function initMachineScene(
     const scratch = new THREE.Vector3(),
       anchor = new THREE.Vector3(),
       inkColor = new THREE.Color(C.ink),
-      accColor = new THREE.Color(C.acc)
+      accColor = new THREE.Color(C.acc),
+      flowColor = new THREE.Color()
     const journeySteps = [
       ['New brief', 'Intake: scope, data and deadline'],
       ['Drawing the spec', 'TEN21 workshop: drawn before it is made'],
@@ -1180,15 +1317,74 @@ export function initMachineScene(
       resultCard.position.y = Math.sin(tact + 1) * 0.04
       // Controls: the today line walks the schedule and the report prints.
       const orderPhase = (t / 24) % 1
-      today.position.x = boardL + ((t * 0.04) % 1) * boardW
+      const weekNow = (t * 1.4) % 18
+      todayLine.position.x = Math.min(weekNow, 15) * WEEK
+      const landed = weekNow > 15.2
+      barFills.forEach(({ b, mesh, m }) => {
+        const f = Math.max(THREE.MathUtils.clamp((weekNow - b.start) / b.len, 0, 1), 0.001)
+        mesh.scale.x = f * b.len * WEEK
+        mesh.position.x = b.start * WEEK + (f * b.len * WEEK) / 2
+        const lit = b.critical && landed
+        m.color.copy(lit ? accColor : inkColor)
+        m.opacity = lit ? 0.85 : 0.28
+      })
+      // Old pieces: the core turns in its rings, records pulse into the network
+      // database, the exchanger runs counter-current, the globe turns to Houston.
+      coreMesh.rotation.y = t * 0.25
+      coreMesh.rotation.x = Math.sin(t * 0.3) * 0.3
+      gyro[0].rotation.x = t * 0.35
+      gyro[1].rotation.y = t * 0.28
+      gyro[2].rotation.x = Math.PI / 2 + Math.sin(t * 0.2) * 0.5
+      gyro[2].rotation.z = t * 0.18
+      const pp = pulseGeo.attributes.position.array as Float32Array
+      const netBeat = 0.5 + 0.5 * Math.sin(t * 0.8)
+      pulseSeeds.forEach((sd, i) => {
+        sd.t = (sd.t + dt * (playing ? 1 : 0) * (0.18 + netBeat * 0.35) * (0.7 + (i % 5) * 0.12)) % 1
+        const q = net.curves[sd.curve].getPointAt(sd.t)
+        pp[i * 3] = q.x
+        pp[i * 3 + 1] = q.y
+        pp[i * 3 + 2] = q.z
+      })
+      pulseGeo.attributes.position.needsUpdate = true
+      const fp = flowGeo.attributes.position.array as Float32Array,
+        fc = flowGeo.attributes.color.array as Float32Array
+      const L = EX.length,
+        flowSpeed = (0.12 + 0.1 * Math.sin(t * 0.5)) * (playing ? 1 : 0)
+      flowSeeds.forEach((sd, i) => {
+        sd.t = (sd.t + dt * flowSpeed * (sd.tube ? 1 : 0.6)) % 1
+        let k: number
+        if (sd.tube) {
+          const [ty, tz] = tubeOffsets[sd.k]
+          fp.set([-L / 2 + sd.t * L, ty, tz], i * 3)
+          k = sd.t
+        } else {
+          fp.set([L / 2 - sd.t * L, Math.cos(sd.a) * sd.r * 0.9 + Math.sin(sd.t * Math.PI * 6) * 0.18, Math.sin(sd.a + sd.t * 4) * sd.r], i * 3)
+          k = 1 - sd.t * 0.85
+        }
+        flowColor.copy(accColor).lerp(inkColor, k)
+        fc.set([flowColor.r, flowColor.g, flowColor.b], i * 3)
+      })
+      flowGeo.attributes.position.needsUpdate = true
+      flowGeo.attributes.color.needsUpdate = true
+      globe.rotation.y = -Math.atan2(pin.x, pin.z) + 0.6 + Math.sin(t * 0.25) * 0.5
+      halo.scale.setScalar(1 + (t % 1.6) * 0.9)
+      haloMat.opacity = 1 - (t % 1.6) / 1.7
+      portalRings.rotation.z = t * 0.12
+      portalCore.rotation.y = t * 0.6
+      portalCore.rotation.x = t * 0.3
       const printBeat = mode === 'order' ? THREE.MathUtils.clamp((orderPhase - 0.88) / 0.12, 0, 1) : beat
       report.visible = mode !== 'order' || orderPhase > 0.88
       report.scale.y = 0.15 + Math.min(1, printBeat * 1.4) * 0.85
       // Intake: a new brief drops into the tray.
       const incomingBeat = mode === 'order' ? Math.min(1, orderPhase / 0.15) : beat
       incoming.visible = mode !== 'order' || orderPhase < 0.15
-      incoming.position.set(-0.3 + Math.sin(incomingBeat * Math.PI) * 0.18, TOP + 2.6 - incomingBeat * 1.15, -0.1)
-      incoming.rotation.set(-Math.PI / 2 * Math.min(1, incomingBeat * 1.3), 0, Math.sin(incomingBeat * Math.PI) * -0.14)
+      // From the portal's mouth into the tray.
+      incoming.position.set(
+        THREE.MathUtils.lerp(portalAt.x - stations[3].base.x, -0.3, incomingBeat),
+        THREE.MathUtils.lerp(portalAt.y - stations[3].base.y, TOP + 1.45, incomingBeat) + Math.sin(incomingBeat * Math.PI) * 0.6,
+        THREE.MathUtils.lerp(0, -0.1, incomingBeat)
+      )
+      incoming.rotation.set(-Math.PI / 2 * Math.min(1, incomingBeat * 1.3), Math.PI / 2 * (1 - Math.min(1, incomingBeat * 2)), Math.sin(incomingBeat * Math.PI) * -0.14)
       incoming.scale.setScalar(Math.min(1, incomingBeat * 8 + 0.15, (1 - incomingBeat) * 7 + 0.1))
       if (t - lastDraw > 1 / 18 || lastDraw < 0) {
         drawSpec(t)
