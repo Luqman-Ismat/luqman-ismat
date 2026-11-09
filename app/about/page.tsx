@@ -1,103 +1,92 @@
-import Image from "next/image";
 import Link from "next/link";
-import { PageShell, Action, ProjectCTA } from "@/components/consulting";
-import { ExperienceGantt } from "@/components/experience-gantt";
-import { toolGroups } from "@/lib/experience";
+import { Page } from "@/components/site/footer";
+import { Roll } from "@/components/site/roll";
+import { experience, toolGroups } from "@/lib/experience";
+
 export const metadata = {
-  title: "About Luqman | Background & Experience",
+  title: "About Luqman Ismat",
   description:
-    "Luqman Ismat is a Houston industrial engineer and Risk Analyst who builds project controls, data integrations and engineering software that project teams use.",
+    "Luqman Ismat is an industrial engineer in Houston and the founder of TEN21 Consulting. Process engineering, process safety, project controls and the software around them.",
   alternates: { canonical: "/about" },
 };
-export default function Page() {
+
+const fmt = (ym: string | null) => {
+  if (!ym) return "Now";
+  const [y, m] = ym.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1)).toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+};
+
+export default function About() {
+  const roles = [...experience].sort((a, b) => b.start.localeCompare(a.start));
   return (
-    <PageShell>
-      <section className="site-container ab-hero">
-        <div className="ab-copy">
-          <h1 className="ab-title">
-            Hi, I’m Luqman. <em>I’m an industrial engineer who builds software for project teams.</em>
-          </h1>
-          <p>
-            I’m an industrial engineering graduate, Risk Analyst, and builder of
-            software, analytical tools, and connected workflows. My background
-            spans process engineering, safety, piping systems, reliability, and
-            project controls.
+    <Page>
+      <header className="page-head">
+        <p className="label">(About)</p>
+        <h1 className="h-xl" data-lines>
+          Luqman Ismat
+        </h1>
+      </header>
+
+      <section className="sec about-hero" style={{ paddingTop: "clamp(48px, 6vw, 96px)" }}>
+        <div className="portrait mono-img" data-clip>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/about/luqman-uh-graduation.jpg" alt="Luqman Ismat at the University of Houston" />
+        </div>
+        <div className="copy">
+          <p className="statement" data-lines>
+            Industrial engineer from the University of Houston. <b>I started in process engineering and process safety, moved into reliability data and project controls, and kept writing software to make that work less tedious.</b>
           </p>
-          <p>
-            I work where those disciplines meet: understanding a complex
-            problem, organizing the information, and building something people
-            can use. That includes connecting Workday APIs to PostgreSQL, building reconciliation and reporting workflows, and implementing authentication and project-scoped access controls.
+          <p className="body" data-fade>
+            TEN21 Consulting is that habit turned outward. The same care that goes into a safety review or a cost forecast goes into a booking page, a payment flow or a dashboard: know what the result has to be, check it, and leave notes the next person can follow.
           </p>
           <div className="action-row">
-            <Action href="#experience">See the timeline</Action>
-            <Action href="/?s=controls" secondary>
-              Try the work
-            </Action>
+            <Link className="btn" href="/contact">
+              <Roll text="Start a project" /> <span className="arrow" aria-hidden="true">↗</span>
+            </Link>
+            <a className="btn ghost" href="https://www.linkedin.com/in/luqman-ismat/" target="_blank" rel="noopener noreferrer">
+              <Roll text="LinkedIn" />
+            </a>
           </div>
         </div>
-        <figure className="ab-figure">
-          <div className="ab-photo">
-          <Image
-            src="/images/about/luqman-uh-graduation.jpg"
-            alt="Luqman Ismat at night in a black graduation gown and red University of Houston stole, the UH logo glowing on the building behind him"
-            width={1132}
-            height={2000}
-            sizes="(max-width: 900px) 100vw, 38vw"
-            priority
-          />
-          </div>
-          <figcaption>Graduation night at the University of Houston, May 2026.</figcaption>
-        </figure>
       </section>
-      <section className="site-container about-background">
-        <div>
-          <h2>Background</h2>
+
+      <section className="sec exp" id="experience" aria-labelledby="exp-title">
+        <div className="sec-head">
+          <p className="label">(Experience)</p>
+          <h2 id="exp-title" className="h-l sec-title" data-lines>
+            Where the work comes from.
+          </h2>
         </div>
-        <div>
-          <p>
-            I grew up in Katy, Texas. My studies began in chemical engineering
-            before I moved into industrial engineering at the University of
-            Houston, where I graduated in May 2026.
-          </p>
-          <p>
-            At Chemex Global, I worked across process engineering, process
-            safety, and piping systems. Those experiences showed me how closely
-            technical decisions depend on clear documentation, useful data, and
-            communication between teams.
-          </p>
-          <p>
-            At Pinnacle, my path has included reliability data analysis and
-            project controls consulting. I’m currently a Risk Analyst. Alongside
-            that work, I develop EngiVault and TEN21, bringing the same
-            attention to detail to software and physical products.
-          </p>
-        </div>
+        <ol className="rows">
+          {roles.map((r) => (
+            <li key={r.id}>
+              <span className="label c-no">
+                {fmt(r.start)} / {fmt(r.end)}
+              </span>
+              <span className="h-m c-name">
+                {r.role}
+                <span className="label" style={{ display: "block", marginTop: 8 }}>
+                  {r.employer}
+                </span>
+              </span>
+              <p className="body c-text">{r.summary}</p>
+              <span className="label c-end">{r.kind}</span>
+            </li>
+          ))}
+        </ol>
       </section>
-      <ExperienceGantt asOf={new Date().toISOString().slice(0, 7)} />
-      <section className="site-container about-education">
-        <div>
-          <h2>University of Houston</h2>
-          <p>
-            Bachelor of Science in Industrial Engineering
-            <br />
-            Graduated May 2026
-          </p>
+
+      <section className="sec" aria-labelledby="tools-title">
+        <div className="sec-head">
+          <p className="label">(Tools)</p>
+          <h2 id="tools-title" className="h-l sec-title" data-lines>
+            What I work in.
+          </h2>
         </div>
-        <div>
-          <h3>Understand the work before building the tool.</h3>
-          <p>
-            I’m interested in systems that make decisions easier to understand:
-            calculations with clear assumptions, dashboards with traceable
-            numbers, and workflows with a visible next step.
-          </p>
-        </div>
-      </section>
-      <section className="site-container tools-section">
-        <h2>Tools I use</h2>
         <div className="tools-grid">
           {toolGroups.map((g) => (
-            <div key={g.label}>
-              <h3>{g.label}</h3>
+            <div key={g.label} data-fade>
+              <p className="label">{g.label}</p>
               <ul>
                 {g.items.map((t) => (
                   <li key={t}>{t}</li>
@@ -107,33 +96,32 @@ export default function Page() {
           ))}
         </div>
       </section>
-      <section className="site-container about-personal">
-        <div>
-          <h2>Outside work</h2>
+
+      <section className="sec name-note" aria-labelledby="name-title">
+        <p className="zips" aria-hidden="true">
+          770<span>10</span>
+          <br />
+          770<span>21</span>
+        </p>
+        <div className="body">
+          <p className="label" id="name-title" style={{ marginBottom: 12 }}>
+            (The name)
+          </p>
+          TEN21 comes from two Houston ZIP codes: 77010, downtown, and 77021, just southeast of it. It is a Houston shop first, working with businesses anywhere.
         </div>
-        <div>
-          <p>
-            I became a Hafiz at 15. Quran recitation, leading Taraweeh, and
-            serving my community are an important part of my life. Growing up
-            with four younger brothers also shaped how I think about
-            responsibility and leadership.
-          </p>
-          <p>
-            I enjoy food and the craft behind it, especially Pakistani, Afghani,
-            Arab, Italian, and Japanese cooking. Outside work, you’ll also find
-            me watching anime, playing games, or listening to music.
-          </p>
-          <Link
-            className="inline-link"
-            href="https://youtube.com/@luqmanmuhammadismat"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Listen to my recitations ↗
+      </section>
+
+      <section className="sec close g12" aria-labelledby="close-title">
+        <h2 id="close-title" className="h-xl" data-lines>
+          Let&apos;s talk about the job.
+        </h2>
+        <div className="close-side">
+          <p className="body">You&apos;ll work with me from the first call to the handoff.</p>
+          <Link className="btn" href="/contact">
+            <Roll text="Start a project" /> <span className="arrow" aria-hidden="true">↗</span>
           </Link>
         </div>
       </section>
-      <ProjectCTA title="Have a project in mind?" />
-    </PageShell>
+    </Page>
   );
 }

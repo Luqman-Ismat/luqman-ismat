@@ -12,10 +12,7 @@ const posts = [
 ];
 const routes = [
   "/",
-  "/ten21/pashk-coat",
-  "/ten21/jig-kameez",
-  "/ten21/chin-shalwar",
-  "/ten21/sadri",
+  "/services",
   "/engivault",
   "/engivault/unit-converter",
   ...Object.keys(
@@ -75,27 +72,24 @@ for (const path of seen) {
   assert.ok(res.ok, path + " internal link");
 }
 for (const [from, to] of [
-  ["/controls", "/?s=controls"],
-  ["/integrations", "/?s=integrations"],
-  ["/engineering", "/?s=engineering"],
-  ["/ten21", "/?s=ten21"],
-  ["/consulting", "/?s=controls"],
-  ["/consulting/project-controls", "/?s=controls"],
-  ["/consulting/dashboards", "/?s=integrations"],
-  ["/consulting/integrations", "/?s=integrations"],
-  ["/projects", "/?s=controls"],
+  ["/controls", "/services#engineering"],
+  ["/integrations", "/services#integrations"],
+  ["/engineering", "/services#engineering"],
+  ["/ten21", "/"],
+  ["/ten21/sample", "/"],
+  ["/consulting", "/services"],
+  ["/consulting/sample", "/services"],
+  ["/projects", "/#work"],
   ["/projects/engivault", "/engivault"],
-  ["/projects/field-01", "/?s=ten21"],
-  ["/projects/innovari", "/?s=controls"],
-  ["/demos", "/?s=controls"],
-  ["/demos/project-controls", "/?s=controls"],
-  ["/demos/inspection-planning", "/?s=engineering&c=inspection"],
-  ["/demos/connected-operations", "/?s=integrations&c=mapping"],
+  ["/projects/field-01", "/"],
+  ["/projects/innovari", "/#work"],
+  ["/demos", "/#work"],
+  ["/demos/sample", "/#work"],
   ["/portfolio", "/about#experience"],
-  ["/indus-blue", "/?s=ten21"],
-  ["/apparel", "/?s=ten21"],
-  ["/indus-blue/sadri", "/ten21/sadri"],
-  ["/portfolio/pinnacle-reliability/predictive-reliability-analysis", "/?s=integrations"],
+  ["/portfolio/sample", "/about#experience"],
+  ["/indus-blue", "/"],
+  ["/indus-blue/sample", "/"],
+  ["/apparel", "/"],
 ]) {
   const res = await fetch(base + from, { redirect: "manual" });
   assert.equal(res.status, 308, from + " permanent redirect");
@@ -120,21 +114,6 @@ assert.ok(
 );
 assert.equal((await fetch(base + "/not-a-real-page")).status, 404);
 for (const file of [
-  "field-01-cad-package.zip",
-  "field-01-technical-flats.dxf",
-  "field-01-pocket-pattern.dxf",
-  "field-01-drawing-set.pdf",
-  "field-01-pull.step",
-  "field-01-pull.stl",
-]) {
-  const res = await fetch(base + "/cad/field-01/" + file);
-  assert.equal(res.status, 200);
-  assert.deepEqual(
-    Buffer.from(await res.arrayBuffer()),
-    await readFile(new URL("../public/cad/field-01/" + file, import.meta.url)),
-  );
-}
-for (const file of [
   "/icon.svg",
   "/apple-icon.png",
   "/icon-192.png",
@@ -145,5 +124,5 @@ for (const file of [
 ])
   assert.ok((await fetch(base + file)).ok, file);
 console.log(
-  `PASS ${routes.length} pages, ${seen.size} internal targets, redirects, sitemap, 404, security headers, brand assets, and six CAD downloads.`,
+  `PASS ${routes.length} pages, ${seen.size} internal targets, redirects, sitemap, 404, security headers, brand assets.`,
 );

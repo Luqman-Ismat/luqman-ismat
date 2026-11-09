@@ -1,9 +1,9 @@
-import { Footer } from "@/components/footer";
+import Link from "next/link";
+import { Page } from "@/components/site/footer";
+import { SectionIndex } from "@/components/site/section-index";
 import { SocialShare } from "./social-share";
 import { RelatedArticles } from "./related-articles";
-import { OptimizedImage } from "./optimized-image";
 import { formatArticleDate } from "@/lib/articles";
-import Link from "next/link";
 
 interface BlogPostLayoutProps {
   title: string;
@@ -16,138 +16,71 @@ interface BlogPostLayoutProps {
   sources?: { title: string; url: string }[];
 }
 
-export function BlogPostLayout({
-  title,
-  description,
-  image,
-  content,
-  date,
-  category = "EPC LIFECYCLE",
-  slug = "",
-  sources,
-}: BlogPostLayoutProps) {
-  const currentUrl = `https://www.luqmanismat.com/blog/${slug}`;
-  const words = content.sections.reduce(
-    (total, section) => total + section.content.join(" ").split(/\s+/).length,
-    0,
-  );
+export function BlogPostLayout({ title, description, image, content, date, category = "EPC LIFECYCLE", slug = "", sources }: BlogPostLayoutProps) {
+  const url = `https://www.luqmanismat.com/blog/${slug}`;
+  const words = content.sections.reduce((t, s) => t + s.content.join(" ").split(/\s+/).length, 0);
+  const index = content.sections.map((s, i) => ({ id: `section-${i + 1}`, no: String(i + 1).padStart(2, "0"), label: s.title }));
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground">
-      <main id="main-content" className="pb-20">
-        <article className="container px-5 article-shell">
-          <div className="max-w-3xl mx-auto">
-            <Link
-              href="/blog"
-              className="inline-block mb-10 text-base underline underline-offset-4"
-            >
-              ← All articles
+    <Page>
+      <article>
+        <header className="art-head">
+          <div className="crumbs">
+            <Link className="label" href="/blog">
+              ← Journal
             </Link>
-            <p className="text-sm font-medium tracking-wider text-muted-foreground mb-5">
-              {category}
-            </p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight leading-[1.12] break-words">
-              {title}
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mt-6 leading-relaxed">
-              {description}
-            </p>
-            <div className="flex flex-wrap items-center justify-between gap-5 py-6 my-8 border-y border-border">
-              <div>
-                <p className="font-medium">Luqman Ismat</p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  {date ? (
-                    <time dateTime={date}>{formatArticleDate(date)}</time>
-                  ) : (
-                    "From the archive"
-                  )}{" "}
-                  · {Math.max(1, Math.ceil(words / 220))} min read
-                </p>
-              </div>
-              <SocialShare
-                url={currentUrl}
-                title={title}
-                description={description}
-              />
+            <span className="label">({category.toLowerCase()})</span>
+          </div>
+          <h1 data-lines>{title}</h1>
+          <p className="statement lede" data-lines data-delay="0.1">
+            {description}
+          </p>
+          <div className="art-meta">
+            <span className="label">
+              By <b>Luqman Ismat</b>
+            </span>
+            <span className="label">{date ? <time dateTime={date}>{formatArticleDate(date)}</time> : "From the archive"}</span>
+            <span className="label">{Math.max(1, Math.ceil(words / 220))} min read</span>
+            <div className="share">
+              <SocialShare url={url} title={title} description={description} />
             </div>
-            {image && (
-              <div className="relative aspect-[2/1] rounded-lg overflow-hidden mb-12">
-                <OptimizedImage
-                  src={image}
-                  alt=""
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 768px"
-                  className="object-cover"
-                />
-              </div>
-            )}
-            <nav
-              aria-label="Article contents"
-              className="border-y border-border py-6 mb-12"
-            >
-              <p className="font-semibold mb-3">In this article</p>
-              <ol className="space-y-2">
-                {content.sections.map((section, index) => (
-                  <li key={index}>
-                    <a
-                      className="text-muted-foreground hover:text-foreground underline underline-offset-4"
-                      href={`#section-${index + 1}`}
-                    >
-                      {section.title}
-                    </a>
-                  </li>
+          </div>
+        </header>
+        {image && (
+          <figure className="art-figure" data-clip style={{ marginBottom: 0 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={image} alt="" />
+          </figure>
+        )}
+        <div className="art-body">
+          <SectionIndex items={index} title="(In this article)" />
+          <div className="art-text">
+            {content.sections.map((s, i) => (
+              <section key={i} id={`section-${i + 1}`}>
+                <h2>{s.title}</h2>
+                {s.content.map((p, j) => (
+                  <p key={j}>{p}</p>
                 ))}
-              </ol>
-            </nav>
-            <div className="space-y-12">
-              {content.sections.map((section, index) => (
-                <section
-                  key={index}
-                  id={`section-${index + 1}`}
-                  className="scroll-mt-28"
-                >
-                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-5">
-                    {section.title}
-                  </h2>
-                  <div className="space-y-5">
-                    {section.content.map((paragraph, pIndex) => (
-                      <p key={pIndex} className="text-lg leading-[1.85]">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
+              </section>
+            ))}
             {sources && (
-              <section className="border-t border-border mt-12 pt-8">
-                <h2 className="text-2xl font-bold mb-4">References</h2>
-                <ul className="space-y-3">
-                  {sources.map((source) => (
-                    <li key={source.url}>
-                      <a
-                        href={source.url}
-                        className="underline underline-offset-4"
-                      >
-                        {source.title}
+              <section className="art-sources">
+                <p className="label">(References)</p>
+                <ul>
+                  {sources.map((s) => (
+                    <li key={s.url}>
+                      <a href={s.url} target="_blank" rel="noopener noreferrer">
+                        {s.title}
                       </a>
                     </li>
                   ))}
                 </ul>
               </section>
             )}
-            <div className="mt-16">
-              {slug && (
-                <RelatedArticles
-                  currentCategory={category}
-                  currentSlug={slug}
-                />
-              )}
-            </div>
           </div>
-        </article>
-      </main>
-      <Footer />
-    </div>
+        </div>
+      </article>
+      {slug && <RelatedArticles currentCategory={category} currentSlug={slug} />}
+      <div style={{ height: "clamp(110px, 14vw, 200px)" }} />
+    </Page>
   );
 }

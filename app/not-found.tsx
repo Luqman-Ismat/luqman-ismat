@@ -1,20 +1,27 @@
-import { PageShell, Action } from "@/components/consulting";
-import { PageIntro } from "@/components/studio-sections";
+import Link from "next/link";
+import { Page } from "@/components/site/footer";
+import { Roll } from "@/components/site/roll";
+
 export default function NotFound() {
   return (
-    <PageShell>
-      <PageIntro
-        label="404 / Page not found"
-        title="Let’s get you back."
-        text="This page may have moved. Explore the services or start a conversation about what you need."
-      >
-        <div className="action-row">
-          <Action href="/">Home</Action>
-          <Action href="/?s=ten21" secondary>
-            TEN21
-          </Action>
+    <Page>
+      <header className="page-head" style={{ minHeight: "70vh" }}>
+        <p className="label">(404)</p>
+        <h1 className="h-xl" data-lines>
+          Nothing here.
+        </h1>
+        <div className="lede">
+          <p className="body">This page may have moved. The services and the journal are still where you left them.</p>
+          <div className="action-row">
+            <Link className="btn" href="/">
+              <Roll text="Home" />
+            </Link>
+            <Link className="btn ghost" href="/services">
+              <Roll text="Services" />
+            </Link>
+          </div>
         </div>
-      </PageIntro>
-    </PageShell>
+      </header>
+    </Page>
   );
 }

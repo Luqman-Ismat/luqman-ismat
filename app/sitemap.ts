@@ -2,12 +2,11 @@ import { calculators } from "@/lib/engivault/calculator-data";
 import { getArticles } from "@/lib/articles";
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
-import { pieces } from "@/lib/ten21/collection";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...[
       "",
-      ...pieces.map((p) => `/ten21/${p.slug}`),
+      "/services",
       "/engivault",
       "/engivault/unit-converter",
       ...Object.keys(calculators).map(

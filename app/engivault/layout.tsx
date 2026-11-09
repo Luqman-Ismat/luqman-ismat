@@ -1,8 +1,10 @@
-import { PageShell } from "@/components/consulting";
+import { Page } from "@/components/site/footer";
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <PageShell>
+    <Page>
       <div className="vault">{children}</div>
-    </PageShell>
+      <div style={{ height: "clamp(110px, 14vw, 200px)" }} />
+    </Page>
   );
 }

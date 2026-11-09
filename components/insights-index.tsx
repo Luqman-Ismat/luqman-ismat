@@ -1,98 +1,69 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-type Article = {
-  slug: string;
-  title: string;
-  description: string;
-  category: string;
-  href: string;
-  date?: string | null;
-};
+
+type Article = { slug: string; title: string; description: string; category: string; href: string; date?: string | null };
+
+const date = (d?: string | null) =>
+  d ? new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }) : "Archive";
+
 export function InsightsIndex({ articles }: { articles: Article[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All topics");
-  const categories = [
-    "All topics",
-    ...new Set(articles.map((p) => p.category)),
-  ];
+  const categories = ["All topics", ...new Set(articles.map((p) => p.category))];
+  const q = query.toLowerCase().trim();
   const filtered = articles.filter(
-    (p) =>
-      (category === "All topics" || p.category === category) &&
-      `${p.title} ${p.description} ${p.category}`
-        .toLowerCase()
-        .includes(query.toLowerCase().trim()),
+    (p) => (category === "All topics" || p.category === category) && `${p.title} ${p.description} ${p.category}`.toLowerCase().includes(q),
   );
   return (
-    <div className="site-container insights-index">
+    <div className="sec" style={{ paddingTop: "clamp(56px, 7vw, 110px)" }}>
       <div className="insight-filters">
         <div>
-          <label htmlFor="article-query">Search insights</label>
-          <input
-            id="article-query"
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search a topic or title"
-          />
+          <label htmlFor="article-query">Search</label>
+          <input id="article-query" type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="A topic or a title" />
         </div>
         <div>
           <label htmlFor="article-category">Topic</label>
-          <select
-            id="article-category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
+          <select id="article-category" value={category} onChange={(e) => setCategory(e.target.value)}>
             {categories.map((c) => (
               <option key={c}>{c}</option>
             ))}
           </select>
         </div>
       </div>
-      <p className="result-count" role="status">
-        {filtered.length} {filtered.length === 1 ? "article" : "articles"}
+      <p className="label result-count" role="status">
+        ({String(filtered.length).padStart(2, "0")}) {filtered.length === 1 ? "Article" : "Articles"}
       </p>
-      <div className="insight-list">
-        {filtered.map((post) => (
-          <Link key={post.slug} href={post.href}>
-            <span className="insight-category">
-              {post.category}
-              <small>
-                {post.date
-                  ? new Date(post.date).toLocaleDateString(
-                      "en-US",
-                      {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                        timeZone: "UTC",
-                      },
-                    )
-                  : "From the archive"}
-              </small>
-            </span>
-            <div>
-              <h2>{post.title}</h2>
-              <p>{post.description}</p>
-            </div>
-            <span aria-hidden="true">↗</span>
-          </Link>
+      <ul className="jlist">
+        {filtered.map((p) => (
+          <li key={p.slug}>
+            <Link href={p.href}>
+              <span className="label j-cat">{p.category}</span>
+              <span className="j-title">
+                {p.title}
+                <span className="j-desc">{p.description}</span>
+              </span>
+              <span className="label j-date">{date(p.date)}</span>
+              <span className="j-go arrow" aria-hidden="true">↗</span>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
       {!filtered.length && (
         <div className="search-empty">
-          <h2>No matching articles.</h2>
-          <p>Try another term or browse all topics.</p>
-          <button
-            type="button"
-            className="consulting-button secondary"
-            onClick={() => {
-              setQuery("");
-              setCategory("All topics");
-            }}
-          >
-            Reset filters
-          </button>
+          <p className="h-m">Nothing matches that.</p>
+          <div className="action-row">
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={() => {
+                setQuery("");
+                setCategory("All topics");
+              }}
+            >
+              Clear search
+            </button>
+          </div>
         </div>
       )}
     </div>

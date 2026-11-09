@@ -1,38 +1,42 @@
 import { VaultCatalog } from "@/components/engivault/catalog";
 import { catalogItems, disciplines } from "@/lib/engivault/catalog";
-import { Accent, Words } from "@/components/redesign/primitives";
+
 export const metadata = {
-  title: "EngiVault: Free Engineering Calculators",
+  title: "EngiVault: free engineering calculators",
   description:
-    "Engineering calculators for fluids, heat transfer and piping that show their inputs, units, method and sources, checked against reference cases. Free to use.",
+    "Engineering calculators for fluids, heat transfer and piping that show their inputs, units, method and sources, checked against reference cases. Free to use. Built by Luqman Ismat.",
   alternates: { canonical: "/engivault" },
 };
+
 export default function Page() {
-  const sourced = catalogItems.length;
   return (
     <>
-      <section className="site-container vault-hero">
-        <div className="vault-hero-copy">
-          <p className="section-label"><span>(EV)</span>EngiVault · Engineering workspace</p>
-          <h1 className="vault-title" data-reveal>
-            <span className="vault-wordmark-xl">ENGi<Accent>Vault</Accent></span>
+      <header className="vault-head">
+        <p className="label">(EngiVault)</p>
+        <div className="copy">
+          <h1 className="h-xl" data-lines>
+            Calculations, worked in the open.
           </h1>
-          <p className="vault-lede" data-reveal>
-            <Words text="Engineering calculations," /> <Accent>worked in the open.</Accent>
-          </p>
-          <p data-reveal>
-            Explicit inputs and units, the method written out, and the sources cited. Results update as you type. No account needed.
+          <p className="body" data-fade>
+            <b>Explicit inputs and units, the method written out, and the sources cited.</b> Results update as you type. No account needed. Designed, built and maintained by Luqman Ismat at TEN21.
           </p>
         </div>
-        <dl className="vault-stats" data-reveal>
-          <div><dt>Calculations</dt><dd>{sourced}</dd></div>
-          <div><dt>Disciplines</dt><dd>{disciplines.length}</dd></div>
-          <div><dt>Methods shown</dt><dd>All</dd></div>
+        <dl className="stats" data-fade>
+          <div>
+            <dt>Calculations</dt>
+            <dd>{catalogItems.length}</dd>
+          </div>
+          <div>
+            <dt>Disciplines</dt>
+            <dd>{disciplines.length}</dd>
+          </div>
+          <div>
+            <dt>Methods</dt>
+            <dd>All</dd>
+          </div>
         </dl>
-      </section>
-      <div className="site-container">
-        <VaultCatalog items={catalogItems} />
-      </div>
+      </header>
+      <VaultCatalog items={catalogItems} />
     </>
   );
 }

@@ -1,69 +1,63 @@
-import { inquiryServices } from "@/lib/site";
-import { PageShell } from "@/components/consulting";
+import { inquiryServices, site } from "@/lib/site";
+import { Page } from "@/components/site/footer";
 import { ProjectInquiry } from "@/components/project-inquiry";
+import { Roll } from "@/components/site/roll";
+
 export const metadata = {
-  title: "Start a Project: Controls, Data and Tools",
+  title: "Start a project",
   description:
-    "Send a brief for project controls, data integrations, engineering tools or TEN21 apparel work. Based in Houston, working remote. I reply in two business days.",
+    "Send TEN21 Consulting a few lines about your website, payments, automation, knowledge base, dashboard or integration. Based in Houston. Replies within two business days.",
   alternates: { canonical: "/contact" },
 };
-export default async function ContactPage(props: {
-  searchParams: Promise<{ service?: string; package?: string }>;
-}) {
+
+export default async function ContactPage(props: { searchParams: Promise<{ service?: string; package?: string }> }) {
   const searchParams = await props.searchParams;
-  const serviceKey =
-    typeof searchParams.service === "string" ? searchParams.service : "";
-  const service =
-    inquiryServices[serviceKey as keyof typeof inquiryServices] ||
-    "General inquiry";
-  const selectedPackage =
-    typeof searchParams.package === "string"
-      ? searchParams.package.slice(0, 150)
-      : "";
+  const key = typeof searchParams.service === "string" ? searchParams.service : "";
+  const service = inquiryServices[key as keyof typeof inquiryServices] || "General inquiry";
+  const pkg = typeof searchParams.package === "string" ? searchParams.package.slice(0, 150) : "";
   return (
-    <PageShell>
-      <section className="consulting-wrap contact-heading">
-        <h1>What are you working on?</h1>
-        <p>
-          Tell me about the process, system or garment. I reply within two
-          business days.
+    <Page>
+      <header className="page-head">
+        <p className="label">(Start a project)</p>
+        <h1 className="h-xl" data-lines>
+          What needs doing?
+        </h1>
+        <p className="statement lede" data-lines data-delay="0.15">
+          A few lines is enough. <b>You&apos;ll hear back within two business days.</b>
         </p>
-      </section>
-      <section className="consulting-wrap contact-layout">
-        <aside>
-          <h2>Let’s talk directly.</h2>
-          <p>
-            You’ll work with me from the first conversation through the handoff.
-          </p>
-          <a className="contact-email" href="mailto:Luqman.ismat@gmail.com">
-            Luqman.ismat@gmail.com ↗
-          </a>
-          <a className="text-link" href="tel:+18326796731">
-            (832) 679-6731
-          </a>
+      </header>
+      <section className="sec contact-grid" style={{ paddingTop: "clamp(56px, 7vw, 110px)" }}>
+        <aside className="contact-aside">
+          <div>
+            <p className="label">(Email)</p>
+            <a className="big" href={`mailto:${site.email}`}>
+              <Roll text={site.email} />
+            </a>
+          </div>
+          <div>
+            <p className="label">(Phone)</p>
+            <a className="big" href={site.phoneHref}>
+              <Roll text={site.phone} />
+            </a>
+          </div>
           {process.env.NEXT_PUBLIC_BOOKING_URL && (
-            <a className="consulting-button secondary contact-book" href={process.env.NEXT_PUBLIC_BOOKING_URL} target="_blank" rel="noopener noreferrer">
-              Book a 20-minute call ↗
+            <a className="btn ghost" href={process.env.NEXT_PUBLIC_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+              <Roll text="Book a 20 minute call" /> <span className="arrow" aria-hidden="true">↗</span>
             </a>
           )}
-          <div className="contact-next">
-            <p className="eyebrow">What happens next</p>
+          <div>
+            <p className="label">(What happens next)</p>
             <ol>
-              <li>Send your project brief.</li>
-              <li>We discuss the scope and any open questions.</li>
-              <li>
-                You receive an agreed deliverable, timeline, and price before
-                work begins.
-              </li>
+              <li>You send the brief.</li>
+              <li>We talk through scope and open questions.</li>
+              <li>You get the deliverable, timeline and price in writing before work begins.</li>
             </ol>
           </div>
         </aside>
-        <ProjectInquiry
-          initialService={service}
-          initialPackage={selectedPackage}
-          key={`${service}-${selectedPackage}`}
-        />
+        <div className="contact-form">
+          <ProjectInquiry initialService={service} initialPackage={pkg} />
+        </div>
       </section>
-    </PageShell>
+    </Page>
   );
 }

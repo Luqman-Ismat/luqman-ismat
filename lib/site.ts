@@ -1,16 +1,23 @@
 export const site = {
-  name: "Luqman Ismat",
+  name: "TEN21 Consulting",
+  founder: "Luqman Ismat",
   url: "https://www.luqmanismat.com",
   email: "Luqman.ismat@gmail.com",
+  phone: "(832) 679-6731",
+  phoneHref: "tel:+18326796731",
+  linkedin: "https://www.linkedin.com/in/luqman-ismat/",
+  github: "https://github.com/Luqman-Ismat",
   description:
-    "Independent consulting for engineering, project delivery, dashboards, and connected operations. Apparel and product development through TEN21.",
+    "TEN21 Consulting is Luqman Ismat's technical shop in Houston: websites and apps, payments and booking, AI automation, company knowledge bases, dashboards and integrations.",
 };
+
+/* Keys used by /contact?service=... ; values are what the form shows. */
 export const inquiryServices = {
-  consulting: "Consulting & operations",
-  engineering: "Engineering systems",
-  projects: "Project management & controls",
+  websites: "Websites & apps",
+  payments: "Payments, booking & invoicing",
+  automation: "AI automation",
+  knowledge: "Company knowledge base",
   dashboards: "Dashboards & reporting",
-  integrations: "APIs, databases & integrations",
-  apparel: "TEN21 · Contract development",
-  ten21: "TEN21 · Collection inquiry",
+  integrations: "Integrations & data",
+  engineering: "Engineering tools & project controls",
 };
