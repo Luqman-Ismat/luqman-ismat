@@ -36,3 +36,4 @@ next-env.d.ts
 # Python example runtime artifacts
 __pycache__/
 *.pyc
+.jury/

@@ -3,36 +3,30 @@
 ## Register
 brand
 
-## Users
-Project teams, engineering groups, founders, and businesses that need better delivery processes, project controls, dashboards, live integrations, or internal tools. Apparel visitors include people following the TEN21 label and other brands seeking contract development.
+## Who it is
+TEN21 Consulting, founded and run by Luqman Ismat in Houston. The name comes from two Houston ZIP codes, 77010 and 77021. Luqman's name stays on the site: he is the founder and the person clients work with.
 
-## Product purpose
-Luqman Ismat is the umbrella practice. Consulting serves technical and business operations across industries. EngiVault is a working independent product demonstrating engineering software. TEN21 is the user's own apparel label in development, also offering CAD and technical development to other companies.
+TEN21 is no longer an apparel label. The clothing collection, tech packs and CAD downloads are retired; old URLs redirect.
 
-## Identity and evidence
-The user's September 27 requests retain the personal site's main components and split layouts while merging in EngiVault's design. EngiVault's repository theme guide establishes Montserrat, monochrome surfaces, and precise controls. Existing product screenshots and original Field 01 CAD provide evidence. Do not invent client outcomes, product availability, certifications, live connections, or manufacturing approval.
+## What it sells
+A one-stop technical shop ("the odd jobs shop in a tech-infused world"):
+1. Websites & apps
+2. Payments, booking & invoicing (Stripe, Stripe Connect)
+3. AI automation
+4. Company knowledge base (cross-industry)
+5. Dashboards & reporting
+6. Integrations & data
+7. Engineering tools & project controls
 
-## Content priorities
-- Lead with work a client can commission, concrete deliverables, and a clear next step.
-- Keep project management, controls, dashboards, automation, integrations, engineering and CAD discoverable.
-- Distinguish the TEN21 collection from contract development; no store until actual products and sales operations exist.
-- Preserve useful articles, source references and verified case studies. Remove biography-heavy promotion and unsupported legacy project claims.
-- Show a reviewed email handoff honestly; do not simulate form delivery or mailing-list subscriptions.
+Content model: `lib/services.ts` (services, starting points, process steps). Contact keys: `lib/site.ts` `inquiryServices`.
 
-## Accessibility and release
-Keyboard-operable viewers, labels, mobile reflow, reduced motion and saved color preference. Build, lint, route/content checks and dependency audit are release gates. Prepare locally; the user has not requested a production deployment in this revision.
+Published prices only: Workflow review $250, Build sprint $1,500+, Custom system $3,000+, Engineering tool $1,500+. Everything else is "Quoted to scope".
 
-The latest request integrates EngiVault's public calculation library directly into the website, preserves the blog archive and service landing pages, and requires viewport-wide primary layouts. Cloud accounts, project storage, the materials catalog, and the external API remain outside this local integration.
+## Proof
+EngiVault (live calculator library) is the proof of work. App screenshots in `public/images/work` are demos with synthetic data and are labelled so wherever they appear.
 
-## Personal identity and neutral work examples
-Retain an About page and experience Gantt chart. The user explicitly requested keeping public employer names and confirmed a May 2026 industrial engineering graduation, November 2025–May 2026 Project Controls Consultant role, and current Risk Analyst role at Pinnacle. Demonstrations of supplied work must use fictional records and neutral branding without disclosing client identities, operational information, or credentials. They demonstrate workflows; they do not imply a live client connection or documented client outcomes.
-
-## October 2026 direction
-The user asked to move past the traditional website: an animated, fluid, 3D-led homepage and navigation inspired by Orano's innovation experience, built with anime.js and similar libraries. The homepage is a chapter journey; inner pages stay fast to scan behind a minimal HUD and menu.
-
-TEN21 is redefined by the user as oversized, Yohji Yamamoto-inspired silhouettes built on Balochi garment structure and pakka doch embroidery. Collection 01 (Pashk Coat, Jig Kameez, Chin Shalwar, Sadri) carries full development tech packs. They are Rev A development specifications: not sampled, fitted, graded on a body, or approved for production, and not for sale. Field 01 is retired from the site.
-
-Working demos must look native to the site and show that the work adapts to any client, so they render in the site theme and can be re-branded live. All demo records stay fictional.
-
-## Name
-TEN21 (renamed from Indus Blue, October 2026) is named for two Houston ZIP codes, 77010 (Downtown) and 77021 (southeast of downtown). The site states the collection is in development, not sampled and not for sale.
+## Rules
+- No invented clients, results, testimonials, availability claims or prices.
+- No em or en dashes in copy.
+- Employer names (Chemex Global, Pinnacle) appear only on About, as the user asked.
+- Prepare locally; do not deploy or push without the user's go-ahead.
