@@ -2205,3 +2205,14 @@ main {
 .vault > :first-child:not(.vault-head) {
   margin-top: clamp(40px, 5vw, 72px);
 }
+
+.roll > .sr-only { position: absolute; }
+
+.ftr .label { color: rgba(11, 11, 10, 0.7); }
+.focus-list a:focus-visible { opacity: 1; }
+.hdr-mark { transition: opacity 0.4s var(--ease); }
+@media (hover: hover) {
+  .hdr-mark:hover { opacity: 0.6; }
+  .strip-btn:hover { background: var(--paper); color: var(--ink); }
+  .hdr-cta:hover .arrow { transform: translate(3px, -3px); }
+}

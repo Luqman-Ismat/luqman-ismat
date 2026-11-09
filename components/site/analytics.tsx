@@ -7,5 +7,5 @@ import { recordFirstTouch } from "@/lib/leads/attribution";
    attribution for inquiries. */
 export function SiteAnalytics() {
   useEffect(() => { recordFirstTouch(); }, []);
-  return <Analytics />;
+  return process.env.NEXT_PUBLIC_VERCEL_ENV ? <Analytics /> : null;
 }

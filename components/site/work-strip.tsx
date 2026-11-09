@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
+import type * as THREE_NS from "three";
 
 export type StripItem = { src: string; title: string; note: string; href: string; alt: string };
 
@@ -51,7 +51,10 @@ export function WorkStrip({ items }: { items: StripItem[] }) {
     const el = host.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let renderer: THREE.WebGLRenderer;
+    let teardown: (() => void) | undefined;
+    let cancelled = false;
+    const start = (THREE: typeof THREE_NS, el: HTMLDivElement) => {
+    let renderer: THREE_NS.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
     } catch {
@@ -119,7 +122,7 @@ export function WorkStrip({ items }: { items: StripItem[] }) {
       total = step * n;
       meshes.forEach((m) => {
         m.scale.set(cardW, cardH, 1);
-        const u = (m.material as THREE.ShaderMaterial).uniforms;
+        const u = (m.material as THREE_NS.ShaderMaterial).uniforms;
         u.uHalfW.value = w / 2;
         const ia = m.userData.imgAspect || 1.44;
         const pa = cardW / cardH;
@@ -216,7 +219,7 @@ export function WorkStrip({ items }: { items: StripItem[] }) {
       meshes.forEach((m, i) => {
         const x = wrap(i * step - current);
         m.position.x = x;
-        const u = (m.material as THREE.ShaderMaterial).uniforms;
+        const u = (m.material as THREE_NS.ShaderMaterial).uniforms;
         const d = Math.abs(x);
         u.uGray.value = Math.min(1, Math.max(0, (d - step * 0.15) / (step * 0.45)));
         u.uDim.value = 1 - 0.55 * Math.min(1, d / (w * 0.6));
@@ -243,8 +246,8 @@ export function WorkStrip({ items }: { items: StripItem[] }) {
       window.removeEventListener("pointercancel", up);
       el.removeEventListener("wheel", wheel);
       meshes.forEach((m) => {
-        const mat = m.material as THREE.ShaderMaterial;
-        const t = mat.uniforms.uTex.value as THREE.Texture;
+        const mat = m.material as THREE_NS.ShaderMaterial;
+        const t = mat.uniforms.uTex.value as THREE_NS.Texture;
         if (t !== blank) t.dispose();
         mat.dispose();
       });
@@ -254,6 +257,24 @@ export function WorkStrip({ items }: { items: StripItem[] }) {
       renderer.domElement.remove();
       api.current = null;
       setGl(false);
+    };
+  };
+    // three.js loads only when the strip is about to be seen
+    const near = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        near.disconnect();
+        import("three").then((T) => {
+          if (!cancelled) teardown = start(T, el);
+        });
+      },
+      { rootMargin: "600px 0px" },
+    );
+    near.observe(el);
+    return () => {
+      cancelled = true;
+      near.disconnect();
+      teardown?.();
     };
   }, [items, n]);
 
@@ -266,7 +287,7 @@ export function WorkStrip({ items }: { items: StripItem[] }) {
           {items.map((it) => (
             <Link key={it.src} href={it.href} tabIndex={gl ? -1 : undefined} className="mono-img">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={it.src} alt={it.alt} loading="lazy" />
+              <img src={it.src} alt={it.alt} width={1440} height={1000} loading="lazy" />
             </Link>
           ))}
         </div>

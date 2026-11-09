@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Page } from "@/components/site/footer";
 import { SectionIndex } from "@/components/site/section-index";
 import { SocialShare } from "./social-share";
@@ -47,8 +48,7 @@ export function BlogPostLayout({ title, description, image, content, date, categ
         </header>
         {image && (
           <figure className="art-figure" data-clip style={{ marginBottom: 0 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={image} alt="" />
+            <Image src={image} alt="" fill priority sizes="100vw" quality={75} />
           </figure>
         )}
         <div className="art-body">

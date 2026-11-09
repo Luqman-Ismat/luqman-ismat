@@ -73,7 +73,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <p className="ftr-word" aria-hidden="true">
+        <p className="ftr-word" aria-hidden="true" role="presentation">
           <span>T</span>
           <span>E</span>
           <span>N</span>

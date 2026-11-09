@@ -16,7 +16,7 @@ export async function generateMetadata({
   return {
     title: c?.title ?? "Calculator",
     description: c
-      ? `${c.title}: a free ${c.category.toLowerCase()} calculator with explicit units, the method written out and cited sources. Results update as you type.`
+      ? `${c.title}: free ${c.category.toLowerCase()} calculator with units, method and sources shown.`
       : undefined,
     alternates: { canonical: `/engivault/calculators/${slug}` },
   };

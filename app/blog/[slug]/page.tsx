@@ -14,7 +14,7 @@ export async function generateMetadata(props: {
   const article = articles.find((article) => article.slug === params.slug);
   if (!article) return {};
   return {
-    title: article.title,
+    title: article.title.length > 50 ? { absolute: article.title } : article.title,
     description: article.description,
     alternates: {
       canonical: `https://www.luqmanismat.com/blog/${article.slug}`,
@@ -24,6 +24,7 @@ export async function generateMetadata(props: {
       title: article.title,
       description: article.description,
       publishedTime: article.date,
+      images: article.image ? [{ url: article.image }] : undefined,
       url: `https://www.luqmanismat.com/blog/${article.slug}`,
     },
   };

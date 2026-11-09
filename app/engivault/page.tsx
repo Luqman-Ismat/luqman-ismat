@@ -4,7 +4,7 @@ import { catalogItems, disciplines } from "@/lib/engivault/catalog";
 export const metadata = {
   title: "EngiVault: free engineering calculators",
   description:
-    "Engineering calculators for fluids, heat transfer and piping that show their inputs, units, method and sources, checked against reference cases. Free to use. Built by Luqman Ismat.",
+    "Free engineering calculators for fluids, heat transfer and piping. Inputs, units, method and sources shown, checked against reference cases.",
   alternates: { canonical: "/engivault" },
 };
 

@@ -30,7 +30,7 @@ export default function About() {
       <section className="sec about-hero" style={{ paddingTop: "clamp(48px, 6vw, 96px)" }}>
         <div className="portrait mono-img" data-clip>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/about/luqman-uh-graduation.jpg" alt="Luqman Ismat at the University of Houston" />
+          <img src="/images/about/luqman-uh-graduation.jpg" width={1132} height={2000} alt="Luqman Ismat at the University of Houston" />
         </div>
         <div className="copy">
           <p className="statement" data-lines>

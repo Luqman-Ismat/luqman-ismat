@@ -58,11 +58,12 @@ export default function Home() {
         <figure className="hero-figure" data-intro style={{ ...d("0.9s"), margin: 0 }}>
           <div className="hero-figure-img mono-img">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/editorial/waterwall-through-trees.webp" alt="The Waterwall in Houston seen through oak branches" data-parallax="6" />
+            <img src="/images/editorial/waterwall-through-trees-700.webp" width={700} height={875} alt="The Waterwall in Houston seen through oak branches" data-parallax="6" fetchPriority="high" />
           </div>
           <figcaption className="label">(Houston) Photo: Justin Wolff</figcaption>
         </figure>
-        <p className="hero-word" aria-label="TEN21">
+        <p className="hero-word">
+          <span className="sr-only">TEN21</span>
           {"TEN21".split("").map((c, i) => (
             <span key={i} className="slot" aria-hidden="true">
               <span style={{ "--i": i } as CSSProperties}>{c}</span>
@@ -158,7 +159,7 @@ export default function Home() {
         <div className="proof">
           <div className="proof-img" data-clip>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/consulting/engivault-directory.png" alt="The EngiVault calculator library" loading="lazy" />
+            <img src="/images/consulting/engivault-directory.png" width={1440} height={1000} alt="The EngiVault calculator library" loading="lazy" />
           </div>
           <div className="proof-copy">
             <p className="label">(Proof of work)</p>
@@ -195,7 +196,7 @@ export default function Home() {
         <div className="founder">
           <div className="founder-img mono-img" data-clip>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/about/luqman-uh-graduation.jpg" alt="Luqman Ismat at the University of Houston" loading="lazy" />
+            <img src="/images/about/luqman-uh-graduation.jpg" width={1132} height={2000} alt="Luqman Ismat at the University of Houston" loading="lazy" />
           </div>
           <div className="founder-copy">
             <p className="label" id="founder-title">

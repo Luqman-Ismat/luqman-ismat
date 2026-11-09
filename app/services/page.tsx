@@ -6,9 +6,9 @@ import { Roll } from "@/components/site/roll";
 import { services, startingPoints } from "@/lib/services";
 
 export const metadata = {
-  title: "Services: websites, payments, automation, knowledge bases, dashboards, integrations",
+  title: "Services",
   description:
-    "What TEN21 Consulting builds: websites and apps, Stripe payments and booking, AI automation, company knowledge bases, dashboards, integrations and engineering tools. Scope and price agreed first.",
+    "Websites, Stripe payments and booking, AI automation, knowledge bases, dashboards, integrations and engineering tools. Scope and price agreed first.",
   alternates: { canonical: "/services" },
 };
 
