@@ -2126,40 +2126,6 @@ main {
   }
 }
 
-/* compact header while reading */
-.hdr-nav,
-.hdr-cta {
-  transition: opacity 0.5s var(--ease), transform 0.7s var(--ease), visibility 0s linear 0s;
-}
-.hdr.is-compact .hdr-nav,
-.hdr.is-compact .hdr-cta {
-  opacity: 0;
-  transform: translateY(-10px);
-  pointer-events: none;
-  visibility: hidden;
-  transition: opacity 0.4s var(--ease), transform 0.6s var(--ease), visibility 0s linear 0.4s;
-}
-@media (min-width: 901px) {
-  .hdr-menu {
-    display: inline-flex;
-    align-items: center;
-    grid-column: 11 / span 2;
-    grid-row: 1;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s var(--ease), visibility 0s linear 0.5s;
-  }
-  .hdr.is-compact .hdr-menu,
-  .hdr-menu[aria-expanded="true"] {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.5s var(--ease) 0.15s, visibility 0s;
-  }
-  .hdr-cta {
-    grid-row: 1;
-  }
-}
-
 @media (min-width: 901px) {
   .menu {
     display: grid;
@@ -2216,3 +2182,102 @@ main {
   .strip-btn:hover { background: var(--paper); color: var(--ink); }
   .hdr-cta:hover .arrow { transform: translate(3px, -3px); }
 }
+
+.name-note .zips span { color: #8a8983; }
+.inquiry-form label span { color: var(--dim); }
+
+/* ---------- critic round 1 ---------- */
+.roll > span::before,
+.roll > span::after {
+  content: attr(data-c);
+  display: block;
+  white-space: pre;
+}
+.hdr {
+  mix-blend-mode: normal;
+  background: linear-gradient(to bottom, rgba(11, 11, 10, 0.94) 0%, rgba(11, 11, 10, 0.72) 62%, rgba(11, 11, 10, 0) 100%);
+  transition: transform 0.7s var(--ease);
+}
+.hdr.is-hidden {
+  transform: translateY(-105%);
+}
+.hdr:focus-within {
+  transform: none;
+}
+.menu:not(.is-open) {
+  display: none;
+}
+.menu.is-open {
+  animation: menu-in 0.8s var(--ease-io) both;
+}
+@keyframes menu-in {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+main.page-main {
+  background: var(--ink);
+}
+.grid-lines {
+  z-index: 2;
+}
+.ftr-shell {
+  clip-path: none;
+}
+@media (min-width: 761px) {
+  .ftr-shell {
+    position: sticky;
+    bottom: 0;
+    z-index: 0;
+  }
+}
+/* focus */
+.inquiry-form input:focus-visible,
+.inquiry-form select:focus-visible,
+.inquiry-form textarea:focus-visible,
+.insight-filters input:focus-visible,
+.insight-filters select:focus-visible,
+.vault input:focus-visible,
+.vault select:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 6px;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 4px;
+}
+.ftr a:focus-visible {
+  outline-color: var(--ink);
+}
+/* hover on every primary target */
+@media (hover: hover) {
+  .hdr-cta:hover,
+  .hdr-nav a:hover { opacity: 1; }
+  .hdr-cta { border-bottom: 1px solid transparent; transition: border-color 0.4s var(--ease); }
+  .hdr-cta:hover { border-bottom-color: #fff; }
+  .idx li a:hover { color: var(--paper); }
+  .idx li a:hover i { width: 100%; transition: width 0.6s var(--ease); }
+  .article-share a:hover,
+  .article-share button:hover,
+  .svc-meta .btn:hover { background: var(--paper); color: var(--ink); }
+  .crumbs a:hover,
+  .art-sources a:hover,
+  .prose a:hover,
+  .field-help a:hover { color: var(--paper); border-bottom-color: var(--paper); }
+  .focus-list a:hover .nm { transform: translateX(14px); }
+  .ticks li { transition: padding 0.5s var(--ease); }
+  .contact-aside .big:hover,
+  .ftr-col .big:hover { opacity: 0.7; }
+}
+.focus-list .nm { transition: transform 0.7s var(--ease); display: inline-block; }
+/* tap targets */
+.crumbs a,
+.field-help a,
+.art-sources a,
+.prose a {
+  display: inline-block;
+  padding-block: 6px;
+}
+.crumbs a { padding: 12px 0; }
+/* tighter rhythm */
+.sec { padding-top: clamp(96px, 11vw, 180px); }

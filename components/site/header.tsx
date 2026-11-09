@@ -97,7 +97,7 @@ export function Header() {
 
   return (
     <>
-      <header className={compact || open ? "hdr is-compact" : "hdr"}>
+      <header className={compact && !open ? "hdr is-hidden" : "hdr"}>
         <Link href="/" className="hdr-mark" aria-label="TEN21 Consulting, home">
           <span>TEN21</span>
           <span className="label">(Consulting)</span>

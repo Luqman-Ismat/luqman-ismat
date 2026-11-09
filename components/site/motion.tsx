@@ -178,14 +178,6 @@ export function Motion() {
         gsap.from(el, { y: 26, opacity: 0, duration: 1.3, ease: "expo.out", delay: Number(el.dataset.delay || 0), scrollTrigger: st(el, "top 92%") });
       });
 
-      const ftr = document.querySelector<HTMLElement>("[data-ftr]");
-      if (ftr) {
-        gsap.fromTo(
-          ftr,
-          { yPercent: -38 },
-          { yPercent: 0, ease: "none", scrollTrigger: { trigger: ftr.parentElement, start: "top bottom", end: "bottom bottom", scrub: true } },
-        );
-      }
     });
 
     const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 400);

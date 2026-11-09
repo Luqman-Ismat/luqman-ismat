@@ -7,10 +7,7 @@ export function Roll({ text }: { text: string }) {
     <span className="roll">
       <span className="sr-only">{text}</span>
       {Array.from(text).map((ch, i) => (
-        <span key={i} aria-hidden="true" style={{ "--i": i } as CSSProperties}>
-          <span>{ch === " " ? "\u00a0" : ch}</span>
-          <span>{ch === " " ? "\u00a0" : ch}</span>
-        </span>
+        <span key={i} aria-hidden="true" data-c={ch === " " ? "\u00a0" : ch} style={{ "--i": i } as CSSProperties} />
       ))}
     </span>
   );

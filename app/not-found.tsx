@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Page } from "@/components/site/footer";
 import { Roll } from "@/components/site/roll";
 
+export const metadata = { title: "Page not found" };
+
 export default function NotFound() {
   return (
     <Page>
