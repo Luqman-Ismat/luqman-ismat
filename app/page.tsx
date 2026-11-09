@@ -17,12 +17,12 @@ export const metadata = {
 };
 
 const work: StripItem[] = [
-  { src: "/images/consulting/engivault-calculator.png", title: "EngiVault, calculator", note: "Live product", href: "/engivault", alt: "An EngiVault calculator with inputs, results and cited sources" },
-  { src: "/images/work/project-controls.webp", title: "Project controls workspace", note: "Demo, synthetic data", href: "/services#dashboards", alt: "A project schedule with a Gantt chart and progress columns" },
-  { src: "/images/work/connected-operations.webp", title: "Connected operations", note: "Demo, synthetic data", href: "/services#integrations", alt: "A reconciliation table matching records between two systems" },
-  { src: "/images/consulting/engivault-directory.png", title: "EngiVault, library", note: "Live product", href: "/engivault", alt: "The EngiVault library of engineering calculations" },
-  { src: "/images/work/inspection-planning.webp", title: "Inspection planning", note: "Demo, synthetic data", href: "/services#engineering", alt: "An inspection planning screen with task counts and filters" },
-  { src: "/images/work/risk-workspace.webp", title: "Risk workspace", note: "Demo, synthetic data", href: "/services#dashboards", alt: "A risk dashboard with an exposure chart and a ranked list" },
+  { src: "/images/consulting/engivault-calculator.png", title: "EngiVault, calculator", note: "Live product. Units, method and sources on every result", href: "/engivault", alt: "An EngiVault calculator with inputs, results and cited sources" },
+  { src: "/images/work/project-controls.webp", title: "Project controls workspace", note: "Demo, synthetic data. Schedule, progress and cost in one view", href: "/services#dashboards", alt: "A project schedule with a Gantt chart and progress columns" },
+  { src: "/images/work/connected-operations.webp", title: "Connected operations", note: "Demo, synthetic data. Records matched between two systems", href: "/services#integrations", alt: "A reconciliation table matching records between two systems" },
+  { src: "/images/consulting/engivault-directory.png", title: "EngiVault, library", note: "Live product. 45 calculations, searchable by discipline", href: "/engivault", alt: "The EngiVault library of engineering calculations" },
+  { src: "/images/work/inspection-planning.webp", title: "Inspection planning", note: "Demo, synthetic data. Work planned by risk, not by habit", href: "/services#engineering", alt: "An inspection planning screen with task counts and filters" },
+  { src: "/images/work/risk-workspace.webp", title: "Risk workspace", note: "Demo, synthetic data. Exposure ranked so the next action is clear", href: "/services#dashboards", alt: "A risk dashboard with an exposure chart and a ranked list" },
 ];
 
 const d = (s: string) => ({ "--d": s }) as CSSProperties;
