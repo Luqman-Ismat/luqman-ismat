@@ -2968,3 +2968,10 @@ html, body { overflow-x: clip; }
 .cs-together .cs-open { grid-template-columns: 1fr auto; }
 .cs-together .cs-open > .cs-try { grid-column: 1; }
 .cs-together .cs-open > .btn { grid-column: 2; }
+
+/* embeds closer to the page language */
+:root .demo-scope.demo-scope { --fs-xs: 12px; --fs-sm: 12.5px; --radius: 2px; --radius-sm: 2px; --radius-md: 2px; --radius-lg: 3px; --radius-xl: 3px; }
+.demo-scope *:not(.vault-chip-pill) { border-radius: min(var(--r, 3px), 3px); }
+.demo-scope button, .demo-scope .btn, .demo-scope select, .demo-scope input { border-radius: 2px !important; }
+.demo-scope [class*="card"], .demo-scope [class*="panel"], .demo-scope [class*="tile"] { border-radius: 2px !important; }
+.demo-scope .example-head small, .demo-scope .demo-disclosure { font: 400 11.5px var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); }
