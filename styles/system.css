@@ -2860,8 +2860,10 @@ html, body { overflow-x: clip; }
 
 /* phones: code-drawn visuals keep their type legible by scrolling sideways instead of shrinking */
 @media (max-width: 600px) {
-  .lc, .svc-vis, .plant { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .lc svg, .svc-vis .sv, .plant > svg { min-width: 560px; }
+  .lc, .lg, .svc-vis, .plant { overflow-x: auto; max-width: 100%; -webkit-overflow-scrolling: touch; }
+  .lc svg, .lg svg, .svc-vis .sv, .plant > svg { min-width: 560px; }
+  .cs-cover-vis, .wk-vis, .ch-live, .cs-next-vis, .exp-vis, .cs-main { min-width: 0; max-width: 100%; }
+  .cs-cover { grid-template-columns: minmax(0, 1fr); }
   .lc-read { position: sticky; left: 0; }
   .cs-vault .vault-grid { max-height: 420px; }
 }
