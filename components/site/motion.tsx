@@ -211,15 +211,15 @@ export function Motion() {
             const picks = gsap.utils.shuffle([...outer]).slice(0, Math.max(2, Math.round(outer.length * 0.12)));
             gsap.to(picks, {
               keyframes: [
-                { y: () => rnd(-14, -4), rotation: () => rnd(-25, 25), x: () => rnd(-6, 6), duration: 0.28, ease: "power3.out" },
+                { y: () => rnd(-8, -3), rotation: () => rnd(-7, 7), x: () => rnd(-3, 3), duration: 0.22, ease: "power3.out" },
                 { y: 0, rotation: 0, x: 0, duration: 0.9, ease: "expo.out" },
               ],
               stagger: 0.03,
             });
           }
-          gsap.delayedCall(rnd(3.5, 7.5), twitch);
+          gsap.delayedCall(rnd(9, 16), twitch);
         };
-        gsap.delayedCall(rnd(3, 6), twitch);
+        gsap.delayedCall(rnd(6, 10), twitch);
 
         // pointer nearby nudges the letters apart a little
         if (window.matchMedia("(hover: hover)").matches) {

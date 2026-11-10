@@ -40,7 +40,7 @@ export default function Page() {
       <section className="vault-plant visuals" aria-label="Interactive process schematic">
         <div className="product-app-bar">
           <span className="label">(Schematic) An illustrative loop</span>
-          <span className="label">Hover any equipment or instrument. Each opens its calculation.</span>
+          <span className="label">Hover or tap any equipment or instrument. Each opens its calculation.</span>
         </div>
         <PlantSchematic hotspots={hotspots} />
       </section>

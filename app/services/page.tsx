@@ -28,8 +28,8 @@ export default function ServicesPage() {
       <div className="sec svc-layout">
         <SectionIndex items={services.map((s) => ({ id: s.id, no: s.no, label: s.short }))} />
         <div className="svc-list">
-          {services.map((s) => (
-            <section key={s.id} id={s.id} className="svc" aria-labelledby={`${s.id}-title`}>
+          {services.map((s, i) => (
+            <section key={s.id} id={s.id} className={`svc svc-${i % 3}`} aria-labelledby={`${s.id}-title`}>
               <div className="svc-top">
                 <p className="label">({s.no}) / {String(services.length).padStart(2, "0")}</p>
                 <Title id={`${s.id}-title`} text={s.name} pos="tl" className="svc-title" />
@@ -66,8 +66,8 @@ export default function ServicesPage() {
                 </div>
               </div>
               <div className="svc-more">
-                <div data-fade>
-                  <p className="label">(The first week)</p>
+                <details data-fade>
+                  <summary className="label">(The first week) <span className="arrow" aria-hidden="true">+</span></summary>
                   <ol className="svc-week">
                     {s.week.map((w, i) => (
                       <li key={w}>
@@ -76,9 +76,9 @@ export default function ServicesPage() {
                       </li>
                     ))}
                   </ol>
-                </div>
-                <div data-fade data-delay="0.1">
-                  <p className="label">(People ask)</p>
+                </details>
+                <details data-fade data-delay="0.1">
+                  <summary className="label">(People ask) <span className="arrow" aria-hidden="true">+</span></summary>
                   <dl className="svc-faq">
                     {s.faq.map((f) => (
                       <div key={f.q}>
@@ -87,7 +87,7 @@ export default function ServicesPage() {
                       </div>
                     ))}
                   </dl>
-                </div>
+                </details>
               </div>
             </section>
           ))}

@@ -72,11 +72,11 @@ export default function Home() {
       <section className="glance" aria-label="At a glance">
         <ul>
           {[
-            ["First reply", "2 days"],
-            ["Scope and price", "In writing"],
+            ["Houston", "Est. 2026"],
+            ["Scope and price", "In writing, first"],
             ["Services", String(services.length).padStart(2, "0")],
-            ["Calculators published", "45"],
-            ["Vendors you deal with", "1"],
+            ["Live products to try", "03"],
+            ["First reply", "2 days"],
           ].map(([k, v], i) => (
             <li key={k} data-fade data-delay={i * 0.06}>
               <span className="label">{k}</span>
@@ -151,7 +151,7 @@ export default function Home() {
         </p>
         <ul className="how hold">
           {[
-            ["Your name on the accounts", "Domain, hosting, Stripe, email and data live in accounts you own. If we part ways, nothing stops working and nothing is held hostage."],
+            ["Your name on the accounts", "Domain, hosting, Stripe, email and data live in accounts you own. If we part ways, nothing stops working."],
             ["Notes a stranger could follow", "Every build ships with plain-language notes: what it does, where it lives, what to do when it breaks. Written for the next person, not for me."],
             ["Numbers you can trace", "Dashboards open the records behind each figure. Calculators show their method. Automations keep a log. If a result cannot be checked, it is not done."],
             ["Edits without a developer", "Text, prices, hours and photos are yours to change from a simple editor. Structural changes are a message away."],

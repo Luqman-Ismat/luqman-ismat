@@ -3,7 +3,6 @@ import { Page } from "@/components/site/footer";
 import { ProjectInquiry } from "@/components/project-inquiry";
 import { Roll } from "@/components/site/roll";
 import { Title, SectionHead } from "@/components/site/title";
-import { startingPoints } from "@/lib/services";
 import Link from "next/link";
 
 export const metadata = {
@@ -59,26 +58,13 @@ export default async function ContactPage(props: { searchParams: Promise<{ servi
           <ProjectInquiry initialService={service} initialPackage={pkg} />
         </div>
       </section>
-      <section className="sec" aria-labelledby="sp-title">
-        <SectionHead label="(Not sure what to ask for)" id="sp-title" title="Pick a starting point." pos="tr" />
-        <ul className="rows">
-          {startingPoints.map((p, i) => (
-            <li key={p.name}>
-              <span className="label c-no">({String.fromCharCode(65 + i)})</span>
-              <span className="h-m c-name">{p.name}</span>
-              <p className="body c-text">{p.text}</p>
-              <span className="c-end price">{p.price}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
       <section className="sec" aria-labelledby="exp-title">
         <SectionHead label="(What to expect)" id="exp-title" title="No surprises, in either direction." pos="tl" />
         <ul className="how">
           {[
             ["A reply within two business days", "Usually sooner. If the job is not a fit, you will hear that too, with a suggestion of who to ask instead."],
             ["A written scope before any money", "What will be delivered, by when, for how much. Fixed price where the scope is fixed; a day rate where it is not."],
-            ["Accounts in your name", "Domain, hosting, Stripe, email: set up under your ownership from day one. Nothing is held hostage."],
+            ["Prices you can see", "Workflow review $250, build sprint $1,500+, custom system $3,000+; everything else quoted to the written scope."],
             ["A handoff you can keep", "Notes, logins and a walkthrough. Care plans are available, never required."],
           ].map(([t, d], i) => (
             <li key={t} data-fade data-delay={i * 0.08}>

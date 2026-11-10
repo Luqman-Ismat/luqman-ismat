@@ -54,11 +54,11 @@ export default function About() {
         <dl className="cs-facts about-facts">
           {[
             ["Based", "Houston"],
-            ["Engineering roles", String(roles.filter((r) => r.kind === "Engineering").length)],
-            ["Data and controls roles", String(roles.filter((r) => r.kind !== "Engineering").length)],
-            ["Calculators published", "45"],
-            ["First reply", "2 days"],
-            ["Vendors you deal with", "1"],
+            ["Engineering since", "2022"],
+            ["Disciplines worked", "Process, safety, piping, reliability, controls, risk"],
+            ["Products in the portfolio", "3"],
+            ["Degree", "Industrial engineering, UH"],
+            ["Works with", "Businesses anywhere"],
           ].map(([k, v], i) => (
             <div key={k} data-fade data-delay={i * 0.06}>
               <dt className="label">{k}</dt>

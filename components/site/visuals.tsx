@@ -29,7 +29,7 @@ export function Visuals() {
           <WireScene />
           <figcaption>
             <span className="label">(03) WebGL</span>
-            <span className="label dim">A heat exchanger in wireframe. Hover to pull the bundle.</span>
+            <span className="label dim">A heat exchanger in wireframe. Hover or tap to pull the bundle.</span>
           </figcaption>
         </figure>
         <div className="vis-copy" data-fade data-delay="0.15">

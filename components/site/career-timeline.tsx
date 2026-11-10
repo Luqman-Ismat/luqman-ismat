@@ -55,8 +55,8 @@ export function CareerTimeline({ roles }: { roles: Role[] }) {
         })}
       </svg>
       <div className="lc-read" aria-live="polite">
-        <span className="label">{cur ? `${cur.role}, ${cur.employer}` : "Hover a bar"}</span>
-        <span className="label">{cur ? cur.kind : `${sorted.filter((r) => r.kind === "Engineering").length} engineering, ${sorted.filter((r) => r.kind !== "Engineering").length} software`}</span>
+        <span className="label">{cur ? `${cur.role}, ${cur.employer}` : "Hover or tap a bar"}</span>
+        <span className="label">{cur ? cur.kind : `${sorted.filter((r) => r.kind === "Engineering").length} engineering, ${sorted.filter((r) => r.kind !== "Engineering").length} data and controls`}</span>
       </div>
     </div>
   );

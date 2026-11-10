@@ -109,6 +109,7 @@ function Automation() {
       if (links[i]) tl.to(links[i], { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, i * 0.7 + 0.15);
     });
     tl.to(el.querySelector(".au-done"), { opacity: 1, duration: 0.4 }, nodes.length * 0.7).to(el.querySelector(".au-done"), { opacity: 0, duration: 0.4 }, "+=1");
+    tl.to({}, { duration: 2.5 });
     tl.add(() => {
       nodes.forEach((nd) => nd.setAttribute("data-on", "0"));
       links.forEach((p) => (p.style.strokeDashoffset = p.style.strokeDasharray));
@@ -260,7 +261,7 @@ function Visuals() {
       const len = p.getTotalLength();
       gsap.fromTo(p, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 1.6, delay: i * 0.08, ease: "expo.inOut", scrollTrigger: st(el) });
     });
-    gsap.to(el.querySelector(".vz-rot"), { rotate: 360, duration: 28, repeat: -1, ease: "none", transformOrigin: "320px 150px" });
+    gsap.to(el.querySelector(".vz-rot"), { rotate: 360, duration: 28, repeat: -1, ease: "none", svgOrigin: "320 150" });
     gsap.from(el.querySelectorAll(".vz-dim"), { opacity: 0, duration: 0.8, delay: 1.6, stagger: 0.1, scrollTrigger: st(el) });
   });
   const ring = (r: number) => `M${320 + r} 150 A${r} ${r} 0 1 1 ${320 - r} 150 A${r} ${r} 0 1 1 ${320 + r} 150`;

@@ -6,7 +6,7 @@ export const experience = [
     start: "2022-05",
     end: "2024-03",
     kind: "Engineering",
-    summary: "Process design, simulation, and engineering documentation.",
+    summary: "Process design for chemical plant packages: PFDs, P&IDs, simulation and the equipment specs that came out of them.",
     details: [
       "Piping and instrumentation diagrams, process flow diagrams, and equipment specifications.",
       "Aspen HYSYS simulation and heat-and-material-balance workflows.",
@@ -21,7 +21,7 @@ export const experience = [
     end: "2024-08",
     kind: "Engineering",
     summary:
-      "Safety workflows, change management, and cross-team coordination.",
+      "Ran the process safety reviews and the change log for a multi-discipline design team, so every change was traced to a decision.",
     details: [
       "Design change and management-of-change tracking.",
       "Safety review documentation, action follow-up, and reporting.",
@@ -36,7 +36,7 @@ export const experience = [
     end: "2024-08",
     kind: "Engineering",
     summary:
-      "Piping specifications, material selection, and technical documentation.",
+      "Piping specs and material selection, plus the templates that cut the time to issue a deliverable.",
     details: [
       "Piping material specifications and component documentation.",
       "Technical review of piping systems and equipment interfaces.",
@@ -50,10 +50,10 @@ export const experience = [
     start: "2025-05",
     end: "2025-11",
     kind: "Analytics",
-    summary: "Reliability data, analysis, and reporting.",
+    summary: "Turned plant reliability records into analyses and reports that engineers could act on, with the data cleaning that made them trustworthy.",
     details: [
-      "Reliability data analysis and technical reporting.",
-      "Data preparation, quality review, and analytical workflows.",
+      "Failure and maintenance data preparation and quality review.",
+      "Analyses and reports for reliability engineers.",
     ],
   },
   {
@@ -63,10 +63,10 @@ export const experience = [
     start: "2025-11",
     end: "2026-05",
     kind: "Project controls",
-    summary: "Project controls consulting.",
+    summary: "Schedule, cost and forecast reporting for capital projects; the work that became the project controls workspace in the portfolio.",
     details: [
-      "Project Controls Consultant, November 2025 through May 2026.",
-      "Explore neutral examples of project visibility, forecasting, and integration workflows in the demo library.",
+      "Schedule reviews, hours mapping and forecast worksheets for client projects.",
+      "Reporting that traced every number back to its source record.",
     ],
   },
   {
@@ -76,10 +76,10 @@ export const experience = [
     start: "2026-05",
     end: null,
     kind: "Analytics",
-    summary: "Risk analysis and decision support.",
+    summary: "Inspection and failure risk analysis for asset-intensive plants, which shaped the inspection planning optimizer.",
     details: [
-      "Current role: Risk Analyst at Pinnacle.",
-      "Client-specific assignments and operational information are not included in this portfolio.",
+      "Risk-based inspection analysis and decision support.",
+      "Life-cycle cost and interval optimisation methods.",
     ],
   },
 ];
