@@ -2940,3 +2940,12 @@ html, body { overflow-x: clip; }
 .wk-card .wk-vis { height: 240px; display: flex; align-items: flex-end; overflow: hidden; }
 .wk-card .wk-vis > * { width: 100%; }
 @media (max-width: 600px) { .exp-vis .lg, .exp-vis .lc { overflow-x: auto; } }
+
+.art-figure.af-figure { aspect-ratio: auto; background: var(--ink); border: 1px solid var(--rule); border-radius: 2px; padding: 10px; }
+.af svg { display: block; width: 100%; height: auto; }
+.af-h { font: 400 11px var(--f-mono); fill: var(--dim); letter-spacing: 0.08em; text-transform: uppercase; }
+.af-rule { stroke: var(--rule-strong); stroke-width: 1; }
+.af-n { font: 400 11px var(--f-mono); fill: var(--dim); letter-spacing: 0.04em; }
+.af-t { font: 400 14px var(--f-sans); fill: var(--paper); }
+.af-bar { fill: rgba(236, 235, 230, 0.28); }
+@media (max-width: 600px) { .af { overflow-x: auto; } .af svg { min-width: 760px; } }

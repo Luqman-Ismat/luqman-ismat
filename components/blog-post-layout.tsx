@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Page } from "@/components/site/footer";
 import { SectionIndex } from "@/components/site/section-index";
 import { SocialShare } from "./social-share";
@@ -7,11 +6,12 @@ import { RelatedArticles } from "./related-articles";
 import { formatArticleDate } from "@/lib/articles";
 import { Title } from "@/components/site/title";
 import { ReadProgress } from "@/components/site/read-progress";
+import { ArticleFigure } from "@/components/site/article-figure";
 
 interface BlogPostLayoutProps {
   title: string;
   description: string;
-  image: string;
+  image?: string;
   content: { sections: { title: string; content: string[] }[] };
   date?: string;
   category?: string;
@@ -19,7 +19,7 @@ interface BlogPostLayoutProps {
   sources?: { title: string; url: string }[];
 }
 
-export function BlogPostLayout({ title, description, image, content, date, category = "EPC LIFECYCLE", slug = "", sources }: BlogPostLayoutProps) {
+export function BlogPostLayout({ title, description, content, date, category = "EPC LIFECYCLE", slug = "", sources }: BlogPostLayoutProps) {
   const url = `https://www.luqmanismat.com/blog/${slug}`;
   const words = content.sections.reduce((t, s) => t + s.content.join(" ").split(/\s+/).length, 0);
   const index = content.sections.map((s, i) => ({ id: `section-${i + 1}`, no: String(i + 1).padStart(2, "0"), label: s.title }));
@@ -49,11 +49,9 @@ export function BlogPostLayout({ title, description, image, content, date, categ
             </div>
           </div>
         </header>
-        {image && (
-          <figure className="art-figure" data-clip style={{ marginBottom: 0 }}>
-            <Image src={image} alt="" fill priority sizes="100vw" quality={75} />
-          </figure>
-        )}
+        <figure className="art-figure af-figure" data-fade style={{ marginBottom: 0 }}>
+          <ArticleFigure category={category} sections={content.sections.map((s) => ({ title: s.title, words: s.content.join(" ").split(/\s+/).length }))} />
+        </figure>
         <div className="art-body">
           <SectionIndex items={index} title="(In this article)" />
           <div className="art-text">
