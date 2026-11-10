@@ -3,6 +3,7 @@ import { Page } from "@/components/site/footer";
 import { Roll } from "@/components/site/roll";
 import { Title, SectionHead } from "@/components/site/title";
 import { experience, toolGroups } from "@/lib/experience";
+import { CareerTimeline } from "@/components/site/career-timeline";
 
 export const metadata = {
   title: "About Luqman Ismat",
@@ -49,9 +50,30 @@ export default function About() {
         </div>
       </section>
 
+      <section className="sec about-nums" aria-label="In numbers">
+        <dl className="cs-facts about-facts">
+          {[
+            ["Based", "Houston"],
+            ["Engineering roles", String(roles.filter((r) => r.kind === "Engineering").length)],
+            ["Data and controls roles", String(roles.filter((r) => r.kind !== "Engineering").length)],
+            ["Calculators published", "45"],
+            ["First reply", "2 days"],
+            ["Vendors you deal with", "1"],
+          ].map(([k, v], i) => (
+            <div key={k} data-fade data-delay={i * 0.06}>
+              <dt className="label">{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
       <section className="sec exp" id="experience" aria-labelledby="exp-title">
         <SectionHead label="(Experience)" id="exp-title" title="Where the work comes from." pos="tr" />
-        <ol className="rows">
+        <div className="exp-vis" data-fade>
+          <CareerTimeline roles={roles} />
+        </div>
+        <ol className="rows exp-rows">
           {roles.map((r) => (
             <li key={r.id}>
               <span className="label c-no">
@@ -63,11 +85,36 @@ export default function About() {
                   {r.employer}
                 </span>
               </span>
-              <p className="body c-text">{r.summary}</p>
+              <div className="c-text">
+                <p className="body">{r.summary}</p>
+                <ul className="ticks exp-details">
+                  {r.details.map((d) => (
+                    <li key={d}>{d}</li>
+                  ))}
+                </ul>
+              </div>
               <span className="label c-end">{r.kind}</span>
             </li>
           ))}
         </ol>
+      </section>
+
+      <section className="sec" aria-labelledby="how-title">
+        <SectionHead label="(How I work)" id="how-title" title="Habits from the plant, kept for the keyboard." pos="tl" />
+        <ul className="how">
+          {[
+            ["Know the answer before you build", "A safety review starts by stating what must be true at the end. So does a booking page. The scope says what done looks like, in writing, before a line is written."],
+            ["Check it against something", "Every calculator on EngiVault is checked against reference cases. Every integration logs what it moved. If a result cannot be checked, it is not finished."],
+            ["Leave notes the next person can follow", "Procedures outlive the people who wrote them. Your site, your automation and your dashboard come with notes plain enough that someone else could pick them up."],
+            ["One person, start to handoff", "You talk to the person who designs it, builds it and fixes it. Nothing is handed off blind between a salesperson, a designer and a developer."],
+          ].map(([t, d], i) => (
+            <li key={t} data-fade data-delay={i * 0.08}>
+              <span className="label">(0{i + 1})</span>
+              <span className="h-m">{t}</span>
+              <p className="body">{d}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="sec" aria-labelledby="tools-title">

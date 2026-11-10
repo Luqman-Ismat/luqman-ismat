@@ -2812,3 +2812,23 @@ html, body { overflow-x: clip; }
 .svc-faq dt { font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
 .svc-faq dd { margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: var(--dim); }
 @media (max-width: 760px) { .svc-more { grid-template-columns: 1fr; } }
+
+/* about and contact depth */
+.about-facts { grid-template-columns: repeat(6, 1fr); }
+@media (max-width: 900px) { .about-facts { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 520px) { .about-facts { grid-template-columns: repeat(2, 1fr); } }
+.about-facts dd { color: var(--paper); }
+.exp-vis { margin-bottom: 40px; }
+.ct-bar { fill: rgba(236, 235, 230, 0.2); transition: fill 0.3s; }
+.ct-row.k-engineering .ct-bar { fill: rgba(236, 235, 230, 0.35); }
+.ct-row.is-on .ct-bar { fill: var(--paper); }
+.ct-row { cursor: crosshair; }
+.ct-lbl { font: 400 10px var(--f-sans); fill: var(--dim); transition: fill 0.3s; }
+.ct-row.is-on .ct-lbl { fill: var(--paper); }
+.exp-details { margin-top: 12px; }
+.exp-details li { font-size: 13.5px; color: var(--dim); }
+.how { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
+.how li { border-top: 1px solid var(--rule); padding-top: 14px; display: flex; flex-direction: column; gap: 12px; }
+.how .body { font-size: 14px; color: var(--dim); max-width: none; }
+@media (max-width: 900px) { .how { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .how { grid-template-columns: 1fr; } }
