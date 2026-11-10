@@ -43,7 +43,7 @@ export const products: Product[] = [
       "In Risk intelligence, review a suggested relationship.",
     ],
     built: ["React", "TypeScript", "Python parser (MPXJ)", "PostgreSQL in production"],
-    services: ["dashboards", "integrations", "engineering"],
+    services: ["visuals", "dashboards", "integrations"],
   },
   {
     slug: "inspection-planning",
@@ -69,7 +69,7 @@ export const products: Product[] = [
       "Export the scenario to Excel.",
     ],
     built: ["React", "TypeScript", "Web Worker engine", "SheetJS export"],
-    services: ["engineering", "dashboards", "automation"],
+    services: ["engineering", "visuals", "automation"],
   },
 ];
 

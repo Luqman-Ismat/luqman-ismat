@@ -36,3 +36,8 @@ The user found large bold headlines the clearest "AI-made" tell. Rules now:
 
 ## Products
 `/work`, `/work/project-controls`, `/work/inspection-planning` mount the complete applications from `examples/` natively (`ProductMount`, bundles in `public/examples`, token bridge in `styles/products.css`). Fictional data, labelled on every page. Product screenshots in `public/images/work` are captured from these pages in the dark theme.
+
+## Custom visuals and the cuts (November 2026)
+- "Custom visuals" is service 02 (interactive diagrams, live charts, 3D/WebGL, motion). The homepage carries a live showcase (`components/site/visuals.tsx`): the P&ID schematic, a code-drawn chart with pointer readout, and a wireframe exchanger in three.js. Nothing in it is a screenshot.
+- EngiVault lives under Work only (strip item and /work index). It is not in the nav or a homepage section of its own.
+- Homepage is hero, intro, services, visuals, work, journal (3), close. Starting points and Process live on /services only.

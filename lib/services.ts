@@ -33,8 +33,27 @@ export const services: Service[] = [
     start: "Quoted to scope",
   },
   {
-    id: "payments",
+    id: "visuals",
     no: "02",
+    name: "Custom visuals",
+    short: "Visuals",
+    line: "Interactive diagrams, live charts, 3D and motion, built for your data.",
+    detail:
+      "Off the shelf charts make every company look the same. A custom visual shows your process, your schedule or your numbers the way your team already thinks about them, and it moves. Live diagrams you can click into, charts that redraw as data changes, WebGL scenes and animated interfaces like this site.",
+    deliverables: [
+      "Interactive process diagrams and schematics",
+      "Live charts and data visuals that update from your data",
+      "3D and WebGL scenes for the web",
+      "Animated interfaces, launches and product pages",
+      "Maps, timelines and Gantt views",
+      "Runs in the browser, embeds in your site or app",
+    ],
+    tools: ["SVG", "WebGL / three.js", "GSAP", "D3", "React"],
+    start: "Quoted to scope",
+  },
+  {
+    id: "payments",
+    no: "03",
     name: "Payments, booking & invoicing",
     short: "Payments",
     line: "Take cards, send invoices, sell online and book appointments.",
@@ -52,7 +71,7 @@ export const services: Service[] = [
   },
   {
     id: "automation",
-    no: "03",
+    no: "04",
     name: "AI automation",
     short: "Automation",
     line: "The repetitive work in your inbox, spreadsheets and paperwork.",
@@ -70,7 +89,7 @@ export const services: Service[] = [
   },
   {
     id: "knowledge",
-    no: "04",
+    no: "05",
     name: "Company knowledge base",
     short: "Knowledge base",
     line: "What your company knows, searchable in one place.",
@@ -88,7 +107,7 @@ export const services: Service[] = [
   },
   {
     id: "dashboards",
-    no: "05",
+    no: "06",
     name: "Dashboards & reporting",
     short: "Dashboards",
     line: "The numbers you check every week, pulled automatically.",
@@ -105,7 +124,7 @@ export const services: Service[] = [
   },
   {
     id: "integrations",
-    no: "06",
+    no: "07",
     name: "Integrations & data",
     short: "Integrations",
     line: "When two systems should talk to each other and don't.",
@@ -122,7 +141,7 @@ export const services: Service[] = [
   },
   {
     id: "engineering",
-    no: "07",
+    no: "08",
     name: "Engineering tools & project controls",
     short: "Engineering",
     line: "Calculations, schedules and controls for industrial teams.",

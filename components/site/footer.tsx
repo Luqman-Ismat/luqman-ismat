@@ -42,7 +42,6 @@ export function Footer() {
                 ["Home", "/"],
                 ["Services", "/services"],
                 ["Work", "/work"],
-                ["EngiVault", "/engivault"],
                 ["Journal", "/blog"],
                 ["About", "/about"],
                 ["Contact", "/contact"],

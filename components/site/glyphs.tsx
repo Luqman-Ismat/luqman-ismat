@@ -10,6 +10,16 @@ export function Glyph({ id, className }: { id: string; className?: string }) {
           <path d="M6 20h52M11 16h2M15 16h2M19 16h2M12 27h22M12 32h16M40 27h12v19H40zM12 40h22M12 46h14" />
         </g>
       )}
+      {id === "visuals" && (
+        <g {...P}>
+          <path d="M6 50c10 0 10-30 20-30s10 20 20 20 8-14 12-14" />
+          <circle cx="26" cy="20" r="2.5" />
+          <circle cx="46" cy="40" r="2.5" />
+          <path d="M6 58h52M6 6v52" />
+          <path d="M40 8l12 7v14l-12 7-12-7V15z" />
+          <path d="M28 15l12 7 12-7M40 22v14" />
+        </g>
+      )}
       {id === "payments" && (
         <g {...P}>
           <rect x="6" y="16" width="40" height="26" />

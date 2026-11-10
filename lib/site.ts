@@ -14,6 +14,7 @@ export const site = {
 /* Keys used by /contact?service=... ; values are what the form shows. */
 export const inquiryServices = {
   websites: "Websites & apps",
+  visuals: "Custom visuals",
   payments: "Payments, booking & invoicing",
   automation: "AI automation",
   knowledge: "Company knowledge base",

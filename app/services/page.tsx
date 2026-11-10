@@ -4,7 +4,7 @@ import { SectionIndex } from "@/components/site/section-index";
 import { Glyph } from "@/components/site/glyphs";
 import { Roll } from "@/components/site/roll";
 import { Title, SectionHead } from "@/components/site/title";
-import { services, startingPoints } from "@/lib/services";
+import { services, startingPoints, steps } from "@/lib/services";
 
 export const metadata = {
   title: "Services",
@@ -18,9 +18,9 @@ export default function ServicesPage() {
     <Page>
       <header className="page-head">
         <Title as="h1" text="If it runs on a computer, bring it here." pos="tl" className="page-title" />
-        <p className="label page-label">(Services) 07</p>
+        <p className="label page-label">(Services) {String(services.length).padStart(2, "0")}</p>
         <p className="body lede" data-fade>
-          Seven kinds of work that usually need seven different vendors. <b>Each one starts with a written scope and a fixed price.</b>
+          Eight kinds of work that usually need eight different vendors. <b>Each one starts with a written scope and a fixed price.</b>
         </p>
       </header>
 
@@ -30,7 +30,7 @@ export default function ServicesPage() {
           {services.map((s) => (
             <section key={s.id} id={s.id} className="svc" aria-labelledby={`${s.id}-title`}>
               <div className="svc-top">
-                <p className="label">({s.no}) / 07</p>
+                <p className="label">({s.no}) / {String(services.length).padStart(2, "0")}</p>
                 <Title id={`${s.id}-title`} text={s.name} pos="tl" className="svc-title" />
                 <Glyph id={s.id} className="svc-glyph" />
                 <p className="statement" data-lines>
@@ -78,6 +78,22 @@ export default function ServicesPage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="sec" aria-labelledby="process-title">
+        <SectionHead label="(Process)" id="process-title" title="How a job runs." pos="tl" />
+        <ol className="rows">
+          {steps.map((s, i) => (
+            <li key={s.name}>
+              <span className="label c-no">(0{i + 1})</span>
+              <span className="h-m c-name">{s.name}</span>
+              <p className="body c-text">{s.text}</p>
+              <span className="label c-end">
+                {i + 1} / {steps.length}
+              </span>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section className="sec close" aria-labelledby="close-title">
