@@ -4,12 +4,17 @@ import type { CSSProperties } from "react";
 import { Page } from "@/components/site/footer";
 import { Title } from "@/components/site/title";
 import { Roll } from "@/components/site/roll";
+import { SectionIndex } from "@/components/site/section-index";
 import { ProductMount } from "@/components/site/product-mount";
 import { ProjectVisual } from "@/components/site/project-visual";
+import { CostCurves } from "@/components/site/cost-curves";
+import { RankBars, ScenarioCompare, SheetDraw } from "@/components/site/inspection-visuals";
 import { Calculator } from "@/components/engivault/calculator";
 import { UnitConverter } from "@/components/engivault/unit-converter";
-import { neighbours } from "@/lib/engivault/catalog";
-import { products, productBySlug } from "@/lib/products";
+import { VaultCatalog } from "@/components/engivault/catalog";
+import { PlantSchematic } from "@/components/engivault/plant-schematic";
+import { catalogItems, hotspots, neighbours } from "@/lib/engivault/catalog";
+import { products, productBySlug, type Chapter } from "@/lib/products";
 import { services } from "@/lib/services";
 
 export const dynamicParams = false;
@@ -22,20 +27,47 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!p) return {};
   return {
     title: p.name,
-    description: `${p.line} A ${p.type.toLowerCase()} by TEN21 Consulting.`.slice(0, 158),
+    description: `${p.line} A ${p.type.toLowerCase()} by TEN21 Consulting, shown chapter by chapter, live.`.slice(0, 158),
     alternates: { canonical: `/work/${p.slug}` },
   };
 }
 
-/* A panel is the real thing: a view of the mounted application, or one of
-   EngiVault's own components. */
-function Panel({ kind, view, part }: { kind: "project" | "inspection" | "engivault"; view?: number; part?: string }) {
-  if (part === "calculator") {
-    const n = neighbours("thermal-transport-numbers");
-    return <div className="vault cs-vault"><Calculator slug="thermal-transport-numbers" prev={n.prev} next={n.next} related={[]} /></div>;
+/* A chapter's live piece: a bare view of the mounted app, one of EngiVault's
+   own components, or a code-drawn visual. Never a screenshot. */
+function Live({ kind, c }: { kind: "project" | "inspection" | "engivault"; c: Chapter }) {
+  if (c.view != null && kind !== "engivault") return <ProductMount kind={kind} label={c.title} view={c.view} />;
+  switch (c.part) {
+    case "curves":
+      return <CostCurves />;
+    case "rankings":
+      return <RankBars />;
+    case "scenarios":
+      return <ScenarioCompare />;
+    case "export":
+      return <SheetDraw />;
+    case "catalog":
+      return (
+        <div className="vault cs-vault">
+          <VaultCatalog items={catalogItems} />
+        </div>
+      );
+    case "calculator": {
+      const n = neighbours("thermal-transport-numbers");
+      return (
+        <div className="vault cs-vault">
+          <Calculator slug="thermal-transport-numbers" prev={n.prev} next={n.next} related={[]} />
+        </div>
+      );
+    }
+    case "converter":
+      return (
+        <div className="vault cs-vault">
+          <UnitConverter />
+        </div>
+      );
+    case "schematic":
+      return <PlantSchematic hotspots={hotspots} />;
   }
-  if (part === "converter") return <div className="vault cs-vault"><UnitConverter /></div>;
-  if (kind !== "engivault") return <ProductMount kind={kind} label="" view={view} />;
   return null;
 }
 
@@ -45,24 +77,26 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   if (!p) notFound();
   const next = products[(products.indexOf(p) + 1) % products.length];
   const accent = { "--accent": p.accent, "--demo-accent": p.accent } as CSSProperties;
-  const half = Math.ceil(p.panels.length / 2);
-  const bandA = p.panels.slice(0, half);
-  const bandB = p.panels.slice(half);
+  const index = [
+    { id: "cs-brief", no: "00", label: "Brief" },
+    ...p.chapters.map((c, i) => ({ id: `ch-${c.id}`, no: String(i + 1).padStart(2, "0"), label: c.title })),
+    { id: "cs-together", no: String(p.chapters.length + 1).padStart(2, "0"), label: "All together" },
+  ];
 
   return (
     <Page className={`cs cs-${p.kind}`}>
       <div style={accent} className="cs-scope">
         <header className="cs-cover" aria-labelledby="cs-title">
-          <div className="cs-cover-vis" data-fade>
-            <ProjectVisual kind={p.kind} />
-          </div>
           <div className="cs-cover-top">
             <Link className="label" href="/work">
               ← Work
             </Link>
             <span className="label">
-              ({p.no}) <b className="acc">{p.type}</b>
+              ({p.no}) <b className="acc">{p.type}</b> / {p.year}
             </span>
+          </div>
+          <div className="cs-cover-vis" data-fade>
+            <ProjectVisual kind={p.kind} />
           </div>
           <div className="cs-cover-bottom">
             <Title as="h1" id="cs-title" text={p.name} pos="tl" className="cs-title" />
@@ -78,6 +112,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <p className="cs-v">{p.year}</p>
             <p className="label">(Built with)</p>
             <p className="cs-v">{p.built.join(", ")}</p>
+            <p className="label">(Chapters)</p>
+            <p className="cs-v">{p.chapters.length}, each one live</p>
           </div>
           <div className="cs-features">
             <p className="label">(Features)</p>
@@ -99,85 +135,106 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </dl>
         </section>
 
-        <section className="sec cs-desc" aria-label="Description">
-          <p className="label cs-k">
-            <span className="spaced">Description</span>
-          </p>
-          <p className="statement" data-lines>
-            {p.description}
-          </p>
-        </section>
+        <div className="sec cs-body">
+          <SectionIndex items={index} title="(Chapters)" />
+          <div className="cs-main">
+            <section id="cs-brief" className="cs-brief" aria-label="Brief">
+              <p className="label cs-k">
+                <span className="spaced">Brief</span>
+              </p>
+              <p className="statement" data-lines>
+                {p.description}
+              </p>
+              <div className="cs-two">
+                <div data-fade>
+                  <p className="label acc">(The problem)</p>
+                  <p className="body">{p.challenge}</p>
+                </div>
+                <div data-fade data-delay="0.1">
+                  <p className="label acc">(The idea)</p>
+                  <p className="body">{p.solution}</p>
+                </div>
+              </div>
+            </section>
 
-        <section className="sec cs-cs" aria-label="Challenge">
-          <p className="label cs-k">
-            <span className="spaced">Challenge</span>
-          </p>
-          <p className="statement" data-lines>
-            {p.challenge}
-          </p>
-        </section>
-        <div className="cs-band">
-          {bandA.map((g) => (
-            <figure key={g.title} className="cs-fig wide" data-fade>
-              <figcaption>
-                <span className="label"><b className="acc">(Live)</b> {g.title}</span>
-                <span className="label dim">{g.caption}</span>
-              </figcaption>
-              <Panel kind={p.kind} view={g.view} part={g.part} />
-            </figure>
-          ))}
+            {p.chapters.map((c, i) => (
+              <section key={c.id} id={`ch-${c.id}`} className="ch" aria-labelledby={`ch-${c.id}-t`}>
+                <div className="ch-head">
+                  <p className="label">
+                    <b className="acc">({String(i + 1).padStart(2, "0")})</b> / {String(p.chapters.length).padStart(2, "0")}
+                  </p>
+                  <Title id={`ch-${c.id}-t`} text={c.title} pos="tl" className="ch-title" />
+                  <p className="ch-q" data-lines>
+                    {c.question}
+                  </p>
+                </div>
+                <div className="ch-live" data-fade>
+                  <Live kind={p.kind} c={c} />
+                </div>
+                <div className="ch-text">
+                  <p className="body" data-fade>
+                    {c.text}
+                  </p>
+                  <ol className="ch-steps" data-fade data-delay="0.1">
+                    {c.steps.map((s, k) => (
+                      <li key={s}>
+                        <span className="label acc">0{k + 1}</span>
+                        <span>{s}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </section>
+            ))}
+
+            <section id="cs-together" className="cs-together" aria-labelledby="together-t">
+              <div className="ch-head">
+                <p className="label">
+                  <b className="acc">({String(p.chapters.length + 1).padStart(2, "0")})</b> All together
+                </p>
+                <Title id="together-t" text={p.together.title} pos="tl" className="ch-title" />
+                <p className="body" data-fade>
+                  {p.together.text}
+                </p>
+              </div>
+              {p.kind !== "engivault" ? (
+                <div className="product-app cs-app">
+                  <div className="product-app-bar">
+                    <span className="label">
+                      <b className="acc">(Live application)</b> Fictional data. Try: {p.tryThis[0]}
+                    </span>
+                    <Link className="label" href={`/examples/${p.kind}/index.html?theme=dark`} target="_blank" data-no-curtain>
+                      Open full screen <span className="arrow" aria-hidden="true">↗</span>
+                    </Link>
+                  </div>
+                  <ProductMount kind={p.kind} label={p.name} />
+                </div>
+              ) : (
+                <div className="cs-open">
+                  <ol className="cs-try">
+                    {p.tryThis.map((t, i) => (
+                      <li key={t}>
+                        <span className="label">0{i + 1}</span>
+                        {t}
+                      </li>
+                    ))}
+                  </ol>
+                  <Link className="btn" href={p.live!.href}>
+                    <Roll text={p.live!.label} /> <span className="arrow" aria-hidden="true">↗</span>
+                  </Link>
+                </div>
+              )}
+              <ul className="cs-take">
+                {p.takeaways.map((t, i) => (
+                  <li key={t} data-fade data-delay={i * 0.08}>
+                    <span className="label acc">(0{i + 1})</span>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
         </div>
-
-        <section className="sec cs-cs" aria-label="Solution">
-          <p className="label cs-k">
-            <span className="spaced">Solution</span>
-          </p>
-          <p className="statement" data-lines>
-            {p.solution}
-          </p>
-        </section>
-        <div className="cs-band">
-          {bandB.map((g) => (
-            <figure key={g.title} className="cs-fig wide" data-fade>
-              <figcaption>
-                <span className="label"><b className="acc">(Live)</b> {g.title}</span>
-                <span className="label dim">{g.caption}</span>
-              </figcaption>
-              <Panel kind={p.kind} view={g.view} part={g.part} />
-            </figure>
-          ))}
-        </div>
-
-        {p.kind !== "engivault" ? (
-          <section className="product-app" aria-label={`${p.name}, working application`}>
-            <div className="product-app-bar">
-              <span className="label">
-                <b className="acc">(Live application)</b> Fictional data. Try: {p.tryThis[0]}
-              </span>
-              <Link className="label" href={`/examples/${p.kind}/index.html?theme=dark`} target="_blank" data-no-curtain>
-                Open full screen <span className="arrow" aria-hidden="true">↗</span>
-              </Link>
-            </div>
-            <ProductMount kind={p.kind} label={p.name} />
-          </section>
-        ) : (
-          <section className="sec cs-open" aria-label="Open the product">
-            <p className="label">
-              <b className="acc">(Live product)</b> Free, no account
-            </p>
-            <ol className="cs-try">
-              {p.tryThis.map((t, i) => (
-                <li key={t}>
-                  <span className="label">0{i + 1}</span>
-                  {t}
-                </li>
-              ))}
-            </ol>
-            <Link className="btn" href={p.live!.href}>
-              <Roll text={p.live!.label} /> <span className="arrow" aria-hidden="true">↗</span>
-            </Link>
-          </section>
-        )}
 
         <section className="sec cs-end" aria-label="Related services">
           <p className="label">(Related services)</p>

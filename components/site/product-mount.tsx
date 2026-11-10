@@ -36,7 +36,10 @@ export function ProductMount({ kind, label, view }: { kind: Kind; label: string;
     if (!el) return;
     let unmount: (() => void) | undefined;
     let live = true;
-    loadBundle(kind)
+    const io = new IntersectionObserver(([en]) => {
+      if (!en.isIntersecting) return;
+      io.disconnect();
+      loadBundle(kind)
       .then(() => {
         if (!live) return;
         unmount = window.__demos![kind].mount(el, view != null ? { view, bare: true } : undefined);
@@ -48,8 +51,11 @@ export function ProductMount({ kind, label, view }: { kind: Kind; label: string;
         });
       })
       .catch(() => live && setState("error"));
+    }, { rootMargin: "700px 0px" });
+    io.observe(el);
     return () => {
       live = false;
+      io.disconnect();
       unmount?.();
     };
   }, [kind, view]);
