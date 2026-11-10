@@ -2855,3 +2855,13 @@ html, body { overflow-x: clip; }
 .hdr.is-light .btn:hover { background: var(--ink); color: var(--paper); }
 .ftr-word { position: relative; z-index: 3; }
 .ftr { overflow: clip; }
+.product-stage.is-view > .demo-scope.demo-scope { min-height: 360px; }
+.product-stage:not(.is-view) > .demo-scope.demo-scope { min-height: 70vh; }
+
+/* phones: code-drawn visuals keep their type legible by scrolling sideways instead of shrinking */
+@media (max-width: 600px) {
+  .lc, .svc-vis, .plant { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .lc svg, .svc-vis .sv, .plant > svg { min-width: 560px; }
+  .lc-read { position: sticky; left: 0; }
+  .cs-vault .vault-grid { max-height: 420px; }
+}

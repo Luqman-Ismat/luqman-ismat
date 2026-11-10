@@ -36,9 +36,12 @@ export function ProductMount({ kind, label, view }: { kind: Kind; label: string;
     if (!el) return;
     let unmount: (() => void) | undefined;
     let live = true;
-    const io = new IntersectionObserver(([en]) => {
-      if (!en.isIntersecting) return;
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
       io.disconnect();
+      clearTimeout(fallback);
       loadBundle(kind)
       .then(() => {
         if (!live) return;
@@ -51,10 +54,16 @@ export function ProductMount({ kind, label, view }: { kind: Kind; label: string;
         });
       })
       .catch(() => live && setState("error"));
-    }, { rootMargin: "700px 0px" });
+    };
+    const io = new IntersectionObserver(([en]) => {
+      if (en.isIntersecting || en.intersectionRatio > 0) start();
+    }, { rootMargin: "800px 0px" });
     io.observe(el);
+    // whatever the observer thinks, the application is wanted within a few seconds
+    const fallback = window.setTimeout(start, 6000);
     return () => {
       live = false;
+      clearTimeout(fallback);
       io.disconnect();
       unmount?.();
     };
