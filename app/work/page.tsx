@@ -4,6 +4,7 @@ import { Page } from "@/components/site/footer";
 import { Title } from "@/components/site/title";
 import { Roll } from "@/components/site/roll";
 import { products } from "@/lib/products";
+import { ProjectVisual } from "@/components/site/project-visual";
 
 export const metadata = {
   title: "Work",
@@ -26,9 +27,8 @@ export default function WorkPage() {
           {products.map((p, i) => (
             <li key={p.slug} style={{ "--accent": p.accent } as CSSProperties}>
               <Link href={`/work/${p.slug}`} className={i % 2 ? "wk-item flip" : "wk-item"}>
-                <span className="wk-img" data-clip>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.cover} alt={p.coverAlt} width={1200} height={833} loading={i ? "lazy" : "eager"} data-parallax="5" />
+                <span className="wk-vis" data-fade>
+                  <ProjectVisual kind={p.kind} />
                 </span>
                 <span className="wk-copy">
                   <span className="label">

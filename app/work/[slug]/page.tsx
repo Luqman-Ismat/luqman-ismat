@@ -5,10 +5,10 @@ import { Page } from "@/components/site/footer";
 import { Title } from "@/components/site/title";
 import { Roll } from "@/components/site/roll";
 import { ProductMount } from "@/components/site/product-mount";
-import { LiveGantt } from "@/components/site/live-gantt";
-import { CostCurves } from "@/components/site/cost-curves";
-import { PlantSchematic } from "@/components/engivault/plant-schematic";
-import { hotspots } from "@/lib/engivault/catalog";
+import { ProjectVisual } from "@/components/site/project-visual";
+import { Calculator } from "@/components/engivault/calculator";
+import { UnitConverter } from "@/components/engivault/unit-converter";
+import { neighbours } from "@/lib/engivault/catalog";
 import { products, productBySlug } from "@/lib/products";
 import { services } from "@/lib/services";
 
@@ -24,15 +24,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: p.name,
     description: `${p.line} A ${p.type.toLowerCase()} by TEN21 Consulting.`.slice(0, 158),
     alternates: { canonical: `/work/${p.slug}` },
-    openGraph: { images: [{ url: p.cover }] },
   };
 }
 
-/* Each project's own live visual, drawn by code. */
-function HeroVisual({ kind }: { kind: string }) {
-  if (kind === "project") return <LiveGantt />;
-  if (kind === "inspection") return <CostCurves />;
-  return <PlantSchematic hotspots={hotspots} />;
+/* A panel is the real thing: a view of the mounted application, or one of
+   EngiVault's own components. */
+function Panel({ kind, view, part }: { kind: "project" | "inspection" | "engivault"; view?: number; part?: string }) {
+  if (part === "calculator") {
+    const n = neighbours("thermal-transport-numbers");
+    return <div className="vault cs-vault"><Calculator slug="thermal-transport-numbers" prev={n.prev} next={n.next} related={[]} /></div>;
+  }
+  if (part === "converter") return <div className="vault cs-vault"><UnitConverter /></div>;
+  if (kind !== "engivault") return <ProductMount kind={kind} label="" view={view} />;
+  return null;
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -41,17 +45,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   if (!p) notFound();
   const next = products[(products.indexOf(p) + 1) % products.length];
   const accent = { "--accent": p.accent, "--demo-accent": p.accent } as CSSProperties;
-  const half = Math.ceil(p.gallery.length / 2);
-  const bandA = p.gallery.slice(0, half);
-  const bandB = p.gallery.slice(half);
+  const half = Math.ceil(p.panels.length / 2);
+  const bandA = p.panels.slice(0, half);
+  const bandB = p.panels.slice(half);
 
   return (
     <Page className={`cs cs-${p.kind}`}>
       <div style={accent} className="cs-scope">
         <header className="cs-cover" aria-labelledby="cs-title">
-          <div className="cs-cover-img" data-clip>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={p.cover} alt={p.coverAlt} width={1200} height={833} data-parallax="8" fetchPriority="high" />
+          <div className="cs-cover-vis" data-fade>
+            <ProjectVisual kind={p.kind} />
           </div>
           <div className="cs-cover-top">
             <Link className="label" href="/work">
@@ -103,14 +106,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <p className="statement" data-lines>
             {p.description}
           </p>
-          <figure className="cs-live" data-fade>
-            <HeroVisual kind={p.kind} />
-            <figcaption className="label">
-              {p.kind === "project" && "A schedule drawn by code. Move the status date."}
-              {p.kind === "inspection" && "Life-cycle cost against interval. Move across it."}
-              {p.kind === "engivault" && "The library's map. Each item opens its calculation."}
-            </figcaption>
-          </figure>
         </section>
 
         <section className="sec cs-cs" aria-label="Challenge">
@@ -122,11 +117,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </p>
         </section>
         <div className="cs-band">
-          {bandA.map((g, i) => (
-            <figure key={g.src} className={i === 0 ? "cs-fig wide" : "cs-fig"} data-clip data-delay={i * 0.08}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={g.src} alt={g.alt} width={1200} height={833} loading="lazy" />
-              <figcaption className="label">{g.caption}</figcaption>
+          {bandA.map((g) => (
+            <figure key={g.title} className="cs-fig wide" data-fade>
+              <figcaption>
+                <span className="label"><b className="acc">(Live)</b> {g.title}</span>
+                <span className="label dim">{g.caption}</span>
+              </figcaption>
+              <Panel kind={p.kind} view={g.view} part={g.part} />
             </figure>
           ))}
         </div>
@@ -140,11 +137,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </p>
         </section>
         <div className="cs-band">
-          {bandB.map((g, i) => (
-            <figure key={g.src} className={i === bandB.length - 1 ? "cs-fig wide" : "cs-fig"} data-clip data-delay={i * 0.08}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={g.src} alt={g.alt} width={1200} height={833} loading="lazy" />
-              <figcaption className="label">{g.caption}</figcaption>
+          {bandB.map((g) => (
+            <figure key={g.title} className="cs-fig wide" data-fade>
+              <figcaption>
+                <span className="label"><b className="acc">(Live)</b> {g.title}</span>
+                <span className="label dim">{g.caption}</span>
+              </figcaption>
+              <Panel kind={p.kind} view={g.view} part={g.part} />
             </figure>
           ))}
         </div>
@@ -202,9 +201,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </section>
 
         <Link href={`/work/${next.slug}`} className="cs-next" style={{ "--accent": next.accent } as CSSProperties}>
-          <div className="cs-next-img" data-clip>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={next.cover} alt="" width={1200} height={833} loading="lazy" data-parallax="6" />
+          <div className="cs-next-vis" aria-hidden="true">
+            <ProjectVisual kind={next.kind} />
           </div>
           <div className="cs-next-copy">
             <span className="label">(Next project)</span>

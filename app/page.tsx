@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Page } from "@/components/site/footer";
 import { ServicesFocus } from "@/components/site/services-focus";
-import { WorkStrip, type StripItem } from "@/components/site/work-strip";
+import { ProjectVisual } from "@/components/site/project-visual";
+import { products } from "@/lib/products";
 import { Roll } from "@/components/site/roll";
 import { Title, SectionHead } from "@/components/site/title";
 import { Visuals } from "@/components/site/visuals";
@@ -17,14 +18,6 @@ export const metadata = {
   alternates: { canonical: "/" },
 };
 
-const work: StripItem[] = [
-  { src: "/images/work/pc-schedule.webp", title: "Project controls workspace", note: "Complete product. Ten connected views", href: "/work/project-controls", alt: "The project controls workspace with a Gantt schedule" },
-  { src: "/images/work/ip-workbench.webp", title: "Inspection planning optimizer", note: "Complete product. Cost curves, rankings, scenarios", href: "/work/inspection-planning", alt: "The inspection planning optimizer" },
-  { src: "/images/work/ev-library.webp", title: "EngiVault", note: "Live product. 45 calculations with units, method and sources", href: "/work/engivault", alt: "The EngiVault calculator library" },
-  { src: "/images/work/pc-risk.webp", title: "Risk intelligence", note: "Inside the project workspace", href: "/work/project-controls", alt: "A risk page with a matrix and ranked list" },
-  { src: "/images/work/ev-calculator.webp", title: "A worked calculation", note: "Inside EngiVault", href: "/work/engivault", alt: "An EngiVault calculator with method and sources" },
-  { src: "/images/work/ip-curves.webp", title: "Life-cycle cost curves", note: "Inside the optimizer", href: "/work/inspection-planning", alt: "Cost curves for an inspection task" },
-];
 
 const d = (s: string) => ({ "--d": s }) as CSSProperties;
 
@@ -98,11 +91,27 @@ export default function Home() {
 
       <Visuals />
 
-      <section className="sec work" id="work" aria-labelledby="work-title">
+      <section className="sec" id="work" aria-labelledby="work-title">
         <SectionHead label="(Selected work)" id="work-title" title="Complete products, open to try." pos="tl" />
-        <div data-fade>
-          <WorkStrip items={work} />
-        </div>
+        <ul className="wk-cards">
+          {products.map((p, i) => (
+            <li key={p.slug} style={{ "--accent": p.accent } as CSSProperties} data-fade data-delay={i * 0.1}>
+              <Link href={`/work/${p.slug}`} className="wk-card">
+                <span className="wk-vis">
+                  <ProjectVisual kind={p.kind} />
+                </span>
+                <span className="label">
+                  ({p.no}) <b className="acc">{p.type}</b>
+                </span>
+                <span className="wk-name">{p.name}</span>
+                <span className="body">{p.line}</span>
+                <span className="label wk-go">
+                  Open case study <span className="arrow" aria-hidden="true">↗</span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="sec" aria-labelledby="journal-title">

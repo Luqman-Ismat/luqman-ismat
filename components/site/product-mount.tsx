@@ -27,7 +27,7 @@ function loadBundle(kind: Kind) {
 }
 
 /* The whole application, mounted straight into the page (no iframe). */
-export function ProductMount({ kind, label }: { kind: Kind; label: string }) {
+export function ProductMount({ kind, label, view }: { kind: Kind; label: string; view?: number }) {
   const host = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<"loading" | "ready" | "error">("loading");
 
@@ -39,7 +39,7 @@ export function ProductMount({ kind, label }: { kind: Kind; label: string }) {
     loadBundle(kind)
       .then(() => {
         if (!live) return;
-        unmount = window.__demos![kind].mount(el);
+        unmount = window.__demos![kind].mount(el, view != null ? { view, bare: true } : undefined);
         requestAnimationFrame(() => {
           if (!live) return;
           el.classList.add("is-ready");
@@ -52,10 +52,10 @@ export function ProductMount({ kind, label }: { kind: Kind; label: string }) {
       live = false;
       unmount?.();
     };
-  }, [kind]);
+  }, [kind, view]);
 
   return (
-    <div className="product-stage" aria-label={label} data-lenis-prevent-wheel={undefined}>
+    <div className={view != null ? "product-stage is-view" : "product-stage"} aria-label={label}>
       <link rel="stylesheet" href={`/examples/${kind}/scoped.css`} precedence="demo" />
       {state !== "ready" && (
         <div className="product-loading" aria-live="polite">
