@@ -118,7 +118,8 @@ function Sensitivity({ slug, values }: { slug: string; values: Record<string, st
   );
 }
 
-export function Calculator({ slug, prev, next, related }: { slug: string; prev: CatalogItem; next: CatalogItem; related: CatalogItem[] }) {
+export function Calculator({ slug, prev, next, related, embedded = false }: { slug: string; prev: CatalogItem; next: CatalogItem; related: CatalogItem[]; embedded?: boolean }) {
+  const H = (embedded ? "h2" : "h1") as "h1" | "h2";
   const config = calculators[slug];
   const defaults = useMemo(() => Object.fromEntries(config.inputs.map((i) => [i.id, i.defaultValue])), [config]);
   const [values, setValues] = useState<Record<string, string>>(defaults);
@@ -176,7 +177,7 @@ export function Calculator({ slug, prev, next, related }: { slug: string; prev: 
       <header className="vault-tool-head">
         <div>
           <p className="section-label"><span>({config.category})</span>{config.inputs.length} inputs → {config.results.length} results</p>
-          <h1 className="vault-tool-title">{config.title}</h1>
+          <H className="vault-tool-title">{config.title}</H>
         </div>
         <div className="vault-step">
           <Link href={`/engivault/calculators/${prev.slug}`} aria-label={`Previous: ${prev.title}`}>←</Link>

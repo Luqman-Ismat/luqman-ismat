@@ -57,14 +57,14 @@ function Live({ kind, c }: { kind: "project" | "inspection" | "engivault"; c: Ch
       const n = neighbours("thermal-transport-numbers");
       return (
         <div className="vault cs-vault">
-          <Calculator slug="thermal-transport-numbers" prev={n.prev} next={n.next} related={[]} />
+          <Calculator slug="thermal-transport-numbers" prev={n.prev} next={n.next} related={[]} embedded />
         </div>
       );
     }
     case "converter":
       return (
         <div className="vault cs-vault">
-          <UnitConverter />
+          <UnitConverter embedded />
         </div>
       );
     case "schematic":

@@ -10,7 +10,8 @@ const show = (n: number) =>
     ? n.toExponential(4).replace(/\.?0+e/, "e")
     : n.toLocaleString("en-US", { maximumSignificantDigits: 7 });
 
-export function UnitConverter() {
+export function UnitConverter({ embedded = false }: { embedded?: boolean } = {}) {
+  const H = (embedded ? "h2" : "h1") as "h1" | "h2";
   const reduced = useReducedMotion();
   const [category, setCategory] = useState(unitCategories.find((c) => c.id === "length")?.id ?? unitCategories[0].id);
   const c = unitCategories.find((x) => x.id === category)!;
@@ -50,7 +51,7 @@ export function UnitConverter() {
       <header className="vault-tool-head">
         <div>
           <p className="section-label"><span>(Utilities)</span>{unitCategories.length} quantities</p>
-          <h1 className="vault-tool-title">Unit converter</h1>
+          <H className="vault-tool-title">Unit converter</H>
         </div>
       </header>
 
