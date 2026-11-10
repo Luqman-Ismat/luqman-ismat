@@ -6,6 +6,7 @@ import { SocialShare } from "./social-share";
 import { RelatedArticles } from "./related-articles";
 import { formatArticleDate } from "@/lib/articles";
 import { Title } from "@/components/site/title";
+import { ReadProgress } from "@/components/site/read-progress";
 
 interface BlogPostLayoutProps {
   title: string;
@@ -24,6 +25,7 @@ export function BlogPostLayout({ title, description, image, content, date, categ
   const index = content.sections.map((s, i) => ({ id: `section-${i + 1}`, no: String(i + 1).padStart(2, "0"), label: s.title }));
   return (
     <Page>
+      <ReadProgress />
       <article>
         <header className="art-head">
           <div className="crumbs">
@@ -57,9 +59,14 @@ export function BlogPostLayout({ title, description, image, content, date, categ
           <div className="art-text">
             {content.sections.map((s, i) => (
               <section key={i} id={`section-${i + 1}`}>
+                <p className="label art-no">
+                  ({String(i + 1).padStart(2, "0")}) / {String(content.sections.length).padStart(2, "0")}
+                </p>
                 <h2>{s.title}</h2>
                 {s.content.map((p, j) => (
-                  <p key={j}>{p}</p>
+                  <p key={j} data-fade>
+                    {p}
+                  </p>
                 ))}
               </section>
             ))}
@@ -77,6 +84,15 @@ export function BlogPostLayout({ title, description, image, content, date, categ
                 </ul>
               </section>
             )}
+            <aside className="art-author" data-fade>
+              <p className="label">(Written by)</p>
+              <p className="h-m">Luqman Ismat</p>
+              <p className="body">Industrial engineer, founder of TEN21 Consulting. Process engineering, process safety and project controls, then the software around them.</p>
+              <div className="action-row">
+                <Link className="btn ghost" href="/about">About</Link>
+                <Link className="btn" href="/contact">Need this done? <span className="arrow" aria-hidden="true">↗</span></Link>
+              </div>
+            </aside>
           </div>
         </div>
       </article>
