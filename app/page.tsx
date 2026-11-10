@@ -6,7 +6,7 @@ import { products } from "@/lib/products";
 import { Roll } from "@/components/site/roll";
 import { Title, SectionHead } from "@/components/site/title";
 import { Visuals } from "@/components/site/visuals";
-import { services } from "@/lib/services";
+import { services, startingPoints } from "@/lib/services";
 import { getArticles, formatArticleDate } from "@/lib/articles";
 import { site } from "@/lib/site";
 import type { CSSProperties } from "react";
@@ -69,6 +69,36 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="glance" aria-label="At a glance">
+        <ul>
+          {[
+            ["First reply", "2 days"],
+            ["Scope and price", "In writing"],
+            ["Services", String(services.length).padStart(2, "0")],
+            ["Calculators published", "45"],
+            ["Vendors you deal with", "1"],
+          ].map(([k, v], i) => (
+            <li key={k} data-fade data-delay={i * 0.06}>
+              <span className="label">{k}</span>
+              <span className="stat-v">{v}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="ticker" aria-hidden="true">
+          <div className="ticker-track">
+            {[0, 1].map((k) => (
+              <span key={k}>
+                {services.map((s) => (
+                  <span key={s.id} className="ticker-item">
+                    {s.name} <i>/</i>
+                  </span>
+                ))}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="sec intro g12" aria-label="Introduction">
         <p className="label">
           <span className="spaced">Introduction</span>
@@ -112,6 +142,46 @@ export default function Home() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="sec" aria-labelledby="hold-title">
+        <SectionHead label="(Built for the second year)" id="hold-title" title="Launch is the easy part." pos="tr" />
+        <p className="statement hold-lede" data-lines>
+          Anything can look finished on day one. The question is what happens when the person who built it is not in the room: when a price changes, a vendor sunsets an API, a new hire has to learn the tool, or the numbers need to be defended.
+        </p>
+        <ul className="how hold">
+          {[
+            ["Your name on the accounts", "Domain, hosting, Stripe, email and data live in accounts you own. If we part ways, nothing stops working and nothing is held hostage."],
+            ["Notes a stranger could follow", "Every build ships with plain-language notes: what it does, where it lives, what to do when it breaks. Written for the next person, not for me."],
+            ["Numbers you can trace", "Dashboards open the records behind each figure. Calculators show their method. Automations keep a log. If a result cannot be checked, it is not done."],
+            ["Edits without a developer", "Text, prices, hours and photos are yours to change from a simple editor. Structural changes are a message away."],
+          ].map(([t, d], i) => (
+            <li key={t} data-fade data-delay={i * 0.08}>
+              <span className="label">(0{i + 1})</span>
+              <span className="h-m">{t}</span>
+              <p className="body">{d}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="sec" aria-labelledby="start-title">
+        <SectionHead label="(Three ways to start)" id="start-title" title="Small first, if you like." pos="tl" />
+        <ul className="rows">
+          {startingPoints.slice(0, 3).map((p, i) => (
+            <li key={p.name}>
+              <span className="label c-no">({String.fromCharCode(65 + i)})</span>
+              <span className="h-m c-name">{p.name}</span>
+              <p className="body c-text">{p.text}</p>
+              <span className="c-end price">{p.price}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="action-row">
+          <Link className="btn ghost" href="/services">
+            <Roll text="All starting points and the process" /> <span className="arrow" aria-hidden="true">↗</span>
+          </Link>
+        </div>
       </section>
 
       <section className="sec" aria-labelledby="journal-title">
