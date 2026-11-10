@@ -1,6 +1,8 @@
 import { VaultCatalog } from "@/components/engivault/catalog";
 import { catalogItems, disciplines } from "@/lib/engivault/catalog";
 import { Title } from "@/components/site/title";
+import { PlantSchematic } from "@/components/engivault/plant-schematic";
+import { hotspots } from "@/lib/engivault/catalog";
 
 export const metadata = {
   title: "EngiVault: free engineering calculators",
@@ -35,6 +37,13 @@ export default function Page() {
           </div>
         </dl>
       </header>
+      <section className="vault-plant visuals" aria-label="Interactive process schematic">
+        <div className="product-app-bar">
+          <span className="label">(Schematic) An illustrative loop</span>
+          <span className="label">Hover any equipment or instrument. Each opens its calculation.</span>
+        </div>
+        <PlantSchematic hotspots={hotspots} />
+      </section>
       <VaultCatalog items={catalogItems} />
     </>
   );

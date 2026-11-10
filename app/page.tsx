@@ -18,11 +18,12 @@ export const metadata = {
 };
 
 const work: StripItem[] = [
-  { src: "/images/work/project-controls.webp", title: "Project controls workspace", note: "Complete product. Ten connected views, open it and use it", href: "/work/project-controls", alt: "The project controls workspace with a Gantt schedule" },
-  { src: "/images/work/inspection-planning.webp", title: "Inspection planning optimizer", note: "Complete product. Cost curves, rankings, scenarios", href: "/work/inspection-planning", alt: "The inspection planning optimizer" },
-  { src: "/images/consulting/engivault-calculator.png", title: "EngiVault", note: "Live library. 45 calculations with units, method and sources", href: "/engivault", alt: "An EngiVault calculator with inputs, results and cited sources" },
-  { src: "/images/work/connected-operations.webp", title: "Hours mapping", note: "Inside the project workspace. Records matched between systems", href: "/work/project-controls", alt: "A reconciliation table matching records between two systems" },
-  { src: "/images/work/risk-workspace.webp", title: "Risk intelligence", note: "Inside the project workspace. Exposure ranked", href: "/work/project-controls", alt: "A risk dashboard with an exposure chart" },
+  { src: "/images/work/pc-schedule.webp", title: "Project controls workspace", note: "Complete product. Ten connected views", href: "/work/project-controls", alt: "The project controls workspace with a Gantt schedule" },
+  { src: "/images/work/ip-workbench.webp", title: "Inspection planning optimizer", note: "Complete product. Cost curves, rankings, scenarios", href: "/work/inspection-planning", alt: "The inspection planning optimizer" },
+  { src: "/images/work/ev-library.webp", title: "EngiVault", note: "Live product. 45 calculations with units, method and sources", href: "/work/engivault", alt: "The EngiVault calculator library" },
+  { src: "/images/work/pc-risk.webp", title: "Risk intelligence", note: "Inside the project workspace", href: "/work/project-controls", alt: "A risk page with a matrix and ranked list" },
+  { src: "/images/work/ev-calculator.webp", title: "A worked calculation", note: "Inside EngiVault", href: "/work/engivault", alt: "An EngiVault calculator with method and sources" },
+  { src: "/images/work/ip-curves.webp", title: "Life-cycle cost curves", note: "Inside the optimizer", href: "/work/inspection-planning", alt: "Cost curves for an inspection task" },
 ];
 
 const d = (s: string) => ({ "--d": s }) as CSSProperties;

@@ -1,19 +1,28 @@
-/* The complete products on the site. Both run in the browser on fictional
-   records; nothing connects to a client system. */
+/* The projects, as case studies. Two run in the browser on fictional records
+   (`kind` project | inspection); EngiVault is a live tool with its own pages. */
+export type Gallery = { src: string; alt: string; caption: string };
 export type Product = {
   slug: string;
-  kind: "project" | "inspection";
+  kind: "project" | "inspection" | "engivault";
   no: string;
   name: string;
   short: string;
   line: string;
-  image: string;
-  imageAlt: string;
-  what: string;
+  year: string;
+  type: string;
+  accent: string;
+  cover: string;
+  coverAlt: string;
   features: string[];
+  description: string;
+  challenge: string;
+  solution: string;
+  gallery: Gallery[];
   tryThis: string[];
   built: string[];
+  facts: { k: string; v: string }[];
   services: string[];
+  live?: { href: string; label: string };
 };
 
 export const products: Product[] = [
@@ -24,25 +33,34 @@ export const products: Product[] = [
     name: "Project controls workspace",
     short: "Project controls",
     line: "Schedule, people, money and risk for one project, traceable from source record to decision.",
-    image: "/images/work/project-controls.webp",
-    imageAlt: "The project controls workspace with a Gantt schedule and progress columns",
-    what:
-      "Ten connected views over one fictional project: a WBS and Gantt schedule, capacity heatmaps, MS Project import, hours mapping, forecast, quality, cost and margin, productivity and risk intelligence. Each view explains the question it answers.",
-    features: [
-      "WBS and Gantt with dependencies, baseline and critical path",
-      "Paired demand and capacity heatmaps",
-      "MS Project import with version comparison",
-      "Hours mapping with a deterministic matcher",
-      "Forecast worksheet with an approval trail",
-      "Cost, margin and productivity from one ledger",
-      "Risk matrix, trends, clusters and ranking",
+    year: "2025 to 2026",
+    type: "Web application",
+    accent: "#e2b45a",
+    cover: "/images/work/pc-schedule.webp",
+    coverAlt: "The project controls workspace with a WBS and Gantt schedule",
+    features: ["Web application", "WBS and Gantt", "Capacity planning", "Schedule import", "Forecasting", "Cost and productivity", "Risk intelligence", "Data visualisation"],
+    description:
+      "Ten connected views over one project: a WBS and Gantt schedule, paired capacity heatmaps, MS Project import with version comparison, hours mapping, a forecast worksheet, quality trends, cost and margin, productivity and a risk page. Each view states the question it answers, and every number can be traced back to the record it came from.",
+    challenge:
+      "Project controls teams work across a schedule tool, a timesheet export, a cost ledger and a risk register that never agree. Reporting means re-keying the same numbers every week, and by the time a variance shows up in a slide it is already a month old.",
+    solution:
+      "One workspace with one data model. The schedule is the backbone; hours, cost, forecast and risk hang off its work packages, so a change in one view moves the others. Imports are matched deterministically and every match is reviewable. Charts are drawn by code, not a chart library, so they show exactly what the team needs and nothing else.",
+    gallery: [
+      { src: "/images/work/pc-schedule.webp", alt: "WBS and Gantt schedule", caption: "Schedule. Split panes stay aligned; baseline against projected, critical path on." },
+      { src: "/images/work/pc-heatmaps.webp", alt: "Paired capacity heatmaps", caption: "Capacity. Demand and available capacity side by side, by role and month." },
+      { src: "/images/work/pc-forecast.webp", alt: "Forecast worksheet", caption: "Forecast. Variance, sparklines and an approval trail." },
+      { src: "/images/work/pc-risk.webp", alt: "Risk intelligence page", caption: "Risk. Matrix, trends, clusters and a ranked list." },
+      { src: "/images/work/pc-mapping.webp", alt: "Hours mapping", caption: "Mapping. Timesheet buckets matched to the work breakdown, every match reviewable." },
+      { src: "/images/work/pc-cost.webp", alt: "Cost and margin", caption: "Cost. One ledger behind cost, margin and productivity." },
     ],
-    tryThis: [
-      "Open Schedule, switch to Weeks and turn on Critical.",
-      "In Capacity, add 1 FTE and watch the gap close.",
-      "In Risk intelligence, review a suggested relationship.",
+    tryThis: ["Open Schedule, switch to Weeks and turn on Critical.", "In Capacity, add 1 FTE and watch the gap close.", "In Risk intelligence, review a suggested relationship."],
+    built: ["React", "TypeScript", "Python parser (MPXJ)", "PostgreSQL"],
+    facts: [
+      { k: "Views", v: "10" },
+      { k: "Imports", v: "MS Project" },
+      { k: "Records", v: "Fictional" },
+      { k: "Runs", v: "In the browser" },
     ],
-    built: ["React", "TypeScript", "Python parser (MPXJ)", "PostgreSQL in production"],
     services: ["visuals", "dashboards", "integrations"],
   },
   {
@@ -51,25 +69,68 @@ export const products: Product[] = [
     no: "02",
     name: "Inspection planning optimizer",
     short: "Inspection planning",
-    line: "Decide when each inspection task should happen, by cost and risk instead of habit.",
-    image: "/images/work/inspection-planning.webp",
-    imageAlt: "The inspection planning optimizer with life-cycle cost curves and task rankings",
-    what:
-      "A task timing workbench for an asset portfolio. It computes life-cycle cost curves for every task, ranks where a change saves the most, compares scenarios and exports the plan to a workbook. The calculation engine runs in a background worker in your browser.",
-    features: [
-      "Life-cycle cost curves per task",
-      "Rankings and top contributors across the portfolio",
-      "Asset panels and a searchable task pool",
-      "Scenario comparison with recalculation",
-      "Excel export of the whole plan",
+    line: "When each inspection task should happen, decided by cost and risk instead of habit.",
+    year: "2025",
+    type: "Decision tool",
+    accent: "#6cc4b4",
+    cover: "/images/work/ip-workbench.webp",
+    coverAlt: "The inspection planning optimizer workbench",
+    features: ["Decision tool", "Life-cycle cost", "Optimisation", "Scenario comparison", "Web worker engine", "Excel export", "Data visualisation"],
+    description:
+      "A task timing workbench for an asset portfolio. It computes a life-cycle cost curve for every inspection task, ranks where a change in interval saves the most, compares scenarios and exports the plan to a workbook. The calculation engine runs in a background worker, so the interface stays responsive while thousands of curves recompute.",
+    challenge:
+      "Inspection intervals are usually inherited: the plan says every three years because it always has. Nobody can see the cost of inspecting too often against the risk of inspecting too late, so the conversation stays about habit rather than money.",
+    solution:
+      "Make the trade visible. For each task the tool draws inspection cost falling, failure risk rising, and the total with its minimum. The portfolio view ranks the tasks where moving the interval saves the most, settings change the assumptions, and two scenarios can be held side by side before anything is exported.",
+    gallery: [
+      { src: "/images/work/ip-workbench.webp", alt: "Optimizer workbench", caption: "Workbench. Scenario, checks and the ranked task pool." },
+      { src: "/images/work/ip-curves.webp", alt: "Life-cycle cost curves", caption: "Curves. Inspection cost, failure risk and the total for one task." },
+      { src: "/images/work/ip-rankings.webp", alt: "Portfolio rankings", caption: "Rankings. Where a change in interval saves the most." },
     ],
-    tryThis: [
-      "Pick a task in the rankings and read its cost curve.",
-      "Change an interval in the settings and recalculate.",
-      "Export the scenario to Excel.",
+    tryThis: ["Pick a task in the rankings and read its cost curve.", "Change an interval in the settings and recalculate.", "Export the scenario to Excel."],
+    built: ["React", "TypeScript", "Web Worker", "SheetJS"],
+    facts: [
+      { k: "Engine", v: "Web worker" },
+      { k: "Scenarios", v: "Compared live" },
+      { k: "Export", v: "Excel" },
+      { k: "Records", v: "Fictional" },
     ],
-    built: ["React", "TypeScript", "Web Worker engine", "SheetJS export"],
     services: ["engineering", "visuals", "automation"],
+  },
+  {
+    slug: "engivault",
+    kind: "engivault",
+    no: "03",
+    name: "EngiVault",
+    short: "EngiVault",
+    line: "Forty-five engineering calculations that show their inputs, units, method and sources.",
+    year: "2024 to 2026",
+    type: "Live product",
+    accent: "#8fb0dc",
+    cover: "/images/work/ev-library.webp",
+    coverAlt: "The EngiVault calculator library",
+    features: ["Live product", "Engineering calculators", "Unit handling", "Cited methods", "Interactive schematic", "Free, no account"],
+    description:
+      "A public library of engineering calculations for fluids, heat transfer, piping and more. Every calculator shows its inputs with explicit units, writes the method out, cites its sources and is checked against reference cases. An interactive process schematic links each piece of equipment to the calculation behind it.",
+    challenge:
+      "Most online calculators are black boxes: a form, a number, no way to check it. Engineers cannot use a result they cannot defend, so they rebuild the same spreadsheet every time.",
+    solution:
+      "Treat each calculation like a worked example. Inputs carry units and convert; the method is written out next to the result; sources are cited; the result updates as you type. The schematic gives the library a map, so you can start from the pump or the exchanger rather than a list.",
+    gallery: [
+      { src: "/images/work/ev-library.webp", alt: "The calculator library", caption: "Library. Search and filter forty-five calculations by discipline." },
+      { src: "/images/work/ev-calculator.webp", alt: "A calculator page", caption: "Calculator. Inputs with units, the method written out, sources cited." },
+      { src: "/images/work/ev-converter.webp", alt: "The unit converter", caption: "Units. A converter that shares the library's unit model." },
+    ],
+    tryThis: ["Hover the schematic and open the exchanger.", "Change a unit on any input and watch the result follow.", "Read the method before you trust the number."],
+    built: ["Next.js", "TypeScript", "SVG", "anime.js"],
+    facts: [
+      { k: "Calculations", v: "45" },
+      { k: "Disciplines", v: "12" },
+      { k: "Account", v: "None" },
+      { k: "Cost", v: "Free" },
+    ],
+    services: ["engineering", "visuals", "websites"],
+    live: { href: "/engivault", label: "Open EngiVault" },
   },
 ];
 
