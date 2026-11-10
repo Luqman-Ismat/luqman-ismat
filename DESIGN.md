@@ -26,3 +26,13 @@ Replaces the October systems (archived in `docs/archive/`). Built from three ref
 
 ## EngiVault
 Legacy EngiVault components keep their own classes (`styles/engivault.css`, `styles/vault.css`) but read the system's HSL tokens, so they render in the new palette. `.vault` sits inside the shared shell.
+
+## Titles (November 2026 revision)
+The user found large bold headlines the clearest "AI-made" tell. Rules now:
+- No display-size headlines. Every h1/h2 is a `Title` (`components/site/title.tsx`) at 17-28px, weight 450, max ~24ch.
+- Titles sit in corners: section heads put the label in one corner and the title in the opposite one (`SectionHead pos="tl" | "tr"`, alternating down the page). Page heads: title top-left, label top-right, lede below the title.
+- Motion (`[data-ttl]` in `motion.tsx`): letters assemble from scattered positions on entry, the line drifts sideways with scroll, letters come apart as the title moves into the top sixth of the screen (scrubbed, so scrolling back rebuilds it), random letters twitch every few seconds, and pointer contact jostles them. The TEN21 wordmarks assemble and break apart the same way. Reduced motion: all static.
+- Statements are 19-27px; the services focus list is 24-48px.
+
+## Products
+`/work`, `/work/project-controls`, `/work/inspection-planning` mount the complete applications from `examples/` natively (`ProductMount`, bundles in `public/examples`, token bridge in `styles/products.css`). Fictional data, labelled on every page. Product screenshots in `public/images/work` are captured from these pages in the dark theme.
