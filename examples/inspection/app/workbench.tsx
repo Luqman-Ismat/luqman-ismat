@@ -298,9 +298,9 @@ export default function Workbench() {
         <button className="accent" onClick={() => exportModel(false)} disabled={busy || !run || !template || !!exporting}>{exporting === 'sample' ? 'Building…' : '↓ Export Model import sheet'}</button>
       </div>
     </nav>
-    <main><div className="demo-disclosure">Fictional assets and scenarios. Edits stay in your browser.</div>
+    <section className="as-main"><div className="demo-disclosure">Fictional assets and scenarios. Edits stay in your browser.</div>
       <header className="page-heading">
-        <div><p className="eyebrow">PLANNING WORKBENCH</p><h1>Task Timing Optimizer</h1><p>Model task placement · V2 acceptance gates <span className="meta-divider">/</span> As of {run?.today || '—'}</p></div>
+        <div><p className="eyebrow">PLANNING WORKBENCH</p><h2 className="as-h1">Task Timing Optimizer</h2><p>Model task placement · V2 acceptance gates <span className="meta-divider">/</span> As of {run?.today || '—'}</p></div>
         <span className="snapshot">{run ? num(results.length) + ' assessments' : 'Reading source data'}<small>{run?.scenarioName || 'Scenario'} · {SID}</small></span>
       </header>
       {run && SID === OPTIMIZED_SID && (() => {
@@ -440,6 +440,6 @@ export default function Workbench() {
         </section>}
       </>}
       <footer><span>Model Task Optimizer</span><span role="status" aria-live="polite">{busy && !error ? status : 'Source snapshot · SQL connection deferred'}</span></footer>
-    </main>
+    </section>
   </div>;
 }

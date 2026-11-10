@@ -28,7 +28,7 @@ export default function WorkPage() {
             <li key={p.slug} style={{ "--accent": p.accent } as CSSProperties}>
               <Link href={`/work/${p.slug}`} className={i % 2 ? "wk-item flip" : "wk-item"}>
                 <span className="wk-vis" data-fade>
-                  <ProjectVisual kind={p.kind} />
+                  <ProjectVisual kind={p.kind} variant={2} />
                 </span>
                 <span className="wk-copy">
                   <span className="label">

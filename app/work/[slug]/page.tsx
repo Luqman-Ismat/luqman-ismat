@@ -213,7 +213,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 </div>
               ) : (
                 <div className="cs-open">
-                  <PlantSchematic hotspots={hotspots} initial={hotspots[1]?.id ?? null} />
                   <ol className="cs-try">
                     {p.tryThis.map((t, i) => (
                       <li key={t}>
@@ -262,7 +261,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
         <Link href={`/work/${next.slug}`} className="cs-next" style={{ "--accent": next.accent } as CSSProperties}>
           <div className="cs-next-vis" aria-hidden="true">
-            <ProjectVisual kind={next.kind} />
+            <ProjectVisual kind={next.kind} variant={2} />
           </div>
           <div className="cs-next-copy">
             <span className="label">(Next project)</span>

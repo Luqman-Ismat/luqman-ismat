@@ -5,7 +5,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /* A schedule drawn by code: bars build in, dependencies draw, and a today
    line follows the pointer with a readout. Fictional work packages. */
-const rows = [
+const sets = [
+[
   { n: "Front end loading", s: 0, d: 6, done: 1 },
   { n: "Detailed design", s: 4, d: 9, done: 1, dep: 0 },
   { n: "Procurement", s: 8, d: 10, done: 0.8, dep: 1 },
@@ -13,18 +14,38 @@ const rows = [
   { n: "Mechanical install", s: 15, d: 8, done: 0.25, dep: 3 },
   { n: "Piping and E&I", s: 18, d: 8, done: 0.05, dep: 4 },
   { n: "Commissioning", s: 25, d: 4, done: 0, dep: 5 },
+],
+[
+  { n: "Discovery", s: 0, d: 3, done: 1 },
+  { n: "Design", s: 2, d: 5, done: 1, dep: 0 },
+  { n: "Build, phase 1", s: 6, d: 8, done: 0.9, dep: 1 },
+  { n: "Data migration", s: 9, d: 6, done: 0.5, dep: 2 },
+  { n: "Build, phase 2", s: 14, d: 7, done: 0.3, dep: 2 },
+  { n: "Training", s: 20, d: 3, done: 0, dep: 4 },
+  { n: "Go live", s: 23, d: 2, done: 0, dep: 5 },
+  { n: "Care period", s: 25, d: 5, done: 0, dep: 6 },
+],
+[
+  { n: "Permit", s: 0, d: 4, done: 1 },
+  { n: "Site prep", s: 3, d: 5, done: 1, dep: 0 },
+  { n: "Foundations", s: 7, d: 6, done: 0.7, dep: 1 },
+  { n: "Structure", s: 12, d: 8, done: 0.2, dep: 2 },
+  { n: "Fit out", s: 19, d: 7, done: 0, dep: 3 },
+  { n: "Handover", s: 26, d: 3, done: 0, dep: 4 },
+],
 ];
 const W = 760;
 const ROW = 30;
 const L = 170;
 const T = 26;
 const weeks = 30;
-const H = T + rows.length * ROW + 12;
 const xw = (w: number) => L + (w / weeks) * (W - L - 14);
 
-export function LiveGantt({ compact = false }: { compact?: boolean }) {
+export function LiveGantt({ compact = false, variant = 0 }: { compact?: boolean; variant?: number }) {
+  const rows = sets[variant] ?? sets[0];
+  const H = T + rows.length * ROW + 12;
   const root = useRef<SVGSVGElement>(null);
-  const [today, setToday] = useState(17.5);
+  const [today, setToday] = useState(variant === 1 ? 12.5 : variant === 2 ? 10 : 17.5);
 
   useEffect(() => {
     const el = root.current;

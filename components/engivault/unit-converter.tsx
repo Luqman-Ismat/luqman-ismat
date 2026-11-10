@@ -6,9 +6,9 @@ import { unitCategories } from "@/lib/engivault/unit-converter-data";
 import { convertQuantity } from "@/lib/engivault/convert";
 
 const show = (n: number) =>
-  Math.abs(n) !== 0 && (Math.abs(n) >= 1e9 || Math.abs(n) < 1e-6)
-    ? n.toExponential(6).replace(/\.?0+e/, "e")
-    : n.toLocaleString("en-US", { maximumSignificantDigits: 10 });
+  Math.abs(n) !== 0 && (Math.abs(n) >= 1e9 || Math.abs(n) < 1e-4)
+    ? n.toExponential(4).replace(/\.?0+e/, "e")
+    : n.toLocaleString("en-US", { maximumSignificantDigits: 7 });
 
 export function UnitConverter() {
   const reduced = useReducedMotion();

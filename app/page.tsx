@@ -128,7 +128,7 @@ export default function Home() {
             <li key={p.slug} style={{ "--accent": p.accent } as CSSProperties} data-fade data-delay={i * 0.1}>
               <Link href={`/work/${p.slug}`} className="wk-card">
                 <span className="wk-vis">
-                  <ProjectVisual kind={p.kind} />
+                  <ProjectVisual kind={p.kind} variant={1} />
                 </span>
                 <span className="label">
                   ({p.no}) <b className="acc">{p.type}</b>

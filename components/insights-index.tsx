@@ -47,7 +47,7 @@ export function InsightsIndex({ articles }: { articles: Article[] }) {
         ({String(filtered.length).padStart(2, "0")}) {filtered.length === 1 ? "Article" : "Articles"}
       </p>
       <ul className="jlist">
-        {filtered.map((p, i) => (
+        {filtered.filter((p) => !(q === "" && category === "All topics" && p.slug === articles[0].slug)).map((p, i) => (
           <li key={p.slug}>
             <Link href={p.href}>
               <span className="label j-cat">

@@ -18,7 +18,7 @@ export function CareerTimeline({ roles }: { roles: Role[] }) {
   const sorted = [...roles].sort((a, b) => a.start.localeCompare(b.start));
   const y0 = Math.floor(Math.min(...sorted.map((r) => ym(r.start))));
   const y1 = Math.ceil(Math.max(...sorted.map((r) => ym(r.end))));
-  const W = 760, L = 20, T = 30, ROW = 30, H = T + sorted.length * ROW + 14;
+  const W = 760, L = 20, T = 30, ROW = 40, H = T + sorted.length * ROW + 14;
   const x = (y: number) => L + ((y - y0) / (y1 - y0)) * (W - L - 20);
   useEffect(() => {
     const el = root.current;
