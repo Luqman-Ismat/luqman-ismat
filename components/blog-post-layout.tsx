@@ -5,6 +5,7 @@ import { SectionIndex } from "@/components/site/section-index";
 import { SocialShare } from "./social-share";
 import { RelatedArticles } from "./related-articles";
 import { formatArticleDate } from "@/lib/articles";
+import { Title } from "@/components/site/title";
 
 interface BlogPostLayoutProps {
   title: string;
@@ -31,8 +32,8 @@ export function BlogPostLayout({ title, description, image, content, date, categ
             </Link>
             <span className="label">({category.toLowerCase()})</span>
           </div>
-          <h1 data-lines>{title}</h1>
-          <p className="statement lede" data-lines data-delay="0.1">
+          <Title as="h1" text={title} pos="tl" className="art-title" />
+          <p className="body lede" data-fade>
             {description}
           </p>
           <div className="art-meta">

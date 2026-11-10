@@ -1,4 +1,5 @@
 import { Page } from "@/components/site/footer";
+import { Title } from "@/components/site/title";
 export const metadata = {
   title: "Privacy",
   alternates: { canonical: "/privacy" },
@@ -8,11 +9,9 @@ export default function Privacy() {
   return (
     <Page>
       <header className="page-head">
-        <p className="label">(Privacy)</p>
-        <h1 className="h-xl" data-lines>
-          Privacy, plainly.
-        </h1>
-        <p className="statement lede">
+        <Title as="h1" text="Privacy, plainly." pos="tl" className="page-title" />
+        <p className="label page-label">(Privacy)</p>
+        <p className="body lede">
           This website presents the services of TEN21 Consulting. <b>You can browse without creating an account.</b>
         </p>
       </header>

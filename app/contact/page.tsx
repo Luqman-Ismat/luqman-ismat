@@ -2,6 +2,7 @@ import { inquiryServices, site } from "@/lib/site";
 import { Page } from "@/components/site/footer";
 import { ProjectInquiry } from "@/components/project-inquiry";
 import { Roll } from "@/components/site/roll";
+import { Title } from "@/components/site/title";
 
 export const metadata = {
   title: "Start a project",
@@ -18,11 +19,9 @@ export default async function ContactPage(props: { searchParams: Promise<{ servi
   return (
     <Page>
       <header className="page-head">
-        <p className="label">(Start a project)</p>
-        <h1 className="h-xl" data-lines>
-          What needs doing?
-        </h1>
-        <p className="statement lede" data-lines data-delay="0.15">
+        <Title as="h1" text="What needs doing?" pos="tl" className="page-title" />
+        <p className="label page-label">(Start a project)</p>
+        <p className="body lede" data-fade>
           A few lines is enough. <b>You&apos;ll hear back within two business days.</b>
         </p>
       </header>

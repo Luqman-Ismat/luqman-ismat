@@ -1,6 +1,7 @@
 import { getArticles } from "@/lib/articles";
 import { Page } from "@/components/site/footer";
 import { InsightsIndex } from "@/components/insights-index";
+import { Title } from "@/components/site/title";
 
 export const metadata = {
   title: "Journal: engineering, projects and systems",
@@ -12,11 +13,9 @@ export default function Blog() {
   return (
     <Page>
       <header className="page-head">
-        <p className="label">(Journal)</p>
-        <h1 className="h-xl" data-lines>
-          Notes from the work.
-        </h1>
-        <p className="statement lede" data-lines data-delay="0.15">
+        <Title as="h1" text="Notes from the work." pos="tl" className="page-title" />
+        <p className="label page-label">(Journal)</p>
+        <p className="body lede" data-fade>
           Engineering methods, project delivery and better ways to organize technical work. <b>Written from practice, not theory.</b>
         </p>
       </header>

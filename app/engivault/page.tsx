@@ -1,5 +1,6 @@
 import { VaultCatalog } from "@/components/engivault/catalog";
 import { catalogItems, disciplines } from "@/lib/engivault/catalog";
+import { Title } from "@/components/site/title";
 
 export const metadata = {
   title: "EngiVault: free engineering calculators",
@@ -14,9 +15,7 @@ export default function Page() {
       <header className="vault-head">
         <p className="label">(EngiVault)</p>
         <div className="copy">
-          <h1 className="h-xl" data-lines>
-            Calculations, worked in the open.
-          </h1>
+          <Title as="h1" text="Calculations, worked in the open." pos="tl" className="page-title" />
           <p className="body" data-fade>
             <b>Explicit inputs and units, the method written out, and the sources cited.</b> Results update as you type. No account needed. Designed, built and maintained by Luqman Ismat at TEN21.
           </p>

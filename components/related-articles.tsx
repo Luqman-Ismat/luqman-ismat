@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getArticles } from "@/lib/articles";
+import { SectionHead } from "@/components/site/title";
 
 export function RelatedArticles({ currentCategory, currentSlug }: { currentCategory: string; currentSlug: string }) {
   const articles = getArticles()
@@ -8,12 +9,7 @@ export function RelatedArticles({ currentCategory, currentSlug }: { currentCateg
     .slice(0, 3);
   return (
     <section className="sec related" aria-labelledby="related-title">
-      <div className="sec-head">
-        <p className="label">(Keep reading)</p>
-        <h2 id="related-title" className="h-l sec-title" data-lines>
-          More from the journal.
-        </h2>
-      </div>
+      <SectionHead label="(Keep reading)" id="related-title" title="More from the journal." pos="tr" />
       <ul className="jlist">
         {articles.map((p) => (
           <li key={p.slug}>

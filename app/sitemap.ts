@@ -7,6 +7,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...[
       "",
       "/services",
+      "/work",
+      "/work/project-controls",
+      "/work/inspection-planning",
       "/engivault",
       "/engivault/unit-converter",
       ...Object.keys(calculators).map(

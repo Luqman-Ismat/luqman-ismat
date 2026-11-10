@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import "@/styles/engivault.css";
 import "@/styles/vault.css";
 import "@/styles/system.css";
+import "@/styles/products.css";
 import { Header } from "@/components/site/header";
 import { Motion } from "@/components/site/motion";
 import { GridLines } from "@/components/site/roll";

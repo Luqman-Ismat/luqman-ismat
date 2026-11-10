@@ -2024,10 +2024,7 @@ main {
 @keyframes rise-in {
   from { opacity: 0; transform: translateY(22px); }
 }
-.js-motion .hero-word .slot > span {
-  animation: slot-in 1.6s var(--ease) both;
-  animation-delay: calc(0.12s + var(--i, 0) * 75ms);
-}
+
 .js-motion [data-intro] {
   animation: rise-in 1.4s var(--ease) both;
   animation-delay: var(--d, 0s);
@@ -2331,3 +2328,102 @@ textarea:focus-visible,
 }
 .btn:focus-visible { outline-offset: 4px !important; }
 .contact-grid { padding-bottom: clamp(140px, 14vw, 220px); }
+
+/* ================= minimal titles: small, placed, constructed ================= */
+.statement { font-size: clamp(19px, 1.65vw, 27px); line-height: 1.24; letter-spacing: -0.018em; }
+.focus-list .nm { font-size: clamp(24px, 3vw, 48px); letter-spacing: -0.032em; }
+.ttl {
+  margin: 0;
+  font-weight: 450;
+  font-size: clamp(17px, 1.35vw, 21px);
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+  color: var(--paper);
+  max-width: 24ch;
+  text-wrap: balance;
+}
+.ttl-v { display: inline; }
+.ttl-w { display: inline-block; white-space: nowrap; }
+.ttl-c, .ttl-i { display: inline-block; }
+.ttl-c { white-space: pre; }
+
+/* section heads: label and title in opposite corners */
+.sh {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  align-items: start;
+  margin-bottom: clamp(36px, 4.5vw, 64px);
+}
+.sh-tr .sh-label { grid-column: 1 / span 3; }
+.sh-tr .sh-title { grid-column: 9 / span 4; justify-self: end; text-align: right; }
+.sh-tl .sh-title { grid-column: 1 / span 4; }
+.sh-tl .sh-label { grid-column: 10 / span 3; justify-self: end; text-align: right; }
+@media (max-width: 760px) {
+  .sh { grid-template-columns: 1fr auto; column-gap: 16px; }
+  .sh-tr .sh-label, .sh-tl .sh-title { grid-column: 1; grid-row: 1; }
+  .sh-tr .sh-title, .sh-tl .sh-label { grid-column: 2; grid-row: 1; max-width: 16ch; }
+  .sh-tl .sh-title { max-width: 18ch; }
+}
+
+/* hero: small title top-left, everything else in the corners */
+.hero-copy {
+  grid-column: 1 / span 4;
+  grid-row: 1 / span 2;
+  align-self: start;
+}
+.hero-title { font-size: clamp(20px, 1.75vw, 28px); max-width: 17ch; }
+.hero-copy .body { margin-top: 22px; max-width: 38ch; }
+.hero-copy .action-row { margin-top: 26px; }
+.hero-meta {
+  grid-column: 6 / span 3;
+  grid-row: 1;
+}
+@media (max-width: 900px) {
+  .hero-copy { grid-column: 1 / -1; grid-row: 2; }
+  .hero-meta { grid-column: 1 / span 2; grid-row: 1; }
+}
+
+/* page heads */
+.page-head { row-gap: 18px; }
+.page-head .page-title { grid-column: 1 / span 5; grid-row: 1; font-size: clamp(20px, 1.75vw, 28px); max-width: 20ch; }
+.page-head .page-label { grid-column: 10 / span 3; grid-row: 1; justify-self: end; text-align: right; padding-top: 0.5em; }
+.page-head .lede { grid-column: 1 / span 5; grid-row: 2; margin: 18px 0 0; max-width: 46ch; }
+.page-head .lede.statement { font-size: 16px; }
+@media (max-width: 760px) {
+  .page-head { grid-template-columns: 1fr auto; }
+  .page-head .page-title { grid-column: 1; }
+  .page-head .page-label { grid-column: 2; }
+  .page-head .lede { grid-column: 1 / -1; }
+}
+.vault-head .page-title { font-size: clamp(20px, 1.75vw, 28px); margin-bottom: 18px; max-width: 18ch; }
+.art-head .art-title { font-size: clamp(24px, 2.4vw, 38px); max-width: 26ch; line-height: 1.12; }
+.art-head .lede { font-size: 17px; max-width: 52ch; margin-top: 20px; }
+.svc-top .svc-title { grid-column: 1 / span 6; font-size: clamp(19px, 1.6vw, 25px); }
+.svc-top .statement { font-size: clamp(17px, 1.35vw, 21px); }
+.proof-title { margin: 14px 0 16px; max-width: 30ch; }
+
+/* closing call: small title in one corner, actions in the other */
+.close-row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  row-gap: 28px;
+  align-items: start;
+  border-top: 1px solid var(--rule);
+  padding-top: 22px;
+}
+.close-title { grid-column: 1 / span 4; font-size: clamp(20px, 1.75vw, 28px); }
+.close-row .close-side {
+  grid-column: 8 / span 5;
+  display: block;
+  margin: 0;
+}
+.close-row .close-side .action-row { margin-top: 22px; }
+@media (max-width: 760px) {
+  .close-title, .close-row .close-side { grid-column: 1 / -1; }
+}
+.hero-word .slot > span, .ftr-word > span { will-change: transform; }
+
+.hero, .sec, .page-head, .art-head, .vault-head, .ftr { overflow-x: clip; }
+html, body { overflow-x: clip; }

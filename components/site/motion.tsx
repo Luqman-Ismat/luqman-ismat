@@ -122,6 +122,7 @@ export function Motion() {
       });
     }
     if (reduced()) return;
+    let alive = true;
 
     const ctx = gsap.context(() => {
       const st = (el: Element, start = "top 88%") => ({ trigger: el, start, once: true });
@@ -143,6 +144,140 @@ export function Motion() {
             }),
         });
       });
+
+      const rnd = gsap.utils.random;
+
+      // titles: assemble from scattered letters, drift with the page,
+      // come apart as their section leaves, and twitch now and then
+      gsap.utils.toArray<HTMLElement>("[data-ttl]").forEach((el) => {
+        const outer = el.querySelectorAll<HTMLElement>(".ttl-c");
+        const inner = el.querySelectorAll<HTMLElement>(".ttl-i");
+        const line = el.querySelector<HTMLElement>(".ttl-v");
+        const section = (el.closest("section, header") as HTMLElement) || el;
+        const dir = el.dataset.pos === "tr" ? -1 : 1;
+        const spread = Math.min(140, window.innerWidth * 0.09);
+
+        let built = false;
+        gsap.from(outer, {
+          x: () => rnd(-spread, spread),
+          y: () => rnd(-spread * 0.6, spread * 0.6),
+          rotation: () => rnd(-80, 80),
+          scale: () => rnd(0.3, 1.8),
+          opacity: 0,
+          duration: 1.5,
+          ease: "expo.out",
+          stagger: { each: 0.016, from: "random" },
+          scrollTrigger: { trigger: el, start: "top 94%", once: true },
+          onComplete: () => {
+            built = true;
+          },
+        });
+
+        gsap.to(inner, {
+          x: () => rnd(-spread * 0.7, spread * 0.7),
+          y: () => rnd(-spread * 1.1, -spread * 0.2),
+          rotation: () => rnd(-110, 110),
+          opacity: 0.08,
+          ease: "none",
+          stagger: { each: 0.006, from: "random" },
+          scrollTrigger: {
+            trigger: el,
+            // starts only once the page has actually scrolled, even for titles at the very top
+            start: () => Math.max(1, el.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.16),
+            end: () => Math.max(1, el.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.16) + window.innerHeight * 0.38,
+            scrub: 0.8,
+          },
+        });
+
+        if (line) {
+          gsap.fromTo(
+            line,
+            { x: 0 },
+            {
+              x: window.innerWidth < 760 ? 0 : dir * Math.min(120, window.innerWidth * 0.06),
+              ease: "none",
+              scrollTrigger: { trigger: section, start: "top bottom", end: "bottom top", scrub: true },
+            },
+          );
+        }
+
+        // occasional twitch while on screen
+        let visible = false;
+        ScrollTrigger.create({ trigger: el, start: "top bottom", end: "bottom top", onToggle: (self) => (visible = self.isActive) });
+        const twitch = () => {
+          if (!alive) return;
+          if (visible && built && outer.length) {
+            const picks = gsap.utils.shuffle([...outer]).slice(0, Math.max(2, Math.round(outer.length * 0.12)));
+            gsap.to(picks, {
+              keyframes: [
+                { y: () => rnd(-14, -4), rotation: () => rnd(-25, 25), x: () => rnd(-6, 6), duration: 0.28, ease: "power3.out" },
+                { y: 0, rotation: 0, x: 0, duration: 0.9, ease: "expo.out" },
+              ],
+              stagger: 0.03,
+            });
+          }
+          gsap.delayedCall(rnd(3.5, 7.5), twitch);
+        };
+        gsap.delayedCall(rnd(3, 6), twitch);
+
+        // pointer nearby nudges the letters apart a little
+        if (window.matchMedia("(hover: hover)").matches) {
+          el.addEventListener("pointerenter", () => {
+            if (!built) return;
+            gsap.to(outer, {
+              keyframes: [
+                { x: () => rnd(-8, 8), y: () => rnd(-8, 8), rotation: () => rnd(-14, 14), duration: 0.25, ease: "power2.out" },
+                { x: 0, y: 0, rotation: 0, duration: 1.1, ease: "elastic.out(1, 0.45)" },
+              ],
+              stagger: { each: 0.008, from: "random" },
+              overwrite: "auto",
+            });
+          });
+        }
+      });
+
+      // the TEN21 wordmark: built from pieces on arrival, taken apart on the way down
+      const word = document.querySelector<HTMLElement>("[data-word]");
+      if (word) {
+        const letters = word.querySelectorAll<HTMLElement>(".slot > span");
+        gsap.from(letters, {
+          yPercent: () => rnd(-120, 140),
+          xPercent: () => rnd(-40, 40),
+          rotation: () => rnd(-40, 40),
+          opacity: 0,
+          duration: 2,
+          ease: "expo.out",
+          stagger: { each: 0.07, from: "random" },
+          delay: 0.15,
+        });
+        word.querySelectorAll<HTMLElement>(".slot").forEach((slot) => {
+          gsap.to(slot, {
+            yPercent: () => rnd(-70, -15),
+            xPercent: () => rnd(-25, 25),
+            rotation: () => rnd(-18, 18),
+            ease: "none",
+            scrollTrigger: { trigger: word.closest("section") || word, start: "top top", end: "bottom top", scrub: 0.6 },
+          });
+        });
+        word.querySelectorAll<HTMLElement>(".slot").forEach((slot) => (slot.style.overflow = "visible"));
+      }
+
+      // footer wordmark assembles as the footer is revealed
+      const fword = document.querySelectorAll<HTMLElement>(".ftr-word > span");
+      if (fword.length) {
+        gsap.fromTo(
+          fword,
+          { yPercent: () => rnd(30, 120), rotation: () => rnd(-30, 30), xPercent: () => rnd(-30, 30) },
+          {
+            yPercent: 0,
+            rotation: 0,
+            xPercent: 0,
+            ease: "none",
+            stagger: { each: 0.04, from: "random" },
+            scrollTrigger: { trigger: document.querySelector("main") || fword[0], start: "bottom bottom", end: "bottom 25%", scrub: 0.8 },
+          },
+        );
+      }
 
       gsap.utils.toArray<HTMLElement>("[data-rule]").forEach((el) => {
         gsap.from(el, { scaleX: 0, transformOrigin: "left center", duration: 1.6, ease: "expo.inOut", scrollTrigger: st(el, "top 92%") });
@@ -183,6 +318,7 @@ export function Motion() {
     const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 400);
     return () => {
       window.clearTimeout(refresh);
+      alive = false;
       ctx.revert();
     };
   }, [path]);

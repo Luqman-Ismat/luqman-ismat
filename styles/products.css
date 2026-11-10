@@ -1,0 +1,203 @@
+/* Products: the two complete applications, mounted natively. The token
+   bridge maps the apps' own tokens onto the site system. */
+/* Token bridge: maps the demo apps' design tokens onto the site's tokens so
+   the working applications render as part of the page in light and dark.
+   :root + doubled class out-ranks the apps' own theme blocks. */
+:root .demo-scope.demo-scope {
+  --accent: var(--demo-accent, #ecebe6);
+  --accent-dim: color-mix(in oklab, var(--accent) 72%, black);
+  --accent-glow: color-mix(in oklab, var(--accent) 35%, transparent);
+  --color-accent: var(--accent);
+  --color-accent-dim: color-mix(in oklab, var(--accent) 14%, transparent);
+  --brand-teal: var(--accent);
+  --tone: var(--accent);
+  --glass-border-focus: color-mix(in oklab, var(--accent) 55%, transparent);
+
+  --bg-base: hsl(var(--background));
+  --bg-atmosphere: none;
+  --app-background: hsl(var(--background));
+  --app-foreground: hsl(var(--foreground));
+  --glass-bg: hsl(var(--foreground) / 0.035);
+  --glass-bg-hover: hsl(var(--foreground) / 0.065);
+  --glass-bg-raised: hsl(var(--card));
+  --glass-bg-solid: hsl(var(--card));
+  --glass-border: hsl(var(--foreground) / 0.11);
+  --glass-border-hover: hsl(var(--foreground) / 0.2);
+  --text-primary: hsl(var(--foreground));
+  --text-secondary: hsl(var(--foreground) / 0.7);
+  --text-muted: hsl(var(--foreground) / 0.5);
+  --fg-1: var(--text-primary);
+  --fg-2: var(--text-secondary);
+  --fg-3: var(--text-muted);
+
+  --panel-solid: hsl(var(--card));
+  --panel-solid-border: hsl(var(--border));
+  --overlay-solid: hsl(var(--popover));
+  --hairline: hsl(var(--foreground) / 0.08);
+  --inset: hsl(var(--foreground) / 0.025);
+  --chart-plot: hsl(var(--card));
+  --chart-lane: hsl(var(--foreground) / 0.02);
+  --chart-grid: hsl(var(--border));
+  --chart-today: hsl(var(--foreground) / 0.7);
+  --chart-fit: hsl(var(--foreground));
+  --chart-halo: hsl(var(--background));
+  --chart-cursor: hsl(var(--foreground));
+  --chart-chip: hsl(var(--popover) / 0.94);
+  --chart-chip-border: hsl(var(--border));
+  --chart-chip-fg: hsl(var(--foreground));
+  --chart-axis: hsl(var(--muted-foreground));
+  --chart-lane-label: hsl(var(--muted-foreground));
+  --heat-base: hsl(var(--muted));
+
+  --font-sans: var(--f-sans), system-ui, sans-serif;
+  --font-mono: var(--f-mono), ui-monospace, monospace;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+  --shadow-sm: 0 1px 2px hsl(var(--foreground) / 0.08);
+  --shadow-md: 0 8px 24px hsl(var(--foreground) / 0.1);
+  --shadow-lg: 0 20px 60px hsl(var(--foreground) / 0.16);
+
+  color-scheme: light;
+  background: transparent;
+  color: var(--fg-1);
+  font-family: var(--font-sans);
+  min-height: 0;
+}
+html.dark .demo-scope.demo-scope { color-scheme: dark; }
+.demo-scope { position: relative; isolation: isolate; }
+.demo-scope:not(.is-ready) { min-height: 70vh; }
+/* the inspection app's own theme switch is superseded by the site theme */
+.demo-scope .theme-toggle { display: none !important; }
+/* inputs inherit the brand font too */
+.demo-scope :is(button, input, select, textarea) { font-family: inherit; }
+
+
+.demo-scope,
+.demo-scope * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* product page */
+.product-app {
+  position: relative;
+  z-index: 3;
+  margin: clamp(40px, 5vw, 72px) var(--margin) 0;
+  border-top: 1px solid var(--rule);
+  padding-top: 18px;
+}
+.product-app-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 24px;
+  margin-bottom: 18px;
+}
+.product-stage {
+  position: relative;
+  min-height: 70vh;
+  background: var(--ink);
+}
+.product-stage .demo-scope { min-height: 70vh; }
+.product-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 16px;
+  pointer-events: none;
+}
+.product-loading svg {
+  width: min(520px, 80%);
+  height: 140px;
+  stroke: var(--rule-strong);
+  fill: none;
+  stroke-width: 1;
+}
+.product-loading .bar {
+  stroke: var(--paper);
+  stroke-dasharray: 300;
+  animation: product-draw 1.6s var(--ease) infinite alternate;
+}
+@keyframes product-draw {
+  from { stroke-dashoffset: 300; }
+  to { stroke-dashoffset: 0; }
+}
+.product-facts {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  row-gap: 28px;
+}
+.product-facts > div {
+  grid-column: span 4;
+  border-top: 1px solid var(--rule);
+  padding-top: 14px;
+}
+.product-facts ul,
+.product-facts ol {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+.product-facts li {
+  font-size: 14px;
+  line-height: 1.45;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--rule);
+}
+@media (max-width: 900px) {
+  .product-facts > div { grid-column: 1 / -1; }
+  .product-app { margin-inline: 10px; }
+}
+
+/* products index */
+.products {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+.products > li { border-bottom: 1px solid var(--rule); }
+.products a {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  row-gap: 18px;
+  padding: 26px 0 34px;
+  align-items: start;
+}
+.products .p-no { grid-column: 1 / span 2; }
+.products .p-img {
+  grid-column: 3 / span 5;
+  aspect-ratio: 1200 / 833;
+  background: var(--ink-2);
+  overflow: hidden;
+}
+.products .p-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease), filter 1.2s var(--ease);
+}
+.products .p-copy {
+  grid-column: 9 / span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.products .p-name {
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+@media (hover: hover) {
+  .products a:hover .p-img img { transform: scale(1.04); filter: grayscale(0); }
+}
+@media (max-width: 900px) {
+  .products .p-no, .products .p-img, .products .p-copy { grid-column: 1 / -1; }
+}

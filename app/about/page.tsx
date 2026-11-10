@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Page } from "@/components/site/footer";
 import { Roll } from "@/components/site/roll";
+import { Title, SectionHead } from "@/components/site/title";
 import { experience, toolGroups } from "@/lib/experience";
 
 export const metadata = {
@@ -21,10 +22,8 @@ export default function About() {
   return (
     <Page>
       <header className="page-head">
-        <p className="label">(About)</p>
-        <h1 className="h-xl" data-lines>
-          Luqman Ismat
-        </h1>
+        <Title as="h1" text="Luqman Ismat" pos="tl" className="page-title" />
+        <p className="label page-label">(About) Founder, TEN21 Consulting</p>
       </header>
 
       <section className="sec about-hero" style={{ paddingTop: "clamp(48px, 6vw, 96px)" }}>
@@ -51,12 +50,7 @@ export default function About() {
       </section>
 
       <section className="sec exp" id="experience" aria-labelledby="exp-title">
-        <div className="sec-head">
-          <p className="label">(Experience)</p>
-          <h2 id="exp-title" className="h-l sec-title" data-lines>
-            Where the work comes from.
-          </h2>
-        </div>
+        <SectionHead label="(Experience)" id="exp-title" title="Where the work comes from." pos="tr" />
         <ol className="rows">
           {roles.map((r) => (
             <li key={r.id}>
@@ -77,12 +71,7 @@ export default function About() {
       </section>
 
       <section className="sec" aria-labelledby="tools-title">
-        <div className="sec-head">
-          <p className="label">(Tools)</p>
-          <h2 id="tools-title" className="h-l sec-title" data-lines>
-            What I work in.
-          </h2>
-        </div>
+        <SectionHead label="(Tools)" id="tools-title" title="What I work in." pos="tl" />
         <div className="tools-grid">
           {toolGroups.map((g) => (
             <div key={g.label} data-fade>
@@ -111,15 +100,17 @@ export default function About() {
         </div>
       </section>
 
-      <section className="sec close g12" aria-labelledby="close-title">
-        <h2 id="close-title" className="h-xl" data-lines>
-          Let&apos;s talk about the job.
-        </h2>
-        <div className="close-side">
-          <p className="body">You&apos;ll work with me from the first call to the handoff.</p>
-          <Link className="btn" href="/contact">
-            <Roll text="Start a project" /> <span className="arrow" aria-hidden="true">↗</span>
-          </Link>
+      <section className="sec close" aria-labelledby="close-title">
+        <div className="close-row">
+          <Title id="close-title" text="Let's talk about the job." pos="tl" className="close-title" />
+          <div className="close-side">
+            <p className="body">You&apos;ll work with me from the first call to the handoff.</p>
+            <div className="action-row">
+              <Link className="btn" href="/contact">
+                <Roll text="Start a project" /> <span className="arrow" aria-hidden="true">↗</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </Page>
