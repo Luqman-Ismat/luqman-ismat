@@ -12,14 +12,15 @@ const PAD = { l: 44, r: 16, t: 18, b: 34 };
 const N = 60;
 const x = (i: number) => PAD.l + (i / (N - 1)) * (W - PAD.l - PAD.r);
 const yv = (v: number, max: number) => PAD.t + (1 - v / max) * (H - PAD.t - PAD.b);
-const ins = (t: number) => 120 / Math.max(0.35, t);
-const fail = (t: number) => 18 * t * t * 0.55 + 10;
-const tot = (t: number) => ins(t) + fail(t);
+const mk = (a: number, b: number) => ({ ins: (t: number) => a / Math.max(0.35, t), fail: (t: number) => b * t * t * 0.55 + 10 });
+const variants = [mk(120, 18), mk(60, 34)];
 const ts = Array.from({ length: N }, (_, i) => 0.5 + (i / (N - 1)) * 7.5);
 const MAX = 420;
 const line = (f: (t: number) => number) => ts.map((t, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${yv(Math.min(MAX, f(t)), MAX).toFixed(1)}`).join(" ");
 
-export function CostCurves() {
+export function CostCurves({ variant = 0 }: { variant?: number }) {
+  const { ins, fail } = variants[variant] ?? variants[0];
+  const tot = (t: number) => ins(t) + fail(t);
   const root = useRef<SVGSVGElement>(null);
   const [i, setI] = useState(22);
   const best = ts.reduce((b, t, k) => (tot(t) < tot(ts[b]) ? k : b), 0);

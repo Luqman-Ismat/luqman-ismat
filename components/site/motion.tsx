@@ -183,8 +183,9 @@ export function Motion() {
           scrollTrigger: {
             trigger: el,
             // starts only once the page has actually scrolled, even for titles at the very top
-            start: () => Math.max(1, el.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.16),
-            end: () => Math.max(1, el.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.16) + window.innerHeight * 0.38,
+            // only once the section the title belongs to is leaving the screen
+            start: () => Math.max(1, section.getBoundingClientRect().bottom + window.scrollY - window.innerHeight * 0.3),
+            end: () => Math.max(1, section.getBoundingClientRect().bottom + window.scrollY - window.innerHeight * 0.3) + window.innerHeight * 0.3,
             scrub: 0.8,
           },
         });

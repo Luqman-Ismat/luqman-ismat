@@ -48,7 +48,7 @@ export const products: Product[] = [
     accent: "#e2b45a",
     features: ["Web application", "WBS and Gantt", "Capacity planning", "Schedule import", "Forecasting", "Cost and productivity", "Risk intelligence", "Data visualisation"],
     description:
-      "Ten connected views over one project: a WBS and Gantt schedule, paired capacity heatmaps, MS Project import with version comparison, hours mapping, a forecast worksheet, quality trends, cost and margin, productivity and a risk page. Each view states the question it answers, and every number can be traced back to the record it came from.",
+      "Nine connected views over one project: a WBS and Gantt schedule, paired capacity heatmaps, MS Project import with version comparison, hours mapping, a forecast worksheet, quality trends, cost and margin, productivity and a risk page. Each view states the question it answers, and every number can be traced back to the record it came from.",
     challenge:
       "Project controls teams work across a schedule tool, a timesheet export, a cost ledger and a risk register that never agree. Reporting means re-keying the same numbers every week, and by the time a variance shows up in a slide it is already a month old.",
     solution:
@@ -69,7 +69,7 @@ export const products: Product[] = [
     tryThis: ["Open Schedule, switch to Weeks and turn on Critical.", "In Capacity, add 1 FTE and watch the gap close.", "In Risk intelligence, review a suggested relationship."],
     built: ["React", "TypeScript", "Python parser (MPXJ)", "PostgreSQL"],
     facts: [
-      { k: "Views", v: "10" },
+      { k: "Views", v: "9" },
       { k: "Imports", v: "MS Project" },
       { k: "Records", v: "Fictional" },
       { k: "Runs", v: "In the browser" },
@@ -88,7 +88,7 @@ export const products: Product[] = [
     accent: "#6cc4b4",
     features: ["Decision tool", "Life-cycle cost", "Optimisation", "Scenario comparison", "Web worker engine", "Excel export", "Data visualisation"],
     description:
-      "A task timing workbench for an asset portfolio. It computes a life-cycle cost curve for every inspection task, ranks where a change in interval saves the most, compares scenarios and exports the plan to a workbook. The calculation engine runs in a background worker, so the interface stays responsive while thousands of curves recompute.",
+      "A task timing workbench for an asset portfolio. It computes a life-cycle cost curve for every inspection task, ranks where a change in interval saves the most, compares scenarios and exports the plan to a workbook.",
     challenge:
       "Inspection intervals are usually inherited: the plan says every three years because it always has. Nobody can see the cost of inspecting too often against the risk of inspecting too late, so the conversation stays about habit rather than money.",
     solution:

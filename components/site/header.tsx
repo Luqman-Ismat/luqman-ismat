@@ -13,6 +13,7 @@ export function Header() {
   const path = usePathname() || "/";
   const [open, setOpen] = useState(false);
   const [compact, setCompact] = useState(false);
+  const [light, setLight] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
 
@@ -29,6 +30,8 @@ export function Header() {
     const check = () => {
       raf = 0;
       const y = window.scrollY;
+      const f = document.querySelector("[data-ftr]");
+      setLight(!!f && f.getBoundingClientRect().top < 48);
       if (y < 160) setCompact(false);
       else if (y > last + 6) setCompact(true);
       else if (y < last - 6) setCompact(false);
@@ -97,7 +100,7 @@ export function Header() {
 
   return (
     <>
-      <header className={compact && !open ? "hdr is-hidden" : "hdr"}>
+      <header className={`hdr${compact && !open ? " is-hidden" : ""}${light && !open ? " is-light" : ""}`}>
         <Link href="/" className="hdr-mark" aria-label="TEN21 Consulting, home">
           <span>TEN21</span>
           <span className="label">(Consulting)</span>

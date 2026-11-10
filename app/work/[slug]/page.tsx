@@ -38,7 +38,7 @@ function Live({ kind, c }: { kind: "project" | "inspection" | "engivault"; c: Ch
   if (c.view != null && kind !== "engivault") return <ProductMount kind={kind} label={c.title} view={c.view} />;
   switch (c.part) {
     case "curves":
-      return <CostCurves />;
+      return <CostCurves variant={1} />;
     case "rankings":
       return <RankBars />;
     case "scenarios":
@@ -66,7 +66,7 @@ function Live({ kind, c }: { kind: "project" | "inspection" | "engivault"; c: Ch
         </div>
       );
     case "schematic":
-      return <PlantSchematic hotspots={hotspots} />;
+      return <PlantSchematic hotspots={hotspots} initial={hotspots[2]?.id ?? null} />;
   }
   return null;
 }
@@ -78,9 +78,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const next = products[(products.indexOf(p) + 1) % products.length];
   const accent = { "--accent": p.accent, "--demo-accent": p.accent } as CSSProperties;
   const index = [
-    { id: "cs-brief", no: "00", label: "Brief" },
+    { id: "cs-brief", no: "--", label: "Brief" },
     ...p.chapters.map((c, i) => ({ id: `ch-${c.id}`, no: String(i + 1).padStart(2, "0"), label: c.title })),
-    { id: "cs-together", no: String(p.chapters.length + 1).padStart(2, "0"), label: "All together" },
+    { id: "cs-together", no: "--", label: "All together" },
   ];
 
   return (
@@ -113,7 +113,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <p className="label">(Built with)</p>
             <p className="cs-v">{p.built.join(", ")}</p>
             <p className="label">(Chapters)</p>
-            <p className="cs-v">{p.chapters.length}, each one live</p>
+            <p className="cs-v">{p.chapters.length}, shown live</p>
           </div>
           <div className="cs-features">
             <p className="label">(Features)</p>
@@ -190,7 +190,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <section id="cs-together" className="cs-together" aria-labelledby="together-t">
               <div className="ch-head">
                 <p className="label">
-                  <b className="acc">({String(p.chapters.length + 1).padStart(2, "0")})</b> All together
+                  <b className="acc">(End)</b> All together
                 </p>
                 <Title id="together-t" text={p.together.title} pos="tl" className="ch-title" />
                 <p className="body" data-fade>

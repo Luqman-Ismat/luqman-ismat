@@ -298,7 +298,7 @@ export default function Workbench() {
         <button className="accent" onClick={() => exportModel(false)} disabled={busy || !run || !template || !!exporting}>{exporting === 'sample' ? 'Building…' : '↓ Export Model import sheet'}</button>
       </div>
     </nav>
-    <main><div className="demo-disclosure">Original workbench UI and calculation engine · Fictional assets and scenarios · Browser-only changes</div>
+    <main><div className="demo-disclosure">Fictional assets and scenarios. Edits stay in your browser.</div>
       <header className="page-heading">
         <div><p className="eyebrow">PLANNING WORKBENCH</p><h1>Task Timing Optimizer</h1><p>Model task placement · V2 acceptance gates <span className="meta-divider">/</span> As of {run?.today || '—'}</p></div>
         <span className="snapshot">{run ? num(results.length) + ' assessments' : 'Reading source data'}<small>{run?.scenarioName || 'Scenario'} · {SID}</small></span>

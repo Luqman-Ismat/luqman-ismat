@@ -33,9 +33,9 @@ function Hot({ id, children, labelAt, bubble, spots, active, onActive }: HotProp
 
 /* An illustrative process loop drawn as a P&ID. Each piece of equipment and
    instrument links to the EngiVault calculation that describes it. */
-export function PlantSchematic({ hotspots }: { hotspots: Hotspot[] }) {
+export function PlantSchematic({ hotspots, initial = null }: { hotspots: Hotspot[]; initial?: string | null }) {
   const root = useRef<SVGSVGElement>(null);
-  const [active, setActive] = useState<string | null>(null);
+  const [active, setActive] = useState<string | null>(initial);
   const spot = (id: string) => hotspots.find((h) => h.id === id)!;
   const current = active ? spot(active) : null;
 
