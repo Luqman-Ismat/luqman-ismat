@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Page } from "@/components/site/footer";
 import { SectionIndex } from "@/components/site/section-index";
 import { Glyph } from "@/components/site/glyphs";
+import { ServiceVisual } from "@/components/site/service-visuals";
 import { Roll } from "@/components/site/roll";
 import { Title, SectionHead } from "@/components/site/title";
 import { services, startingPoints, steps } from "@/lib/services";
@@ -37,6 +38,9 @@ export default function ServicesPage() {
                   <b>{s.line}</b> {s.detail}
                 </p>
               </div>
+              <div className="svc-vis" data-fade>
+                <ServiceVisual id={s.id} />
+              </div>
               <div className="svc-body">
                 <ul className="ticks" data-fade>
                   {s.deliverables.map((x) => (
@@ -59,6 +63,30 @@ export default function ServicesPage() {
                   <Link className="btn" href={`/contact?service=${s.id}`}>
                     <Roll text="Start this" /> <span className="arrow" aria-hidden="true">↗</span>
                   </Link>
+                </div>
+              </div>
+              <div className="svc-more">
+                <div data-fade>
+                  <p className="label">(The first week)</p>
+                  <ol className="svc-week">
+                    {s.week.map((w, i) => (
+                      <li key={w}>
+                        <span className="label">0{i + 1}</span>
+                        <span>{w}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+                <div data-fade data-delay="0.1">
+                  <p className="label">(People ask)</p>
+                  <dl className="svc-faq">
+                    {s.faq.map((f) => (
+                      <div key={f.q}>
+                        <dt>{f.q}</dt>
+                        <dd>{f.a}</dd>
+                      </div>
+                    ))}
+                  </dl>
                 </div>
               </div>
             </section>
