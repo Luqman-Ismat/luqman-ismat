@@ -2910,3 +2910,13 @@ html, body { overflow-x: clip; }
 .art-author { margin-top: clamp(48px, 6vw, 80px); border-top: 1px solid var(--rule-strong); padding-top: 22px; display: grid; grid-template-columns: 1fr; gap: 10px; }
 .art-author .body { max-width: 52ch; }
 .art-author .action-row { margin-top: 8px; }
+
+/* tap targets and small fixes */
+.cs-cover-top .label, .product-app-bar a.label { display: inline-flex; align-items: center; min-height: 24px; }
+.cs-vault .vault-chips.is-scroll { mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent); padding-inline: 4px; }
+.cs-together .cs-open { grid-template-columns: 1fr 1fr; align-items: start; }
+.cs-together .cs-open .plant { grid-column: 1 / -1; }
+.page-head { min-height: 0; }
+.cs-together .cs-open > .cs-try { grid-column: 1; }
+.cs-together .cs-open > .btn { grid-column: 2; justify-self: end; align-self: start; }
+@media (max-width: 760px) { .cs-together .cs-open > .btn { grid-column: 1; justify-self: start; } }

@@ -211,6 +211,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 </div>
               ) : (
                 <div className="cs-open">
+                  <PlantSchematic hotspots={hotspots} initial={hotspots[1]?.id ?? null} />
                   <ol className="cs-try">
                     {p.tryThis.map((t, i) => (
                       <li key={t}>
