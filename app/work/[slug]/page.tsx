@@ -29,6 +29,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: p.name,
     description: `${p.line} A ${p.type.toLowerCase()} by TEN21 Consulting, shown chapter by chapter, live.`.slice(0, 158),
     alternates: { canonical: `/work/${p.slug}` },
+    openGraph: { images: [{ url: `/og/${p.slug}.png`, width: 1200, height: 630, alt: p.name }] },
+    twitter: { card: "summary_large_image", images: [`/og/${p.slug}.png`] },
   };
 }
 
