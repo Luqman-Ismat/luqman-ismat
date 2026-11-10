@@ -44,3 +44,9 @@ The user found large bold headlines the clearest "AI-made" tell. Rules now:
 
 ## Case studies (November 2026)
 `/work/<slug>` is a case study in the auge-xp shape: full-bleed cover with parallax, spec sheet (year, stack, feature chips, four facts), description with the project's own live visual (schedule / cost curves / P&ID), challenge, image band, solution, image band, the working application (or the live product link), related services, and a full-bleed Next project. Each project carries its own accent (`--accent`, also fed to the mounted app as `--demo-accent`): project controls amber, inspection teal, EngiVault blue. Every screenshot under `public/images/work` is captured from the dark site itself; no old-theme captures remain. The P&ID schematic lives on /engivault and the EngiVault case study; the homepage visuals panel uses the live schedule instead.
+
+## No screenshots, ever (November 2026)
+Every project is shown by the thing itself: a code-drawn visual (`components/site/live-gantt`, `cost-curves`, `inspection-visuals`, `plant-schematic`, `service-visuals`, `career-timeline`, `article-figure`) or the real application mounted into the page (`ProductMount`, bare `view` for a single chapter). `public/images/work` no longer exists. The embedded apps are re-coloured at build time by `scripts/theme-examples.mjs` (saturated hex and rgba mapped by hue: greens to the accent, blues and purples to greys, ambers to sand, reds to one red). Case studies are chaptered: brief, one live chapter per feature with question, text and steps, then All together. Social cards live in `public/og/<slug>.png`.
+
+## Quality loop
+Build, `npx next start -p 4400`, CDP harness screenshots reviewed by eye, then a blind critic subagent that never sees source or prior scorecards. Four rounds so far; fix lists applied in order of value.
